@@ -1,2 +1,2 @@
 # wsk-restaurant
-Metropolia Web Sovellus Kurssi Projektityö
+Metropolia Web Sovellus Kurssi- Projekti
