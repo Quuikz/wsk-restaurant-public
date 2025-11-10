@@ -1,3 +1,14 @@
+#drop tables
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS
+    users,
+    items,
+    order_items,
+    orders,
+    daily_menu_items,
+    daily_menus;
+SET FOREIGN_KEY_CHECKS = 1;
+
 #users
 CREATE TABLE users
 (
@@ -15,14 +26,15 @@ CREATE TABLE items
     name_fi        varchar(50),
     name_en        varchar(50),
     description_fi varchar(200),
-    description_en varchar(200)
+    description_en varchar(200),
+    cost           FLOAT
 );
 
 #orders made by users
 CREATE TABLE orders
 (
     id        INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    user_id      INT ,
+    user_id   INT,
     cost      DOUBLE,
     timestamp TIMESTAMP,
 
@@ -39,4 +51,22 @@ CREATE TABLE order_items
 
     FOREIGN KEY (order_id) REFERENCES orders (id),
     FOREIGN KEY (item_id) REFERENCES items (id)
+);
+
+#daily menus
+CREATE TABLE daily_menus
+(
+    id   INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    date DATE
+);
+
+#daily menu - item link table
+CREATE TABLE daily_menu_items
+(
+    daily_menu_id INT,
+    item_id       INT NOT NULL,
+
+    FOREIGN KEY (daily_menu_id) REFERENCES daily_menus (id),
+    FOREIGN KEY (item_id) REFERENCES items (id)
+
 );
