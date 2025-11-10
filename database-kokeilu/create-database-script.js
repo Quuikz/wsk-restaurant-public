@@ -71,10 +71,19 @@ async function createTables (promisePool) {
         const mealResponse = await connection.execute(mealSql);
         console.log(mealResponse);
 
+        //order_items link table to link order-meal-amount
+        const orderItemsSql = 'CREATE TABLE meals (' + [mealTableRows] + ');';
+        console.log('SQL: ' + orderItemsSql);
+        const orderItemsSqlResponse = await connection.execute(orderItemsSql);
+        console.log(mealResponse);
+
+
+
 
         //commit if ok
-        if (userResponse.warningStatus === 0)
+        if (userResponse.warningStatus === 0 && userResponse.warningStatus === 0 && userResponse.warningStatus === 0) {
             await connection.commit();
+        }
 
     } catch (error) {
         console.log(error);

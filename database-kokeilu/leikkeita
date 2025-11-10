@@ -1,0 +1,9 @@
+#items sold in restaurants
+CREATE TABLE items
+(
+    id             INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    name_fi        varchar(50),
+    name_en        varchar(50),
+    description_fi varchar(200),
+    description_en varchar(200)
+);

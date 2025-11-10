@@ -23,7 +23,7 @@ const user = {
  */
 const order = {
     id : 'INT NOT NULL PRIMARY KEY AUTO_INCREMENT',
-    user: 'INT FOREIGN KEY REFERENCES users (id)',
+    user: 'INT',
     cost: 'DOUBLE',
     timestamp: 'TIMESTAMP',
 
