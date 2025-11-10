@@ -1,13 +1,12 @@
-#drop tables
-SET FOREIGN_KEY_CHECKS = 0;
-DROP TABLE IF EXISTS
-    users,
-    items,
-    order_items,
-    orders,
-    daily_menu_items,
-    daily_menus;
-SET FOREIGN_KEY_CHECKS = 1;
+/**
+  NOTE:
+  This file is used to create new schema in MySQL Workbench.
+  If you want to recreate the database use create-tables.sql instead!
+  This file doesn't assign permissions for users.
+ */
+DROP DATABASE IF EXISTS wsk_restaurant_database;
+CREATE DATABASE wsk_restaurant_database;
+
 
 #users
 CREATE TABLE users

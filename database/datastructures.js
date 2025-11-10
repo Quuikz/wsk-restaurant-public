@@ -12,7 +12,8 @@ const user = {
 
 /**
  *
- * @type {{id: number, name_fi: string, name_en: string, description_fi: string, description_en: string, cost: number}}
+ * @type {{id: number, name_fi: string, name_en: string, description_fi: string, description_en: string, cost: number, type: string}}
+ * type - type of item sold
  */
 const item = {
     id : 0,
@@ -20,7 +21,8 @@ const item = {
     name_en: 'english name',
     description_fi: 'suomalainen kuvaus tuotteelle',
     description_en: 'english description for the item',
-    cost: 0.0
+    cost: 0.0,
+    type: 'noudettava annos/ pöytävaraus / lahjakortti ?'
 }
 
 /**
@@ -32,7 +34,7 @@ const order = {
     user: 0,    //user.id = who made the order
     cost: '',
     timestamp: '',
-    location: '',
+    location: '',       //location if multiple restaurants
     items: [[item,0]] //array of arrays of items and amounts [ {item} , amount ]
 
 }
