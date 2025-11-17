@@ -9,8 +9,7 @@ Luo tietokanta scriptillä: database/create-database-v2.sql (Käytä uusinta ver
 Muista antaa ohjelmalle pääsy tietokantaan. Aseta käyttäjätunnus .env -tiedostolla.
 
 
-http-tests.http -tiedosto sisältää API:n testejä:
-
+http-tests.http -tiedosto sisältää API:n testejä.
 Sisäänkirjautuminen toimii kovakoodatulla käyttäjällä:
 
     ### login with default user
