@@ -1,0 +1,21 @@
+### login with default user
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "password"
+}
+
+### get validate current token
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
+
+
+### get users
+GET http://localhost:3000/api/users/
+
+### get user by id
+#use login with default user first, then copy token here
+GET http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
