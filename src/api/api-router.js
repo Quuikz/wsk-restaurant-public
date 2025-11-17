@@ -16,6 +16,12 @@ apiRouter.use('/auth', authRouter);
 apiRouter.use('/users', userRouter);
 
 
+//TODO: muut routerit
+//order-router
+
+//
+
+
 
 //export
 export default apiRouter;
