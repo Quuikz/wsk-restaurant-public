@@ -16,10 +16,15 @@ apiRouter.use('/auth', authRouter);
 apiRouter.use('/users', userRouter);
 
 
-//TODO: muut routerit
+//TODO: muut routerit.
+// Lajitellaanko endpointit entiteetin(meal, order) vai käyttäjän(user, admin) perusteella?
 //order-router
-
-//
+//meal-router
+//daily-menu-router
+//location-router
+//reservation-router
+//discount-router
+//gift-card-router
 
 
 

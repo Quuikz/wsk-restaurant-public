@@ -11,14 +11,18 @@ import apiRouter from './api/api-router.js'
 //express app
 const app = express();
 
-//middleware
+//express middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-//palvelimen juuri
-//app.use('/', (req,res) => res.send("Palvelimen juuri placeholder..."));
+
+//etusivu html http://hostname:port/
+app.use('/', express.static('./public/user'));
+
+//admin sivu html http://hostname:port/admin
+app.use('/admin', express.static('./public/admin'));
 
 //testisivu http://hostname:port/test-page
 app.use('/test-page', express.static('test-page'));
