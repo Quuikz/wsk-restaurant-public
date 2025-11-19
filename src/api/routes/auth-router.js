@@ -3,7 +3,7 @@ import express from 'express';
 
 //other imports
 import {getMe, login} from '../controllers/auth-controller.js';
-import authenticateToken from '../middlewares/authenticateToken.js';
+import authenticateToken from '../../middlewares/authenticateToken.js';
 
 
 const authRouter = express.Router();
