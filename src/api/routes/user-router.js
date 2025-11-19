@@ -3,20 +3,21 @@ import express from 'express';
 
 //other imports
 import {
-    getUser,
+    getUsers,
     getUserById,
     postUser,
     putUser,
     deleteUser,
 } from '../controllers/user-controller.js';
 import authenticateToken from "../../middlewares/authenticateToken.js";
+import userIsAdmin from "../../middlewares/userIsAdmin.js";
 
 
 const userRouter = express.Router();
 
 
 //endpoint http://hostname:port/api/users
-userRouter.get('/',getUser)
+userRouter.get('/',authenticateToken, userIsAdmin, getUsers)
     .post('/', postUser);
 
 

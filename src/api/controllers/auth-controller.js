@@ -24,6 +24,11 @@ const login = (req, res) => {
                 role: 'role',
             };
 
+            //TODO: this lets
+            if (req.body.username === 'admin') {
+                userWithNoPassword.role = 'admin';
+            }
+
             const token = jwt.sign(userWithNoPassword, process.env.JWT_SECRET, {
                 expiresIn: '24h',
             });

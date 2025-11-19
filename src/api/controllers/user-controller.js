@@ -4,8 +4,8 @@ import bcrypt from 'bcrypt';
 
 import {addUser, findUserById, listAllUsers, modifyUser, removeUser} from "../models/user-model.js";
 
-const getUser = (req, res) => {
-    console.log('getUser in user-controller')
+const getUsers = (req, res) => {
+    console.log('getUsers in user-controller')
     listAllUsers().then(
         result => {
             res.json(result);
@@ -114,4 +114,4 @@ const deleteUser = (req, res) => {
     );
 }
 
-export {getUser, getUserById, postUser, putUser, deleteUser};
+export {getUsers, getUserById, postUser, putUser, deleteUser};
