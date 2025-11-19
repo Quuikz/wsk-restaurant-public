@@ -112,7 +112,7 @@ const deleteOrder = (req, res) => {
         message => {
             if (message) {
                 console.log(message);
-                res.sendStatus(200);
+                res.sendStatus(200).send(message);
             } else {
                 console.log('deleteOrder: order not found');
                 res.sendStatus(404);

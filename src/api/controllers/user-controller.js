@@ -100,7 +100,7 @@ const deleteUser = (req, res) => {
         message => {
             if (message) {
                 console.log(message);
-                res.sendStatus(200);
+                res.status(200).send(message);
             } else {
                 console.log('deleteUser: user not found');
                 res.sendStatus(404);

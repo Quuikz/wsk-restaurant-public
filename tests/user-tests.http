@@ -29,3 +29,13 @@ GET http://localhost:3000/api/users/
 #use login with default user first, then copy token here
 GET http://localhost:3000/api/users/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
+
+### update user by id
+#use login with default user first, then copy token here
+PUT http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
+
+### delete user by id
+#use login with default user first, then copy token here
+DELETE http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNTU1NzM4LCJleHAiOjE3NjM2NDIxMzh9.rTIlK5zc8KGCy7Zw1yFevZzuty8Mij4gW5sP-pvAEy8
