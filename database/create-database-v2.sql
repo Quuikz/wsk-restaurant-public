@@ -8,12 +8,20 @@ SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
 -- -----------------------------------------------------
--- Schema wsk_restaurant_database
+-- Schema wsk_restaurant
 -- -----------------------------------------------------
 DROP DATABASE IF EXISTS `wsk_restaurant` ;
 
 CREATE DATABASE IF NOT EXISTS `wsk_restaurant` ;
 USE `wsk_restaurant` ;
+
+-- -----------------------------------------------------
+-- User for the database
+-- -----------------------------------------------------
+DROP USER IF EXISTS 'appuser'@'localhost';
+CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON wsk_restaurant.* TO 'appuser'@'localhost';
+FLUSH PRIVILEGES;
 
 -- -----------------------------------------------------
 -- Table `users`
