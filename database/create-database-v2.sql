@@ -10,6 +10,10 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema wsk_restaurant_database
 -- -----------------------------------------------------
+DROP DATABASE IF EXISTS `wsk_restaurant` ;
+
+CREATE DATABASE IF NOT EXISTS `wsk_restaurant` ;
+USE `wsk_restaurant` ;
 
 -- -----------------------------------------------------
 -- Table `users`
