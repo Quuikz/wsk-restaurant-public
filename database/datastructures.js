@@ -46,11 +46,24 @@ const order = {
  */
 const daily_menu = {
     id : 0,
-    date : '', //
+    date : '', //date format?
     items : [
-        {item : item, amount: 0 }
+        {item : item_id, amount: 0 },
+        {item : item_id, amount: 0 }
     ]  //array containing objects {item, amount}
 }
+
+/**
+ * Restaurant location data.
+ */
+const location = {
+    id : 0,
+    address : '',
+    email : '',
+    phone : '',
+    table_count : 10
+}
+
 
 console.log(daily_menu.items);
 

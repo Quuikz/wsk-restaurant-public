@@ -56,9 +56,6 @@ const postOrder = (req, res) => {
     console.log('postOrder in order-controller');
     console.log(req.body);
 
-    //Bcrypt password hash
-    req.body.password = bcrypt.hashSync(req.body.password, 10);
-
     const result = addOrder(req.body);
     result.then(
         result => {

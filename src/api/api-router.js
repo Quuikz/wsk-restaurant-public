@@ -5,7 +5,7 @@ import express from 'express';
 import userRouter from './routes/user-router.js';
 import authRouter from './routes/auth-router.js';
 import orderRouter from './routes/order-router.js';
-
+import menuRouter from './routes/menu-router.js';
 
 //define apiRouter
 const apiRouter = express.Router();
@@ -30,6 +30,8 @@ apiRouter.use('/orders', orderRouter);
 apiRouter.use('/menus', menuRouter);
 
 //location-router
+apiRouter.use('/locations', locationRouter);
+
 //reservation-router
 //discount-router
 //gift-card-router
