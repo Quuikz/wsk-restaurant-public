@@ -7,6 +7,8 @@ import authRouter from './routes/auth-router.js';
 import orderRouter from './routes/order-router.js';
 import menuRouter from './routes/menu-router.js';
 
+import locationRouter from './routes/location-router.js';
+
 //define apiRouter
 const apiRouter = express.Router();
 

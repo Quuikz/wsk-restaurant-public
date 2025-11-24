@@ -21,9 +21,8 @@ GET http://localhost:3000/api/auth/me
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzU1Mzk3MCwiZXhwIjoxNzYzNjQwMzcwfQ.KJRGU6iy55Utgi4qNRVHB8S-GrtyF2fuKitb_aNYBYg
 
 ### get locations
-#only for admin users
 GET http://localhost:3000/api/locations/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNTUzOTA4LCJleHAiOjE3NjM2NDAzMDh9.byQigsIuCBQ69kHu1VkgoRAgC9HY0mZigw1Gps5xQTw
+
 
 ### post new location
 POST http://localhost:3000/api/locations/
@@ -31,12 +30,11 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
 
 {
-    "id": "0",
-    "date" : 1213123,
-    "items": [
-      {"item" : "item_id1", "amount": 0 },
-      {"item" : "item_id2", "amount": 0 }
-    ]
+  "id" : 0,
+  "address" : "",
+  "email" : "",
+  "phone" : "",
+  "table_count" : 10
 }
 
 ### get location by id
