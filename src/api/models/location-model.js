@@ -7,20 +7,21 @@ import {default_location} from "../../../database/datastructures.js";
 const listAllLocations = async () => {
     return [
         {text: 'listAllLocations hard coded response from location-model.js'},
+        {...default_location},
         {...default_location}
     ];
 };
 
 const findLocationById = async (id) => {
-    return {text: 'findLocationById hard coded response from location-model.js'};
+    return {text: 'findLocationById hard coded response from location-model.js',...default_location};
 };
 
 const addLocation = async (location) => {
-    return {text: 'addLocation hard coded response from location-model.js'};
+    return {text: 'addLocation hard coded response from location-model.js',...default_location};
 };
 
 const modifyLocation = async (location, locationId) => {
-    return {text: 'modifyLocation hard coded response from location-model.js'};
+    return {text: 'modifyLocation hard coded response from location-model.js',...default_location};
 };
 
 const removeLocation = async (locationId) => {
