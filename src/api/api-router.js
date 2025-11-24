@@ -26,8 +26,9 @@ apiRouter.use('/orders', orderRouter);
 //meal-router
 
 
-
 //daily-menu-router
+apiRouter.use('/menus', menuRouter);
+
 //location-router
 //reservation-router
 //discount-router
