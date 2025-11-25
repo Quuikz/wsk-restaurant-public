@@ -4,11 +4,14 @@
 //example datastructure
 import {default_location} from "../../../database/datastructures.js";
 
+//placeholder table
+const locations = [default_location, default_location, default_location];
+
+
 const listAllLocations = async () => {
     return [
         {text: 'listAllLocations hard coded response from location-model.js'},
-        {...default_location},
-        {...default_location}
+        ...locations
     ];
 };
 
@@ -17,7 +20,10 @@ const findLocationById = async (id) => {
 };
 
 const addLocation = async (location) => {
-    return {text: 'addLocation hard coded response from location-model.js',...default_location};
+    locations.push(location);
+    return {text: 'addLocation hard coded response from location-model.js',
+        ...locations[locations.length-1]
+    }
 };
 
 const modifyLocation = async (location, locationId) => {
@@ -25,6 +31,7 @@ const modifyLocation = async (location, locationId) => {
 };
 
 const removeLocation = async (locationId) => {
+    locations.splice(locationId, 1);
     return {text: 'removeLocation hard coded response from location-model.js'};
 };
 
