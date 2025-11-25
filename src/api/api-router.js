@@ -8,6 +8,7 @@ import orderRouter from './routes/order-router.js';
 import mealRouter from './routes/meal-router.js';
 import menuRouter from './routes/menu-router.js';
 import locationRouter from './routes/location-router.js';
+import reservationRouter from "./routes/reservation-router.js";
 
 //define apiRouter
 const apiRouter = express.Router();
@@ -33,11 +34,15 @@ apiRouter.use('/locations', locationRouter);
 
 
 //reservation-router
-apiRouter.use('/locations', locationRouter);
+apiRouter.use('/locations', reservationRouter);
 
 
 //discount-router  //TODO: Discounts added to menus or meals directly?
+
+
 //gift-card-router
+
+
 //TODO: muut routerit.
 
 

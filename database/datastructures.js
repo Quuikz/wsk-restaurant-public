@@ -75,8 +75,12 @@ const default_location = {
 const default_reservation = {
     id : 0,
     date : "date",
-    location : ""
+    location : "",
+    table_count : 1,
+    customer_count : 2,
 }
+
+
 
 export {
     default_user,
