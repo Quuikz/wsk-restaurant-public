@@ -1,7 +1,6 @@
 //node imports
 import express from 'express';
 
-//TODO: KESKEN KORVAA LOCATION -> MEAL
 
 //other imports
 import {

@@ -5,7 +5,7 @@ import express from 'express';
 import userRouter from './routes/user-router.js';
 import authRouter from './routes/auth-router.js';
 import orderRouter from './routes/order-router.js';
-//import mealRouter from './routes/meal-router.js';
+import mealRouter from './routes/meal-router.js';
 import menuRouter from './routes/menu-router.js';
 import locationRouter from './routes/location-router.js';
 
@@ -23,7 +23,7 @@ apiRouter.use('/users', userRouter);
 apiRouter.use('/orders', orderRouter);
 
 //meal-router  http://hostname:port/api/meals
-//apiRouter.use('/meals', mealRouter);
+apiRouter.use('/meals', mealRouter);
 
 //daily-menu-router  http://hostname:port/api/menus
 apiRouter.use('/menus', menuRouter);
@@ -33,6 +33,9 @@ apiRouter.use('/locations', locationRouter);
 
 
 //reservation-router
+apiRouter.use('/locations', locationRouter);
+
+
 //discount-router  //TODO: Discounts added to menus or meals directly?
 //gift-card-router
 //TODO: muut routerit.

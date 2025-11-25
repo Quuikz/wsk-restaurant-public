@@ -69,11 +69,21 @@ const default_location = {
 }
 
 
+/**
+ * Reservation data
+ */
+const default_reservation = {
+    id : 0,
+    date : "date",
+    location : ""
+}
+
 export {
     default_user,
     default_meal,
     default_order,
     default_menu,
     default_location,
+    default_reservation
 }
 
