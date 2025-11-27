@@ -19,7 +19,7 @@ const userRouter = express.Router();
 
 //endpoint http://hostname:port/api/users
 userRouter.get('/',authenticateToken, userIsAdmin, getUsers)
-    .post('/', postUser);
+    .post('/', postUser); //TODO: tilaukset vain kirjautuneille käyttäjille
 
 
 //endpoint http://hostname:port/api/users/:id
