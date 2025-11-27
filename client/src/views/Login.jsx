@@ -8,6 +8,10 @@ import RegisterForm from "../components/RegisterForm.jsx";
     const [showRegister, setShowRegister] = useState(false);
 
 
+
+
+
+
    return (
      <>
      <h1>{showRegister ? 'Register' : 'Login'}</h1>

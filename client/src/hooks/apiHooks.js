@@ -4,24 +4,16 @@ import { useState, useEffect } from 'react';
 
 const fetchData = async ( url, options = {}) => {
   // console.log('fetching data from url: ', url);
-  try{
-    const response = await fetch(url, options);
-    const json = await response.json();
-    if (!response.ok) {
-      // console.log('json', json);
-      if (json.message) {
-        throw new Error(json.message);
-      }
-      throw new Error(`Error ${response.status} occured`);
+  const response = await fetch(url, options);
+  const json = await response.json();
+  if (!response.ok) {
+    // console.log('json', json);
+    if (json.message) {
+      throw new Error(json.message);
     }
-    return json;
-
+    throw new Error(`Error ${response.status} occured`);
   }
-  catch(error){
-    //console.log('Error in fetchData', error);
-    throw new Error(`Error ${error} occured`);
-  }
-  
+  return json;
 };
 
 

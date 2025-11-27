@@ -18,15 +18,11 @@
              // TODO: post login credentials to API
              const { token, user } = await postLogin(inputs);
              // TODO: set token to local storage
-             if(token){
-                localStorage.setItem('token', token);
-                // TODO: set user to state
-                setUser(user);
-                // TODO: navigate to home
-                navigate('/');
-                
-             }
-             
+             localStorage.setItem('token', token);
+             // TODO: set user to state
+             setUser(user);
+             // TODO: navigate to home
+             navigate('/');
          } catch (e) {
              console.log(e.message);
          }

@@ -30,7 +30,7 @@ const LoginForm = () => {
     
     const {inputs, handleInputChange, handleSubmit} = useForm(doLogin, initValues);
     
-    //console.log(inputs);
+    console.log(inputs);
 
     return (
         <>

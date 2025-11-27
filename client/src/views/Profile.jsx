@@ -29,7 +29,7 @@ const Profile = () => {
 
     return(
         <div>
-            <h1>Profile</h1>
+            <h1 className="text-3xl font-bold underline">Profile</h1>
             <p>Some info about profile</p>
             {user ? (
                 <>
