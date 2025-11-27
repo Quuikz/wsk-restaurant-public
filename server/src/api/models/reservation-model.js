@@ -2,7 +2,7 @@
 //TODO: everything here
 
 //example datastructure
-import {default_reservation} from "../../../database/datastructures.js";
+import {default_reservation} from "../../../../database/datastructures.js";
 
 //placeholder table
 const reservations = [default_reservation, default_reservation, default_reservation];

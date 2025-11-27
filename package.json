@@ -2,12 +2,12 @@
   "name": "wsk_restaurant",
   "version": "1.0.0",
   "description": "wsk_restaurant group project",
-  "main": "src/index.js",
+  "main": "server/src/index.js",
   "type": "module",
   "scripts": {
     "test": "jest",
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "server": "node server/src/index.js",
+    "dev-server": "nodemon server/src/index.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

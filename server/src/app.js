@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 //etusivu html http://hostname:port/
-app.use('/', express.static('./public/user'));
+app.use('/', express.static('./public'));
 
 //admin sivu html http://hostname:port/admin
 app.use('/admin', express.static('./public/admin'));

@@ -2,7 +2,7 @@
 //TODO: everything here
 
 //example datastructure
-import {default_location} from "../../../database/datastructures.js";
+import {default_location} from "../../../../database/datastructures.js";
 
 //placeholder table
 const locations = [default_location, default_location, default_location];

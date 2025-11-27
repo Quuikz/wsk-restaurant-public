@@ -2,7 +2,7 @@
 
 
 //example datastructure
-import {default_user} from "../../../database/datastructures.js";
+import {default_user} from "../../../../database/datastructures.js";
 
 const listAllUsers = async () => {
     return {text: 'listAllUsers hard coded response from user-model.js'};

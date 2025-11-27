@@ -3,7 +3,7 @@
 
 
 //example datastructure
-import {default_meal} from "../../../database/datastructures.js";
+import {default_meal} from "../../../../database/datastructures.js";
 
 const listAllMeals = async () => {
     return [
