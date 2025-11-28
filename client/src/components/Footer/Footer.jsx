@@ -1,0 +1,1 @@
+//Consider moving content of <footer> here, then import this into Layout
