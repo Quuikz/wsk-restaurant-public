@@ -1,16 +1,31 @@
 //Consider moving content of <header> here, then import this into Layout
 import React, {useEffect, useState, useRef} from 'react';
-import {useUserContext} from '../../hooks/contextHooks';
+import { Link } from 'react-router';
+//import {useUserContext} from '../../hooks/contextHooks';
 
 
 const Header = () => {
 
-    const {user, handleAutoLogin} = useUserContext();
+    //const {user, handleAutoLogin} = useUserContext();
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
 
+    useEffect(() => {
+        //handleAutoLogin();
+
+        // Burger closed on window click outside
+        function handleClickOutside(event) {
+        if (menuRef.current && !menuRef.current.contains(event.target)) {
+            setMenuOpen(false);
+        }
+        }
+
+        window.addEventListener('click', handleClickOutside);
+        return () => window.removeEventListener('click', handleClickOutside);
+    }, []);
+
     return(
-        <header>
+        <header className='fixed w-full z-50'>
         <nav className="relative">
           {/* NavBar */}
           <div className="mx-auto  px-2 sm:px-6 lg:px-8 bg-gray-800">

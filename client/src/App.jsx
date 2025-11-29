@@ -4,7 +4,7 @@ import Layout from './components/Layout.jsx';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import Upload from './views/Upload';
-import Single from './views/Single';
+//import Single from './views/Single';
 import Login from './views/Login.jsx';
 import {UserProvider} from './contexts/UserContext';
 import Logout from './views/Logout.jsx';
@@ -37,7 +37,7 @@ const App = () => {
                 </ProtectedRoute>
               }
             />
-            <Route path="/single" element={<Single />} />
+            {/*<Route path="/single" element={<Single />} />*/}
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Route>

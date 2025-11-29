@@ -1,8 +1,11 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, Outlet} from 'react-router';
 import {useUserContext} from '../hooks/contextHooks.js';
+
+//Components
 import Header from './Header/header.jsx';
 import Footer from './Footer/Footer.jsx';
+
 
 const Layout = () => {
   const {user, handleAutoLogin} = useUserContext();
@@ -64,8 +67,9 @@ const Layout = () => {
 
     <>
     <Header />
-      <main>
-        <div>
+      <main className="pt-22"> {/* Adds little space so header wont take space from pages. */}
+      <Outlet />
+
           <ol>
             <li>test</li>
             <li>test</li>
@@ -74,17 +78,7 @@ const Layout = () => {
             <li>test</li>
             <li>test</li>
             <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
           </ol>
-        </div>
 
       </main>
 
