@@ -1,6 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, Outlet} from 'react-router';
 import {useUserContext} from '../hooks/contextHooks.js';
+import Header from './Header/header.jsx';
+import Footer from './Footer/Footer.jsx';
 
 const Layout = () => {
   const {user, handleAutoLogin} = useUserContext();
@@ -58,166 +60,35 @@ const Layout = () => {
       </main>
     </div>
     */
+
+
     <>
-      <header>
-        <nav className="relative">
-          {/* NavBar */}
-          <div className="mx-auto  px-2 sm:px-6 lg:px-8 bg-gray-800">
-            {/* NavBar items */}
-            <div className="relative flex h-22 items-center justify-between">
-              {/* Week menu button */}
-              <div className="absolute hidden sm:ml-6 sm:block">
-                <div className="flex space-x-4">
-                  <a
-                    href="#"
-                    aria-current="page"
-                    className="rounded-md bg-gray-900 px-3 py-2 text-lg font-medium text-white"
-                  >
-                    🍽️&nbsp;&nbsp;Viikon lista
-                  </a>
-                </div>
-              </div>
-
-              {/* -- Logo -- */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 translate-y-11 flex items-center ">
-                {/* !!! Change logo */}
-                <img
-                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                  alt="Your Company"
-                  className="h-8 w-auto mx-auto"
-                />
-              </div>
-
-              {/* -- Shopping cart -- */}
-              <div className="absolute inset-y-0 right-16 flex items-center ">
-                <button
-                  type="button"
-                  className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500"
-                >
-                  <span className="absolute -inset-0.5"></span>
-                  <span className="sr-only">Open main menu</span>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth="1.5"
-                    stroke="currentColor"
-                    className="size-6 in-aria-expanded:hidden text-gray-400"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                    />
-                  </svg>
-                </button>
-              </div>
-
-              {/* -- Burger button -- */}
-              <div
-                className="absolute inset-y-0 right-0 flex items-center"
-                ref={menuRef}
-              >
-                <button
-                  type="button"
-                  onClick={() => setMenuOpen((prev) => !prev)}
-                  aria-expanded={menuOpen}
-                  className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500"
-                >
-                  <span className="absolute -inset-0.5"></span>
-                  <span className="sr-only">Open main menu</span>
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    data-slot="icon"
-                    aria-hidden="true"
-                    className="size-6 in-aria-expanded:hidden"
-                  >
-                    <path
-                      d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    data-slot="icon"
-                    aria-hidden="true"
-                    className="size-6 not-in-aria-expanded:hidden"
-                  >
-                    <path
-                      d="M6 18 18 6M6 6l12 12"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                </button>
-
-                {/* -- Burger menu items -- */}
-                {/* !!! Can't do full right. Issue in navbar padding */}
-                <div className="absolute right-0 top-20 z-50">
-                  {menuOpen && (
-                    <div
-                      anchor="bottom end"
-                      className="absolute right-0 mt-2 w-50 divide-y divide-white/10 rounded-b-md overflow-hidden bg-gray-800 shadow-lg outline-1 -outline-offset-1 outline-white/10"
-                    >
-                      <div className="py-1">
-                        <Link
-                          to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden"
-                        >
-                          Viikon lista
-                        </Link>
-                        <Link
-                          to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden"
-                        >
-                          Lahjakortit
-                        </Link>
-                      </div>
-                      <div className="py-1">
-                        <Link
-                          to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden"
-                        >
-                          🇬🇧 &nbsp;&nbsp;English
-                        </Link>
-                        <Link
-                          to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden"
-                        >
-                          🌙 &nbsp;&nbsp;Pimeä tila
-                        </Link>
-                      </div>
-                      <div className="py-1">
-                        <Link
-                          to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden"
-                        >
-                          🔒 &nbsp;&nbsp;Kirjaudu sisään
-                        </Link>
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
-      </header>
-
+    <Header />
       <main>
+        <div>
+          <ol>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+            <li>test</li>
+          </ol>
+        </div>
 
       </main>
 
-      <footer>
-
-      </footer>
+      <Footer />
     </>
   );
 };
