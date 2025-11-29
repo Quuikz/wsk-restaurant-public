@@ -1,4 +1,7 @@
 //Consider moving content of <footer> here, then import this into Layout
+import React from "react";
+import { Link } from 'react-router';
+
 
 const Footer = () => {
   return (
@@ -32,19 +35,19 @@ const Footer = () => {
     {/*Palvelut osio*/}
           <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-4">
             <div className="space-y-3">
-              <h3 className="tracking-wide uppercase var(--color-white">
+              <h3 className="tracking-wide uppercase text-white">
                 Palvelut
               </h3>
               <ul className="space-y-1">
                 <li>
-                  <a rel="noopener noreferrer" href="#">
+                  <Link to="#">
                     Viikon Lista
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a rel="noopener noreferrer" href="#">
+                  <Link to="#">
                     Lahjakortit
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -52,24 +55,24 @@ const Footer = () => {
 
     {/* Ota yhteyttä osio */}
             <div className="space-y-3">
-              <h3 className="tracking-wide uppercase var(--color-white">
+              <h3 className="tracking-wide uppercase text-white">
                 Ota yhteyttä
               </h3>
               <ul className="space-y-1">
                 <li>
-                  <a rel="noopener noreferrer" href="#">
+                  <Link to="#">
                     Sijainti kartalla
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a rel="noopener noreferrer" href="#">
+                  <Link to="#">
                     Aukioloajat
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a rel="noopener noreferrer" href="#">
+                  <Link to="#">
                     Yhteystiedot
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -77,7 +80,7 @@ const Footer = () => {
 
             {/* Some osio */}
             <div className="space-y-3">
-              <div className="uppercase var(--color-white">Social media</div>
+              <div className="uppercase text-white">Social media</div>
               <div className="flex justify-start space-x-3">
                 <a
                   rel="noopener noreferrer"
