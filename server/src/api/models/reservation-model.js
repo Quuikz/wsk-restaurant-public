@@ -1,6 +1,6 @@
 //TODO: everything here
 
-import {default_reservation} from "../../../database/datastructures.js";
+import {default_reservation} from "../../../../database/datastructures.js";
 
 const reservations = [
     {...default_reservation, id: 1},
