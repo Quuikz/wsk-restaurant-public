@@ -69,15 +69,6 @@ const Layout = () => {
         {' '}
         {/* Adds little space so header wont take space from pages. */}
         <Outlet />
-        <ol>
-          <li>test</li>
-          <li>test</li>
-          <li>test</li>
-          <li>test</li>
-          <li>test</li>
-          <li>test</li>
-          <li>test</li>
-        </ol>
       </main>
 
       <Footer />

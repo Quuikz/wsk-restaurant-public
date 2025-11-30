@@ -1,6 +1,6 @@
 //Components
-import Ordering from '../components/Home/Ordering.jsx';
-import Specials from '../components/Home/Specials.jsx';
+import Ordering from './Home/Ordering.jsx';
+import Specials from './Home/Specials.jsx';
 
 const Home = () => {
   return (

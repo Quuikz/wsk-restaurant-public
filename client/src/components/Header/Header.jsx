@@ -4,11 +4,16 @@ import { Link } from 'react-router';
 //import {useUserContext} from '../../hooks/contextHooks';
 
 
+import LoginModal from '../LoginModal';
+
+
 const Header = () => {
 
     //const {user, handleAutoLogin} = useUserContext();
     const [menuOpen, setMenuOpen] = useState(false);
     const menuRef = useRef(null);
+
+    const [displayLoginModal, setDisplayLoginModal] = useState(false);
 
     useEffect(() => {
         //handleAutoLogin();
@@ -160,17 +165,24 @@ const Header = () => {
                           🌙 &nbsp;&nbsp;Pimeä tila
                         </Link>
                       </div>
+                      {/* TODO: Conditional rendering to show either Login/Account settings?*/}
                       <div className="py-1">
-                        <Link
-                          to="#"
+                        <button
+                          onClick={() => setDisplayLoginModal(true)}
                           className="block px-4 py-2 text-sm text-gray-300 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
                           🔒 &nbsp;&nbsp;Kirjaudu sisään
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   )}
-                </div>
+                </div>{}
+
+                <LoginModal isOpen={displayLoginModal} onClose={() => setDisplayLoginModal(false)} />
+
+
+
+
               </div>
             </div>
           </div>
