@@ -10,6 +10,7 @@ import {UserProvider} from './contexts/UserContext';
 import Logout from './views/Logout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
+import Contacts from './views/Contacts.jsx';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
               }
             />
             {/*<Route path="/single" element={<Single />} />*/}
+            <Route path='/contacts' element={<Contacts />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Route>
