@@ -2,23 +2,25 @@
   "name": "wsk_restaurant",
   "version": "1.0.0",
   "description": "wsk_restaurant group project",
-  "main": "src/index.js",
+  "main": "server/src/index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.js",
-    "dev": "nodemon src/index.js"
+    "test": "jest",
+    "server": "node server/src/index.js",
+    "dev-server": "nodemon server/src/index.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jest": "^30.2.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "mysql2": "^3.15.3",
     "nodemon": "^3.1.11",
-    "npm": "^11.6.2",
-    "sharp": "^0.34.5"
+    "npm": "^11.6.1",
+    "sharp": "^0.34.5",
+    "supertest": "^7.1.4"
   }
 }

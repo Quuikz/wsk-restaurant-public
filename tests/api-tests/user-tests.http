@@ -1,0 +1,42 @@
+### login with default user
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "password"
+}
+
+### login with default admin user
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+
+
+### get validate current token
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
+
+### get users
+GET http://localhost:3000/api/users/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzY0MDUxMCwiZXhwIjoxNzYzNzI2OTEwfQ.tw1PZSG16L5M4ZWL7bwQw25IB1YPS7TkfkiLm-TKbkk
+
+### get user by id
+#use login with default user first, then copy token here
+GET http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
+
+### update user by id
+#use login with default user first, then copy token here
+PUT http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzMzkyMDExLCJleHAiOjE3NjM0Nzg0MTF9.ju5beUbriF2SOc4NTn4mBx6iZ75Ea5y30R-pB_efUCg
+
+### delete user by id
+#use login with default user first, then copy token here
+DELETE http://localhost:3000/api/users/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNTU1NzM4LCJleHAiOjE3NjM2NDIxMzh9.rTIlK5zc8KGCy7Zw1yFevZzuty8Mij4gW5sP-pvAEy8

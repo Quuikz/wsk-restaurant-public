@@ -106,11 +106,16 @@ const default_location = {
     message: 'default location'
 }
 
+/**
+ * Reservation data
+ */
 const default_reservation = {
     id : 0,
     user: 1,
-    date : '',
-    location : '',
+    date : "date",
+    location : "",
+    table_count : 1,
+    customer_count : 2,
     message : 'default reservation',
 }
 

@@ -1,0 +1,64 @@
+### login with default user
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "user",
+  "password": "password"
+}
+
+### login with default admin user
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+### get validate current token
+GET http://localhost:3000/api/auth/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzU1Mzk3MCwiZXhwIjoxNzYzNjQwMzcwfQ.KJRGU6iy55Utgi4qNRVHB8S-GrtyF2fuKitb_aNYBYg
+
+### get meals
+GET http://localhost:3000/api/meals/
+
+
+### post new meal
+POST http://localhost:3000/api/meals/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+
+{
+  "id" : 234,
+  "name_fi": "suomenkielinen nimi",
+  "name_en": "english name",
+  "description_fi": "suomalainen kuvaus tuotteelle",
+  "description_en": "english description for the item",
+  "cost": 0.0,
+  "type": "noudettava annos/ pöytävaraus / lahjakortti ?",
+  "image": "public/images/burger.jpg"
+}
+
+### get meal by id
+GET http://localhost:3000/api/meals/1
+
+### update meal by id
+PUT http://localhost:3000/api/meals/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+
+{
+  "id" : 0,
+  "name_fi": "suomenkielinen nimi",
+  "name_en": "english name",
+  "description_fi": "suomalainen kuvaus tuotteelle",
+  "description_en": "english description for the item",
+  "cost": 0.0,
+  "type": "noudettava annos/ pöytävaraus / lahjakortti ?",
+  "image": "public/images/burger.jpg"
+}
+
+### delete meal by id
+DELETE http://localhost:3000/api/meals/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDIzMTU5NywiZXhwIjoxNzY0MzE3OTk3fQ.G8ABNqRs9TTTt4DRXrW2ehKeIG9A8tIhb9LohV2xiB0
