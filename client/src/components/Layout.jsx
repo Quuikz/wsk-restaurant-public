@@ -3,9 +3,8 @@ import {Link, Outlet} from 'react-router';
 import {useUserContext} from '../hooks/contextHooks.js';
 
 //Components
-import Header from './Header/header.jsx';
+import Header from './Header/Header.jsx';
 import Footer from './Footer/Footer.jsx';
-
 
 const Layout = () => {
   const {user, handleAutoLogin} = useUserContext();
@@ -64,22 +63,21 @@ const Layout = () => {
     </div>
     */
 
-
     <>
-    <Header />
-      <main className="pt-22"> {/* Adds little space so header wont take space from pages. */}
-      <Outlet />
-
-          <ol>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-            <li>test</li>
-          </ol>
-
+      <Header />
+      <main className="pt-22">
+        {' '}
+        {/* Adds little space so header wont take space from pages. */}
+        <Outlet />
+        <ol>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+          <li>test</li>
+        </ol>
       </main>
 
       <Footer />
