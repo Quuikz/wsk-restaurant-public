@@ -19,15 +19,8 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
 
-            <Route
-              path="/profile"
-              element={
-                <ProtectedRoute>
-                  {' '}
-                  <Profile />
-                </ProtectedRoute>
-              }
-            />
+            {/* Profile not protected */}
+            <Route path="/profile" element={<Profile />} />
             <Route
               path="/upload"
               element={

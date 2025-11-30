@@ -5,7 +5,7 @@ import Specials from './Home/Specials.jsx';
 const Home = () => {
   return (
     <>
-      <div className=" mx-auto  pb-8">
+      <div className=" mx-auto">
         {/* Main banner */}
         <div>
           <img src="https://placehold.co/1920x750" alt="Main page banner" />
