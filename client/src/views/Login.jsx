@@ -1,7 +1,7 @@
  // imports here
 import { useState } from "react";
-import LoginForm from "../components/LoginForm.jsx";
-import RegisterForm from "../components/RegisterForm.jsx";
+import LoginForm from "../components/BackupOfOldAssignments/LoginForm.jsx";
+import RegisterForm from "../components/BackupOfOldAssignments/RegisterForm.jsx";
    
  const Login = () => {
 

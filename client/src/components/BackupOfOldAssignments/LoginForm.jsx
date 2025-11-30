@@ -1,6 +1,6 @@
-import useForm from "../hooks/formHooks";
-import { useAuthentication } from "../hooks/apiHooks";
-import {useUserContext} from '../hooks/contextHooks';
+import useForm from "../../hooks/formHooks";
+import { useAuthentication } from "../../hooks/apiHooks";
+import {useUserContext} from '../../hooks/contextHooks';
 
 
 const LoginForm = () => {
