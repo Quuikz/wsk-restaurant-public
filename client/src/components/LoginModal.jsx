@@ -68,20 +68,20 @@ const LoginModal = ({ isOpen, onClose }) => {
     <>
     <div id="login-modal"
         className="fixed inset-0 z-50 flex items-center justify-center bg-gray/20 backdrop-blur-sm p-4">
-            <div className="bg-gray-800 rounded-lg shadow-lg w-full max-w-md">
+            <div className="bg-white rounded-2xl shadow-lg w-full max-w-md">
                 
                 {/* Modal content */}
                 {/* Padding 4(1rem) or for md (for screens 768px>>) 1.5rem */}
-                <div className="relative bg-neutral-primary-soft border-3 border-white rounded-lg shadow-sm p-4 md:p-6 text-center text-white">
+                <div className="relative bg-neutral-primary-soft border-3 border-black rounded-2xl shadow-sm p-4 md:p-6 text-center text-black">
                     
                     {/* Modal header */}
                     <div className="flex items-center justify-between border-b pb-4 mb-6">
-                        <h3 className="text-lg font-medium pt-4 absolute left-1/2 transform -translate-x-1/2">
+                        <h3 className="text-lg font-semibold pt-4 absolute left-1/2 transform -translate-x-1/2">
                             Kirjaudu sisään
                         </h3>
                         <button
                             type="button"
-                            className="text-gray-300 bg-transparent hover:bg-gray-700 hover:text-white rounded-md text-sm w-9 h-9 ml-auto inline-flex justify-center items-center"
+                            className="cursor-pointer text-black font-semibold bg-transparent hover:bg-gray-200 hover:text-black rounded-md text-sm w-9 h-9 ml-auto inline-flex justify-center items-center"
                             onClick={onClose}>
                             ✕
                         </button>
@@ -125,13 +125,10 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 />
                         </div>
                         <button type="submit"
-                                className="w-full mb-3 text-white bg-indigo-600 hover:bg-indigo-700 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
+                                className="cursor-pointer w-full mb-3 text-black bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
                                 
                                 >Kirjaudu</button>
                     </form>
-
-
-
                 </div>
             </div>
     </div>
