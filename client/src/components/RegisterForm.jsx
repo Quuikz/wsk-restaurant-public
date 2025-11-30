@@ -5,12 +5,14 @@ import { useAuthentication, useUser } from "../hooks/apiHooks";
 
 const RegisterForm = () => {
 
+
     const { postUser } = useUser();
  
     const initValues = {
         username: '',
         email: '',
         password: '',
+        confirmPassword: '',
     };
 
     const doRegister = async () => {
@@ -64,6 +66,8 @@ const RegisterForm = () => {
                     value={inputs.password}
                 />
             </div>
+            
+
             <button type="submit">Register</button>
         </form>
         </>

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import useForm from "../hooks/formHooks";
 import { useUserContext } from "../hooks/contextHooks";
 //import { useAuthentication } from "../hooks/apiHooks";
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, onOpenRegister }) => {
   if (!isOpen) return null;
+
+  
 
 
   //const { postLogin } = useAuthentication();
@@ -14,7 +16,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     password: '',
   };
 
-  const { handleLogin } = useUserContext;
+  const { handleLogin } = useUserContext();
 
   
 
@@ -125,10 +127,22 @@ const LoginModal = ({ isOpen, onClose }) => {
                                 />
                         </div>
                         <button type="submit"
-                                className="cursor-pointer w-full mb-3 text-black bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
+                                className="cursor-pointer w-full mb-5 text-black bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
                                 
                                 >Kirjaudu</button>
                     </form>
+
+                    <div className="text-center">
+                        <h2 className="text-lg font-medium">| Oletko uusi asiakas? |</h2>
+                        <button
+                            type="button"
+                            className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"
+                            onClick={onOpenRegister}>
+                                Luo uusi tili
+
+                        </button>
+                    </div>
+
                 </div>
             </div>
     </div>

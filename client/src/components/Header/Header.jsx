@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 
 
 import LoginModal from '../LoginModal';
+import RegisterModal from '../RegisterModal';
 
 
 const Header = () => {
@@ -14,6 +15,7 @@ const Header = () => {
     const menuRef = useRef(null);
 
     const [displayLoginModal, setDisplayLoginModal] = useState(false);
+    const [displayRegisterModal, setDisplayRegisterModal] = useState(false);
 
     useEffect(() => {
         //handleAutoLogin();
@@ -178,7 +180,7 @@ const Header = () => {
                   )}
                 </div>{}
 
-                <LoginModal isOpen={displayLoginModal} onClose={() => setDisplayLoginModal(false)} />
+                
 
 
 
@@ -187,6 +189,36 @@ const Header = () => {
             </div>
           </div>
         </nav>
+
+        {/*<LoginModal isOpen={displayLoginModal} onClose={() => setDisplayLoginModal(false)} />*/}
+
+        {displayLoginModal && (
+            <LoginModal
+                isOpen={displayLoginModal}
+                onClose={() => setDisplayLoginModal(false)}
+                onOpenRegister={() => {
+                    setDisplayLoginModal(false)
+                    setDisplayRegisterModal(true);
+                }}
+            />
+        )}
+
+        {displayRegisterModal && (
+            <RegisterModal
+                isOpen={displayRegisterModal}
+                onClose={() => setDisplayRegisterModal(false)}
+                onOpenLogin={() => {
+                    setDisplayRegisterModal(false)
+                    setDisplayLoginModal(true)
+                }}
+            
+            />
+        )}
+
+
+        
+
+
       </header>
     )
 
