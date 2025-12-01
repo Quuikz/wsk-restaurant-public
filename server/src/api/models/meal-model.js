@@ -47,12 +47,13 @@ const findMealById = async (id) => {
 
 /**
  * @param meal
- * @return
+ * @param file image file
+ *
  * object added to array/database or false if fails
  */
-const addMeal = async (meal) => {
+const addMeal = async (meal,file) => {
     try {
-        meals.push(meal);
+        meals.push({...meal, file: {...file}}); //TODO: file doesn't have to be here!
         return meals[meals.length - 1];
     } catch (error) {
         console.log(error);

@@ -2,6 +2,7 @@
 
 //node imports
 import express from 'express';
+import multer from "multer";
 
 //other imports
 import {
@@ -14,17 +15,27 @@ import {
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
-import { createImageUploader } from "../../middlewares/createImageUploader.js";
+import { createImageScaler } from "../../middlewares/createImageScaler.js";
 
-
+//router
 const mealRouter = express.Router();
 
-//configurable middleware for image uploads
-const imageUploader = createImageUploader(160,160,'./uploads');
+//multer
+const multerUpload = multer({
+    dest: './uploads/'  //uploads kansio
+});
+
+//configurable middleware for image scaling
+const imageScaler = createImageScaler(160,160,'./uploads');
 
 //endpoint http://hostname:port/api/meals
 mealRouter.get('/', getMeals)
-    .post('/', authenticateToken, userIsAdmin, imageUploader, postMeal);
+    .post('/',
+        authenticateToken,
+        userIsAdmin,
+        multerUpload.single('file'),
+        imageScaler,
+        postMeal);
 
 //endpoint http://hostname:port/api/meals/:id
 mealRouter.route('/:id')

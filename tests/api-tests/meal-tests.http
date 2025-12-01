@@ -1,7 +1,7 @@
 ### get meals
 GET http://localhost:3000/api/meals/
 
-### post new meal
+### post new meal WITHOUT picture
 POST http://localhost:3000/api/meals/
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU5NzQ4MSwiZXhwIjoxNzY0NjgzODgxfQ.FNpsX4Dhp6w5i2nYWzQ4KWHysf0h4qlTVkxbhBrH2u4
@@ -39,3 +39,44 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 ### delete meal by id
 DELETE http://localhost:3000/api/meals/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDIzMTU5NywiZXhwIjoxNzY0MzE3OTk3fQ.G8ABNqRs9TTTt4DRXrW2ehKeIG9A8tIhb9LohV2xiB0
+
+
+### meal upload with picture  HTTP/1.1
+POST http://localhost:3000/api/meals/
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU5NzQ4MSwiZXhwIjoxNzY0NjgzODgxfQ.FNpsX4Dhp6w5i2nYWzQ4KWHysf0h4qlTVkxbhBrH2u4
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+54
+--MyBoundary
+Content-Disposition: form-data; name="name_fi"
+
+suomenkielinen nimi
+--MyBoundary
+Content-Disposition: form-data; name="name_en"
+
+english name
+--MyBoundary
+Content-Disposition: form-data; name="description_fi"
+
+description_fi
+--MyBoundary
+Content-Disposition: form-data; name="description_en"
+
+description_en
+--MyBoundary
+Content-Disposition: form-data; name="cost"
+
+40
+--MyBoundary
+Content-Disposition: form-data; name="type"
+
+"food?"
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--

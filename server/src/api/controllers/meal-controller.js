@@ -60,11 +60,12 @@ const postMeal = (req, res) => {
     console.log('postMeal in meal-controller');
     console.log(req.body);
 
-    const result = addMeal(req.body);
+    const result = addMeal(req.body, req.file);
+    //TODO: image data saved somewhere else? or not at all?
     result.then(
         result => {
             if (result) {
-                console.log('added meal: '+result)
+                console.log('added meal: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -87,7 +88,7 @@ const putMeal = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('return meal: '+result)
+                console.log('return meal: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);

@@ -10,7 +10,7 @@ dotenv.config({path: '../../../.env'});
 /**
  * Middleware factory.
  * The middleware creates image from file if specified in request.file
- * Sets path to file to request.file.imagePath
+ * Sets path to file to request.body.image
  * Saves images to outputPath directory with a _image suffix
  * @param width width of output image
  * @param height height of output image
@@ -19,7 +19,7 @@ dotenv.config({path: '../../../.env'});
  * Returns a middleware that resizes images to resolution specified in arguments.
  */
 
-const createImageUploader = (width, height, outputPath) => {
+const createImageScaler = (width, height, outputPath) => {
    return async (req, res, next) => {
         //if no file
         if (!req.file) {
@@ -29,13 +29,13 @@ const createImageUploader = (width, height, outputPath) => {
         }
 
         //if file
-        console.log(req.file.path);
+        console.log('File uploaded: ',req.file.path);
         const inputName = req.file.filename;
-        const imagePath = outputPath + inputName + '_image';
+        const imagePath = outputPath +'/' + inputName + '_image';
         console.log('image path', imagePath);
 
         //add path to request
-        req.file.imagePath = imagePath;
+        req.body.image = imagePath;
 
         //function sharp(sharp.SharpInput, sharp.SharpOptions)
         await sharp(req.file.path)
@@ -56,4 +56,4 @@ const createImageUploader = (width, height, outputPath) => {
     };
 }
 
-export { createImageUploader };
+export { createImageScaler };
