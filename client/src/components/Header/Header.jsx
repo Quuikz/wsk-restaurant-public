@@ -38,24 +38,26 @@ const Header = () => {
             {/* Week menu button */}
             <div className="absolute hidden sm:ml-6 sm:block">
               <div className="flex space-x-4">
-                <a
-                  href="#"
+                <Link
+                  to="/weeklist"
                   aria-current="page"
                   className="rounded-md hover:bg-white/5 bg-gray-900 px-3 py-2 text-lg font-medium text-white "
                 >
                   🍽️&nbsp;&nbsp;Viikon lista
-                </a>
+                </Link>
               </div>
             </div>
 
             {/* -- Logo -- */}
             <div className="absolute left-1/2 transform -translate-x-1/2 translate-y-11 flex items-center ">
               {/* !!! Change logo */}
-              <img
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                alt="Your Company"
-                className="h-8 w-auto mx-auto"
-              />
+              <Link to="/">
+                <img
+                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                  alt="Your Company"
+                  className="h-8 w-auto mx-auto"
+                />
+              </Link>
             </div>
 
             {/* -- Shopping cart -- */}
@@ -138,7 +140,13 @@ const Header = () => {
                   >
                     <div className="py-1">
                       <Link
-                        to="#"
+                        to="/"
+                        className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
+                      >
+                        Pääsivu
+                      </Link>
+                      <Link
+                        to="/weeklist"
                         className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                       >
                         Viikon lista
