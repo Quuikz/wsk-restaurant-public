@@ -2,94 +2,163 @@ const Weeklist = () => {
   return (
     <>
       <div className=" mx-auto">
-        {/* Profile title */}
-        <div className="text-center w-full bg-orange-50 pt-20">
-          <h2 className="text-3xl font-medium">| Viikon Lista |</h2>
-          <p className="mt-2 ">
-            Tarkista tämän viikon tarjoukset ja erikoisuudet!
-          </p>
-        </div>
+        <div className="p-7 pt-20 pb-30 bg-orange-100">
+          {/* Page title */}
+          <div className="text-center w-full pb-10 ">
+            <h2 className="text-3xl font-medium">| Viikko 1 |</h2>
+            <p className="mt-2 ">
+              Päivät 1-7: Lorem ipsum dolor sit amet consectetur
+            </p>
+          </div>
 
-        <div className=" p-20 pb-30  bg-orange-100">
-          <div className="p-5 bg-orange-50">
-            <div className="grid grid-cols-3 gap-4">
-              {/* User profile */}
-              <div className="col-span-1">
-                <div className="flex items-center gap-4 pb-2 border-b">
-                  <img
-                    src="https://placehold.co/50x50"
-                    alt="User profile"
-                    className="rounded-full "
-                  />
-                  <h2 className="text-lg font-medium">Käyttäjätunnus</h2>
+          {/* Weekly list */}
+          <div className="grid grid-cols-3 gap-4 ">
+            {/* Monday */}
+            <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+              <div className="px-6">
+                <h3 className="text-3xl  mt-2 text-center border-b">
+                  Maanantai
+                </h3>
+                <div className="grid grid-cols-2 gap-4 my-4">
+                  <p className="mt-1 font-bold">Grilli spesiaali</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+
+                  <p className="mt-1 font-bold">Noutopöytä</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
                 </div>
-                <p className="pt-3">Sähköposti: </p>
-                <p className="pt-3">Käyttäjän nimi: </p>
-
-                {/* !!! Make edit modal */}
-                <button className="mt-4 text-sm text-black bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none">
-                  Muokkaa profiilia
-                </button>
               </div>
+            </div>
 
-              {/* Purchase history */}
-              <div className="col-span-2 flex flex-col  border-l pl-4">
-                <div className="flex items-center gap-4 pb-4 border-b mt-3">
-                  <h2 className="text-lg font-medium">Ostoshirstoria</h2>
+            {/* Tuesday */}
+            <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+              <div className="px-6">
+                <h3 className="text-3xl  mt-2 text-center border-b">Tiistai</h3>
+                <div className="grid grid-cols-2 gap-4 my-4">
+                  <p className="mt-1 font-bold">Grilli spesiaali</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+
+                  <p className="mt-1 font-bold">Noutopöytä</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
                 </div>
-                <div className="overflow-y-auto h-31 border">
-                  <table className="min-w-full table-auto">
-                    <thead>
-                      <tr>
-                        <th className="px-4 py-2 border">Tilauspäivä</th>
-                        <th className="px-4 py-2 border">Tuote</th>
-                        <th className="px-4 py-2 border">Määrä</th>
-                        <th className="px-4 py-2 border">Hinta</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {/* Example row */}
-                      <tr>
-                        <td className="px-4 py-2 border text-center">
-                          2024-01-15
-                        </td>
-                        <td className="px-4 py-2 border text-center">
-                          Grillipöytä varaus
-                        </td>
-                        <td className="px-4 py-2 border text-center">2</td>
-                        <td className="px-4 py-2 border text-center">45.00€</td>
-                      </tr>
-                      {/* More rows can be added here */}
-                    </tbody>
-                    <tbody>
-                      <tr>
-                        <td className="px-4 py-2 border text-center">
-                          2024-01-15
-                        </td>
-                        <td className="px-4 py-2 border text-center">
-                          Grillipöytä varaus
-                        </td>
-                        <td className="px-4 py-2 border text-center">2</td>
-                        <td className="px-4 py-2 border text-center">45.00€</td>
-                      </tr>
-                    </tbody>
-                    <tbody>
-                      <tr>
-                        <td className="px-4 py-2 border text-center">
-                          2024-01-15
-                        </td>
-                        <td className="px-4 py-2 border text-center">
-                          Grillipöytä varaus
-                        </td>
-                        <td className="px-4 py-2 border text-center">2</td>
-                        <td className="px-4 py-2 border text-center">45.00€</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              </div>
+            </div>
+
+            {/* Wednesday */}
+            <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+              <div className="px-6">
+                <h3 className="text-3xl  mt-2 text-center border-b">
+                  Keskiviikko
+                </h3>
+                <div className="grid grid-cols-2 gap-4 my-4">
+                  <p className="mt-1 font-bold">Grilli spesiaali</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+
+                  <p className="mt-1 font-bold">Noutopöytä</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Thursday */}
+            <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+              <div className="px-6">
+                <h3 className="text-3xl  mt-2 text-center border-b">Torstai</h3>
+                <div className="grid grid-cols-2 gap-4 my-4">
+                  <p className="mt-1 font-bold">Grilli spesiaali</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+
+                  <p className="mt-1 font-bold">Noutopöytä</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            {/* Friday */}
+            <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+              <div className="px-6">
+                <h3 className="text-3xl  mt-2 text-center border-b">
+                  Perjantai
+                </h3>
+                <div className="grid grid-cols-2 gap-4 my-4">
+                  <p className="mt-1 font-bold">Grilli spesiaali</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+
+                  <p className="mt-1 font-bold">Noutopöytä</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            {/* Saturday */}
+            <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+              <div className="px-6">
+                <h3 className="text-3xl  mt-2 text-center border-b">
+                  Lauantai
+                </h3>
+                <div className="grid grid-cols-2 gap-4 my-4">
+                  <p className="mt-1 font-bold">Grilli spesiaali</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
+
+                  <p className="mt-1 font-bold">Noutopöytä</p>
+                  <ul>
+                    <li>Nimi</li>
+                    <li>Hinta</li>
+                    <li>Allergeenit</li>
+                  </ul>
                 </div>
               </div>
             </div>
           </div>
+
+          <button className="mt-4 mb-4 bg-orange-200  px-4 py-2 rounded hover:bg-orange-300 ">
+            ← Viime viikko
+          </button>
+          <button className="mt-4 mb-4 bg-orange-200  px-4 py-2 rounded hover:bg-orange-300 absolute right-7">
+            Ensi viikko →
+          </button>
         </div>
       </div>
     </>
