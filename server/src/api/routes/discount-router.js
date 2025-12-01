@@ -12,6 +12,7 @@ import {
 } from '../controllers/discount-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
+import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 
 
 const discountRouter = express.Router();
@@ -22,13 +23,13 @@ discountRouter.get('/', getDiscounts)
 
 //endpoint http://hostname:port/api/discounts/:id
 discountRouter.route('/:id')
-    .get(getDiscountById)
-    .put(authenticateToken, userIsAdmin, putDiscount)
-    .delete(authenticateToken, userIsAdmin, deleteDiscount);
+    .get(formatIdToNumber, getDiscountById)
+    .put(authenticateToken, userIsAdmin, formatIdToNumber, putDiscount)
+    .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteDiscount);
 
 //endpoint http://hostname:port/api/discounts/bymeal/:id
 discountRouter.route('/bymeal/:id')
-    .get(authenticateToken, getDiscountByMeal);
+    .get(authenticateToken, formatIdToNumber, getDiscountByMeal);
 
 export default discountRouter;
 
