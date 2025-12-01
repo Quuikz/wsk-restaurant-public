@@ -1,8 +1,7 @@
 import './App.css';
 import {BrowserRouter, Routes, Route} from 'react-router';
 import Layout from './components/Layout.jsx';
-import Home from './views/Home';
-import Profile from './views/Profile';
+
 import Upload from './views/Upload';
 //import Single from './views/Single';
 import Login from './views/Login.jsx';
@@ -10,7 +9,12 @@ import {UserProvider} from './contexts/UserContext';
 import Logout from './views/Logout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
+
+//Pages
 import Contacts from './views/Contacts.jsx';
+import Home from './views/Home';
+import Profile from './views/Profile';
+import ShoppingCart from './views/ShoppingCart.jsx';
 
 const App = () => {
   return (
@@ -33,6 +37,7 @@ const App = () => {
             />
             {/*<Route path="/single" element={<Single />} />*/}
             <Route path='/contacts' element={<Contacts />} />
+            <Route path='/shoppingcart' element={<ShoppingCart />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Route>
