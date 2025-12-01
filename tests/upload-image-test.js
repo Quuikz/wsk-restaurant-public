@@ -19,7 +19,7 @@ const postMealTest = async (file, token) => {
     const formData = new FormData();
 
     //add file to FormData
-    formData.append("file", file);
+    formData.append("file", file, "pic.jpg");
 
     //add other fields
     for (const key in testMeal) {
@@ -54,6 +54,7 @@ fs.readFile(
     './api-tests/lautanen.jpg',
     {},
     async (err,data)=>{
+        console.log(data);
         const file = new File(data,"pic.jpg",{type: 'image/jpg'});
         const response = await postMealTest(file, currentToken);
         console.log('response:',response);
