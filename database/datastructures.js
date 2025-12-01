@@ -99,6 +99,7 @@ const default_menu = {
  */
 const default_location = {
     id : 0,
+    name: "",
     address : '',
     email : '',
     phone : '',

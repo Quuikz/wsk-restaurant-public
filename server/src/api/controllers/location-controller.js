@@ -8,6 +8,7 @@ import {
     modifyLocation,
     removeLocation,
 } from "../models/location-model.js";
+import {listAllDiscounts} from "../models/discount-model.js";
 
 const getLocations = (req, res) => {
     console.log('getLocations in location-controller')
@@ -16,12 +17,17 @@ const getLocations = (req, res) => {
 
 
     listAllLocations().then(
-        result => {
-            res.json(result);
+        (result) => {
+            if (result) {
+                res.json(result);
+            } else {
+                console.log('no locations found');
+                res.status(200).send("no locations found");
+            }
         },
 
         (result) => {
-            console.log('error in listAllUsers');
+            console.log('error in getLocations in location-controller');
             console.log(result);
             res.sendStatus(500);
         }

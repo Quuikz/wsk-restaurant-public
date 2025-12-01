@@ -73,7 +73,8 @@ const addDiscount = async (discount) => {
  *
  * @param discount discount object
  * @param discountId number
- * @return {Promise<*|boolean>} false if not found
+ * @return {Promise<*|boolean>}
+ * discount or false if error or not found
  */
 const modifyDiscount = async (discount, discountId) => {
     try {
@@ -87,7 +88,7 @@ const modifyDiscount = async (discount, discountId) => {
         if (index >= 0) {
             console.log('found at:'+index);
             discounts.splice(index,1, {...discounts[index], ...discount });
-            return discount;
+            return discounts[index];
 
         } else {
             console.log('not found: ',discountId);
@@ -125,7 +126,7 @@ const removeDiscount = async (discountId) => {
 /**
  * @param mealId
  * @return {Promise<{id: number, target_meal: number, cost_override: number, discount_code: string, date_start: string, date_end: string, message: string}|{id: number, target_meal: number, cost_override: number, discount_code: string, date_start: string, date_end: string, message: string}|{id: number, target_meal: number, cost_override: number, discount_code: string, date_start: string, date_end: string, message: string}|boolean>}
- * array filtered by id given of false if error
+ * array filtered by id given or false if error
  */
 const findDiscountByMeal = async (mealId) => {
     try {

@@ -22,12 +22,13 @@ const getDiscounts = (req, res) => {
             if (result) {
                 res.json(result);
             } else {
-
+                console.log('no discounts found');
+                res.status(200).send("no discounts found");
             }
         },
 
         (result) => {
-            console.log('error in listAllUsers');
+            console.log('error in getDiscounts in discount-controller');
             console.log(result);
             res.sendStatus(500);
         }

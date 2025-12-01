@@ -20,7 +20,6 @@ apiRouter.use('/auth', authRouter);
 //user-router  http://hostname:port/api/users
 apiRouter.use('/users', userRouter);
 
-
 //order-router http://hostname:port/api/orders
 apiRouter.use('/orders', orderRouter);
 
@@ -33,10 +32,11 @@ apiRouter.use('/menus', menuRouter);
 //location-router  http://hostname:port/api/locations
 apiRouter.use('/locations', locationRouter);
 
-//reservation-router
+//reservation-router http://hostname:port/api/reservations
 apiRouter.use('/reservations', reservationRouter);
 
-//discount-router  //TODO: Discounts added to menus or meals directly?
+//discount-router  http://hostname:port/api/discounts
+// TODO: Discounts added to menus or meals directly?
 apiRouter.use('/discounts', discountRouter);
 
 //gift-card-router

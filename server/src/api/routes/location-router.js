@@ -11,6 +11,7 @@ import {
 } from '../controllers/location-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
+import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 
 
 const locationRouter = express.Router();
@@ -21,9 +22,9 @@ locationRouter.get('/', getLocations)
 
 //endpoint http://hostname:port/api/locations/:id
 locationRouter.route('/:id')
-    .get(getLocationById)
-    .put(authenticateToken, userIsAdmin, putLocation)
-    .delete(authenticateToken, userIsAdmin, deleteLocation);
+    .get(formatIdToNumber, getLocationById)
+    .put(authenticateToken, userIsAdmin, formatIdToNumber, putLocation)
+    .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteLocation);
 
 export default locationRouter;
 
