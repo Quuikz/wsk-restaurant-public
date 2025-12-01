@@ -1,25 +1,3 @@
-### login with default user
-POST http://localhost:3000/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "user",
-  "password": "password"
-}
-
-### login with default admin user
-POST http://localhost:3000/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "password"
-}
-
-### get validate current token
-GET http://localhost:3000/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzU1Mzk3MCwiZXhwIjoxNzYzNjQwMzcwfQ.KJRGU6iy55Utgi4qNRVHB8S-GrtyF2fuKitb_aNYBYg
-
 ### get discounts
 GET http://localhost:3000/api/discounts/
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDUzNDMwOCwiZXhwIjoxNzY0NjIwNzA4fQ.A8AJrtPJgFjf2f7wumLD21_tSbD73ZfBpyIHWVUvpEI
@@ -27,10 +5,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 ### post new discount
 POST http://localhost:3000/api/discounts/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU4NTY4MiwiZXhwIjoxNzY0NjcyMDgyfQ.Od8qbnjDXH13TS1CN6DVzOru8AR1DL0Q7gY1kFgo_1U
 
 {
-  "id" : 0,
+  "id" : 4,
   "target_meal": 1,
   "cost_override": 6.9,
   "discount_code" : "just in case getting the discount needs a code",
@@ -40,16 +18,16 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 }
 
 ### get discount by id
-GET http://localhost:3000/api/discounts/1
+GET http://localhost:3000/api/discounts/3
 
 ### update discount by id
-PUT http://localhost:3000/api/discounts/1
+PUT http://localhost:3000/api/discounts/3
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU4NTY4MiwiZXhwIjoxNzY0NjcyMDgyfQ.Od8qbnjDXH13TS1CN6DVzOru8AR1DL0Q7gY1kFgo_1U
 
 {
-  "id" : 0,
-  "target_meal": 1,
+  "id" : 3,
+  "target_meal": 6,
   "cost_override": 6.9,
   "discount_code" : "just in case getting the discount needs a code",
   "date_start": "some start date",
@@ -58,10 +36,10 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 }
 
 ### delete discount by id
-DELETE http://localhost:3000/api/discounts/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+DELETE http://localhost:3000/api/discounts/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU4NTY4MiwiZXhwIjoxNzY0NjcyMDgyfQ.Od8qbnjDXH13TS1CN6DVzOru8AR1DL0Q7gY1kFgo_1U
 
 ### get discount by meal id
-DELETE http://localhost:3000/api/discounts/bymeal/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+GET http://localhost:3000/api/discounts/bymeal/700
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU4NTY4MiwiZXhwIjoxNzY0NjcyMDgyfQ.Od8qbnjDXH13TS1CN6DVzOru8AR1DL0Q7gY1kFgo_1U
 

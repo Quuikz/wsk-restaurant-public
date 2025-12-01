@@ -19,7 +19,11 @@ const getDiscounts = (req, res) => {
 
     listAllDiscounts().then(
         (result) => {
-            res.json(result);
+            if (result) {
+                res.json(result);
+            } else {
+
+            }
         },
 
         (result) => {

@@ -27,7 +27,8 @@ discountRouter.route('/:id')
     .delete(authenticateToken, userIsAdmin, deleteDiscount);
 
 //endpoint http://hostname:port/api/discounts/bymeal/:id
-discountRouter.get('/bymeal',authenticateToken, getDiscountByMeal)
+discountRouter.route('/bymeal/:id')
+    .get(authenticateToken, getDiscountByMeal);
 
 export default discountRouter;
 

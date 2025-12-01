@@ -40,10 +40,7 @@ apiRouter.use('/reservations', reservationRouter);
 apiRouter.use('/discounts', discountRouter);
 
 //gift-card-router
-
-
-
-//TODO: muut routerit.
+//TODO: lahjakorttien toiminta pitää suunnitella...
 
 
 //export
