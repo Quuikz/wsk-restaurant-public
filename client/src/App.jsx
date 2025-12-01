@@ -15,6 +15,7 @@ import Contacts from './views/Contacts.jsx';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import ShoppingCart from './views/ShoppingCart.jsx';
+import Weeklist from './views/Weeklist.jsx';
 
 const App = () => {
   return (
@@ -36,8 +37,9 @@ const App = () => {
               }
             />
             {/*<Route path="/single" element={<Single />} />*/}
-            <Route path='/contacts' element={<Contacts />} />
-            <Route path='/shoppingcart' element={<ShoppingCart />} />
+            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/shoppingcart" element={<ShoppingCart />} />
+            <Route path="/weeklist" element={<Weeklist />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Route>

@@ -1,11 +1,13 @@
-const Profile = () => {
+const Weeklist = () => {
   return (
     <>
       <div className=" mx-auto">
         {/* Profile title */}
         <div className="text-center w-full bg-orange-50 pt-20">
-          <h2 className="text-3xl font-medium">| Profiili |</h2>
-          <p className="mt-2 ">Tarkista tiedot ja muokkaa halutessa!</p>
+          <h2 className="text-3xl font-medium">| Viikon Lista |</h2>
+          <p className="mt-2 ">
+            Tarkista tämän viikon tarjoukset ja erikoisuudet!
+          </p>
         </div>
 
         <div className=" p-20 pb-30  bg-orange-100">
@@ -94,4 +96,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default Weeklist;
