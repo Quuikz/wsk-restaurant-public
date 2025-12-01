@@ -1,53 +1,48 @@
-
 //TODO: everything here
 
-//example datastructure
 import {default_reservation} from "../../../../database/datastructures.js";
 
-//placeholder table
-const reservations = [default_reservation, default_reservation, default_reservation];
-
+const reservations = [
+    {...default_reservation, id: 1},
+    {...default_reservation, id: 2},
+    {...default_reservation, id:3}
+];
 
 const listAllReservations = async () => {
-    return [
-        {text: 'listAllReservations hard coded response from reservation-model.js'},
-        ...reservations
-    ];
+    return reservations;
 };
 
 const findReservationById = async (id) => {
-    return {text: 'findReservationById hard coded response from reservation-model.js',...default_reservation};
+    return default_reservation;
 };
 
 const addReservation = async (reservation) => {
-    reservations.push(reservation);
-    return {text: 'addReservation hard coded response from reservation-model.js',
-        ...reservations[reservations.length-1]
-    }
+    reservationArray.push(reservation);
+    return {...reservations[reservations.length-1], message: 'addReservation hard coded response from reservation-model.js' }
 };
 
-const modifyReservation = async (reservation, reservationId) => {
-    return {text: 'modifyReservation hard coded response from reservation-model.js',...default_reservation};
+const modifyReservation = async (reservation, reservationId, authorized_user) => {
+    return {text: 'modifyReservation hard coded response from reservation-model.js'};
 };
 
-const removeReservation = async (reservationId) => {
-    reservations.splice(reservationId, 1);
+const removeReservation = async (reservationId, authorized_user) => {
     return {text: 'removeReservation hard coded response from reservation-model.js'};
 };
 
 const findReservationByUserId = async (userId) => {
-    return {text: 'findReservationByUserId hard coded response from reservation-model.js'};
-};
+    return reservations;
+
+}
 
 const findReservationByLocation = async (locationId) => {
-    return {text: 'findReservationByLocation hard coded response from reservation-model.js'};
+    return reservations;
 };
 
 const findReservationByDate = async (date) => {
-    return {text: 'findReservationByDate hard coded response from reservation-model.js'};
-};
+    return reservations;
 
 
+}
 
 export {
     listAllReservations,

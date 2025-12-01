@@ -7,6 +7,7 @@ const default_user = {
     role: '',
     name: '',
     email: '',
+    message: 'default user object'
 }
 
 
@@ -22,8 +23,9 @@ const default_meal = {
     description_fi: "suomalainen kuvaus tuotteelle",
     description_en: "english description for the item",
     cost: 0.0,
-    type: "noudettava annos/ pöytävaraus / lahjakortti ?",
-    image: "public/images/burger.jpg"
+    type: "?",
+    image: "public/images/burger.jpg",
+    message: 'default meal object,'
 }
 
 /**
@@ -37,24 +39,59 @@ const default_order = {
     timestamp: '',
     location: '',       //location if multiple restaurants
     items: [
-        {item : "item_id1", amount: 0 },
-        {item : "item_id2", amount: 0 }
-    ] //array of arrays of items and amounts [ {item} , amount ]
-
-}
+        {item_type : "meal", amount: 0, item: {
+                id : 0,
+                name_fi: "suomenkielinen nimi",
+                name_en: "english name",
+                description_fi: "suomalainen kuvaus tuotteelle",
+                description_en: "english description for the item",
+                cost: 0.0,
+                type: "noudettava annos/ pöytävaraus / lahjakortti ?",
+                image: "public/images/burger.jpg"
+            }
+        },
+        {item_type : "reservation", amount: 0, item: {
+                id : 0,
+                date : '',
+                location : '',
+                message : 'some reservation',
+            }
+        }
+    ],
+    message: ''
+}  //TODO: voiko ruokaa tilata?
 
 
 /**
  * Menu for a day.
- * @type {{id: number, date: string, items: ({id: number, name_fi: string, name_en: string, description_fi: string, description_en: string}|number)[][]}}
+ * @type {{id: number, date: string, meals: [{id: number, name_fi: string, name_en: string, description_fi: string, description_en: string, cost: number, type: string, image: string},{id: number, name_fi: string, name_en: string, description_fi: string, description_en: string, cost: number, type: string, image: string}], message: string}}
  */
 const default_menu = {
     id : 0,
     date : '', //date format?
-    items : [
-        {item : "item_id", amount: 0 },
-        {item : "item_id", amount: 0 }
-    ]  //array containing objects {item, amount}
+    meals : [
+        {
+            id : 0,
+            name_fi: "suomenkielinen nimi",
+            name_en: "english name",
+            description_fi: "suomalainen kuvaus tuotteelle",
+            description_en: "english description for the item",
+            cost: 0.0,
+            type: "noudettava annos/ pöytävaraus / lahjakortti ?",
+            image: "public/images/burger.jpg"
+        },
+        {
+            id : 1,
+            name_fi: "suomenkielinen nimi",
+            name_en: "english name",
+            description_fi: "suomalainen kuvaus tuotteelle",
+            description_en: "english description for the item",
+            cost: 0.0,
+            type: "noudettava annos/ pöytävaraus / lahjakortti ?",
+            image: "public/images/burger.jpg"
+        }
+    ],
+    message: 'default menu. meals array contains meals set into this menu. Should it contain meal objects or just ids?'
 }
 
 /**
@@ -65,20 +102,33 @@ const default_location = {
     address : '',
     email : '',
     phone : '',
-    table_count : 10
+    table_count : 10,
+    message: 'default location'
 }
-
 
 /**
  * Reservation data
  */
 const default_reservation = {
     id : 0,
+    user: 1,
     date : "date",
     location : "",
     table_count : 1,
     customer_count : 2,
+    message : 'default reservation',
 }
+
+const default_discount = {
+    id : 0,
+    target_meal: 1,
+    cost_override: 6.9,
+    discount_code : "just in case getting the discount needs a code",
+    date_start: "some start date",
+    date_end: "some end date",
+    message: "cost_override is the discounted cost"
+}
+
 
 
 
@@ -88,6 +138,7 @@ export {
     default_order,
     default_menu,
     default_location,
-    default_reservation
+    default_reservation,
+    default_discount
 }
 

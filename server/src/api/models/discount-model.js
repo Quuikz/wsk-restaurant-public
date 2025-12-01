@@ -1,45 +1,56 @@
 
 //TODO: everything here
 
+/*
+TODO:
+   Should discount return all fields including discount_code??
+   Or should that depend on wheter user is admin.
+ */
+
+
 //example datastructure
-import {default_location} from "../../../../database/datastructures.js";
+import {default_discount} from "../../../../database/datastructures.js";
 
-//placeholder table
-const locations = [default_location, default_location, default_location];
+const discountArray = [
+    {...default_discount, id: 1, message: "discount number 1 in discount model"},
+    {default_discount, id: 2, message: "discount number 2 in discount model"},
+    {default_discount, id: 3, message: "discount number 3 in discount model"},
+];
 
-
-const listAllLocations = async () => {
+const listAllDiscounts = async () => {
     return [
-        {text: 'listAllLocations hard coded response from location-model.js'},
-        ...locations
+        {text: 'listAllDiscounts hard coded response from discount-model.js'},
+        {...default_discount},
+        {...default_discount},
+        {...default_discount},
     ];
 };
 
-const findLocationById = async (id) => {
-    return {text: 'findLocationById hard coded response from location-model.js',...default_location};
+const findDiscountById = async (id) => {
+    return {text: 'findDiscountById hard coded response from discount-model.js', ...default_discount};
 };
 
-const addLocation = async (location) => {
-    locations.push(location);
-    return {text: 'addLocation hard coded response from location-model.js',
-        ...locations[locations.length-1]
-    }
+const addDiscount = async (discount) => {
+    return {text: 'addDiscount hard coded response from discount-model.js', ...default_discount};
 };
 
-const modifyLocation = async (location, locationId) => {
-    return {text: 'modifyLocation hard coded response from location-model.js',...default_location};
+const modifyDiscount = async (discount, discountId) => {
+    return {text: 'modifyDiscount hard coded response from discount-model.js', ...default_discount};
 };
 
-const removeLocation = async (locationId) => {
-    locations.splice(locationId, 1);
-    return {text: 'removeLocation hard coded response from location-model.js'};
+const removeDiscount = async (discountId) => {
+    return {text: 'removeDiscount hard coded response from discount-model.js', ...default_discount};
 };
 
+const findDiscountByMeal = async (mealId) => {
+    return [default_discount, default_discount];
+}
 
 export {
-    listAllLocations,
-    findLocationById,
-    addLocation,
-    modifyLocation,
-    removeLocation,
+    listAllDiscounts,
+    findDiscountById,
+    addDiscount,
+    modifyDiscount,
+    removeDiscount,
+    findDiscountByMeal
 };

@@ -3,29 +3,33 @@ import express from 'express';
 
 //other imports
 import {
-    getLocations,
-    getLocationById,
-    postLocation,
-    putLocation,
-    deleteLocation,
-} from '../controllers/location-controller.js';
+    getDiscounts,
+    getDiscountById,
+    postDiscount,
+    putDiscount,
+    deleteDiscount,
+    getDiscountByMeal
+} from '../controllers/discount-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 
 
-const locationRouter = express.Router();
+const discountRouter = express.Router();
 
-//endpoint http://hostname:port/api/locations
-locationRouter.get('/', getLocations)
-    .post('/', authenticateToken, userIsAdmin, postLocation);
+//endpoint http://hostname:port/api/discounts
+discountRouter.get('/', getDiscounts)
+    .post('/', authenticateToken, userIsAdmin, postDiscount);
 
-//endpoint http://hostname:port/api/locations/:id
-locationRouter.route('/:id')
-    .get(getLocationById)
-    .put(authenticateToken, userIsAdmin, putLocation)
-    .delete(authenticateToken, userIsAdmin, deleteLocation);
+//endpoint http://hostname:port/api/discounts/:id
+discountRouter.route('/:id')
+    .get(getDiscountById)
+    .put(authenticateToken, userIsAdmin, putDiscount)
+    .delete(authenticateToken, userIsAdmin, deleteDiscount);
 
-export default locationRouter;
+//endpoint http://hostname:port/api/discounts/bymeal/:id
+discountRouter.get('/bymeal',authenticateToken, getDiscountByMeal)
+
+export default discountRouter;
 
 
 
