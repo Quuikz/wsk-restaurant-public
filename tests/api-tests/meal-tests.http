@@ -4,7 +4,7 @@ GET http://localhost:3000/api/meals/
 ### post new meal
 POST http://localhost:3000/api/meals/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU5NzQ4MSwiZXhwIjoxNzY0NjgzODgxfQ.FNpsX4Dhp6w5i2nYWzQ4KWHysf0h4qlTVkxbhBrH2u4
 
 {
   "id" : 234,

@@ -1,3 +1,5 @@
+'use strict';
+
 //node imports
 import express from 'express';
 

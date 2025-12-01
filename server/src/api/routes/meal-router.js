@@ -1,6 +1,7 @@
+'use strict';
+
 //node imports
 import express from 'express';
-
 
 //other imports
 import {
@@ -13,13 +14,17 @@ import {
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
+import { createImageUploader } from "../../middlewares/createImageUploader.js";
 
 
 const mealRouter = express.Router();
 
+//configurable middleware for image uploads
+const imageUploader = createImageUploader(160,160,'./uploads');
+
 //endpoint http://hostname:port/api/meals
 mealRouter.get('/', getMeals)
-    .post('/', authenticateToken, userIsAdmin, postMeal);
+    .post('/', authenticateToken, userIsAdmin, imageUploader, postMeal);
 
 //endpoint http://hostname:port/api/meals/:id
 mealRouter.route('/:id')
