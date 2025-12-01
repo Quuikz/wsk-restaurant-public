@@ -8,6 +8,7 @@ import {
     modifyMeal,
     removeMeal,
 } from "../models/meal-model.js";
+import {listAllLocations} from "../models/location-model.js";
 
 const getMeals = (req, res) => {
     console.log('getMeals in meal-controller')
@@ -16,12 +17,17 @@ const getMeals = (req, res) => {
 
 
     listAllMeals().then(
-        result => {
-            res.json(result);
+        (result) => {
+            if (result) {
+                res.json(result);
+            } else {
+                console.log('no meals found');
+                res.status(200).send("no meals found");
+            }
         },
 
         (result) => {
-            console.log('error in listAllUsers');
+            console.log('error in getMeals in meal-controller');
             console.log(result);
             res.sendStatus(500);
         }
