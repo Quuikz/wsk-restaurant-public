@@ -27,7 +27,3 @@ locationRouter.route('/:id')
     .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteLocation);
 
 export default locationRouter;
-
-
-
-
