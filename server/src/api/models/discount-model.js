@@ -1,46 +1,56 @@
 
 //TODO: everything here
 
+/*
+TODO:
+   Should discount return all fields including discount_code??
+   Or should that depend on wheter user is admin.
+ */
+
 
 //example datastructure
-import {default_meal} from "../../../database/datastructures.js";
+import {default_discount} from "../../../../database/datastructures.js";
 
-const mealArray = [
-    {...default_meal, id: 1, message: "meal number 1 in meal model"},
-    {default_meal, id: 2, message: "meal number 2 in meal model"},
-    {default_meal, id: 3, message: "meal number 3 in meal model"},
+const discountArray = [
+    {...default_discount, id: 1, message: "discount number 1 in discount model"},
+    {default_discount, id: 2, message: "discount number 2 in discount model"},
+    {default_discount, id: 3, message: "discount number 3 in discount model"},
 ];
 
-const listAllMeals = async () => {
+const listAllDiscounts = async () => {
     return [
-        {text: 'listAllMeals hard coded response from meal-model.js'},
-        {...default_meal},
-        {...default_meal},
-        {...default_meal},
+        {text: 'listAllDiscounts hard coded response from discount-model.js'},
+        {...default_discount},
+        {...default_discount},
+        {...default_discount},
     ];
 };
 
-const findMealById = async (id) => {
-    return {text: 'findMealById hard coded response from meal-model.js', ...default_meal};
+const findDiscountById = async (id) => {
+    return {text: 'findDiscountById hard coded response from discount-model.js', ...default_discount};
 };
 
-const addMeal = async (meal) => {
-    return {text: 'addMeal hard coded response from meal-model.js', ...default_meal};
+const addDiscount = async (discount) => {
+    return {text: 'addDiscount hard coded response from discount-model.js', ...default_discount};
 };
 
-const modifyMeal = async (meal, mealId) => {
-    return {text: 'modifyMeal hard coded response from meal-model.js', ...default_meal};
+const modifyDiscount = async (discount, discountId) => {
+    return {text: 'modifyDiscount hard coded response from discount-model.js', ...default_discount};
 };
 
-const removeMeal = async (mealId) => {
-    return {text: 'removeMeal hard coded response from meal-model.js', ...default_meal};
+const removeDiscount = async (discountId) => {
+    return {text: 'removeDiscount hard coded response from discount-model.js', ...default_discount};
 };
 
+const findDiscountByMeal = async (mealId) => {
+    return [default_discount, default_discount];
+}
 
 export {
-    listAllMeals,
-    findMealById,
-    addMeal,
-    modifyMeal,
-    removeMeal,
+    listAllDiscounts,
+    findDiscountById,
+    addDiscount,
+    modifyDiscount,
+    removeDiscount,
+    findDiscountByMeal
 };

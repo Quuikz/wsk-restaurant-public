@@ -119,6 +119,16 @@ const default_reservation = {
     message : 'default reservation',
 }
 
+const default_discount = {
+    id : 0,
+    target_meal: 1,
+    cost_override: 6.9,
+    discount_code : "just in case getting the discount needs a code",
+    date_start: "some start date",
+    date_end: "some end date",
+    message: "cost_override is the discounted cost"
+}
+
 
 
 
@@ -129,6 +139,6 @@ export {
     default_menu,
     default_location,
     default_reservation,
-
+    default_discount
 }
 
