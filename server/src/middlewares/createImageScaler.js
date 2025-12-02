@@ -19,7 +19,7 @@ dotenv.config({path: '../../../.env'});
  * Returns a middleware that resizes images to resolution specified in arguments.
  */
 
-const createImageScaler = (width, height, outputPath) => {
+const createImageScaler = (width, height, outputPath, suffix, fileType) => {
    return async (req, res, next) => {
         //if no file
         if (!req.file) {
@@ -31,7 +31,7 @@ const createImageScaler = (width, height, outputPath) => {
         //if file
         console.log('File uploaded: ',req.file.path);
         const inputName = req.file.filename;
-        const imagePath = outputPath +'/' + inputName + '_image';
+        const imagePath = outputPath +'/' + inputName + suffix +'.' + fileType;
         console.log('image path', imagePath);
 
         //add path to request
@@ -40,6 +40,7 @@ const createImageScaler = (width, height, outputPath) => {
         //function sharp(sharp.SharpInput, sharp.SharpOptions)
         await sharp(req.file.path)
             .resize(width, height)
+            .toFormat('png')
             .toFile(imagePath)
             .then(
                 (outputInfo) => {

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="upload-form.js"></script>
+
+</head>
+<body>
+
+<h1>Upload</h1>
+<form onSubmit=handleSubmit(event)>
+    <div>
+        <label htmlFor="name_fi">name_fi</label>
+        <input
+                name="name_fi"
+                type="text"
+                id="name_fi"
+                onChange={handleInputChange(event)}
+        />
+    </div>
+
+    <div>
+        <label htmlFor="name_en">name_en</label>
+        <textarea
+                name="name_en"
+                rows={5}
+                id="name_en"
+                onChange={handleInputChange(event)}
+        ></textarea>
+    </div>
+
+    <div>
+        <label htmlFor="cost">cost</label>
+        <textarea
+                name="cost"
+                rows={5}
+                id="cost"
+                onChange={handleInputChange(event)}
+        ></textarea>
+    </div>
+
+    <div>
+        <label htmlFor="description_fi">description_fi</label>
+        <textarea
+                name="description_fi"
+                rows={5}
+                id="description_fi"
+                onChange={handleInputChange(event)}
+        ></textarea>
+    </div>
+
+    <div>
+        <label htmlFor="description_en">description_en</label>
+        <textarea
+                name="description_en"
+                rows={5}
+                id="description_en"
+                onChange={handleInputChange(event)}
+        ></textarea>
+    </div>
+
+    <div>
+        <label htmlFor="type">type</label>
+        <textarea
+                name="type"
+                rows={5}
+                id="type"
+                onChange={handleInputChange(event)}
+        ></textarea>
+    </div>
+
+
+    <div>
+        <label htmlFor="file">File</label>
+        <input
+                name="file"
+                type="file"
+                id="file"
+                accept="image/*, video/*"
+                onChange={handleFileChange(event)}
+        />
+    </div>
+
+    <button type="submit">
+        Upload
+    </button>
+
+</form>
+
+
+
+</body>
+</html>
