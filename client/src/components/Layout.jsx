@@ -65,8 +65,7 @@ const Layout = () => {
 
     <>
       <Header />
-      <main className="pt-22">
-        {' '}
+      <main className="pt-22 bg-emerald-600">
         {/* Adds little space so header wont take space from pages. */}
         <Outlet />
       </main>
