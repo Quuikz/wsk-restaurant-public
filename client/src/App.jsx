@@ -15,6 +15,8 @@ import Contacts from './views/Contacts.jsx';
 import Home from './views/Home';
 import Profile from './views/Profile';
 import ShoppingCart from './views/ShoppingCart.jsx';
+import ShoppingCartModel from './views/ShoppingCartModel.jsx';
+import ShoppingCart4 from './views/ShoppingCart4.jsx';
 
 const App = () => {
   return (
@@ -38,6 +40,8 @@ const App = () => {
             {/*<Route path="/single" element={<Single />} />*/}
             <Route path='/contacts' element={<Contacts />} />
             <Route path='/shoppingcart' element={<ShoppingCart />} />
+            <Route path='/shoppingcart4' element={<ShoppingCart4 />} />
+            <Route path='/shoppingcartmodel' element={<ShoppingCartModel />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
           </Route>
