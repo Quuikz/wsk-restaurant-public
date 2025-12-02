@@ -2,7 +2,7 @@
 
 import bcrypt from 'bcrypt';
 
-import {addUser, findUserById, listAllUsers, modifyUser, removeUser} from "../models/user-model.js";
+import {addUser, findUserById, listAllUsers, modifyUser, removeUser, findUserByUsername} from "../models/user-model.js";
 
 const getUsers = (req, res) => {
     console.log('getUsers in user-controller')
@@ -114,4 +114,33 @@ const deleteUser = (req, res) => {
     );
 }
 
-export {getUsers, getUserById, postUser, putUser, deleteUser};
+/**
+ *
+ * @param req
+ * @param res
+ */
+const getUserByUsername = (req, res) => {
+    console.log('getUserByUsername in user-controller')
+    console.log(req.params.id);
+    const user = findUserByUsername(req.params.username);
+    user.then(
+        user => {
+            if (user) {
+                console.log('return user: '+user)
+                res.json(user);
+            } else {
+                res.sendStatus(404);
+            }
+        },
+        result => {
+            console.log('error in getUserByUsername in user-controller');
+            console.log(result);
+            res.sendStatus(500);
+        }
+    );
+};
+
+
+
+
+export {getUsers, getUserById, postUser, putUser, deleteUser, getUserByUsername};

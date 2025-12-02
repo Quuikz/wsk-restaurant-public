@@ -31,10 +31,14 @@ reservationRouter.route('/:id')
     .delete(authenticateToken, deleteReservation); //TODO: user should be allowed to access only their own reservations
 
 //endpoint http://hostname:port/api/reservations/user/:id
-reservationRouter.get('/user',authenticateToken, filterByUserIdOrAdmin, getReservationByUserId) //TODO: user should be allowed to access only their own reservations
+reservationRouter.get('/user/:id',authenticateToken, filterByUserIdOrAdmin, getReservationByUserId); //TODO: user should be allowed to access only their own reservations
 
 //endpoint http://hostname:port/api/reservations/location/:id
-reservationRouter.get('/location',authenticateToken, userIsAdmin, getReservationByLocation)
+reservationRouter.get('/location/id',authenticateToken, userIsAdmin, getReservationByLocation);
+
+//endpoint http://hostname:port/api/reservations/date/:date
+reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, getReservationByDate);
+
 
 
 export default reservationRouter;

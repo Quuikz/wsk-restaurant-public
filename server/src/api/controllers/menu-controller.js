@@ -9,7 +9,7 @@ import {
     modifyMenu,
     removeMenu,
     findMenusByLocation,
-    findMenuByDate
+    findMenusByDate
 } from "../models/menu-model.js";
 
 const getMenus = (req, res) => {

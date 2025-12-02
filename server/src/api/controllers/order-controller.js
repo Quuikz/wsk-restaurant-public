@@ -8,8 +8,10 @@ import {
     addOrder,
     modifyOrder,
     removeOrder,
-    findOrderByUserId,
-    findOrderByLocation} from "../models/order-model.js";
+    findOrdersByUserId,
+    findOrdersByLocation,
+    findOrdersByDate
+} from "../models/order-model.js";
 
 const getOrders = (req, res) => {
     console.log('getOrders in order-controller')
@@ -18,6 +20,7 @@ const getOrders = (req, res) => {
 
     //TODO: only admins can get all orders!
 
+    //TODO: error handling here see: discount-controller
     listAllOrders().then(
         result => {
             res.json(result);
@@ -123,7 +126,7 @@ const deleteOrder = (req, res) => {
     );
 }
 
-const getOrderByUserId = (req, res) => {
+const getOrdersByUserId = (req, res) => {
     console.log('getOrderByUserId in order-controller')
     console.log(req.params.id);
     const orderArray = findOrderByUserId(req.params.id);
@@ -145,7 +148,7 @@ const getOrderByUserId = (req, res) => {
 
 }
 
-const getOrderByLocation = (req, res) => {
+const getOrdersByLocation = (req, res) => {
     console.log('getOrderByLocation in order-controller')
     console.log(req.params.id);
     const orderArray = findOrderByLocation(req.params.id);
@@ -164,8 +167,29 @@ const getOrderByLocation = (req, res) => {
             res.sendStatus(500);
         }
     );
+}
+
+const getOrdersByDate = (req, res) => {
+    console.log('getOrderByLocation in order-controller')
+    console.log(req.params.id);
+    const orderArray = findOrdersByDate(req.params.date);
+    orderArray.then(
+        orderArray => {
+            if (orderArray) {
+                console.log('return orders for date '+req.params.date)
+                res.json(orderArray);
+            } else {
+                res.sendStatus(404);
+            }
+        },
+        result => {
+            console.log('error in getOrderByLocation in order-controller');
+            console.log(result);
+            res.sendStatus(500);
+        }
+    );
 
 }
 
 
-export {getOrders, getOrderById, postOrder, putOrder, deleteOrder, getOrderByUserId, getOrderByLocation};
+export {getOrders, getOrderById, postOrder, putOrder, deleteOrder, getOrdersByUserId, getOrdersByLocation, getOrdersByDate};

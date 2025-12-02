@@ -40,6 +40,9 @@ userRouter.route('/:id')
     .put(authenticateToken, filterByUserIdOrAdmin,  putUser)
     .delete(authenticateToken, filterByUserIdOrAdmin, deleteUser);
 
+//endpoint http://hostname:port/api/users/byname/:username
+userRouter.route('/byname/:username')
+
 
 export default userRouter;
 

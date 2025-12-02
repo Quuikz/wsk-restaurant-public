@@ -3,6 +3,7 @@
  */
 const default_user = {
     id : 0,
+    username : "default username",
     password: '',
     role: '',
     name: '',
@@ -38,7 +39,7 @@ const default_order = {
     user: 0,    //user.id = who made the order
     cost: '',
     timestamp: '',
-    location: '',       //location if multiple restaurants
+    location: 0,       //location if multiple restaurants
     items: [
         {item_type : "meal", amount: 0, item: {
                 id : 0,

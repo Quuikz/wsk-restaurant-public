@@ -11,7 +11,7 @@ import {
     putMenu,
     deleteMenu,
     getMenusByLocation,
-    getMenuByDate
+    getMenusByDate
 } from '../controllers/menu-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
@@ -31,10 +31,10 @@ menuRouter.route('/:id')
     .delete(authenticateToken, userIsAdmin, deleteMenu);
 
 //endpoint http://hostname:port/api/menus/date/:date
-menuRouter.get('/date/:date', getMenuByDate)
+menuRouter.route('/date/:date').get(getMenusByDate)
 
 //endpoint http://hostname:port/api/menus/location/:id
-menuRouter.get('/location', getMenusByLocation)
+menuRouter.route('/location/:id').get(getMenusByLocation)
 
 
 export default menuRouter;
