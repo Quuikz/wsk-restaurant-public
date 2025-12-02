@@ -4,12 +4,23 @@ Metropolia Web Sovellus Kurssi- Projekti
 
 <br><br>
 ### Ohje
-Luo tietokanta scriptillä: database/create-database-v2.sql (Käytä uusinta versionumeroa.)
+
+Luo tietokanta scriptillä: database/create-database-v4.sql (Käytä uusinta versionumeroa.)
 
 Muista antaa ohjelmalle pääsy tietokantaan. Aseta käyttäjätunnus .env -tiedostolla.
 
+<br>
 
-http-tests.http -tiedosto sisältää API:n testejä.
+### Kuvien lataaminen formdatalla
+
+Katso esimerkki lomakkeen käytöstä tiedostosta: tests/upload-form.html
+
+<br>
+
+### API-testit
+
+tests/api-tests -kansio sisältää API:n testejä. 
+
 Sisäänkirjautuminen toimii kovakoodatulla käyttäjällä:
 
     ### login with default user
