@@ -42,7 +42,7 @@ const handleSubmit = async (event) => {
     const response = await postMealTest(file,inputs,currentToken);
     document.querySelector('#response_area').innerHTML = response;
     document.querySelector('#uploaded_image')
-        .setAttribute('src', 'http://localhost:3000/public/images/meals'+ response['image']);
+        .setAttribute('src', 'http://localhost:3000/images/meals/'+ response['image']);
 
 };
 

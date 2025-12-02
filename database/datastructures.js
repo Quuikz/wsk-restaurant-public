@@ -7,7 +7,8 @@ const default_user = {
     role: '',
     name: '',
     email: '',
-    message: 'default user object'
+    message: 'default user object',
+    image: ""
 }
 
 
