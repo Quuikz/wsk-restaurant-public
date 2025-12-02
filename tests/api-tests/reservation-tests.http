@@ -1,36 +1,50 @@
 ### get reservations
 GET http://localhost:3000/api/reservations/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
 
 ### post new reservation
 POST http://localhost:3000/api/reservations/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
 
 {
   "id" : 0,
   "user": 1,
-  "date" : "",
-  "location" : "",
+  "date" : "20251202",
+  "location" : 2,
   "message" : "default reservation"
 }
 
 ### get reservation by id
 GET http://localhost:3000/api/reservations/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
 
 ### update reservation by id
-PUT http://localhost:3000/api/reservations/1
+PUT http://localhost:3000/api/reservations/0
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
 
 {
-  "id" : 0,
-  "user": 1,
+  "id" : "0",
+  "user": 5,
   "date" : "",
-  "location" : "",
+  "location" : "2",
   "message" : "default reservation"
 }
 
 ### delete reservation by id
 DELETE http://localhost:3000/api/reservations/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
+
+### get reservations by user id
+GET http://localhost:3000/api/reservations/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
+
+### get reservations by location id
+GET http://localhost:3000/api/reservations/location/0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
+
+### get reservation by date
+GET http://localhost:3000/api/reservations/date/20251202
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
+

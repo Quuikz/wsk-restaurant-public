@@ -117,7 +117,7 @@ const default_reservation = {
     id : 0,
     user: 1,
     date : "date",
-    location : "",
+    location : 0,
     table_count : 1,
     customer_count : 2,
     message : 'default reservation',

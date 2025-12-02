@@ -182,7 +182,7 @@ const getReservationByLocation = (req, res) => {
 
 const getReservationByDate = (req, res)=>{
     console.log('getReservationByDate in reservation-controller')
-    console.log(req.params.location + req.params.date);
+    console.log('date: ', req.params.date);
     const reservationArray = findReservationsByDate( req.params.date);
     reservationArray.then(
         reservationArray => {
