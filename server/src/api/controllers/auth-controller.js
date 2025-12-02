@@ -2,6 +2,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+//function for getting user
+import {findUserByUsername} from '../models/user-model.js'; //TODO: use this
 
 const login = (req, res) => {
     console.log('login in auth-controller')

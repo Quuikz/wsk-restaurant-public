@@ -7,8 +7,8 @@ import {default_meal} from "../../../../database/datastructures.js";
 
 const meals = [
     {...default_meal, id: 1, name: "burger 1", message: "meal number 1 in meal model"},
-    {...default_meal, id: 2, name: "burger 1", message: "meal number 2 in meal model"},
-    {...default_meal, id: 3, name: "burger 1", message: "meal number 3 in meal model"},
+    {...default_meal, id: 2, name: "burger 2", message: "meal number 2 in meal model"},
+    {...default_meal, id: 3, name: "burger 3", message: "meal number 3 in meal model"},
 ];
 
 /**
