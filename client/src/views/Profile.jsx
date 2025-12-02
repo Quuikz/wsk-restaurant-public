@@ -1,7 +1,7 @@
 const Profile = () => {
   return (
     <>
-      <div className=" max-w-screen-xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         {/* Profile title */}
         <div className="text-center w-full bg-orange-50 pt-20">
           <h2 className="text-3xl font-medium">| Profiili |</h2>
