@@ -70,6 +70,7 @@ const default_order = {
 const default_menu = {
     id : 0,
     date : '', //date format?
+    location: 0,
     meals : [
         {
             id : 0,

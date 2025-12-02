@@ -145,10 +145,10 @@ const getMenusByLocation = (req, res) => {
     );
 }
 
-const getMenuByDate = (req, res) => {
+const getMenusByDate = (req, res) => {
     console.log('getMenuByDate in menu-controller')
     console.log(req.params.date);
-    const menu = findMenuByDate(req.params.date);
+    const menu = findMenusByDate(req.params.date);
     menu.then(
         menu => {
             if (menu) {
@@ -176,5 +176,5 @@ export {
     putMenu,
     deleteMenu,
     getMenusByLocation,
-    getMenuByDate
+    getMenusByDate
 };
