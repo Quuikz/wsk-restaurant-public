@@ -8,6 +8,7 @@
  */
 const formatIdToNumber = (req, res, next) => {
     try {
+        console.log('formatIdToNumber');
         if(req.params.id) {
             req.params.id = Number(req.params.id);
             console.log();

@@ -61,7 +61,7 @@ const postMeal = (req, res) => {
     console.log(req.body);
 
     const result = addMeal(req.body, req.file);
-    //TODO: image data saved somewhere else? or not at all?
+    //TODO: what to do with image data in req.file? nothing?
     result.then(
         result => {
             if (result) {

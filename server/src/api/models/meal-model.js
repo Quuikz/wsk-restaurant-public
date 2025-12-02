@@ -53,6 +53,7 @@ const findMealById = async (id) => {
  */
 const addMeal = async (meal,file) => {
     try {
+        //TODO: meal.id has to be number!!
         meals.push({...meal, file: {...file}}); //TODO: file doesn't have to be here!
         return meals[meals.length - 1];
     } catch (error) {

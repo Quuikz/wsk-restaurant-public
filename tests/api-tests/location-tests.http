@@ -1,11 +1,10 @@
 ### get locations
 GET http://localhost:3000/api/locations/
 
-
 ### post new location
 POST http://localhost:3000/api/locations/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3NTczMCwiZXhwIjoxNzY0NzYyMTMwfQ.2p2F5XQC4ZhcbjpvhIqcyPzy_RVam4YIb113XTWVe3Q
 
 {
   "id" : 5,
@@ -18,12 +17,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 }
 
 ### get location by id
-GET http://localhost:3000/api/locations/1
+GET http://localhost:3000/api/locations/5
 
 ### update location by id
-PUT http://localhost:3000/api/locations/1
+PUT http://localhost:3000/api/locations/5
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3NTczMCwiZXhwIjoxNzY0NzYyMTMwfQ.2p2F5XQC4ZhcbjpvhIqcyPzy_RVam4YIb113XTWVe3Q
 
 {
   "id" : 1,
@@ -37,4 +36,4 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 
 ### delete location by id
 DELETE http://localhost:3000/api/locations/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2Mzk4MTU4NiwiZXhwIjoxNzY0MDY3OTg2fQ.VKyQPr-r08BfeT-vEU5_dumBhyZUu0RfY3Na5smUgWA
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3NTczMCwiZXhwIjoxNzY0NzYyMTMwfQ.2p2F5XQC4ZhcbjpvhIqcyPzy_RVam4YIb113XTWVe3Q

@@ -15,7 +15,9 @@ import {
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
+import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 import { createImageScaler } from "../../middlewares/createImageScaler.js";
+
 
 //router
 const mealRouter = express.Router();
@@ -35,6 +37,7 @@ mealRouter.get('/', getMeals)
         userIsAdmin,
         multerUpload.single('file'),
         imageScaler,
+        formatBodyTypes,
         postMeal);
 
 //endpoint http://hostname:port/api/meals/:id

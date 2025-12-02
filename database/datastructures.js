@@ -8,8 +8,8 @@ const default_user = {
     role: '',
     name: '',
     email: '',
-    message: 'default user object',
-    image: ""
+    message: 'default user object, image at //hostname:port/images/users/placeholder.jpg',
+    image: "placeholder.jpg"
 }
 
 
@@ -26,8 +26,8 @@ const default_meal = {
     description_en: "english description for the item",
     cost: 0.0,
     type: "?",
-    image: "public/images/burger.jpg",
-    message: 'default meal object,'
+    image: "burger.jpg",
+    message: 'default meal object image at: //hostname:port/images/meals/burger.jpg,'
 }
 
 /**
