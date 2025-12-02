@@ -3,7 +3,7 @@
 
 //set .env file for environmental variables
 import dotenv from 'dotenv';
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: './.env' });
 
 //environmental variables from .env
 const hostname = process.env.SERVER_HOST;
