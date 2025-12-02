@@ -1,7 +1,3 @@
-//Components
-import Ordering from './Home/Ordering.jsx';
-import Specials from './Home/Specials.jsx';
-
 const Profile = () => {
   return (
     <>
