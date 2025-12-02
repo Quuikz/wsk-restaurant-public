@@ -1,5 +1,9 @@
 'use strict';
 
+
+// TODO: user passwords must not be returned with responses!!!
+
+
 import bcrypt from 'bcrypt';
 
 import {addUser, findUserById, listAllUsers, modifyUser, removeUser, findUserByUsername} from "../models/user-model.js";
@@ -26,7 +30,7 @@ const getUserById = (req, res) => {
     user.then(
         user => {
             if (user) {
-                console.log('return user: '+user)
+                console.log('return user: ',user)
                 res.json(user);
             } else {
                 res.sendStatus(404);
@@ -51,7 +55,7 @@ const postUser = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('return user: '+result)
+                console.log('return user: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -76,7 +80,7 @@ const putUser = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('return user: '+result)
+                console.log('return user: ',result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -121,12 +125,13 @@ const deleteUser = (req, res) => {
  */
 const getUserByUsername = (req, res) => {
     console.log('getUserByUsername in user-controller')
-    console.log(req.params.id);
+    console.log('username: ',req.params.username);
+
     const user = findUserByUsername(req.params.username);
     user.then(
         user => {
             if (user) {
-                console.log('return user: '+user)
+                console.log('return user: ',user)
                 res.json(user);
             } else {
                 res.sendStatus(404);
@@ -139,7 +144,6 @@ const getUserByUsername = (req, res) => {
         }
     );
 };
-
 
 
 

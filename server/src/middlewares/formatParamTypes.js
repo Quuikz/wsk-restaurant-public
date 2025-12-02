@@ -30,7 +30,8 @@ const formatParamTypes = (req, res, next) => {
 export default formatParamTypes;
 
 /*TODO: all parameter that need to be formatted:
-* date
+* date - date
+* username - string
 * *
 *
 * */
