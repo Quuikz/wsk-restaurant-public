@@ -39,7 +39,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 ### user upload with picture
 POST http://localhost:3000/api/users/
 Content-Type: multipart/form-data; boundary=MyBoundary
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NzU2NSwiZXhwIjoxNzY0NzUzOTY1fQ.V42nZ5P0krG60ohNoqlaBkn9f-xjcOgcjO1A1i7NXSc
+
 
 --MyBoundary
 Content-Disposition: form-data; name="id"

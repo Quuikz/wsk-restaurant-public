@@ -29,7 +29,7 @@ discountRouter.route('/:id')
 
 //endpoint http://hostname:port/api/discounts/bymeal/:id
 discountRouter.route('/bymeal/:id')
-    .get(authenticateToken, formatIdToNumber, getDiscountByMeal);
+    .get(formatIdToNumber, getDiscountByMeal);
 
 export default discountRouter;
 
