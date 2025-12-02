@@ -62,10 +62,14 @@ const Header = () => {
 
             {/* -- Shopping cart -- */}
             <div className="absolute inset-y-0 right-16 flex items-center ">
+              <Link
+                    to='/shoppingcart'>
+                
               <button
                 type="button"
                 className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500"
               >
+                
                 <span className="absolute -inset-0.5"></span>
                 <span className="sr-only">Open main menu</span>
                 <svg
@@ -83,6 +87,7 @@ const Header = () => {
                   />
                 </svg>
               </button>
+              </Link>
             </div>
 
             {/* -- Burger button -- */}
