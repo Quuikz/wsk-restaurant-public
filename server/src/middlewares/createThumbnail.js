@@ -26,16 +26,16 @@ const createThumbnail = async (req, res, next) => {
     //if file
     console.log(req.file.path);
     const inputName = req.file.filename;
-    const outputpath = './uploads/'+inputName+'_thumb';
-    console.log('thumbnail path', outputpath);
+    const outputPath = './uploads/'+inputName+'_thumb';
+    console.log('thumbnail path', outputPath);
 
     //add path to request
-    req.file.thumbnailPath = outputpath;
+    req.file.thumbnailPath = outputPath;
 
     //function sharp(sharp.SharpInput, sharp.SharpOptions)
     await sharp(req.file.path)
         .resize(160, 160)
-        .toFile(outputpath)
+        .toFile(outputPath)
         .then(
             (output) => {
                 console.log('thumbnail created');

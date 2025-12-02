@@ -1,31 +1,57 @@
-### login with default user
-POST http://localhost:3000/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "user",
-  "password": "password"
-}
-
-### login with default admin user
-POST http://localhost:3000/api/auth/login
-Content-Type: application/json
-
-{
-  "username": "admin",
-  "password": "password"
-}
-
-### get validate current token
-GET http://localhost:3000/api/auth/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzY0MjMxNTE0LCJleHAiOjE3NjQzMTc5MTR9.HQ76_unLvvLlK9Dz9lf41rwKFJ8NTU_0OE5ebZ2t4-8
-
 ### get orders
 #only for admin users
 GET http://localhost:3000/api/orders/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNTUzOTA4LCJleHAiOjE3NjM2NDAzMDh9.byQigsIuCBQ69kHu1VkgoRAgC9HY0mZigw1Gps5xQTw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+###post new order
+POST http://localhost:3000/api/orders/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+{
+  "id" : "75",
+  "user": 15,
+  "date" : "20251202",
+  "location" : "",
+  "message" : "default order"
+}
+
 
 ### get order by id
 #use login with default user first, then copy token here
-GET http://localhost:3000/api/users/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNTUzOTA4LCJleHAiOjE3NjM2NDAzMDh9.byQigsIuCBQ69kHu1VkgoRAgC9HY0mZigw1Gps5xQTw
+GET http://localhost:3000/api/orders/3
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+### update order by id
+PUT http://localhost:3000/api/orders/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+{
+  "id" : "75",
+  "user": 15,
+  "date" : "",
+  "location" : "",
+  "message" : "default order"
+}
+
+### delete order by id
+DELETE http://localhost:3000/api/orders/75
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+### get orders by user id
+#use login with default user first, then copy token here
+GET http://localhost:3000/api/orders/user/15
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+### get order by location id
+#use login with default user first, then copy token here
+GET http://localhost:3000/api/orders/location/0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+### get order by date
+#use login with default user first, then copy token here
+GET http://localhost:3000/api/orders/date/20251202
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+
+

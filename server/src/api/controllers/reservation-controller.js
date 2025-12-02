@@ -8,10 +8,11 @@ import {
     addReservation,
     modifyReservation,
     removeReservation,
-    findReservationByUserId,
-    findReservationByLocation,
-    findReservationByDate
+    findReservationsByUserId,
+    findReservationsByLocation,
+    findReservationsByDate
 } from "../models/reservation-model.js";
+import {listAllDiscounts} from "../models/discount-model.js";
 
 const getReservations = (req, res) => {
     console.log('getReservations in reservation-controller')
@@ -21,12 +22,17 @@ const getReservations = (req, res) => {
     //TODO: only admins can get all reservations!
 
     listAllReservations().then(
-        result => {
-            res.json(result);
+        (result) => {
+            if (result) {
+                res.json(result);
+            } else {
+                console.log('no reservations found');
+                res.status(200).send("no reservations found");
+            }
         },
 
         (result) => {
-            console.log('error in listAllUsers');
+            console.log('error in getReservations in discount-controller');
             console.log(result);
             res.sendStatus(500);
         }
@@ -135,7 +141,7 @@ const getReservationByUserId = (req, res) => {
     //filterByUserIdOrAdmin filter unauthorized users
     console.log('getReservationByUserId in reservation-controller')
     console.log(req.params.id);
-    const reservationArray = findReservationByUserId(req.params.id);
+    const reservationArray = findReservationsByUserId(req.params.id);
     reservationArray.then(
         reservationArray => {
             if (reservationArray) {
@@ -156,7 +162,7 @@ const getReservationByUserId = (req, res) => {
 const getReservationByLocation = (req, res) => {
     console.log('getReservationByLocation in reservation-controller')
     console.log(req.params.id);
-    const reservationArray = findReservationByLocation(req.params.id);
+    const reservationArray = findReservationsByLocation(req.params.id);
     reservationArray.then(
         reservationArray => {
             if (reservationArray) {
@@ -176,8 +182,8 @@ const getReservationByLocation = (req, res) => {
 
 const getReservationByDate = (req, res)=>{
     console.log('getReservationByDate in reservation-controller')
-    console.log(req.params.location + req.params.date);
-    const reservationArray = findReservationByDate( req.params.date);
+    console.log('date: ', req.params.date);
+    const reservationArray = findReservationsByDate( req.params.date);
     reservationArray.then(
         reservationArray => {
             if (reservationArray) {

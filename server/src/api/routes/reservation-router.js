@@ -12,9 +12,14 @@ import {
     getReservationByLocation,
     getReservationByDate
 } from '../controllers/reservation-controller.js';
+
+//middlewares
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import filterByUserIdOrAdmin from "../../middlewares/filterByUserIdOrAdmin.js";
+import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
+import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
+import formatParamTypes from "../../middlewares/formatParamTypes.js";
 
 
 const reservationRouter = express.Router();
@@ -22,19 +27,23 @@ const reservationRouter = express.Router();
 
 //endpoint http://hostname:port/api/reservations
 reservationRouter.get('/', authenticateToken, userIsAdmin, getReservations)
-    .post('/', authenticateToken, postReservation); //TODO: is posting reservations without order or login allowed?
+    .post('/', authenticateToken, formatBodyTypes, postReservation); //TODO: is posting reservations without order or login allowed?
 
 //endpoint http://hostname:port/api/reservations/:id
 reservationRouter.route('/:id')
-    .get(authenticateToken, getReservationById) //TODO: user should be allowed to access only their own reservations
-    .put(authenticateToken, putReservation) //TODO: user should be allowed to access only their own reservations
-    .delete(authenticateToken, deleteReservation); //TODO: user should be allowed to access only their own reservations
+    .get(authenticateToken, formatIdToNumber, getReservationById) //TODO: user should be allowed to access only their own reservations
+    .put(authenticateToken, formatIdToNumber, formatBodyTypes, putReservation) //TODO: user should be allowed to access only their own reservations
+    .delete(authenticateToken, formatIdToNumber, deleteReservation); //TODO: user should be allowed to access only their own reservations
 
 //endpoint http://hostname:port/api/reservations/user/:id
-reservationRouter.get('/user',authenticateToken, filterByUserIdOrAdmin, getReservationByUserId) //TODO: user should be allowed to access only their own reservations
+reservationRouter.get('/user/:id',authenticateToken, filterByUserIdOrAdmin, formatIdToNumber, getReservationByUserId); //TODO: user should be allowed to access only their own reservations
 
 //endpoint http://hostname:port/api/reservations/location/:id
-reservationRouter.get('/location',authenticateToken, userIsAdmin, getReservationByLocation)
+reservationRouter.get('/location/:id',authenticateToken, userIsAdmin, formatIdToNumber, getReservationByLocation);
+
+//endpoint http://hostname:port/api/reservations/date/:date
+reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, formatParamTypes, getReservationByDate);
+
 
 
 export default reservationRouter;

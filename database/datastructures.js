@@ -3,11 +3,13 @@
  */
 const default_user = {
     id : 0,
+    username : "default username",
     password: '',
     role: '',
     name: '',
     email: '',
-    message: 'default user object'
+    message: 'default user object, image at //hostname:port/images/users/placeholder.jpg',
+    image: "placeholder.jpg"
 }
 
 
@@ -24,8 +26,8 @@ const default_meal = {
     description_en: "english description for the item",
     cost: 0.0,
     type: "?",
-    image: "public/images/burger.jpg",
-    message: 'default meal object,'
+    image: "burger.jpg",
+    message: 'default meal object image at: //hostname:port/images/meals/burger.jpg,'
 }
 
 /**
@@ -37,7 +39,7 @@ const default_order = {
     user: 0,    //user.id = who made the order
     cost: '',
     timestamp: '',
-    location: '',       //location if multiple restaurants
+    location: 0,       //location if multiple restaurants
     items: [
         {item_type : "meal", amount: 0, item: {
                 id : 0,
@@ -69,6 +71,7 @@ const default_order = {
 const default_menu = {
     id : 0,
     date : '', //date format?
+    location: 0,
     meals : [
         {
             id : 0,
@@ -99,6 +102,7 @@ const default_menu = {
  */
 const default_location = {
     id : 0,
+    name: "",
     address : '',
     email : '',
     phone : '',
@@ -113,7 +117,7 @@ const default_reservation = {
     id : 0,
     user: 1,
     date : "date",
-    location : "",
+    location : 0,
     table_count : 1,
     customer_count : 2,
     message : 'default reservation',

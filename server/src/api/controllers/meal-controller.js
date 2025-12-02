@@ -8,6 +8,7 @@ import {
     modifyMeal,
     removeMeal,
 } from "../models/meal-model.js";
+import {listAllLocations} from "../models/location-model.js";
 
 const getMeals = (req, res) => {
     console.log('getMeals in meal-controller')
@@ -16,12 +17,17 @@ const getMeals = (req, res) => {
 
 
     listAllMeals().then(
-        result => {
-            res.json(result);
+        (result) => {
+            if (result) {
+                res.json(result);
+            } else {
+                console.log('no meals found');
+                res.status(200).send("no meals found");
+            }
         },
 
         (result) => {
-            console.log('error in listAllUsers');
+            console.log('error in getMeals in meal-controller');
             console.log(result);
             res.sendStatus(500);
         }
@@ -54,11 +60,12 @@ const postMeal = (req, res) => {
     console.log('postMeal in meal-controller');
     console.log(req.body);
 
-    const result = addMeal(req.body);
+    const result = addMeal(req.body, req.file);
+    //TODO: what to do with image data in req.file? nothing?
     result.then(
         result => {
             if (result) {
-                console.log('added meal: '+result)
+                console.log('added meal: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -81,7 +88,7 @@ const putMeal = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('return meal: '+result)
+                console.log('return meal: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
