@@ -2,6 +2,7 @@
 
 /**
  * Middleware that changes id parameter INSIDE request.body into a Number type.
+ * Has to run AFTER Multer.
  * @param req
  * @param res
  * @param next
