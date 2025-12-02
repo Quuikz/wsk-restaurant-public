@@ -35,11 +35,15 @@ const handleFileChange = (evt) => {
 };
 
 //eventhandler for submit
-const handleSubmit = (event) => {
+const handleSubmit = async (event) => {
     console.log(event);
     event.preventDefault();
     console.log('submit:', inputs, file, currentToken);
-    postMealTest(file,inputs,currentToken);
+    const response = await postMealTest(file,inputs,currentToken);
+    document.querySelector('#response_area').innerHTML = response;
+    document.querySelector('#uploaded_image')
+        .setAttribute('src', 'http://localhost:3000/public/images/meals'+ response['image']);
+
 };
 
 

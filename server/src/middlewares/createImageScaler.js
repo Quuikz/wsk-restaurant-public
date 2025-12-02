@@ -15,6 +15,8 @@ dotenv.config({path: '../../../.env'});
  * @param width width of output image
  * @param height height of output image
  * @param outputPath path to uploads directory
+ * @param suffix string added to filename
+ * @param fileType image file type 'png' / 'jpg'
  * @return {(function(*, *, *): Promise<void>)|*}
  * Returns a middleware that resizes images to resolution specified in arguments.
  */
@@ -31,11 +33,12 @@ const createImageScaler = (width, height, outputPath, suffix, fileType) => {
         //if file
         console.log('File uploaded: ',req.file.path);
         const inputName = req.file.filename;
-        const imagePath = outputPath +'/' + inputName + suffix +'.' + fileType;
+        const outputName = inputName + suffix +'.' + fileType;
+        const imagePath = outputPath +'/' + outputName;
         console.log('image path', imagePath);
 
-        //add path to request
-        req.body.image = imagePath;
+        //add image name to request
+        req.body.image = inputName + suffix +'.' + fileType;
 
         //function sharp(sharp.SharpInput, sharp.SharpOptions)
         await sharp(req.file.path)
