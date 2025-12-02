@@ -16,6 +16,7 @@ import Home from './views/Home';
 import Profile from './views/Profile';
 import ShoppingCart from './views/ShoppingCart.jsx';
 import Weeklist from './views/Weeklist.jsx';
+import Giftcards from './views/Giftcards.jsx';
 
 const App = () => {
   return (
@@ -42,6 +43,7 @@ const App = () => {
             <Route path="/weeklist" element={<Weeklist />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
+            <Route path="/giftcards" element={<Giftcards />} />
           </Route>
         </Routes>
       </UserProvider>
