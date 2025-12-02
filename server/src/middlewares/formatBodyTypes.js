@@ -9,6 +9,8 @@
 
 //TODO: validate inputs more ?
 
+    //TODO format request.headers instead?
+
 const formatBodyTypes = (req, res, next) => {
     try {
         console.log('formatBodyTypes');
