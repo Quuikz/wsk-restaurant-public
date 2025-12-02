@@ -15,6 +15,8 @@ import {
 } from '../controllers/menu-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
+import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
+import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 
 
 const menuRouter = express.Router();
@@ -22,13 +24,17 @@ const menuRouter = express.Router();
 
 //endpoint http://hostname:port/api/menus
 menuRouter.get('/', getMenus)
-    .post('/', authenticateToken, userIsAdmin, postMenu);
+    .post('/',
+        authenticateToken,
+        userIsAdmin,
+        formatBodyTypes,
+        postMenu);
 
 //endpoint http://hostname:port/api/menus/:id
 menuRouter.route('/:id')
-    .get(getMenuById)
-    .put(authenticateToken, userIsAdmin, putMenu)
-    .delete(authenticateToken, userIsAdmin, deleteMenu);
+    .get(formatIdToNumber, getMenuById)
+    .put(authenticateToken, userIsAdmin, formatIdToNumber, formatBodyTypes, putMenu)
+    .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteMenu);
 
 //endpoint http://hostname:port/api/menus/date/:date
 menuRouter.route('/date/:date').get(getMenusByDate)

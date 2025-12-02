@@ -112,7 +112,7 @@ const deleteOrder = (req, res) => {
         message => {
             if (message) {
                 console.log(message);
-                res.sendStatus(200).send(message);
+                res.status(200).send(message);
             } else {
                 console.log('deleteOrder: order not found');
                 res.sendStatus(404);
@@ -129,7 +129,7 @@ const deleteOrder = (req, res) => {
 const getOrdersByUserId = (req, res) => {
     console.log('getOrderByUserId in order-controller')
     console.log(req.params.id);
-    const orderArray = findOrderByUserId(req.params.id);
+    const orderArray = findOrdersByUserId(req.params.id);
     orderArray.then(
         orderArray => {
             if (orderArray) {
@@ -151,7 +151,7 @@ const getOrdersByUserId = (req, res) => {
 const getOrdersByLocation = (req, res) => {
     console.log('getOrderByLocation in order-controller')
     console.log(req.params.id);
-    const orderArray = findOrderByLocation(req.params.id);
+    const orderArray = findOrdersByLocation(req.params.id);
     orderArray.then(
         orderArray => {
             if (orderArray) {
@@ -170,8 +170,8 @@ const getOrdersByLocation = (req, res) => {
 }
 
 const getOrdersByDate = (req, res) => {
-    console.log('getOrderByLocation in order-controller')
-    console.log(req.params.id);
+    console.log('getOrderByDate in order-controller')
+    console.log(req.params.date);
     const orderArray = findOrdersByDate(req.params.date);
     orderArray.then(
         orderArray => {
