@@ -44,29 +44,48 @@ const getUserById = (req, res) => {
     );
 };
 
+/**
+ *
+ * @param req
+ * @param res
+ */
 const postUser = (req, res) => {
-    console.log('postUser in user-controller');
-    console.log(req.body);
+    try {
+        console.log('postUser in user-controller');
+        console.log(req.body);
 
-    //Bcrypt password hash
-    req.body.password = bcrypt.hashSync(req.body.password, 10);
+        //Bcrypt password hash
+        req.body.password = bcrypt.hashSync(req.body.password, 10);
 
-    const result = addUser(req.body);
-    result.then(
-        result => {
-            if (result) {
-                console.log('return user: ', result)
-                res.json(result);
-            } else {
-                res.sendStatus(404);
+        addUser(req.body).then(
+            user => {
+                if (user) {
+                    console.log('added user: ', user)
+
+                    const userWithNoPassword = {
+                        id: user.id,
+                        name: user.name,
+                        username: user.username,
+                        email: user.email,
+                        role: user.role,
+                    }
+
+                    res.json(userWithNoPassword);
+
+                } else {
+                    res.sendStatus(404);
+                }
+            },
+            result => {
+                console.log('error in postUser in user-controller');
+                console.log(result);
+                res.sendStatus(500);
             }
-        },
-        result => {
-            console.log('error in postUser in user-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+        );
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
 };
 
 const putUser = (req, res) => {

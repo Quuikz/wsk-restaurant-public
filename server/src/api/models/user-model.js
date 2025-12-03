@@ -50,12 +50,14 @@ const findUserById = async (id) => {
 /**
  *
  * @param user
- * @return {Promise<{id: number, target_meal: number, cost_override: number, user_code: string, date_start: string, date_end: string, message: string}|{id: number, target_meal: number, cost_override: number, user_code: string, date_start: string, date_end: string, message: string}|{id: number, target_meal: number, cost_override: number, user_code: string, date_start: string, date_end: string, message: string}>}
+ * @return {Promise<{id: number, password: *, role: string, name: string, email: string, username: string, message: string}|{id: number, password: *, role: string, name: string, email: string, username: string, message: string}|{id: number, password: *, role: string, name: string, email: string, username: string, message: string}|boolean>}
  * object added to array/database or false if fails
  */
 const addUser = async (user) => {
     try {
-        users.push(user);
+        //default user values overridden by user, role overridden to prevent creating admins
+        const newUser = {...default_user, ...user, role:"user"};
+        users.push(newUser);
         return users[users.length - 1];
     } catch (error) {
         console.log(error);

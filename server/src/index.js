@@ -3,11 +3,11 @@
 
 //set .env file for environmental variables
 import dotenv from 'dotenv';
-dotenv.config({ path: '../../.env' });
+dotenv.config({ path: '.env' });
 
 //environmental variables from .env
-const hostname = process.env.SERVER_HOST || '127.0.0.1';
-const port = process.env.SERVER_PORT || 3000;
+const hostname = process.env.SERVER_HOST;
+const port = process.env.SERVER_PORT;
 
 console.log('ENV VARS:', process.env.SERVER_HOST, process.env.SERVER_PORT);
 

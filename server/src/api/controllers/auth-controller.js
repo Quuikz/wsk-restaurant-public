@@ -16,7 +16,7 @@ const login = async (req, res) => {
             findUserByUsername(req.body.username).then(
                 (user) => {
                     if (user) {
-                        console.log('user found in auth-controller-login: ' + user)
+                        console.log('user found in auth-controller-login: ' , user)
 
                         if (bcrypt.compareSync(req.body.password, user.password)) {
                             console.log('password correct');
@@ -29,6 +29,7 @@ const login = async (req, res) => {
                                 email: user.email,
                                 role: user.role,
                             };
+
                             const token = jwt.sign(userWithNoPassword, process.env.JWT_SECRET, {
                                 expiresIn: '24h',
                             });
