@@ -1,5 +1,8 @@
  import {createContext, useState} from 'react';
- import {useAuthentication, useUser} from '../hooks/BackupOfOldAssignments/apiHooks';
+ //import {useAuthentication, useUser} from '../hooks/BackupOfOldAssignments/apiHooks';
+ import { useAuthentication } from '../hooks/apiHooks';
+ //temp - as it's not yet implemented, just use old
+ import { useUser } from '../hooks/BackupOfOldAssignments/apiHooks';
  import {useLocation, useNavigate} from 'react-router';
     
  const UserContext = createContext(null);
@@ -19,6 +22,7 @@
              const { token, user } = await postLogin(inputs);
              // TODO: set token to local storage
              localStorage.setItem('token', token);
+             //console.log(token);
              // TODO: set user to state
              setUser(user);
              // TODO: navigate to home
