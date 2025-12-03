@@ -4,10 +4,10 @@
 const default_user = {
     id : 0,
     username : "default username",
-    password: '',
-    role: '',
-    name: '',
-    email: '',
+    password: "",
+    role: "",
+    name: "",
+    email: "",
     message: 'default user object, image at //hostname:port/images/users/placeholder.jpg',
     image: "placeholder.jpg"
 }
