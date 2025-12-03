@@ -20,6 +20,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
     //Do bunch of logic like pw matching, empty inputs and such.
     try {
       const result = await postUser(inputs);
+      
       console.log(result);
     } catch (error) {
       console.log('Error in doRegister', error);
