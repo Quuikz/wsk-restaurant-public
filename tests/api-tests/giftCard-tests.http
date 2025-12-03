@@ -47,10 +47,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 GET http://localhost:3000/api/giftcards/user/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDc3Mjg1NywiZXhwIjoxNzY0ODU5MjU3fQ.h7LtGVPqcww9nCvEjnYSGVm_QjR-0ZLZzH5Nn4L76Bs
 
-### validate that giftcard is real and not redeemed by password
-GET http://localhost:3000/api/giftcards/validate/password3
+### validate that giftcard exists and not redeemed by password
+GET http://localhost:3000/api/giftcards/validate/password
+Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDc3Mjg1NywiZXhwIjoxNzY0ODU5MjU3fQ.h7LtGVPqcww9nCvEjnYSGVm_QjR-0ZLZzH5Nn4L76Bs
 
+{
+  "password" : "password1"
+}
+
+
 ### redeem a giftcard by password
-PUT http://localhost:3000/api/giftcards/redeem/password1
+PUT http://localhost:3000/api/giftcards/redeem/password
+Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDc3Mjg1NywiZXhwIjoxNzY0ODU5MjU3fQ.h7LtGVPqcww9nCvEjnYSGVm_QjR-0ZLZzH5Nn4L76Bs
+
+{
+  "password" : "password1"
+}
