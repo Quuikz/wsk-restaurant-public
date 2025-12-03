@@ -14,7 +14,7 @@ import {
 const getDiscounts = (req, res) => {
     console.log('getDiscounts in discount-controller')
     const user = res.locals.user;
-    console.log('user authenticated:' +res.locals.user);
+    console.log('user authenticated:' + res.locals.user);
 
 
     listAllDiscounts().then(
@@ -42,7 +42,7 @@ const getDiscountById = (req, res) => {
     discount.then(
         (discount) => {
             if (discount) {
-                console.log('return discount'+req.params.id)
+                console.log('return discount' + req.params.id)
                 res.json(discount);
 
             } else {
@@ -65,7 +65,7 @@ const postDiscount = (req, res) => {
     result.then(
         (result) => {
             if (result) {
-                console.log('added discount: '+result)
+                console.log('added discount: ' + result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -88,7 +88,7 @@ const putDiscount = (req, res) => {
     result.then(
         (result) => {
             if (result) {
-                console.log('return discount: '+result)
+                console.log('return discount: ' + result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -105,7 +105,7 @@ const putDiscount = (req, res) => {
 const deleteDiscount = (req, res) => {
     console.log('deleteDiscount in discount-controller');
     console.log(req.params.id);
-    console.log('user authenticated:' +res.locals.user);
+    console.log('user authenticated:' + res.locals.user);
 
 
     let message = removeDiscount(req.params.id, res.locals.user);
@@ -135,7 +135,7 @@ const getDiscountByMeal = (req, res) => {
     orderArray.then(
         (orderArray) => {
             if (orderArray) {
-                console.log('return discounts for meal '+req.params.id)
+                console.log('return discounts for meal ' + req.params.id)
                 res.json(orderArray);
             } else {
                 res.sendStatus(404);

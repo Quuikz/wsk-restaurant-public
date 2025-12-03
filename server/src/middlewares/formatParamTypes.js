@@ -12,7 +12,11 @@ const formatParamTypes = (req, res, next) => {
     try {
         console.log('formatParamTypes');
         if(req.params) {
-            console.log('request.params found TODO: this middleware does nothing'); //TODO: this...
+            //TODO: this...
+            req.params.id = Number(req.params.type);
+            req.params.username = String(req.params.username);
+            req.params.password = String(req.params.password);
+
 
             next();
         } else {

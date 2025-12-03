@@ -1,0 +1,187 @@
+//bcrypt for passwords
+import bcrypt from "bcrypt";
+
+//example datastructure
+import {default_giftCard} from "../../../../database/datastructures.js";
+
+const giftCards = [
+    {...default_giftCard, id: 1, password: bcrypt.hashSync("password1", 10), message: "giftCard number 1 in giftCard model"},
+    {...default_giftCard, id: 2, password: bcrypt.hashSync("password2", 10), message: "giftCard number 2 in giftCard model"},
+    {...default_giftCard, id: 3, password: bcrypt.hashSync("password3", 10), message: "giftCard number 3 in giftCard model"},
+];
+
+/**
+ *
+ * @return
+ * array of all objects or false if error
+ */
+const listAllGiftCards = async () => {
+    try {
+        return giftCards;
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+/**
+ * @param id
+ * @return
+ * first object that has the id or false if not found or error
+ */
+const findGiftCardById = async (id) => {
+    try {
+        const resultArray = giftCards.filter(giftCard => giftCard.id === Number(id));
+        if (resultArray.length > 0) {
+            return resultArray[0];
+        } else {
+            return false
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+
+
+/**
+ *
+ * @param giftCard
+ * @return
+ * object added to array/database or false if fails
+ */
+const addGiftCard = async (giftCard) => {
+    try {
+        giftCard.password = bcrypt.hashSync(giftCard.password, 10); //hash the password
+        giftCards.push(giftCard);
+        return giftCards[giftCards.length - 1];
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+
+/**
+ *
+ * @param giftCard giftCard object
+ * @param giftCardId number
+ * @return {Promise<*|boolean>}
+ * giftCard or false if error or not found
+ */
+const modifyGiftCard = async (giftCard, giftCardId) => {
+    try {
+        console.log('modifyGiftCard: ',giftCardId, giftCard);
+        const index = giftCards.findIndex( (d) => {
+            console.log(d.id, giftCardId);
+            return  d.id === Number(giftCardId);  //Has to be number!
+        } );
+
+
+        if (index >= 0) {
+            console.log('found at:'+index);
+            giftCards.splice(index,1, {...giftCards[index], ...giftCard });
+            return giftCards[index];
+
+        } else {
+            console.log('not found: ',giftCardId);
+            return false;
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+};
+
+/**
+ *
+ * @param giftCardId number
+ * @return {Promise<boolean>} false if not found
+ */
+const removeGiftCard = async (giftCardId) => {
+    try {
+        console.log('removeGiftCard in giftCard-model');
+        const index = giftCards.findIndex(giftCard => giftCard.id === Number(giftCardId));
+        if (index >= 0) {
+            giftCards.splice(index,1);
+            return true;
+
+        } else {
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+
+};
+
+
+/**
+ *
+ * @param userId
+ * @return {Promise<({id: number, value: number, expiration_date: string, password: *, redeemed: boolean, message: string, order: number, user: number}|{id: number, value: number, expiration_date: string, password: *, redeemed: boolean, message: string, order: number, user: number}|{id: number, value: number, expiration_date: string, password: *, redeemed: boolean, message: string, order: number, user: number})[]|boolean>}
+ * array of objects or false if error
+ */
+const findGiftCardsByUserId = async (userId) => {
+    try {
+        console.log('findGiftCardsByUserId in giftCard-model');
+        const resultArray = giftCards.filter(giftCard => giftCard.user === Number(userId));
+        if (resultArray) {
+            return resultArray;
+        } else {
+            return false
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+/**
+ *
+ * @param password
+ * @return
+ * returns a giftcard or false if error or not found
+ */
+const  findGiftCardByPassword = async (password) => {
+    try {
+        console.log('findGiftCardByPassword in giftCard-model');
+
+        //filter giftcars by password. password is plain while database has hashed passwords:
+        const resultArray = giftCards.filter(giftCard => bcrypt.compareSync(password, giftCard.password));
+        if (resultArray) {
+            console.log('giftCards found: ',resultArray);
+            if(resultArray.length > 1) {
+                console.error('multiple giftcars have same password!');
+            }
+            return resultArray[0];
+
+        } else {
+            console.log('not found with password: ', password);
+            return false
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+
+
+
+export {
+    listAllGiftCards,
+    findGiftCardById,
+    addGiftCard,
+    modifyGiftCard,
+    removeGiftCard,
+    findGiftCardsByUserId,
+    findGiftCardByPassword
+}

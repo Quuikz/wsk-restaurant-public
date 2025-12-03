@@ -133,6 +133,16 @@ const default_discount = {
     message: "cost_override is the discounted cost"
 }
 
+const default_giftCard = {
+    id : 0,
+    value: 15.5,
+    expiration_date : "20260101",
+    password: "giftcardpassword",
+    redeemed: false,
+    message : "defauld giftcard, password is used to validate the giftcard, redeemed: boolean indicates if card has been redeemed",
+    order: 0,
+    user : 0,
+}
 
 
 
@@ -143,6 +153,7 @@ export {
     default_menu,
     default_location,
     default_reservation,
-    default_discount
+    default_discount,
+    default_giftCard
 }
 
