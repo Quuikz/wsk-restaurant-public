@@ -172,38 +172,42 @@ const getGiftCardsByUserId = (req, res) => {
 
 
 const getGiftCardValidation = (req, res) => {
-    //TODO: this should check if the giftcard password is valid and the valid giftcard has not been redeemed.
-    console.log('validateGiftCard in giftCard-controller')
-    console.log('giftcard password:', req.params.password);
+    try {
+        //this should check if the giftcard password is valid and the valid giftcard has not been redeemed.
+        console.log('validateGiftCard in giftCard-controller')
+        console.log('giftcard password:', req.body.password);
 
-    const giftCard = findGiftCardByPassword(req.params.password);
-    giftCard.then(
-        (giftCard) => {
-            if (giftCard) {
-                console.log('giftcard found, redeemed:', giftCard.redeemed);
+        findGiftCardByPassword(req.body.password).then(
+            (giftCard) => {
+                if (giftCard) {
+                    console.log('giftcard found, redeemed:', giftCard.redeemed);
 
-                const giftCardWithoutPassword = {
-                    id : giftCard.id,
-                    value: giftCard.value,
-                    expiration_date : giftCard.expiration_date,
-                    redeemed: giftCard.redeemed,
-                    order: giftCard.order,
-                    user : giftCard.user,
-                };
+                    const giftCardWithoutPassword = {
+                        id: giftCard.id,
+                        value: giftCard.value,
+                        expiration_date: giftCard.expiration_date,
+                        redeemed: giftCard.redeemed,
+                        order: giftCard.order,
+                        user: giftCard.user,
+                    };
 
-                res.json(giftCardWithoutPassword);
+                    res.json(giftCardWithoutPassword);
 
-            } else {
-                console.log('no giftcard found in getGiftCardValidation');
-                res.status(404).send('No giftcard found.');
+                } else {
+                    console.log('no giftcard found in getGiftCardValidation');
+                    res.status(404).send('No giftcard found.');
+                }
+            },
+            (result) => {
+                console.log('error in getGiftCardValidation in giftCard-controller');
+                console.log(result);
+                res.sendStatus(500);
             }
-        },
-        (result) => {
-            console.log('error in getGiftCardByMeal in redeemGiftCard-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+        );
+    } catch (err) {
+        console.log('error in getGiftCardValidation in giftCard-controller');
+        res.sendStatus(500);
+    }
 }
 
 
@@ -215,9 +219,9 @@ const getGiftCardValidation = (req, res) => {
 const redeemGiftCard = (req, res) => {
     try {
         console.log('redeemGiftCard in giftCard-controller')
-        console.log('giftcard password:', req.params.password);
+        console.log('giftcard password:', req.body.password);
 
-        const giftCard = findGiftCardByPassword(req.params.password);
+        const giftCard = findGiftCardByPassword(req.body.password);
         giftCard.then(
             (giftCard) => {
                 if (giftCard) {

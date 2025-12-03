@@ -41,11 +41,13 @@ giftCardRouter.route('/user/:id')
 
 //used to validate a giftcard
 //endpoint http://hostname:port/api/giftcards/validate
-giftCardRouter.get('/validate/:password',authenticateToken, formatParamTypes, formatBodyTypes, getGiftCardValidation)
+giftCardRouter.route('/validate/password')
+    .get(authenticateToken, formatParamTypes, formatBodyTypes, getGiftCardValidation)
 
 //used to redeem giftcard
 //endpoint http://hostname:port/api/giftcards/redeem
-giftCardRouter.put('/redeem/:password',authenticateToken, formatParamTypes, formatBodyTypes, redeemGiftCard);
+giftCardRouter.route('/redeem/password')
+    .put(authenticateToken, formatParamTypes, formatBodyTypes, redeemGiftCard);
 
 
 export default giftCardRouter;
