@@ -2,12 +2,15 @@ import React from 'react';
 import useForm from '../hooks/formHooks';
 import {useUser} from '../hooks/BackupOfOldAssignments/apiHooks';
 //import { useAuthentication } from "../hooks/apiHooks";
+import { useAuthentication } from '../hooks/apiHooks';
 
 const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
-  if (!isOpen) return null;
+  if (!isOpen){
+     return null;
+  }
 
   //const { postLogin } = useAuthentication();
-  const {postUser} = useUser();
+  const { postRegister } = useAuthentication();
 
   const initValues = {
     username: '',
@@ -19,7 +22,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
   const doRegister = async () => {
     //Do bunch of logic like pw matching, empty inputs and such.
     try {
-      const result = await postUser(inputs);
+      const result = await postRegister(inputs);
       
       console.log(result);
     } catch (error) {

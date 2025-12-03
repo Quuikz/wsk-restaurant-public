@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 
 
 const AUTH_API2 = import.meta.env.VITE_CUSTOM_AUTH_API;
-const AUTH_API = 'http://localhost:3000/api/auth/login';
+//TODO instead of hardcoding them
+const AUTH_API = import.meta.env.VITE_CUSTOM_AUTH_API;
 
 const fetchData = async (url, options = {}) => {
     const response = await fetch(url, options);
@@ -20,6 +21,7 @@ const fetchData = async (url, options = {}) => {
 
 const useAuthentication = () => {
 
+    //Login
     const postLogin = async (inputs) => {
         const fetchOptions = {
             method: 'POST',
@@ -29,10 +31,30 @@ const useAuthentication = () => {
             body: JSON.stringify(inputs),
         };
 
-        const loginResult = await fetchData(AUTH_API, fetchOptions);
+        const loginResult = await fetchData(AUTH_API + '/auth/login', fetchOptions);
         return loginResult
     };
-    return { postLogin }
+
+    //Register
+    const postRegister = async (inputs) => {
+        try{
+            const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(inputs),
+            };
+
+            const registerResult = await fetchData(AUTH_API + '/users', fetchOptions);
+            return registerResult;
+        }
+        catch(error){
+            console.log('Error in postRegister: ', error);
+        }
+    }
+
+    return { postLogin, postRegister }
 }
 
 

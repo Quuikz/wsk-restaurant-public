@@ -22,7 +22,7 @@
              const { token, user } = await postLogin(inputs);
              // TODO: set token to local storage
              localStorage.setItem('token', token);
-             //console.log(token);
+             console.log(token);
              // TODO: set user to state
              setUser(user);
              // TODO: navigate to home
