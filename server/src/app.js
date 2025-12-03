@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //etusivu html http://hostname:port/
 app.use('/', express.static('./public'));
+//app.use('/images/meals', express.static('./public/images/meals') );
 
 //admin sivu html http://hostname:port/admin
 app.use('/admin', express.static('./public/admin'));
