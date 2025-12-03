@@ -3,102 +3,76 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 //function for getting user
-import {findUserByUsername} from '../models/user-model.js'; //TODO: use this
-
-const login = (req, res) => {
-    console.log('login in auth-controller')
-    console.log('user name: '+req.body.username);
-
-        const user = {
-            username: 'user',
-            password: bcrypt.hashSync('password', 10)
-        }
-
-        if (bcrypt.compareSync(req.body.password, user.password)) {
-            console.log('password correct');
-
-            //create token
-            const userWithNoPassword = {
-                user_id: 'user_id',
-                name: 'name',
-                username: user.username,
-                email: 'email',
-                role: 'role',
-            };
-
-            //TODO: this lets
-            if (req.body.username === 'admin') {
-                userWithNoPassword.role = 'admin';
-            }
-
-            const token = jwt.sign(userWithNoPassword, process.env.JWT_SECRET, {
-                expiresIn: '24h',
-            });
-
-            res.json({user: userWithNoPassword, token});
-
-        }
+import {findUserByUsername} from '../models/user-model.js';
 
 
-        /*  //TODO: replace with actual database query
-    if(req.body.username !== undefined) {
+const login = async (req, res) => {
+    try {
+        console.log('login in auth-controller')
+        console.log('user name: ' + req.body.username);
 
+        if (req.body.username !== undefined) {
 
+            findUserByUsername(req.body.username).then(
+                (user) => {
+                    if (user) {
+                        console.log('user found in auth-controller-login: ' + user)
 
-        const user = findUserByUsername(req.body.username);
-        user.then(
-            user => {
-                if (user) {
-                    console.log('user found in auth-controller-login: ' + user)
+                        if (bcrypt.compareSync(req.body.password, user.password)) {
+                            console.log('password correct');
 
-                    if (bcrypt.compareSync(req.body.password, user.password)) {
-                        console.log('password correct');
+                            //create token
+                            const userWithNoPassword = {
+                                id: user.id,
+                                name: user.name,
+                                username: user.username,
+                                email: user.email,
+                                role: user.role,
+                            };
+                            const token = jwt.sign(userWithNoPassword, process.env.JWT_SECRET, {
+                                expiresIn: '24h',
+                            });
 
-                        //create token
-                        const userWithNoPassword = {
-                            user_id: user.user_id,
-                            name: user.name,
-                            username: user.username,
-                            email: user.email,
-                            role: user.role,
-                        };
+                            //respond with user and token
+                            res.json( {user: userWithNoPassword, token} );
 
-                        const token = jwt.sign(userWithNoPassword, process.env.JWT_SECRET, {
-                            expiresIn: '24h',
-                        });
-
-                        res.json({user: userWithNoPassword, token});
-
+                        } else {
+                            console.log('password incorrect');
+                            res.sendStatus(401);
+                        }
 
                     } else {
-                        console.log('password incorrect');
-                        res.sendStatus(401);
+                        console.log('user is null in auth-controller-login');
+                        res.sendStatus(403);
                     }
-
-                    res.json();
-
-
-                } else {
-                    res.sendStatus(401);
+                },
+                (error) => {
+                    console.log('error in login in auth-controller');
+                    console.log(error);
+                    res.sendStatus(500);
                 }
-            },
-            error => {
-                console.log('error in login in auth-controller');
-                console.log(error);
-                res.sendStatus(500);
-            }
-        );
+            );
 
-    } else {
-        console.log('undefined input in auth-controller');
-        res.sendStatus(404);
+        } else {
+            console.log('undefined input in auth-controller');
+            res.sendStatus(404);
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
     }
-
-    */
 }
 
-const getMe = async (req, res) => {
-    console.log('getMe', res.locals.user);
+/**
+ * Validates user token
+ * @param req
+ * @param res
+ * @return {Promise<void>}
+ * {message: 'token ok', user:  res.locals.user} or 401 if invalid
+ */
+const validateToken = async (req, res) => {
+    console.log('validateToken', res.locals.user);
     if ( res.locals.user) {
         res.json({message: 'token ok', user:  res.locals.user});
     } else {
@@ -107,4 +81,4 @@ const getMe = async (req, res) => {
 };
 
 
-export {login, getMe };
+export {login, validateToken};

@@ -1,11 +1,13 @@
 
 //example datastructure
 import {default_user} from "../../../../database/datastructures.js";
+import bcrypt from "bcrypt";
 
+//TODO: replace with actual database queries
 const users = [
-    {...default_user, id: 1, message: "user number 1 in user model"},
-    {...default_user, id: 2, message: "user number 2 in user model"},
-    {...default_user, id: 3, message: "user number 3 in user model"},
+    {...default_user, id: 1, role: "admin", username: "admin", password: bcrypt.hashSync('password', 10), message: "admin id 1 in user model"},
+    {...default_user, id: 2, role: "user", username: "user", password: bcrypt.hashSync('password', 10), message: "user id 2 in user model"},
+    {...default_user, id: 3, role: "user2", username: "abc", password: bcrypt.hashSync('password', 10), message: "user id 3 in user model"},
 ];
 
 
