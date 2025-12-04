@@ -24,8 +24,6 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
         //const response = await postLogin(inputs);
         //handleLogin(response);
         handleLogin(inputs);
-        //Below is a temp way of knowing if successful
-        console.log("Logged in! Current user:", inputs.username);
         onClose();
     } catch (error) {
       console.log('Error in doLogin: ', error.message);
