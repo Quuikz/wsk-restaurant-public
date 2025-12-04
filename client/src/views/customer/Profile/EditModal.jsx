@@ -19,8 +19,9 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
   //};
 
   const doModifyUserInfo = async () => {
+    const token = localStorage.getItem('token');
     try {
-      const result = await modifyUserInfo(inputs);
+      const result = await modifyUserInfo(inputs, token);
 
       console.log(result);
     } catch (error) {
