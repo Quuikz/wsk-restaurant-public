@@ -95,19 +95,21 @@ const putUser = (req, res) => {
     console.log(req.params.id);
 
 
-    const result = modifyUser(req.body, req.params.id, res.locals.user);
+    const result = modifyUser(req.body, req.params.id);
     result.then(
-        result => {
-            if (result) {
-                console.log('return user: ',result)
-                res.json(result);
+        user => {
+            if (user) {
+                console.log('return user: ',user)
+                //TODO: stop users password returning...
+
+                res.json(user);
             } else {
                 res.sendStatus(404);
             }
         },
-        result => {
+        error => {
             console.log('error in putUser in user-controller');
-            console.log(result);
+            console.log(error);
             res.sendStatus(500);
         }
     );
