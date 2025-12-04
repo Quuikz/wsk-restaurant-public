@@ -42,9 +42,9 @@ userRouter.get('/',authenticateToken, userIsAdmin, getUsers)
 
 //endpoint http://hostname:port/api/users/:id
 userRouter.route('/:id')
-    .get(authenticateToken, filterByUserIdOrAdmin, formatIdToNumber, getUserById)
-    .put(authenticateToken, filterByUserIdOrAdmin, formatIdToNumber, putUser)
-    .delete(authenticateToken, filterByUserIdOrAdmin, formatIdToNumber, deleteUser);
+    .get(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, getUserById)
+    .put(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, putUser)
+    .delete(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, deleteUser);
 
 //endpoint http://hostname:port/api/users/byname/:username
 userRouter.route('/username/:username')
