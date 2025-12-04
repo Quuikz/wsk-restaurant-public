@@ -1,6 +1,8 @@
 //Consider moving content of <header> here, then import this into Layout
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, useNavigate, useLocation} from 'react-router';
+import Logo from '../../assets/Restauranto-Logo2.png';
+
 //import {useUserContext} from '../../hooks/contextHooks';
 
 import LoginModal from '../LoginModal';
@@ -78,12 +80,11 @@ const Header = () => {
 
               {/* -- Logo -- */}
               <div className="absolute left-1/2 transform -translate-x-1/2 translate-y-11 flex items-center ">
-                {/* !!! Change logo */}
                 <Link to="/">
                   <img
-                    src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Your Company"
-                    className="h-8 w-auto mx-auto"
+                    src={Logo}
+                    alt="Restauranto Logo"
+                    className="h-20 w-auto mx-auto rounded-full"
                   />
                 </Link>
               </div>
