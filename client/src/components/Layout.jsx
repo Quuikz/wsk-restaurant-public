@@ -3,8 +3,8 @@ import {Link, Outlet} from 'react-router';
 import {useUserContext} from '../hooks/contextHooks.js';
 
 //Components
-import Header from './Header/Header.jsx';
-import Footer from './Footer/Footer.jsx';
+import Header from './customer/Header/Header.jsx';
+import Footer from './customer/Footer/Footer.jsx';
 
 const Layout = () => {
   const {user, handleAutoLogin} = useUserContext();

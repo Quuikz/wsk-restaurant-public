@@ -58,7 +58,7 @@
              // TODO: set user to state
              setUser(userData);
              // TODO: navigate to home
-             navigate(location.pathname);
+             //navigate(location.pathname);
          } catch (e) {
              console.log(e.message);
          }

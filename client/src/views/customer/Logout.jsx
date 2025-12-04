@@ -1,4 +1,4 @@
-import { useUserContext } from "../hooks/contextHooks"
+import { useUserContext } from "../../hooks/contextHooks.js";
 import { useEffect } from 'react';
 
 const Logout = () => {

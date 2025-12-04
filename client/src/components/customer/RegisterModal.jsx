@@ -1,80 +1,44 @@
-import React, {useState} from 'react';
-import useForm from '../hooks/formHooks';
-import {useUserContext} from '../hooks/contextHooks';
-import { useAuthentication } from '../hooks/apiHooks';
+import React from 'react';
+import useForm from '../../hooks/formHooks';
+import {useUser} from '../../hooks/BackupOfOldAssignments/apiHooks';
+//import { useAuthentication } from "../hooks/apiHooks";
+import { useAuthentication } from '../../hooks/apiHooks.js';
 
-
-const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
+const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
   if (!isOpen){
-    return null;
-  } 
+     return null;
+  }
 
-  const { postLogin } = useAuthentication();
-  const {handleLogin} = useUserContext();
+  //const { postLogin } = useAuthentication();
+  const { postRegister } = useAuthentication();
 
   const initValues = {
     username: '',
+    email: '',
     password: '',
+    confirmPassword: '',
   };
 
-  
-
-  const doLogin = async () => {
+  const doRegister = async () => {
+    //Do bunch of logic like pw matching, empty inputs and such.
     try {
-        //const response = await postLogin(inputs);
-        //handleLogin(response);
-        handleLogin(inputs);
-        //Below is a temp way of knowing if successful
-        console.log("Logged in! Current user:", inputs.username);
-        onClose();
+      const result = await postRegister(inputs);
+      
+      console.log(result);
     } catch (error) {
-      console.log('Error in doLogin: ', error.message);
+      console.log('Error in doRegister', error);
     }
   };
 
   const {inputs, handleInputChange, handleSubmit} = useForm(
-    doLogin,
+    doRegister,
     initValues,
   );
 
   return (
-    /*
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-gray-800 rounded-lg p-6 w-96 max-w-full relative">
-        <h2 className="text-lg font-semibold text-white mb-4">Kirjaudu sisään</h2>
-
-        <form className="space-y-4">
-          <input
-            type="email"
-            placeholder="Sähköposti"
-            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-          />
-          <input
-            type="password"
-            placeholder="Salasana"
-            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded"
-          >
-            Kirjaudu
-          </button>
-        </form>
-
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-400 hover:text-white"
-        >
-          ✕
-        </button>
-      </div>
-    </div>
-    */
-
     <>
       <div
-        id="login-modal"
+        id="register-modal"
         className="fixed inset-0 z-50 flex items-center justify-center bg-gray/20 backdrop-blur-sm p-4"
       >
         <div className="bg-white rounded-2xl shadow-lg w-full max-w-md">
@@ -82,11 +46,10 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
           {/* Padding 4(1rem) or for md (for screens 768px>>) 1.5rem */}
           <div className="relative bg-neutral-primary-soft border-3 border-black rounded-2xl shadow-sm p-4 md:p-6 text-center text-black">
             {/* Modal header */}
-            <div className="flex items-center justify-between border-b pb-4">
+            <div className="flex items-center justify-between border-b pb-4 ">
               <h3 className="text-lg font-semibold pt-4 absolute left-1/2 transform -translate-x-1/2">
-                Kirjaudu sisään
+                Rekisteröidy hetkessä
               </h3>
-
               <button
                 type="button"
                 className="cursor-pointer text-black font-semibold bg-transparent hover:bg-gray-200 hover:text-black rounded-md text-sm w-9 h-9 ml-auto inline-flex justify-center items-center"
@@ -102,7 +65,7 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
               {/* Modal body - username */}
               <div className="mb-5">
                 <label
-                  htmlFor="loginuser"
+                  htmlFor="registeruser"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
                   Käyttäjätunnus
@@ -110,17 +73,37 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
                 <input
                   name="username"
                   type="text"
-                  id="loginuser"
+                  id="registeruser"
                   onChange={handleInputChange}
                   autoComplete="username"
                   value={inputs.username}
                   className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 />
               </div>
-              {/* Modal body - password */}
-              <div className="mb-10">
+
+              {/* Modal body - email */}
+              <div className="mb-5">
                 <label
-                  htmlFor="loginpassword"
+                  htmlFor="registeremail"
+                  className="block mb-2.5 text-sm font-medium text-heading"
+                >
+                  Sähköposti
+                </label>
+                <input
+                  name="email"
+                  type="email"
+                  id="registeremail"
+                  onChange={handleInputChange}
+                  autoComplete="email"
+                  value={inputs.email}
+                  className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                />
+              </div>
+
+              {/* Modal body - password */}
+              <div className="mb-5">
+                <label
+                  htmlFor="registerpassword"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
                   Salasana
@@ -128,29 +111,47 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
                 <input
                   name="password"
                   type="password"
-                  id="loginpassword"
+                  id="registerpassword"
                   onChange={handleInputChange}
-                  autoComplete="current-password"
+                  autoComplete="new-password"
                   value={inputs.password}
                   className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 />
               </div>
+              <div className="mb-5">
+                <label
+                  htmlFor="confirmpassword"
+                  className="block mb-2.5 text-sm font-medium text-heading"
+                >
+                  Vahvista salasana
+                </label>
+                <input
+                  name="confirmPassword"
+                  type="password"
+                  id="confirmpassword"
+                  onChange={handleInputChange}
+                  autoComplete="new-password"
+                  value={inputs.confirmPassword}
+                  className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                />
+              </div>
+
               <button
                 type="submit"
-                className="cursor-pointer w-full mb-5 text-black bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
+                className="cursor-pointer w-full mb-3  bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
               >
-                Kirjaudu
+                Rekisteröidy
               </button>
             </form>
 
             <div className="text-center">
-              <h2 className="text-lg font-medium">| Oletko uusi asiakas? |</h2>
+              <h2 className="text-lg font-medium">| Onko sinulla jo tili? |</h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"
-                onClick={onOpenRegister}
+                onClick={onOpenLogin}
               >
-                Luo uusi tili
+                Kirjaudu tililläsi sisään
               </button>
             </div>
           </div>
@@ -160,4 +161,4 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
   );
 };
 
-export default LoginModal;
+export default RegisterModal;

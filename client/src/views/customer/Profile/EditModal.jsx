@@ -1,8 +1,7 @@
 import React from 'react';
-import useForm from '../../hooks/formHooks';
-import {useUser} from '../../hooks/BackupOfOldAssignments/apiHooks';
-//import { useAuthentication } from "../hooks/apiHooks";
-import {useAuthentication} from '../../hooks/apiHooks';
+import useForm from '../../../hooks/formHooks.js';
+import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
+import {useAuthentication} from '../../../hooks/apiHooks.js';
 
 const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
   if (!isOpen) {

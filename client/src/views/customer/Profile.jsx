@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import EditModal from './Profile/EditModal.jsx';
-import AvatarModal from './Profile/AvatarModal';
+import AvatarModal from './Profile/AvatarModal.jsx';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);

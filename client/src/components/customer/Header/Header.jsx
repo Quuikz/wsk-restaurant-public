@@ -4,11 +4,13 @@ import {Link, useNavigate, useLocation} from 'react-router';
 
 //import {useUserContext} from '../../hooks/contextHooks';
 
-import {useUserContext} from '../../hooks/contextHooks';
+import {useUserContext} from '../../../hooks/contextHooks.js';
 
-import LoginModal from '../LoginModal';
-import RegisterModal from '../RegisterModal';
-import Logo from '../../assets/Restauranto-Logo2.png';
+import LoginModal from '../LoginModal.jsx';
+import RegisterModal from '../RegisterModal.jsx';
+//import Logo from '../../assets/Restauranto-Logo2.png';
+import Logo from '../../../assets/Restauranto-Logo2.png'
+
 
 const Header = () => {
   //const {user, handleAutoLogin} = useUserContext();

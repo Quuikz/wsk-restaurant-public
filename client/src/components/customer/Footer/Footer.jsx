@@ -1,7 +1,7 @@
 //Consider moving content of <footer> here, then import this into Layout
 import React from 'react';
 import {Link} from 'react-router';
-import Logo from '../../assets/Restauranto-Logo2.png';
+import Logo from '../../../assets/Restauranto-Logo2.png'
 
 const Footer = () => {
   return (

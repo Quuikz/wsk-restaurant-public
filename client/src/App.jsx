@@ -5,21 +5,23 @@ import {BrowserRouter, Routes, Route} from 'react-router';
 import Layout from './components/Layout.jsx';
 import AdminLayout from './components/admin/AdminLayout.jsx';
 
-import Upload from './views/Upload';
+//import Upload from './views/Upload';
+import Upload from './views/customer/Upload.jsx';
 //import Single from './views/Single';
-import Login from './views/Login.jsx';
+import Login from './views/customer/Login.jsx';
 import {UserProvider} from './contexts/UserContext';
-import Logout from './views/Logout.jsx';
+//import Logout from './views/Logout.jsx';
+import Logout from './views/customer/Logout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
 
 //Pages
-import Contacts from './views/Contacts.jsx';
-import Home from './views/Home';
-import Profile from './views/Profile';
-import ShoppingCart from './views/ShoppingCart.jsx';
-import Weeklist from './views/Weeklist.jsx';
-import Giftcards from './views/Giftcards.jsx';
+import Contacts from './views/customer/Contacts.jsx';
+import Home from './views/customer/Home.jsx';
+import Profile from './views/customer/Profile.jsx';
+import ShoppingCart from './views/customer/ShoppingCart.jsx';
+import Weeklist from './views/customer/Weeklist.jsx';
+import Giftcards from './views/customer/Giftcards.jsx';
 import Dashboard from './views/admin/Dashboard.jsx';
 import AddMeal from './views/admin/Meals/AddMeal.jsx';
 
