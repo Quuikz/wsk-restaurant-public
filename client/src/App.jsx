@@ -17,6 +17,7 @@ import Profile from './views/Profile';
 import ShoppingCart from './views/ShoppingCart.jsx';
 import Weeklist from './views/Weeklist.jsx';
 import Giftcards from './views/Giftcards.jsx';
+import Dashboard from './views/admin/Dashboard.jsx';
 
 const App = () => {
   return (
@@ -44,6 +45,12 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/giftcards" element={<Giftcards />} />
+
+
+              {/* Admin routes below! - TODO: protect the routes */}
+              <Route path="/dashboard" element={<Dashboard />} />
+
+
           </Route>
         </Routes>
       </UserProvider>
