@@ -1,16 +1,19 @@
 //Consider moving content of <header> here, then import this into Layout
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, useNavigate, useLocation} from 'react-router';
-import Logo from '../../assets/Restauranto-Logo2.png';
 
 //import {useUserContext} from '../../hooks/contextHooks';
 
+import {useUserContext} from '../../hooks/contextHooks';
+
 import LoginModal from '../LoginModal';
 import RegisterModal from '../RegisterModal';
+import Logo from '../../assets/Restauranto-Logo2.png';
 
 const Header = () => {
   //const {user, handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const {handleAutoLogin, user} = useUserContext();
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -44,7 +47,7 @@ const Header = () => {
   const [displayRegisterModal, setDisplayRegisterModal] = useState(false);
 
   useEffect(() => {
-    //handleAutoLogin();
+    handleAutoLogin();
 
     // Burger closed on window click outside
     function handleClickOutside(event) {
@@ -55,7 +58,7 @@ const Header = () => {
 
     window.addEventListener('click', handleClickOutside);
     return () => window.removeEventListener('click', handleClickOutside);
-  }, []);
+  }, [handleAutoLogin]);
 
   return (
     <header className="fixed w-full z-50">
@@ -214,12 +217,21 @@ const Header = () => {
                       </div>
                       {/* TODO: Conditional rendering to show either Login/Account settings?*/}
                       <div className="py-1 hover:bg-white/5">
-                        <button
-                          onClick={() => setDisplayLoginModal(true)}
-                          className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
-                        >
-                          🔒 &nbsp;&nbsp;Kirjaudu sisään
-                        </button>
+                        {user ? (
+                          <Link
+                            to="/profile"
+                            className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
+                          >
+                            👤 &nbsp;&nbsp;Kirjautunut
+                          </Link>
+                        ) : (
+                          <button
+                            onClick={() => setDisplayLoginModal(true)}
+                            className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
+                          >
+                            🔒 &nbsp;&nbsp;Kirjaudu sisään
+                          </button>
+                        )}
                       </div>
                     </div>
                   )}
