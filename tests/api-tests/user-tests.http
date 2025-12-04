@@ -4,18 +4,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 
 ### get user by id
 #use login with default user first, then copy token here
-GET http://localhost:3000/api/users/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NzU2NSwiZXhwIjoxNzY0NzUzOTY1fQ.V42nZ5P0krG60ohNoqlaBkn9f-xjcOgcjO1A1i7NXSc
+GET http://localhost:3000/api/users/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImRlZmF1bHQiLCJ1c2VybmFtZSI6InVzZXIiLCJlbWFpbCI6ImRlZmF1bHQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDg4OTg0OSwiZXhwIjoxNzY0OTc2MjQ5fQ.DkUyd7gca2qWknPFDJrzqPTqEEzpomYhclzXk5-6D8I
 
 ### update user by id
 #use login with default user first, then copy token here
-PUT http://localhost:3000/api/users/1
+PUT http://localhost:3000/api/users/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NzU2NSwiZXhwIjoxNzY0NzUzOTY1fQ.V42nZ5P0krG60ohNoqlaBkn9f-xjcOgcjO1A1i7NXSc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6ImRlZmF1bHQiLCJ1c2VybmFtZSI6InVzZXIiLCJlbWFpbCI6ImRlZmF1bHQiLCJyb2xlIjoidXNlciIsImlhdCI6MTc2NDg4OTg0OSwiZXhwIjoxNzY0OTc2MjQ5fQ.DkUyd7gca2qWknPFDJrzqPTqEEzpomYhclzXk5-6D8I
 
 {
-  "id" : 0,
-  "username" : "default username",
+  "id" : 2,
+  "username" : "default username xx",
   "password": "default password",
   "role": "user",
   "name": "",

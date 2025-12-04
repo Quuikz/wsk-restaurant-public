@@ -16,7 +16,7 @@ const filterByUserIdOrAdmin = (req, res, next) => {
             console.log(res.locals.user.username + ' is admin');
             next();
 
-        } else if (res.locals.user === req.params.id) {
+        } else if (res.locals.user.id === req.params.id) {
             console.log(res.locals.user.username + 'authorized by filterByUserIdOrAdmin');
             next();
 

@@ -81,7 +81,7 @@ const modifyUser = async (user, userId) => {
             return  d.id === Number(userId);  //Has to be number!
         } );
 
-
+        //TODO: prevent user from updating themselves admin...
         if (index >= 0) {
             console.log('found at:'+index);
             users.splice(index,1, {...users[index], ...user });
