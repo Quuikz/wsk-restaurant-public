@@ -2,7 +2,7 @@
  //import {useAuthentication, useUser} from '../hooks/BackupOfOldAssignments/apiHooks';
  import { useAuthentication } from '../hooks/apiHooks';
  //temp - as it's not yet implemented, just use old
- import { useUser } from '../hooks/BackupOfOldAssignments/apiHooks';
+ //import { useUser } from '../hooks/BackupOfOldAssignments/apiHooks';
  import {useLocation, useNavigate} from 'react-router';
     
  const UserContext = createContext(null);
@@ -10,7 +10,7 @@
  const UserProvider = ({children}) => {
      const [user, setUser] = useState(null);
      const {postLogin} = useAuthentication();
-     const {getUserByToken} = useUser();
+     //const {getUserByToken} = useUser();
 
      const navigate = useNavigate();
      const location = useLocation();
@@ -54,9 +54,9 @@
              if(!token){
                 return;
              }
-             const userData = await getUserByToken(token);
+             //const userData = await getUserByToken(token);
              // TODO: set user to state
-             setUser(userData);
+             //setUser(userData);
              // TODO: navigate to home
              //navigate(location.pathname);
          } catch (e) {

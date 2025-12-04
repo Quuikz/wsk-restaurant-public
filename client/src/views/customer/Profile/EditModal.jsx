@@ -1,27 +1,26 @@
 import React from 'react';
 import useForm from '../../../hooks/formHooks.js';
-import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
-import {useAuthentication} from '../../../hooks/apiHooks.js';
+//import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
+import {useCurrentUser} from '../../../hooks/apiHooks.js';
+import { useUserContext } from '../../../hooks/contextHooks.js';
 
 const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
-  if (!isOpen) {
+  const { user } = useUserContext();
+  const { modifyUserInfo } = useCurrentUser();
+  
+  if (!isOpen || !user) {
     return null;
   }
 
   //const { postLogin } = useAuthentication();
-  const {postRegister} = useAuthentication();
+  //const initValues = {
+  //  username: user?.username || 'name',
+  //  email: user?.email || 'email',
+  //};
 
-  const initValues = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
-
-  const doRegister = async () => {
-    //Do bunch of logic like pw matching, empty inputs and such.
+  const doModifyUserInfo = async () => {
     try {
-      const result = await postRegister(inputs);
+      const result = await modifyUserInfo(inputs);
 
       console.log(result);
     } catch (error) {
@@ -29,15 +28,15 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
     }
   };
 
-  const {inputs, handleInputChange, handleSubmit} = useForm(
-    doRegister,
-    initValues,
-  );
+  const { inputs, handleInputChange, handleSubmit } = useForm(doModifyUserInfo, {
+    username: user.username,
+    email: user.email,
+  });
 
   return (
     <>
       <div
-        id="register-modal"
+        id="userinfomodify-modal"
         className="fixed inset-0 z-50 flex items-center justify-center bg-gray/20 backdrop-blur-sm p-4"
       >
         <div className="bg-white rounded-2xl shadow-lg w-full max-w-md">
@@ -67,7 +66,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   htmlFor="registeruser"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Käyttäjätunnus
+                  Muokkaa käyttäjätunnusta
                 </label>
                 <input
                   name="username"
@@ -86,7 +85,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   htmlFor="registeremail"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Sähköposti
+                  Muokkaa sähköpostia
                 </label>
                 <input
                   name="email"
@@ -98,42 +97,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 />
               </div>
-
-              {/* Modal body - password */}
-              <div className="mb-5">
-                <label
-                  htmlFor="registerpassword"
-                  className="block mb-2.5 text-sm font-medium text-heading"
-                >
-                  Salasana
-                </label>
-                <input
-                  name="password"
-                  type="password"
-                  id="registerpassword"
-                  onChange={handleInputChange}
-                  autoComplete="new-password"
-                  value={inputs.password}
-                  className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                />
-              </div>
-              <div className="mb-5">
-                <label
-                  htmlFor="confirmpassword"
-                  className="block mb-2.5 text-sm font-medium text-heading"
-                >
-                  Vahvista salasana
-                </label>
-                <input
-                  name="confirmPassword"
-                  type="password"
-                  id="confirmpassword"
-                  onChange={handleInputChange}
-                  autoComplete="new-password"
-                  value={inputs.confirmPassword}
-                  className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-                />
-              </div>
+              
 
               <button
                 type="submit"
