@@ -24,7 +24,7 @@ import formatParamTypes from "../../middlewares/formatParamTypes.js";
 const userRouter = express.Router();
 
 //configurable middleware for image scaling
-const imageScaler = createImageScaler(160, 160, './public/images/users', '_user', 'png');
+const imageScaler = createImageScaler(160, 160, './public/images/users', '_user', 'webp');
 
 //multer
 const multerUpload = multer({

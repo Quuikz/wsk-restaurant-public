@@ -45,7 +45,7 @@ const createImageScaler = (width, height, outputPath, suffix, fileType) => {
         //function sharp(sharp.SharpInput, sharp.SharpOptions)
         await sharp(req.file.path)
             .resize(width, height)
-            .toFormat('png')
+            .toFormat(fileType)
             .toFile(imagePath)
             .then(
                 (outputInfo) => {
