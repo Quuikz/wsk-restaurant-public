@@ -9,8 +9,7 @@ import {useUserContext} from '../../../hooks/contextHooks.js';
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
 //import Logo from '../../assets/Restauranto-Logo2.png';
-import Logo from '../../../assets/Restauranto-Logo2.png'
-
+import Logo from '../../../assets/Restauranto-Logo2.png';
 
 const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
@@ -224,7 +223,7 @@ const HeaderNV = () => {
                             to="/profile"
                             className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
                           >
-                            👤 &nbsp;&nbsp;Kirjautunut
+                            👤 &nbsp;&nbsp;{user.username}
                           </Link>
                         ) : (
                           <button
