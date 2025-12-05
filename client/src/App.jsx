@@ -47,6 +47,7 @@ const App = () => {
 
             {/*<Route path="/single" element={<Single />} />*/}
             <Route path="/contacts" element={<Contacts />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/shoppingcart" element={<ShoppingCart />} />
             <Route path="/weeklist" element={<Weeklist />} />
             <Route path="/login" element={<Login />} />
@@ -65,7 +66,7 @@ const App = () => {
               }
             />
           </Route>
-          <Route path="/profile" element={<ProtectedRoute> <Profile /></ProtectedRoute>}/>
+          
 
           {/* Admin routes - TODO: protect the routes */}
           {/* example path: /admin/addmeal */}
