@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import {useNavigate} from 'react-router';
 //import { postMedia, postFile } from '../hooks/apiHooks';
-import useForm from '../hooks/formHooks';
-import { useFile, useMedia } from '../hooks/apiHooks';
+import useForm from '../../hooks/formHooks';
+import { useFile, useMedia } from '../../hooks/BackupOfOldAssignments/apiHooks';
 
 
 const Upload = () => {

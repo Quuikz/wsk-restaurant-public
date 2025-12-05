@@ -3,8 +3,8 @@ import {Link, Outlet} from 'react-router';
 import {useUserContext} from '../hooks/contextHooks.js';
 
 //Components
-import Header from './Header/Header.jsx';
-import Footer from './Footer/Footer.jsx';
+import Header from './customer/Header/Header.jsx';
+import Footer from './customer/Footer/Footer.jsx';
 
 const Layout = () => {
   const {user, handleAutoLogin} = useUserContext();
@@ -65,8 +65,7 @@ const Layout = () => {
 
     <>
       <Header />
-      <main className="pt-22">
-        {' '}
+      <main className="pt-22 bg-emerald-600">
         {/* Adds little space so header wont take space from pages. */}
         <Outlet />
       </main>

@@ -1,7 +1,7 @@
 const Weeklist = () => {
   return (
     <>
-      <div className=" mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="p-7 pt-20 pb-30 bg-orange-100">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">

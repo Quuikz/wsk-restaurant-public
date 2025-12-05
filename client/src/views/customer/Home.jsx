@@ -5,7 +5,7 @@ import Specials from './Home/Specials.jsx';
 const Home = () => {
   return (
     <>
-      <div className="max-w-screen-xl mx-auto px-4 relative">
+      <div className="max-w-7xl mx-auto px-4 relative">
         {/* Main banner */}
         <div>
           <img src="https://placehold.co/1920x750" alt="Main page banner" />
@@ -21,7 +21,7 @@ const Home = () => {
         </div>
 
         {/* Daily Special title */}
-        <div className="text-center absolute w-full translate-y-[-30%]">
+        <div className="text-center absolute left-1/2 transform -translate-x-1/2 translate-y-[-30%]">
           <h2 className="text-3xl font-medium">| Grilliruoka |</h2>
           <p className="mt-2 ">Tutustu herkullisiin erikoisuuksiimme!</p>
         </div>
@@ -30,13 +30,13 @@ const Home = () => {
         <Specials />
 
         {/* Table ordering title */}
-        <div className="text-center absolute w-full translate-y-[-30%]">
+        <div className="text-center absolute left-1/2 transform -translate-x-1/2 translate-y-[-30%]">
           <h2 className="text-3xl font-medium">| Varaa Pöytä |</h2>
           <p className="mt-2 ">Varaa pöytä helposti tästä!</p>
         </div>
 
         {/* Table ordering component */}
-        <Ordering />
+        <Ordering id="orderTableSection" />
       </div>
     </>
   );
