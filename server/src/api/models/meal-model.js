@@ -1,20 +1,22 @@
-//TODO: everything here
-
-//example datastructure
-// import { promises } from "supertest/lib/test.js";
-import e from "cors";
 import promisePool from "../../utils/database.js";
 
 /**
- * @return
- * array of all objects or false if error
+ * Retrieve all meals from the database.
+ *
+ * Queries the `meals` table and returns an array of meal rows.
+ * On error the function returns `false` so callers can handle failures.
+ *
+ * @async
+ * @function listAllMeals
+ * @returns {Promise<Array<Object>|false>} Resolves to an array of meal objects or `false` on error.
  */
-
 const listAllMeals = async () => {
   console.log("Listing all meals..");
 
   try {
+    // Prepare SQL to fetch all meals
     const sql = "SELECT * FROM `meals`";
+    // Execute query; `query` returns [rows, fields]
     const [rows] = await promisePool.query(sql);
 
     // console.log("rows", rows);
@@ -26,25 +28,31 @@ const listAllMeals = async () => {
 };
 
 /**
- * @param id
- * @return
- * first object that has the id or false if not found or error
+ * Find a single meal by its id.
+ *
+ * @async
+ * @function findMealById
+ * @param {number|string} id - The id of the meal to find.
+ * @returns {Promise<Object|false>} Resolves to the meal object if found, or `false` if not found or on error.
  */
-
-const findMealById = async (id) => {
-  console.log("Finding meal by id:", id);
+const findMealById = async (mealId) => {
+  console.log("Finding meal by id:", mealId);
 
   try {
+    // Prepare parametrized SQL to avoid injection
     const sql = "SELECT * FROM `meals` WHERE id = ?";
-    const params = [id];
+    const params = [mealId];
 
+    // Execute the prepared statement with params
     const [rows] = await promisePool.execute(sql, params);
     // console.log("rows", rows);
 
+    // If no rows, meal not found
     if (rows.length === 0) {
       console.log("Meal not found");
       return false;
     }
+    // Return the first (and only) meal found
     return rows[0];
   } catch (error) {
     console.log(error);
@@ -53,18 +61,36 @@ const findMealById = async (id) => {
 };
 
 /**
- * @param meal
- * @param file image file
+ * Add a new meal to the database.
  *
- * object added to array/database or false if fails
+ * Expected `meal` properties: `name_fi`, `name_en`, `description_fi`,
+ * `description_en`, `cost` and an optional `image` (picture filename).
+ * The function inserts the record and returns the newly created meal
+ * by calling `findMealById` with the inserted id. On failure returns `false`.
+ *
+ * @async
+ * @function addMeal
+ * @param {Object} meal - Meal data to insert.
+ * @param {string} [meal.name_fi]
+ * @param {string} [meal.name_en]
+ * @param {string} [meal.description_fi]
+ * @param {string} [meal.description_en]
+ * @param {number|string} [meal.cost]
+ * @param {string} [meal.image] - Optional filename for the meal picture.
+ * @returns {Promise<Object|false>} Resolves to the inserted meal object or `false` on error.
  */
 const addMeal = async (meal) => {
   console.log("Adding new meal:", meal);
 
   try {
+    // Prepare parametrized SQL to avoid injection
     const sql = `INSERT INTO meals (name_fi, name_en, description_fi, description_en, cost, picture)
                  VALUES (?, ?, ?, ?, ?, ?)`;
+
+    // Use provided image filename or null when not provided
     const pictureName = meal.image ? meal.image : null;
+
+    // Build parameter array matching the INSERT placeholders
     const params = [
       meal.name_fi,
       meal.name_en,
@@ -74,14 +100,17 @@ const addMeal = async (meal) => {
       pictureName,
     ];
 
+    // Execute the insert and check affectedRows
     const [rows] = await promisePool.execute(sql, params);
     // console.log("rows", rows);
 
+    // If no rows were affected, return false
     if (rows.affectedRows === 0) {
       console.log("Meal not added");
       return false;
     }
 
+    // Return the newly added meal
     return findMealById(rows.insertId);
   } catch (error) {
     console.log(error);
@@ -90,15 +119,29 @@ const addMeal = async (meal) => {
 };
 
 /**
+ * Modify an existing meal record.
  *
- * @param meal meal object
- * @return
- * meal or false if error or not found
+ * The `meal` object must include an `id` property and may include any of the
+ * updatable fields: `name_fi`, `name_en`, `description_fi`, `description_en`,
+ * `cost` and `image`. Only the provided non-empty fields are updated.
+ * If no fields are provided the current meal is returned unchanged.
+ *
+ * @async
+ * @function modifyMeal
+ * @param {Object} meal - Meal data to update; must include `id`.
+ * @param {number|string} meal.id - The id of the meal to update.
+ * @returns {Promise<Object|false>} Resolves to the updated meal object, or `false` on error or if not modified.
  */
 const modifyMeal = async (meal) => {
   console.log("Modifying meal:", meal);
 
-  // Helper function to check for empty data
+  /**
+   * Helper to determine whether a value should be considered "empty" for updates.
+   * Treats null, undefined and whitespace-only strings as empty.
+   *
+   * @param {*} data - Value to check.
+   * @returns {boolean} `true` if data is null/undefined/empty string, otherwise `false`.
+   */
   const emptyDataHelper = (data) => {
     return data === null || data === undefined || String(data).trim() === "";
   };
@@ -142,6 +185,7 @@ const modifyMeal = async (meal) => {
       return await findMealById(meal.id);
     }
 
+    // Prepare and execute the UPDATE statement
     const sql = `UPDATE meals SET ${fields.join(", ")} WHERE id = ?`;
     const [rows] = await promisePool.execute(sql, params);
     // console.log("rows", rows);
@@ -161,15 +205,21 @@ const modifyMeal = async (meal) => {
 };
 
 /**
+ * Remove a meal by id.
  *
- * @param mealId number
- * @return
- * false if not found
+ * Deletes the row with the provided id from the `meals` table. Returns
+ * `true` when a row was deleted, or `false` if no row was removed or on error.
+ *
+ * @async
+ * @function removeMeal
+ * @param {number|string} mealId - The id of the meal to delete.
+ * @returns {Promise<boolean|false>} `true` when deleted, `false` if not found or on error.
  */
 const removeMeal = async (mealId) => {
   console.log("Removing meal with id:", mealId);
 
   try {
+    // Prepare delete statement and execute
     const sql = "DELETE FROM meals WHERE id = ?";
     const params = [mealId];
     const [rows] = await promisePool.execute(sql, params);
