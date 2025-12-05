@@ -3,9 +3,9 @@ import React from 'react';
 import useWeather from '../../hooks/widgetApiHooks.js';
 import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
 
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import {MapContainer, TileLayer, Marker, Popup} from 'https://cdn.esm.sh/react-leaflet';
+//import L from 'leaflet';
+//import 'leaflet/dist/leaflet.css';
 
 // Custom icon for the marker
 const customIcon = L.icon({
