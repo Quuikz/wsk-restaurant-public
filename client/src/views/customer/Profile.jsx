@@ -1,11 +1,17 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
+import {useUserContext} from '../../hooks/contextHooks.js';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
+  const {user} = useUserContext();
+
+  useEffect(() => {
+    console.log('user from context:', user);
+  }, [user]);
 
   return (
     <>
@@ -30,10 +36,12 @@ const Profile = () => {
                     />
                   </button>
 
-                  <h2 className="text-lg font-medium">Käyttäjätunnus</h2>
+                  <h2 className="text-lg font-medium">Käyttäjä profiili</h2>
                 </div>
-                <p className="pt-3">Sähköposti: </p>
-                <p className="pt-3">Käyttäjän nimi: </p>
+                <p className="pt-3">Nimi: {user.username}</p>
+                <p className="pt-1">Sähköposti: {user.email}</p>
+                <p className="pt-1">Käyttäjän ID: {user.id}</p>
+
                 <div className="grid grid-cols-2 gap-5">
                   <button
                     className="mt-4 text-sm text-black bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"

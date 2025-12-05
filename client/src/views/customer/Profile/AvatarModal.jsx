@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
-import useForm from '../../../hooks/formHooks.js';
-import { useUser } from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
-import { useAuthentication  } from '../../../hooks/apiHooks.js';
+import {useUserContext} from '../../../hooks/contextHooks.js';
+import {useCurrentUser} from '../../../hooks/apiHooks.js';
 
 const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
   if (!isOpen) {
@@ -9,39 +8,29 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
   }
 
   //const { postLogin } = useAuthentication();
-  const {postRegister} = useAuthentication();
   const [file, setFile] = useState(null);
+  const {user} = useUserContext();
+  const {modifyUserAvatar} = useCurrentUser();
 
-  const initValues = {
-    username: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  };
+  const doModifyUserAvatar = async () => {
+    const token = localStorage.getItem('token');
 
-  const doRegister = async () => {
-    //Do bunch of logic like pw matching, empty inputs and such.
     try {
-      const result = await postRegister(inputs);
+      const result = await modifyUserAvatar(file, token);
 
       console.log(result);
     } catch (error) {
-      console.log('Error in doRegister', error);
+      console.log('Error in doModifyUserAvatar', error);
     }
   };
 
-  const {inputs, handleInputChange, handleSubmit} = useForm(
-    doRegister,
-    initValues,
-  );
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
 
-  // Handle file input change
-  const handleFileChange = (evt) => {
-    if (evt.target.files) {
-      console.log(evt.target.files[0]);
-      // TODO: set the file to state
-      setFile(evt.target.files[0]);
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    doModifyUserAvatar();
   };
 
   return (
@@ -76,7 +65,7 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
                 src={
                   file
                     ? URL.createObjectURL(file)
-                    : 'https://placehold.co/200?text=Valitse+kuva'
+                    : user.image || 'https://placehold.co/200?text=Valitse+kuva'
                 }
                 alt="preview"
                 className="w-30 h-30 object-cover rounded-full mb-2 mx-auto"
