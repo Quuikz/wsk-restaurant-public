@@ -23,9 +23,11 @@ dotenv.config({path: '../../../.env'});
 
 const createImageScaler = (width, height, outputPath, suffix, fileType) => {
    return async (req, res, next) => {
+       try {
         //if no file
         if (!req.file) {
-            console.log('No file uploaded');
+            console.log('No file uploaded request.image set to placeholder.jpg');
+            req.body.image = "placeholder.jpg";
             next();
             return;
         }
@@ -47,7 +49,7 @@ const createImageScaler = (width, height, outputPath, suffix, fileType) => {
             .toFile(imagePath)
             .then(
                 (outputInfo) => {
-                    console.log('thumbnail created');
+                    console.log('image created');
                     console.log(outputInfo);
                 },
                 (error) => {
@@ -57,6 +59,12 @@ const createImageScaler = (width, height, outputPath, suffix, fileType) => {
             );
 
         next();
+
+       } catch (error) {
+           console.log('error in imageScaler')
+           console.log(error);
+           next();
+       }
     };
 }
 
