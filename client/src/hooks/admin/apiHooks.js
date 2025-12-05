@@ -8,6 +8,24 @@ const useMeal = () => {
 
     //const token = localStorage.getItem('token');
 
+
+    const getAllMeals = async () => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const getAllMealsResult = await fetchData(API_URL + '/meals', fetchOptions);
+        return getAllMealsResult;
+    }
+
+
+
+
+
+
     //Add new meal
     const postNewMeal = async (inputs, token) => {
         const fetchOptions = {
@@ -24,7 +42,7 @@ const useMeal = () => {
         return newMealResult;
     };
 
-    return { postNewMeal }
+    return { getAllMeals, postNewMeal }
 
 }
 

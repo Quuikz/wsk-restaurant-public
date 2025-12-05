@@ -16,14 +16,25 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
 
 //Pages
+//All users
 import Contacts from './views/customer/Contacts.jsx';
 import Home from './views/customer/Home.jsx';
-import Profile from './views/customer/Profile.jsx';
+
 import ShoppingCart from './views/customer/ShoppingCart.jsx';
 import Weeklist from './views/customer/Weeklist.jsx';
 import Giftcards from './views/customer/Giftcards.jsx';
+
+//Logged in users
+import Profile from './views/customer/Profile.jsx';
+
+//Admin
 import Dashboard from './views/admin/Dashboard.jsx';
+import Meals from './views/admin/Meals/Meals.jsx';
 import AddMeal from './views/admin/Meals/AddMeal.jsx';
+
+
+
+
 
 const App = () => {
   return (
@@ -33,7 +44,7 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
 
-            
+
             {/*<Route path="/single" element={<Single />} />*/}
             <Route path="/contacts" element={<Contacts />} />
             <Route path="/shoppingcart" element={<ShoppingCart />} />
@@ -65,6 +76,7 @@ const App = () => {
                 
             }>
             <Route index element={<Dashboard />} />
+            <Route path="meals" element={<Meals />} />
             <Route path="addmeal" element={<AddMeal />} />
           </Route>
         </Routes>
