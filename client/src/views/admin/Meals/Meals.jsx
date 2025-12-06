@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { useMeal } from "../../../hooks/admin/apiHooks"
 import MealRow from "../../../components/admin/MealRow";
+import ModifyMealModal from "../../../components/admin/MealModals/ModifyMealModal";
 
 const Meals = () => {
 
     const { getAllMeals } = useMeal();
     const [meals, setMeals] = useState([]);
 
-
+    //Modals
+    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [showModifyModal, setShowModifyModal] = useState(false);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
 
     useEffect(() => {
-
         const loadMeals = async () => {
             try{
                 const mealData = await getAllMeals();
@@ -24,16 +27,17 @@ const Meals = () => {
     }, []);
 
 
-    const handleModify = async (id) => {
-        console.log('Modifying the meal id: ', id);
+    const handleModify = async (meal) => {
+        console.log('Modifying the meal id: ', meal.id);
+        setSelectedMeal(meal);
+        setShowModifyModal(true);
     }
 
-    const handleDelete = async (id) => {
-        console.log('Deleting meal id: ', id);
+    const handleDelete = async (meal) => {
+        console.log('Deleting meal id: ', meal.id);
+        setSelectedMeal(meal);
+        setShowDeleteModal(true);
     }
-
-
-    
 
 
     return(
@@ -53,14 +57,20 @@ const Meals = () => {
                 <MealRow
                     key={meal.id}
                     meal={meal}
-                    onDelete={() => handleDelete(meal.id)}
-                    onModify={() => handleModify(meal.id)} 
+                    onDelete={() => handleDelete(meal)}
+                    onModify={() => handleModify(meal)} 
                 
                 />
             ))}
         </ul>
+        
 
-
+        {/*Modify Meal modal */}
+        <ModifyMealModal 
+            meal={selectedMeal}
+            isOpen={showModifyModal}
+            onClose={() => setShowModifyModal(false)}
+        />
 
         </>
     );

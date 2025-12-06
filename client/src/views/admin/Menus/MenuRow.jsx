@@ -1,8 +1,22 @@
 import MealRow from "../../../components/admin/MealRow";
 
 const MenuRow = ({ menuItem }) => {
+
+
+
+
   return (
     <li className="p-4 border rounded bg-gray-50 mb-6">
+
+        {/* MENU HEADER */}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-xl font-bold">Menu #{menuItem.id}</h2>
+
+        <div className="text-sm text-gray-600">
+            <p>Week: week44</p>
+            <p>Date: {menuItem.date || "N/A"}</p>
+        </div>
+      </div>
 
       {/* Add Meal */}
       <button

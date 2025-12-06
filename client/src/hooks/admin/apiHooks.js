@@ -23,11 +23,6 @@ const useMeal = () => {
         return getAllMealsResult;
     }
 
-
-
-
-
-
     //Add new meal
     const postNewMeal = async (inputs, token) => {
         const fetchOptions = {
@@ -44,7 +39,26 @@ const useMeal = () => {
         return newMealResult;
     };
 
-    return { getAllMeals, postNewMeal }
+    //Update meal info
+    const updateMealInfo = async (inputs, token, mealID) => {
+        const fetchOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+
+            },
+            body: JSON.stringify(inputs),
+        };
+
+        const updatedMealResult = await fetchData(API_URL + `meals/${mealID}`, fetchOptions);
+        return updatedMealResult;
+    }
+
+
+
+
+    return { getAllMeals, postNewMeal, updateMealInfo }
 }
 
 

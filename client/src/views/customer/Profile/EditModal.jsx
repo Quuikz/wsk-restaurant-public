@@ -25,7 +25,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
 
       console.log(result);
     } catch (error) {
-      console.log('Error in doRegister', error);
+      console.log('Error in doRegister: ', error);
     }
   };
 
