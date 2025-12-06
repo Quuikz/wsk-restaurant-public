@@ -71,6 +71,7 @@ const default_order = {
 const default_menu = {
     id : 0,
     date : '', //date format?
+    week: 12, //week number
     location: 0,
     special_meal: 1,
     meals : [
