@@ -31,9 +31,8 @@ const Profile = () => {
     getUserData();
 
   }, []);
- //const { user } = useUserContext();
 
-  //TODO: consider using 'user &&' check instead
+
   return (
     <>
       <div className="max-w-7xl mx-auto">
