@@ -53,6 +53,6 @@ Palauttaa:
 
 <figure>
 <img src="./documentation/database_diagram_v4.png" alt="database_diagram_v1" />
-<figcaption>Tietokanta versio 4, luotu MySQL Workbenchin avulla.
+<figcaption>Tietokanta versio 5, luotu MySQL Workbenchin avulla.
 </figcaption>
 </figure>

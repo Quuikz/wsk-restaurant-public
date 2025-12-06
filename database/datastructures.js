@@ -41,27 +41,13 @@ const default_order = {
     timestamp: '',
     location: 0,       //location if multiple restaurants
     items: [
-        {item_type : "meal", amount: 0, item: {
-                id : 0,
-                name_fi: "suomenkielinen nimi",
-                name_en: "english name",
-                description_fi: "suomalainen kuvaus tuotteelle",
-                description_en: "english description for the item",
-                cost: 0.0,
-                type: "noudettava annos/ pöytävaraus / lahjakortti ?",
-                image: "public/images/burger.jpg"
-            }
-        },
-        {item_type : "reservation", amount: 0, item: {
-                id : 0,
-                date : '',
-                location : '',
-                message : 'some reservation',
-            }
-        }
+        {amount: 1, meal: 1 },
+        {amount: 1, meal: 2 }
     ],
-    message: ''
-}  //TODO: voiko ruokaa tilata?
+    reservations : [ 1 ],
+    gift_cards: [ 1 ],
+    message: 'items = array of {amount, meal.id} reservations = array of reservation id, gift_cards = array of card id'
+}
 
 
 /**
@@ -116,6 +102,7 @@ const default_location = {
 const default_reservation = {
     id : 0,
     user: 1,
+    order : 1,
     date : "date",
     location : 0,
     table_count : 1,
