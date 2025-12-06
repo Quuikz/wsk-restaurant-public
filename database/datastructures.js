@@ -37,8 +37,8 @@ const default_meal = {
 const default_order = {
     id : 0,
     user: 0,    //user.id = who made the order
-    cost: '',
-    timestamp: '',
+    cost: 10.5,
+    timestamp: '2025-12-06 12:00:00',
     location: 0,       //location if multiple restaurants
     items: [
         {amount: 1, meal: 1 },
@@ -56,11 +56,13 @@ const default_order = {
  */
 const default_menu = {
     id : 0,
-    date : '2026-12-06', //date format
+    date : '2025-12-06', //date format
+    week: 12, //week number
     location: 0,
     special_meal: 1,
-    meals : [1, 2 ],
-    message: 'default menu. meals array contains meal.id '
+    meals : [1,2,3],
+    image: "placeholder.jpg",
+    message: 'default menu. meals array contains meal.id values. date format: YYYY-MM-DD'
 }
 
 /**
@@ -83,7 +85,7 @@ const default_reservation = {
     id : 0,
     user: 1,
     order : 1,
-    date : "date",
+    date : "2025-12-06",
     location : 0,
     table_count : 1,
     customer_count : 2,
@@ -92,18 +94,21 @@ const default_reservation = {
 
 const default_discount = {
     id : 0,
-    target_meal: 1,
-    cost_override: 6.9,
+    menu: 1,
+    meal: 1,
+    type: 'fixed/percent/allMealsInMenu/whatever', //use this to set how you want a discount to apply
+    cost_override: 6.9,   //cost_override is used for setting a discounted price
+    cost_multiplier: 0.9,  //cost_multiplier is used for percentage discount
     discount_code : "just in case getting the discount needs a code",
-    date_start: "some start date",
-    date_end: "some end date",
-    message: "cost_override is the discounted cost"
+    date_start: "2025-12-06",
+    date_end: "2025-12-06",
+    message: "cost_override is used for setting a discounted price, cost_multiplier is used for percentage discount, Start and end dates are redundant if menu is used to target the discount"
 }
 
 const default_giftCard = {
     id : 0,
     value: 15.5,
-    expiration_date : "20260101",
+    expiration_date : "2026-01-01",
     password: "giftcardpassword",
     redeemed: false,
     message : "defauld giftcard, password is used to validate the giftcard, redeemed: boolean indicates if card has been redeemed",
