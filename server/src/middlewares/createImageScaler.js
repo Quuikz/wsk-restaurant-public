@@ -3,8 +3,6 @@
 //imports
 import sharp from 'sharp';
 
-import dotenv from "dotenv";
-dotenv.config({path: '../../../.env'});
 
 
 /**
