@@ -56,31 +56,11 @@ const default_order = {
  */
 const default_menu = {
     id : 0,
-    date : '', //date format?
+    date : '2026-12-06', //date format
     location: 0,
-    meals : [
-        {
-            id : 0,
-            name_fi: "suomenkielinen nimi",
-            name_en: "english name",
-            description_fi: "suomalainen kuvaus tuotteelle",
-            description_en: "english description for the item",
-            cost: 0.0,
-            type: "noudettava annos/ pöytävaraus / lahjakortti ?",
-            image: "public/images/burger.jpg"
-        },
-        {
-            id : 1,
-            name_fi: "suomenkielinen nimi",
-            name_en: "english name",
-            description_fi: "suomalainen kuvaus tuotteelle",
-            description_en: "english description for the item",
-            cost: 0.0,
-            type: "noudettava annos/ pöytävaraus / lahjakortti ?",
-            image: "public/images/burger.jpg"
-        }
-    ],
-    message: 'default menu. meals array contains meals set into this menu. Should it contain meal objects or just ids?'
+    special_meal: 1,
+    meals : [1, 2 ],
+    message: 'default menu. meals array contains meal.id '
 }
 
 /**
