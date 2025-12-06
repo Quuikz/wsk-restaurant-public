@@ -1,16 +1,35 @@
+import {useEffect, useState} from 'react';
+import {useMenu} from '../../../hooks/admin/apiHooks.js';
+import MenuRow from '../../admin/Menus/MenuRow.jsx';
+
 const Specials = () => {
+  const {getAllMenuItems} = useMenu();
+  const [menuItems, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    const loadAllMenuItems = async () => {
+      try {
+        const menuData = await getAllMenuItems();
+        setMenuItems(menuData);
+        console.log(menuData);
+      } catch (error) {
+        console.log('Error in loadMenuItems: ', error);
+      }
+    };
+    loadAllMenuItems();
+  }, []);
+
   return (
     <>
       {/* Daily Special boxes */}
       <div className="grid grid-cols-3 gap-4 p-7 pt-20 pb-30 bg-orange-50">
         {/* Box1 */}
         <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-          <img
-            src="https://placehold.co/1148x498"
-            alt="Spesiaali ruoka tänään"
-          />
+          <img src={menuItems[0].meals[0].image} alt="Spesiaali ruoka tänään" />
           <div className="px-6">
-            <h2 className="text-2xl  mt-2 text-center">Aterian nimi</h2>
+            <h2 className="text-2xl  mt-2 text-center">
+              {menuItems[0].meals[0].name_fi}
+            </h2>
             <p className="mt-1 font-bold">Tietoa</p>
             <ul>
               <li>Hinta</li>
