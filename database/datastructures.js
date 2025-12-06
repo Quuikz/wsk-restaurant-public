@@ -72,6 +72,7 @@ const default_menu = {
     id : 0,
     date : '', //date format?
     location: 0,
+    special_meal: 1,
     meals : [
         {
             id : 0,
