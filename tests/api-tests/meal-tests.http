@@ -45,7 +45,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 ### meal upload WITH picture (formadata  HTTP/1.1 )
 POST http://localhost:3000/api/meals/
 Content-Type: multipart/form-data; boundary=MyBoundary
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU5NzQ4MSwiZXhwIjoxNzY0NjgzODgxfQ.FNpsX4Dhp6w5i2nYWzQ4KWHysf0h4qlTVkxbhBrH2u4
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlZmF1bHQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJkZWZhdWx0Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY0OTM0ODIzLCJleHAiOjE3NjUwMjEyMjN9.easmf4SlV-0hKRkF-zlEWYtmJKu-oRMuWQVJt7pq_Ik
 
 --MyBoundary
 Content-Disposition: form-data; name="id"

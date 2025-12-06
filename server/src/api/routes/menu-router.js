@@ -11,12 +11,14 @@ import {
     putMenu,
     deleteMenu,
     getMenusByLocation,
-    getMenusByDate
+    getMenusByDate,
+    getMenusByWeek
 } from '../controllers/menu-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
+import formatParamTypes from "../../middlewares/formatParamTypes.js";
 
 
 const menuRouter = express.Router();
@@ -38,6 +40,9 @@ menuRouter.route('/:id')
 
 //endpoint http://hostname:port/api/menus/date/:date
 menuRouter.route('/date/:date').get(getMenusByDate)
+
+//endpoint http://hostname:port/api/menus/week/:week
+menuRouter.route('/week/:week').get(formatParamTypes, getMenusByWeek)
 
 //endpoint http://hostname:port/api/menus/location/:id
 menuRouter.route('/location/:id').get(getMenusByLocation)

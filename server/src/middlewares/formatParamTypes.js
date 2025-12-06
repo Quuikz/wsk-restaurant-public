@@ -13,9 +13,14 @@ const formatParamTypes = (req, res, next) => {
         console.log('formatParamTypes');
         if(req.params) {
             //TODO: this...
-            req.params.id = Number(req.params.type);
-            req.params.username = String(req.params.username);
-            req.params.password = String(req.params.password);
+            try { req.params.id = Number(req.params.type); } catch (error) {console.log(error);}
+            try { req.params.username = String(req.params.username); } catch (error) {console.log(error);}
+            try { req.params.password = String(req.params.password); } catch (error) {console.log(error);}
+            try { req.params.week = Number(req.params.week); } catch (error) {console.log(error);}
+
+
+
+
 
 
             next();

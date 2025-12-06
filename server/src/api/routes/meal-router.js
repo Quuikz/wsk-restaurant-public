@@ -28,7 +28,7 @@ const multerUpload = multer({
 });
 
 //configurable middleware for image scaling
-const imageScaler = createImageScaler(160,160,'./public/images/meals', '_meal', 'png');
+const imageScaler = createImageScaler(200,200,'./public/images/meals', '_meal', 'webp');
 
 //endpoint http://hostname:port/api/meals
 mealRouter.get('/', getMeals)
