@@ -1,10 +1,19 @@
+// Function to convert ISO date to weekday name "Finnish"
+function isoToWeekdayName(isoDate, locale = 'fi-FI', weekday = 'long') {
+  if (!isoDate) return 'Päivämäärä puuttuu';
+  const [year, month, day] = isoDate.split('-').map(Number);
+  const dt = new Date(year, month - 1, day);
+  return new Intl.DateTimeFormat(locale, {
+    weekday,
+  }).format(dt);
+}
+
 const WeeklistBox = ({menuItem}) => {
   return (
     <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
       <div className="px-6">
         <h3 className="text-3xl  mt-2 text-center border-b">
-          {/*Change to week day*/}
-          ID {menuItem.id}
+          {isoToWeekdayName(menuItem.date)} | {menuItem.date}
         </h3>
         <div className="grid grid-cols-2 gap-4 my-4">
           <p className="mt-1 font-bold">Grilli spesiaali</p>

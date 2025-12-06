@@ -1,12 +1,18 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import {useMenu} from '../../hooks/admin/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 
 const Weeklist = () => {
   const {getAllMenuItems} = useMenu();
   const [menuItems, setMenuItems] = useState([]);
+  // Set current week number here
+  // Currently hardcoded to 12 and 49 for testing
+  const [currentWeek, setCurrentWeek] = useState(49);
+
+  // !!! Add buttons to change week number later
 
   useEffect(() => {
+    // Load all menu items
     const loadAllMenuItems = async () => {
       try {
         const menuData = await getAllMenuItems();
@@ -18,21 +24,26 @@ const Weeklist = () => {
     };
     loadAllMenuItems();
   }, []);
+
+  // Filter the menu items for the current week (memoized)
+  const filteredMenuItems = useMemo(() => {
+    return menuItems.filter((item) => item.week === currentWeek);
+  }, [menuItems, currentWeek]);
+
   return (
     <>
       <div className="max-w-7xl mx-auto">
         <div className="p-7 pt-20 pb-30 bg-orange-100">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">
-            <h2 className="text-3xl font-medium">| Viikko 1 |</h2>
-            <p className="mt-2 ">
-              Päivät 1-7: Lorem ipsum dolor sit amet consectetur
-            </p>
+            <h2 className="text-3xl font-medium">| Viikko {currentWeek} |</h2>
+            <p className="mt-2 ">Tutustu viikon herkkulliseen valikoimaan!</p>
           </div>
 
           {/* Weekly list */}
           <div className="grid grid-cols-3 gap-4 ">
-            {menuItems.map((menuItem) => (
+            {console.log(menuItems)}
+            {filteredMenuItems.map((menuItem) => (
               <WeeklistBox key={menuItem.id} menuItem={menuItem} />
             ))}
           </div>
