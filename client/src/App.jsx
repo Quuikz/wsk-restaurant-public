@@ -31,6 +31,7 @@ import Profile from './views/customer/Profile.jsx';
 import Dashboard from './views/admin/Dashboard.jsx';
 import Meals from './views/admin/Meals/Meals.jsx';
 import AddMeal from './views/admin/Meals/AddMeal.jsx';
+import Menus from './views/admin/Menus/Menus.jsx';
 
 
 
@@ -79,6 +80,8 @@ const App = () => {
             <Route index element={<Dashboard />} />
             <Route path="meals" element={<Meals />} />
             <Route path="addmeal" element={<AddMeal />} />
+
+            <Route path="menus" element={<Menus />} />
           </Route>
         </Routes>
       </UserProvider>

@@ -4,6 +4,8 @@ import fetchData from "../../utils/fetchData";
 const API_URL = import.meta.env.VITE_CUSTOM_AUTH_API;
 
 
+//TODO: common apiHooks.js for some GET requests ?
+
 const useMeal = () => {
 
     //const token = localStorage.getItem('token');
@@ -43,7 +45,26 @@ const useMeal = () => {
     };
 
     return { getAllMeals, postNewMeal }
+}
+
+
+const useMenu = () => {
+
+    const getAllMenuItems = async () =>{
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const getAllMenuItemsResult = await fetchData(API_URL + '/menus', fetchOptions);
+        return getAllMenuItemsResult;
+    }
+
+    return { getAllMenuItems }
+
 
 }
 
-export { useMeal }
+export { useMeal, useMenu }
