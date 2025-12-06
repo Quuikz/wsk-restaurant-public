@@ -51,14 +51,25 @@ const useMeal = () => {
             body: JSON.stringify(inputs),
         };
 
-        const updatedMealResult = await fetchData(API_URL + `meals/${mealID}`, fetchOptions);
+        const updatedMealResult = await fetchData(API_URL + `/meals/${mealID}`, fetchOptions);
         return updatedMealResult;
     }
 
+    const deleteMeal = async (token, mealID) => {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                'Authorization': `Bearer ${token}`
+
+            },
+        };
+
+        const deleteMealResult = await fetchData(API_URL + `/meals/${mealID}`, fetchOptions);
+        return deleteMealResult;
+    }
 
 
-
-    return { getAllMeals, postNewMeal, updateMealInfo }
+    return { getAllMeals, postNewMeal, updateMealInfo, deleteMeal }
 }
 
 

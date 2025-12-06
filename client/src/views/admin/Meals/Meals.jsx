@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useMeal } from "../../../hooks/admin/apiHooks"
 import MealRow from "../../../components/admin/MealRow";
-import ModifyMealModal from "../../../components/admin/MealModals/ModifyMealModal";
+import ModifyMealModal from "../../../components/admin/MealModals/ModifyMealModal.jsx";
+import DeleteMealModal from "../../../components/admin/MealModals/DeleteMealModal.jsx";
 
 const Meals = () => {
 
@@ -70,6 +71,17 @@ const Meals = () => {
             meal={selectedMeal}
             isOpen={showModifyModal}
             onClose={() => setShowModifyModal(false)}
+        />
+
+        {/*Delete Meal modal */}
+        <DeleteMealModal 
+            meal={selectedMeal}
+            isOpen={showDeleteModal}
+            onClose={() => setShowDeleteModal(false)}
+
+            onDeleted={(mealId) =>
+                setMeals((prev) => prev.filter((m) => m.id !== mealId))
+            }
         />
 
         </>

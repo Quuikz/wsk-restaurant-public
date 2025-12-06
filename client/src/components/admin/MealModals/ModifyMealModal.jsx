@@ -37,45 +37,65 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
 
     return(
         <>
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <form 
-            onSubmit={handleSubmit}
-            className="bg-white p-6 rounded w-96">
+  <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white w-full max-w-md p-6 rounded-xl shadow-xl animate-fadeIn"
+    >
+      <h2 className="text-2xl font-semibold mb-5 text-gray-800">
+        Modify Meal
+      </h2>
 
-                
-                <h2 className="text-xl font-bold mb-4">Modify Meal</h2>
-                <input
-                type="text"
-                name="name_fi"
-                value={inputs.name_fi}
-                onChange={handleInputChange}
-                placeholder="Name FI"
-                className="w-full mb-2 p-2 border rounded"
-                />
-                <input
-                type="text"
-                name="name_en"
-                value={inputs.name_en}
-                onChange={handleInputChange}
-                placeholder="Name EN"
-                className="w-full mb-2 p-2 border rounded"
-                />
-                <input
-                type="number"
-                name="cost"
-                value={inputs.cost}
-                onChange={handleInputChange}
-                placeholder="Cost"
-                className="w-full mb-2 p-2 border rounded"
-                />
-                {/* Add more fields as needed */}
-                <div className="flex justify-end gap-2 mt-4">
-                    <button type="button" onClick={onClose} className="px-4 py-2 bg-gray-300 rounded">Cancel</button>
-                    <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded">Save</button>
-                </div>
-            </form>
-        </div>
-        </>
+      <div className="space-y-3">
+        <input
+          type="text"
+          name="name_fi"
+          value={inputs.name_fi}
+          onChange={handleInputChange}
+          placeholder="Name (in Finnish)"
+          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+
+        <input
+          type="text"
+          name="name_en"
+          value={inputs.name_en}
+          onChange={handleInputChange}
+          placeholder="Name (in English)"
+          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+
+        <input
+          type="number"
+          name="cost"
+          value={inputs.cost}
+          onChange={handleInputChange}
+          placeholder="Cost"
+          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+
+        {/* More fields, probably all except id and img */}
+      </div>
+
+      <div className="flex justify-end gap-3 mt-6">
+        <button
+          type="button"
+          onClick={onClose}
+          className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          className="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 shadow-sm transition"
+        >
+          Save
+        </button>
+      </div>
+    </form>
+  </div>
+</>
     );
 
 
