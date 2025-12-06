@@ -38,8 +38,6 @@ const Meals = () => {
 
     return(
         <>
-        <h1>Here comes all the meaaals</h1>
-
         <ul>
             {meals.map((meal) => (
                 <MealRow
