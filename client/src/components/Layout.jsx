@@ -11,9 +11,13 @@ const Layout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
+
   useEffect(() => {
     handleAutoLogin();
+  }, []);
 
+  
+  useEffect(() => {
     // Burger closed on window click outside
     function handleClickOutside(event) {
       if (menuRef.current && !menuRef.current.contains(event.target)) {

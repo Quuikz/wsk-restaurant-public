@@ -14,7 +14,7 @@ import Logo from '../../../assets/Restauranto-Logo2.png';
 const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
-  const {handleAutoLogin, user} = useUserContext();
+  const {user, handleAutoLogin} = useUserContext();
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -48,7 +48,7 @@ const HeaderNV = () => {
   const [displayRegisterModal, setDisplayRegisterModal] = useState(false);
 
   useEffect(() => {
-    handleAutoLogin();
+    //handleAutoLogin();
 
     // Burger closed on window click outside
     function handleClickOutside(event) {
@@ -59,7 +59,7 @@ const HeaderNV = () => {
 
     window.addEventListener('click', handleClickOutside);
     return () => window.removeEventListener('click', handleClickOutside);
-  }, [handleAutoLogin]);
+  }, []);
 
   return (
     <header className="fixed w-full z-50">

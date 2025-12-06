@@ -51,8 +51,37 @@ const useAuthentication = () => {
     }
   };
 
+  
+
   return {postLogin, postRegister};
 };
+
+const useUser = () => {
+    const getUserByToken = async (token) => {
+    try {
+      const fetchOptions = {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      };
+
+      const tokenResult = await fetchData(AUTH_API + '/auth/validate', fetchOptions);
+      return tokenResult;
+    }
+    catch (error) {
+        console.log('Error in getUserByToken: ', error);
+    }
+  };
+
+  return { getUserByToken};
+
+}
+
+
+
+
+
 
 const useCurrentUser = () => {
   const {user} = useUserContext();
@@ -113,4 +142,4 @@ const useCurrentUser = () => {
   return {modifyUserInfo, modifyUserAvatar};
 };
 
-export {useAuthentication, useCurrentUser};
+export {useAuthentication, useUser, useCurrentUser};

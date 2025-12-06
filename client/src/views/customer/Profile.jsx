@@ -1,18 +1,39 @@
 import React, {useEffect, useState} from 'react';
-
+//Modals
 import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
-import {useUserContext} from '../../hooks/contextHooks.js';
+
+import { useUser } from '../../hooks/apiHooks.js';
+import { useUserContext } from '../../hooks/contextHooks.js';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
-  const {user} = useUserContext();
+  //const {user} = useUserContext();
 
+  const { getUserByToken } = useUser();
+  const [user, setUser] = useState(null);
+
+  console.log("PROFILE RENDER");
   useEffect(() => {
-    console.log('user from context:', user);
-  }, [user]);
+    console.log("USE EFFECT RUN");
+    const token = localStorage.getItem('token');
+    if(!token){
+      console.log('No token found');
+      return;
+    }
 
+    const getUserData = async () => {
+      const userData = await getUserByToken(token);
+      setUser(userData.user);
+  
+    };
+    getUserData();
+
+  }, []);
+ //const { user } = useUserContext();
+
+  //TODO: consider using 'user &&' check instead
   return (
     <>
       <div className="max-w-7xl mx-auto">
@@ -38,9 +59,19 @@ const Profile = () => {
 
                   <h2 className="text-lg font-medium">Käyttäjä profiili</h2>
                 </div>
+
+              {user ? (
+                <div>
                 <p className="pt-3">Nimi: {user.username}</p>
                 <p className="pt-1">Sähköposti: {user.email}</p>
                 <p className="pt-1">Käyttäjän ID: {user.id}</p>
+                </div>
+              ) : (
+                <div className="max-w-7xl mx-auto text-center pt-20">
+                  <h2 className="text-2xl font-medium">Ladataan profiilia...</h2>
+                </div>
+              )}
+                
 
                 <div className="grid grid-cols-2 gap-5">
                   <button
