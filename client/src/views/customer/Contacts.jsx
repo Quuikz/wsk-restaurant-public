@@ -1,11 +1,9 @@
-import React from 'react';
-
 import useWeather from '../../hooks/widgetApiHooks.js';
-import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
+//import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
 
-import {MapContainer, TileLayer, Marker, Popup} from 'https://cdn.esm.sh/react-leaflet';
-//import L from 'leaflet';
-//import 'leaflet/dist/leaflet.css';
+import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
 // Custom icon for the marker
 const customIcon = L.icon({
@@ -71,7 +69,7 @@ const Contacts = () => {
             {/* Right side - (Left/top) - Restaurant contacts */}
             <div className="p-4 bg-gray-100 rounded-lg shadow bg-orange-100">
               {/* !!! Departures Widget NOT WORKING CORS*/}
-              <DeparturesWidget lat={60.1599} lon={24.9484} radius={500} />
+              {/* <DeparturesWidget lat={60.1599} lon={24.9484} radius={500} /> */}
 
               <h3 className="text-xl font-semibold mb-2">Yhteystiedot</h3>
 
