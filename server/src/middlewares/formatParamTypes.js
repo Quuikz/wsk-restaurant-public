@@ -12,17 +12,15 @@ const formatParamTypes = (req, res, next) => {
     try {
         console.log('formatParamTypes');
         if(req.params) {
+            console.log(req.params);
             //TODO: this...
-            try { req.params.id = Number(req.params.type); } catch (error) {console.log(error);}
-            try { req.params.username = String(req.params.username); } catch (error) {console.log(error);}
-            try { req.params.password = String(req.params.password); } catch (error) {console.log(error);}
-            try { req.params.week = Number(req.params.week); } catch (error) {console.log(error);}
+            if(req.params.id) req.params.id = Number(req.params.type);
+            if(req.params.username) req.params.username = String(req.params.username);
+            if(req.params.password) req.params.password = String(req.params.password);
+            if(req.params.week) req.params.week = Number(req.params.week);
 
 
-
-
-
-
+            console.log(req.params);
             next();
         } else {
             console.log('no request.params');
@@ -39,8 +37,6 @@ const formatParamTypes = (req, res, next) => {
 export default formatParamTypes;
 
 /*TODO: all parameter that need to be formatted:
-* date - date
-* username - string
-* *
-*
+* date - date? string?
+
 * */
