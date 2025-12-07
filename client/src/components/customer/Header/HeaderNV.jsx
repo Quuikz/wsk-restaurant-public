@@ -166,7 +166,6 @@ const HeaderNV = () => {
                 </button>
 
                 {/* -- Burger menu items -- */}
-                {/* !!! Can't do full right. Issue in navbar padding */}
                 <div className="absolute right-0 top-20 z-50">
                   {menuOpen && (
                     <div
