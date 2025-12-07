@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { useMeal } from "../../../hooks/admin/apiHooks"
+//import { useMeal } from "../../../hooks/admin/apiHooks"
+import { useMealCommon } from "../../../hooks/common/apiHooks.js";
 import MealRow from "../../../components/admin/MealRow";
 import ModifyMealModal from "../../../components/admin/MealModals/ModifyMealModal.jsx";
 import DeleteMealModal from "../../../components/admin/MealModals/DeleteMealModal.jsx";
 
 const Meals = () => {
 
-    const { getAllMeals } = useMeal();
+    const { getAllMeals } = useMealCommon();
     const [meals, setMeals] = useState([]);
 
     //Modals

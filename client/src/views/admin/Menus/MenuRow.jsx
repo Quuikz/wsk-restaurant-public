@@ -25,8 +25,10 @@ const MenuRow = ({ menuItem }) => {
         <h2 className="text-xl font-bold">Menu #{menuItem.id}</h2>
 
         <div className="text-sm text-gray-600">
+            <>
             <p>Week: week44</p>
             <p>Date: {menuItem.date || "N/A"}</p>
+            </>
         </div>
       </div>
 
@@ -40,7 +42,7 @@ const MenuRow = ({ menuItem }) => {
 
       {/* Meals list */}
       {/*TODO: refine style */}
-            <li className="grid grid-cols-7 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
+        <div className="grid grid-cols-7 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
             <span>ID</span>
             <span>Name FI</span>
             <span>Name EN</span>
@@ -48,7 +50,7 @@ const MenuRow = ({ menuItem }) => {
             <span>Cost</span>
             <span>Edit</span>
             <span>Delete</span>
-        </li>
+        </div>
       <ul className="divide-y">
         {menuItem.meals.map((meal) => (
           <MealRow

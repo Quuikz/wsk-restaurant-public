@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
-import { useMenu } from "../../../hooks/admin/apiHooks.js";
+//import { useMenu } from "../../../hooks/admin/apiHooks.js";
+import { useMenuCommon } from "../../../hooks/common/apiHooks.js";
 import MenuRow from "./MenuRow.jsx";
 
 
 const Menus = () => {
 
-    const { getAllMenuItems } = useMenu();
+    const { getAllMenuItems } = useMenuCommon();
     const [ menuItems, setMenuItems ] = useState([]);
 
 

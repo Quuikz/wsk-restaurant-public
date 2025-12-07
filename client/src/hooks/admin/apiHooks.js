@@ -76,6 +76,7 @@ const useMeal = () => {
 
 const useMenu = () => {
 
+    /*
     const getAllMenuItems = async () =>{
         const fetchOptions = {
             method: 'GET',
@@ -89,6 +90,7 @@ const useMenu = () => {
     }
 
     return { getAllMenuItems }
+    */
 
 
 }
