@@ -80,26 +80,37 @@ const postMeal = (req, res) => {
 };
 
 const putMeal = (req, res) => {
-    console.log('putMeal in meal-controller');
-    console.log(req.body);
-    console.log(req.params.id);
+    try {
+        console.log('putMeal in meal-controller');
+        console.log(req.body);
+        console.log(req.params.id);
 
-    const result = modifyMeal(req.body, req.params.id);
-    result.then(
-        result => {
-            if (result) {
-                console.log('return meal: ', result)
-                res.json(result);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        result => {
-            console.log('error in putMeal in meal-controller');
-            console.log(result);
-            res.sendStatus(500);
+        if (req.body.id === req.params.id) {
+            const result = modifyMeal(req.body);
+            result.then(
+                result => {
+                    if (result) {
+                        console.log('return meal: ', result)
+                        res.json(result);
+                    } else {
+                        res.sendStatus(404);
+                    }
+                },
+                result => {
+                    console.log('error in putMeal in meal-controller');
+                    console.log(result);
+                    res.sendStatus(500);
+                }
+            );
+
+        } else {
+            console.log('req.body.id !== req.params.id in putMeal');
         }
-    );
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
 };
 
 const deleteMeal = (req, res) => {

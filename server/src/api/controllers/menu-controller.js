@@ -39,7 +39,7 @@ const getMenuById = (req, res) => {
     menu.then(
         menu => {
             if (menu) {
-                console.log('return menu'+req.params.id)
+                console.log('return menu', req.params.id)
                 res.json(menu);
 
             } else {
@@ -85,7 +85,7 @@ const putMenu = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('return menu: '+result)
+                console.log('return menu: ',result)
                 res.json(result);
             } else {
                 res.sendStatus(404);

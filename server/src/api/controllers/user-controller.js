@@ -64,10 +64,12 @@ const postUser = (req, res) => {
 
                     const userWithNoPassword = {
                         id: user.id,
-                        name: user.name,
                         username: user.username,
-                        email: user.email,
                         role: user.role,
+                        name: user.name,
+                        email: user.email,
+                        image : user.image,
+                        message : user.message
                     }
 
                     res.json(userWithNoPassword);
@@ -99,10 +101,18 @@ const putUser = (req, res) => {
     result.then(
         user => {
             if (user) {
-                console.log('return user: ',user)
-                //TODO: stop users password returning...
+                console.log('return user: ',user);
+                const userWithNoPassword = {
+                    id: user.id,
+                    username: user.username,
+                    role: user.role,
+                    name: user.name,
+                    email: user.email,
+                    image : user.image,
+                    message : user.message
+                }
+                res.json(userWithNoPassword);
 
-                res.json(user);
             } else {
                 res.sendStatus(404);
             }
