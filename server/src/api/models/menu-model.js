@@ -439,7 +439,6 @@ export {
     addMenu,
     modifyMenu,
     removeMenu,
-    findMenusByLocation,
     findMenusByDate,
     findMenusByWeek
 };

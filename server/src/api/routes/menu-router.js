@@ -10,7 +10,6 @@ import {
     postMenu,
     putMenu,
     deleteMenu,
-    getMenusByLocation,
     getMenusByDate,
     getMenusByWeek
 } from '../controllers/menu-controller.js';
