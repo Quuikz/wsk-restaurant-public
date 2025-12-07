@@ -184,7 +184,6 @@ export {
     postMenu,
     putMenu,
     deleteMenu,
-    getMenusByLocation,
     getMenusByDate,
     getMenusByWeek
 };
