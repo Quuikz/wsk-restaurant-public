@@ -62,7 +62,7 @@ const postMenu = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('added menu: '+result)
+                console.log('added menu: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
