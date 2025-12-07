@@ -24,8 +24,7 @@ const createImageScaler = (width, height, outputPath, suffix, fileType) => {
        try {
         //if no file
         if (!req.file) {
-            console.log('No file uploaded request.image set to placeholder.jpg');
-            req.body.image = "placeholder.jpg";
+            console.log('No file uploaded');
             next();
             return;
         }
