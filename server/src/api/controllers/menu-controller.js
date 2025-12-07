@@ -8,7 +8,6 @@ import {
     addMenu,
     modifyMenu,
     removeMenu,
-    findMenusByLocation,
     findMenusByDate,
     findMenusByWeek
 } from "../models/menu-model.js";
@@ -125,26 +124,6 @@ const deleteMenu = (req, res) => {
     );
 }
 
-const getMenusByLocation = (req, res) => {
-    console.log('getMenuByLocation in menu-controller')
-    console.log(req.params.id);
-    const menuArray = findMenusByLocation(req.params.id);
-    menuArray.then(
-        menuArray => {
-            if (menuArray) {
-                console.log('return menus for location '+req.params.id)
-                res.json(menuArray);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        result => {
-            console.log('error in getMenuByLocation in menu-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
-}
 
 const getMenusByDate = (req, res) => {
     console.log('getMenuByDate in menu-controller')

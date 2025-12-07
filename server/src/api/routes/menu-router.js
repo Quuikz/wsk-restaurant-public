@@ -44,9 +44,6 @@ menuRouter.route('/date/:date').get(getMenusByDate)
 //endpoint http://hostname:port/api/menus/week/:week
 menuRouter.route('/week/:week').get(formatParamTypes, getMenusByWeek)
 
-//endpoint http://hostname:port/api/menus/location/:id
-menuRouter.route('/location/:id').get(getMenusByLocation)
-
 
 export default menuRouter;
 
