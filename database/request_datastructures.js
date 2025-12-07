@@ -79,7 +79,7 @@ const default_reservation = {
     id : 0,
     user: 1,    //vieras avain
     order : 1,  //Vieras avain
-    date : "2025-12-06",
+    date : "2025-12-06 12:00:00",
     table_customer_count : 1,   //Grillivaraus - henkilöiden määrä
     grill_customer_count : 2,   //Pöytävaraus - henkilöiden määrä
     message : 'default reservation',
