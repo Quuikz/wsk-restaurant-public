@@ -40,4 +40,60 @@ const useMenuCommon = () => {
 }
 
 
-export { useMealCommon, useMenuCommon }
+const useOrderCommon = () => {
+
+    const postOrder = async (inputs, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(inputs),
+        };
+
+        const postOrderResult = await fetchData(API_URL + `/orders`, fetchOptions);
+        return postOrderResult;
+    }
+
+
+    const updateOrder = async (inputs, token, orderID) => {
+        const fetchOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(inputs),
+        };
+
+        const updatedOrderResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+        return updatedOrderResult;
+    }
+
+    const deleteOrder = async (token, orderID) => {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const deletedOrderResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+        return deletedOrderResult;
+    }
+
+    return { postOrder, updateOrder, deleteOrder }
+}
+
+
+const useReservationCommon = () => {
+
+
+
+
+}
+
+
+export { useMealCommon, useMenuCommon, useOrderCommon }

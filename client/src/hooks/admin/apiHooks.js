@@ -125,7 +125,6 @@ const useOrders = () => {
 
         const getSingleOrderResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
         return getSingleOrderResult;
-
     }
 
 
