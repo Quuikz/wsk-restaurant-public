@@ -43,7 +43,13 @@ mealRouter.get('/', getMeals)
 //endpoint http://hostname:port/api/meals/:id
 mealRouter.route('/:id')
     .get(formatIdToNumber, getMealById)
-    .put(authenticateToken, userIsAdmin, formatIdToNumber, putMeal)
+    .put(authenticateToken,
+        formatIdToNumber,
+        userIsAdmin,
+        multerUpload.single('file'),
+        imageScaler,
+        formatBodyTypes,
+        putMeal)
     .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteMeal);
 
 export default mealRouter;

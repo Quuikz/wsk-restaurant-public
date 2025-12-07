@@ -67,3 +67,37 @@ Content-Type: image/jpg
 
 < ./lautanen.jpg
 --MyBoundary--
+
+
+
+### update user with picture
+PUT http://localhost:3000/api/users/17
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MTIwMSwiZXhwIjoxNzY1MTU3NjAxfQ.3lwfVbLmPkpq9Y51qtGCDoR6zunBRSJ8oBR-feeNRHQ
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+17
+--MyBoundary
+Content-Disposition: form-data; name="username"
+
+username
+--MyBoundary
+Content-Disposition: form-data; name="name"
+
+name
+--MyBoundary
+Content-Disposition: form-data; name="password"
+
+password
+--MyBoundary
+Content-Disposition: form-data; name="role"
+
+user
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--

@@ -43,7 +43,13 @@ userRouter.get('/',authenticateToken, userIsAdmin, getUsers)
 //endpoint http://hostname:port/api/users/:id
 userRouter.route('/:id')
     .get(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, getUserById)
-    .put(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, putUser)
+    .put(authenticateToken,
+        formatIdToNumber,
+        filterByUserIdOrAdmin,
+        multerUpload.single('file'),
+        imageScaler,
+        formatBodyTypes,
+        putUser)
     .delete(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, deleteUser);
 
 //endpoint http://hostname:port/api/users/byname/:username

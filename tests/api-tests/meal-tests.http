@@ -81,3 +81,45 @@ Content-Type: image/jpg
 
 < ./lautanen.jpg
 --MyBoundary--
+
+
+### update meal with picture
+PUT http://localhost:3000/api/meals/24
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+24
+--MyBoundary
+Content-Disposition: form-data; name="name_fi"
+
+suomenkielinen nimi
+--MyBoundary
+Content-Disposition: form-data; name="name_en"
+
+english name
+--MyBoundary
+Content-Disposition: form-data; name="description_fi"
+
+description_fi
+--MyBoundary
+Content-Disposition: form-data; name="description_en"
+
+description_en
+--MyBoundary
+Content-Disposition: form-data; name="cost"
+
+40
+--MyBoundary
+Content-Disposition: form-data; name="type"
+
+"food?"
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--
+
