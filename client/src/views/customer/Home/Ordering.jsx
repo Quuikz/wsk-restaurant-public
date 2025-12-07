@@ -7,21 +7,37 @@ const Ordering = ({id}) => {
   // Date state
   const today = new Date().toISOString().split('T')[0];
 
+  // Table max ocapacity
+  const tableCapacity = 4;
+
   // Grill number state
   const [grillNumber, setGrillNumber] = useState(0);
   const minGrill = 0;
-  const maxGrill = 20;
+  const maxGrill = tableCapacity;
 
-  const incrementGrill = () => setGrillNumber((v) => Math.min(maxGrill, v + 1));
+  const incrementGrill = () => {
+    const totalGuests = grillNumber + buffetNumber;
+    if (totalGuests < tableCapacity) {
+      setGrillNumber((v) => Math.min(maxGrill, v + 1));
+    } else {
+      alert('Täysi kapasiteetti saavutettu! Vähennä noutopöydän henkilöitä.');
+    }
+  };
   const decrementGrill = () => setGrillNumber((v) => Math.max(minGrill, v - 1));
 
   // Buffet number state
   const [buffetNumber, setBuffetNumber] = useState(0);
   const minBuffet = 0;
-  const maxBuffet = 20;
+  const maxBuffet = tableCapacity;
 
-  const incrementBuffet = () =>
-    setBuffetNumber((v) => Math.min(maxBuffet, v + 1));
+  const incrementBuffet = () => {
+    const totalGuests = grillNumber + buffetNumber;
+    if (totalGuests < tableCapacity) {
+      setBuffetNumber((v) => Math.min(maxBuffet, v + 1));
+    } else {
+      alert('Täysi kapasiteetti saavutettu! Vähennä grillipöydän henkilöitä.');
+    }
+  };
   const decrementBuffet = () =>
     setBuffetNumber((v) => Math.max(minBuffet, v - 1));
   return (
