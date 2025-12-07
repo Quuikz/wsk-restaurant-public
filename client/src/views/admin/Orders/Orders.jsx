@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useOrders } from "../../../hooks/admin/apiHooks";
-import OrderRow from "../../../components/admin/OrderModals/OrderRow";
 
 const Orders = () => {
 
