@@ -1,6 +1,11 @@
+import { useOrders } from "../../../hooks/admin/apiHooks";
+
+const ViewOrderInfoModal = ({order, onClose}) => {
+
+    const { getSingleOrder } = useOrders();
 
 
-const ViewOrderInfoModal = () => {
+
 
 
 

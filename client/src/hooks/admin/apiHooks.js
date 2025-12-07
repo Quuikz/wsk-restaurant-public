@@ -111,7 +111,26 @@ const useOrders = () => {
         return getAllOrdersResult;
     }
 
-    return { getAllOrders }
+    //Possible todo: move to common/apiHooks.js
+    //as it seems that both customer + admin can use this
+    //However, possibly better way of doing this for customer
+    const getSingleOrder = async (token, orderID) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getSingleOrderResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+        return getSingleOrderResult;
+
+    }
+
+
+
+    return { getAllOrders, getSingleOrder }
 
 
 

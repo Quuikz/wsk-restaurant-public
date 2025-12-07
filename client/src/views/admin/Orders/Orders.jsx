@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { useOrders } from "../../../hooks/admin/apiHooks";
+import OrderRow from "../../../components/admin/OrderModals/OrderRow";
 
 const Orders = () => {
 
     const { getAllOrders } = useOrders();
-    const [orders, setOrders] = useState();
+    const [orders, setOrders] = useState([]);
 
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showModifyOrderModal, setShowModifyOrderModal] = useState(false);
@@ -12,9 +13,12 @@ const Orders = () => {
 
     useEffect(() => {
         const loadAllOrders = async () => {
+            const token = localStorage.getItem('token');
+
             try{
-                const orderData = await getAllOrders();
+                const orderData = await getAllOrders(token);
                 setOrders(orderData);
+                console.log(orderData);
             }
             catch(error){
                 console.log('Error in loadAllOrders: ', error);
@@ -42,28 +46,37 @@ const Orders = () => {
         <>
         {/*TODO: refine style */}
         <ul>
-            <li className="grid grid-cols-7 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
+            <li className="grid grid-cols-8 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
                 <span>ID</span>
                 <span>User</span>
                 <span>Cost</span>
                 <span>Timestamp</span>
-                <span>Locatin</span>
+                <span>Location</span>
                 <span>View items</span>
                 <span>Modify</span>
                 <span>Delete</span>
             </li>
-        </ul>
-
-        <ul>
+ 
             {orders.map((order) => (
-                <OrderRow 
+                <li
+                    className="grid grid-cols-8 gap-4 px-4 py-2 border-b"
                     key={order.id}
-                    order={order}
-                    onView={() => handleViewOrderInfo(order)}
-                    onModify={() => handleModifyOrder(order)}
-                    onDelete={() => handleDeleteOrder(order)}
-
-                />
+                >
+                    <span>{order.id}</span>
+                    <span>{order.user}</span>
+                    <span>{order.cost}</span>
+                    <span>{order.timestamp}</span>
+                    <span>{order.location}</span>
+                    <button
+                        onClick={() => handleViewOrderInfo(order)}>View order
+                    </button>
+                    <button
+                        onClick={() => handleModifyOrder(order)}>Modify order
+                    </button>
+                    <button
+                        onClick={() => handleDeleteOrder(order)}>Delete order
+                    </button>
+                </li>
             ))}
         </ul>
 
