@@ -11,6 +11,7 @@ import locationRouter from "./routes/location-router.js";
 import reservationRouter from "./routes/reservation-router.js";
 import discountRouter from "./routes/discount-router.js";
 // import giftCardRouter from './routes/giftcard-router.js';
+import hslRouter from "./routes/hsl-router.js";
 
 //define apiRouter
 const apiRouter = express.Router();
@@ -38,6 +39,9 @@ apiRouter.use("/reservations", reservationRouter);
 
 //discount-router  http://hostname:port/api/discounts
 apiRouter.use("/discounts", discountRouter);
+
+//hsl-router  http://hostname:port/api/hsl
+apiRouter.use("/hsl", hslRouter);
 
 //gift-card-router http://hostname:port/api/giftcards
 // apiRouter.use('/giftcards', giftCardRouter);
