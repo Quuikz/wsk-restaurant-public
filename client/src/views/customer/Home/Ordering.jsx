@@ -62,22 +62,9 @@ const Ordering = ({id}) => {
                   −
                 </button>
 
-                <input
-                  type="number"
-                  id="grillNumber"
-                  name="grillNumber"
-                  value={grillNumber}
-                  onChange={(e) => {
-                    const v = Number(e.target.value || 0);
-                    if (!Number.isNaN(v)) {
-                      setGrillNumber(Math.max(minGrill, Math.min(maxGrill, v)));
-                    }
-                  }}
-                  min={minGrill}
-                  max={maxGrill}
-                  className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded"
-                  aria-label="Grill number"
-                />
+                <div className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded mx-2">
+                  {grillNumber}
+                </div>
 
                 <button
                   type="button"
@@ -108,24 +95,9 @@ const Ordering = ({id}) => {
                   −
                 </button>
 
-                <input
-                  type="number"
-                  id="BuffetNumber"
-                  name="BuffetNumber"
-                  value={buffetNumber}
-                  onChange={(e) => {
-                    const v = Number(e.target.value || 0);
-                    if (!Number.isNaN(v)) {
-                      setBuffetNumber(
-                        Math.max(minBuffet, Math.min(maxBuffet, v)),
-                      );
-                    }
-                  }}
-                  min={minBuffet}
-                  max={maxBuffet}
-                  className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded"
-                  aria-label="Buffet number"
-                />
+                <div className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded mx-2">
+                  {buffetNumber}
+                </div>
 
                 <button
                   type="button"
