@@ -12,6 +12,23 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 
 -- -----------------------------------------------------
+-- Drop and create database wsk_restaurant
+-- -----------------------------------------------------
+
+DROP DATABASE IF EXISTS wsk_restaurant;
+CREATE DATABASE wsk_restaurant;
+USE wsk_restaurant;
+
+-- -----------------------------------------------------
+-- Create user and grant privileges
+-- -----------------------------------------------------
+
+DROP USER IF EXISTS appuser@localhost;
+CREATE USER appuser@localhost IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON wsk_restaurant.* TO appuser@localhost;
+FLUSH PRIVILEGES;
+
+-- -----------------------------------------------------
 -- Table `users`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `users` ;

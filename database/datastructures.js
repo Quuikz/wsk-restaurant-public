@@ -8,8 +8,8 @@ const default_user = {
     role: "user",
     name: "default",
     email: "default",
-    message: 'default user object, image at //hostname:port/images/users/placeholder.jpg',
-    image: "placeholder.jpg"
+    image: "placeholder.jpg",
+    message: 'default user object, image at //hostname:port/images/users/placeholder.jpg'
 }
 
 
