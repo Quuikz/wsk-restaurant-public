@@ -95,4 +95,27 @@ const useMenu = () => {
 
 }
 
-export { useMeal, useMenu }
+
+const useOrders = () => {
+
+    const getAllOrders = async (token) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getAllOrdersResult = await fetchData(API_URL + '/orders', fetchOptions);
+        return getAllOrdersResult;
+    }
+
+    return { getAllOrders }
+
+
+
+}
+
+
+export { useMeal, useMenu, useOrders }

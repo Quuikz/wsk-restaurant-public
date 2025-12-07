@@ -32,6 +32,7 @@ import Dashboard from './views/admin/Dashboard.jsx';
 import Meals from './views/admin/Meals/Meals.jsx';
 import AddMeal from './views/admin/Meals/AddMeal.jsx';
 import Menus from './views/admin/Menus/Menus.jsx';
+import Orders from './views/admin/Orders/Orders.jsx';
 
 
 
@@ -82,6 +83,7 @@ const App = () => {
             <Route path="addmeal" element={<AddMeal />} />
 
             <Route path="menus" element={<Menus />} />
+            <Route path="orders" element={<Orders />} />
           </Route>
         </Routes>
       </UserProvider>
