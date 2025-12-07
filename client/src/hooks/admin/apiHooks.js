@@ -131,10 +131,43 @@ const useOrders = () => {
 
 
     return { getAllOrders, getSingleOrder }
+}
 
+const useReservations = () => {
+
+    const getReservationByID = async (token, reservationID) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getSingleReservationByIDresult = await fetchData(API_URL + `/reservations/${reservationID}`, fetchOptions);
+        return getSingleReservationByIDresult;
+    }
+
+
+
+
+    const getReservationByUserID = async (token, reservationUserID) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getSingleReservationResult = await fetchData(API_URL + `/reservations/user/${reservationUserID}`, fetchOptions);
+        return getSingleReservationResult;
+    }
+
+    return { getReservationByID, getReservationByUserID }
 
 
 }
 
 
-export { useMeal, useMenu, useOrders }
+export { useMeal, useMenu, useOrders, useReservations }
