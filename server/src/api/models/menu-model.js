@@ -157,6 +157,28 @@ const findMenusByDate = async (date) => {
     }
 }
 
+/**
+ * @param week
+ * @return
+ * array filtered by id given or false if error
+
+ */
+const findMenusByWeek = async (week) => {
+    try {
+        const resultArray = menus.filter(menu => menu.week === week);
+        if (resultArray) {
+            return resultArray;
+        } else {
+            return false
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
+
 export {
     listAllMenus,
     findMenuById,
@@ -164,5 +186,6 @@ export {
     modifyMenu,
     removeMenu,
     findMenusByLocation,
-    findMenusByDate
+    findMenusByDate,
+    findMenusByWeek
 };
