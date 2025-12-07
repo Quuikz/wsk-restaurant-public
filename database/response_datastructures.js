@@ -32,21 +32,16 @@ const default_meal = {
 
 /**
  *
- * @type {{id: number, user: number, cost: string, timestamp: string, location: string, items: ({id: number, name_fi: string, name_en: string, description_fi: string, description_en: string}|number)[][]}}
+ * @type {{id: number, user: number, cost: string, timestamp: string, items: ({id: number, name_fi: string, name_en: string, description_fi: string, description_en: string}|number)[][]}}
  */
 const default_order = {
     id : 0,
     user: 0,    //user.id = who made the order
     cost: 10.5,
     timestamp: '2025-12-06 12:00:00',
-    location: 0,       //location if multiple restaurants
-    items: [
-        {amount: 1, meal: 1 },
-        {amount: 1, meal: 2 }
-    ],
-    reservations : [ 1 ],
-    gift_cards: [ 1 ],
-    message: 'items = array of {amount, meal.id} reservations = array of reservation id, gift_cards = array of card id'
+    reservations : [ 1, 2, 3 ], //Vieras avain osoittamaan reservations tauluun, esim. id:1 id:2 id:3
+    gift_cards: [ 1 ],    //Vieras avain osoittamaan giftcards tauluun.
+    message: 'reservations = array of reservation id, gift_cards = array of card id'
 }
 
 
@@ -58,7 +53,6 @@ const default_menu = {
     id : 0,
     date : '2025-12-06', //date format
     week: 12, //week number
-    location: 0,
     special_meal: 1,
     meals : [1,2,3],
     image: "placeholder.jpg",
@@ -83,34 +77,29 @@ const default_location = {
  */
 const default_reservation = {
     id : 0,
-    user: 1,
-    order : 1,
+    user: 1,    //vieras avain
+    order : 1,  //Vieras avain
     date : "2025-12-06",
-    location : 0,
-    table_count : 1,
-    customer_count : 2,
+    table_customer_count : 1,   //Grillivaraus - henkilöiden määrä
+    grill_customer_count : 2,   //Pöytävaraus - henkilöiden määrä
     message : 'default reservation',
 }
 
 const default_discount = {
     id : 0,
-    menu: 1,
-    meal: 1,
-    type: 'fixed/percent/allMealsInMenu/whatever', //use this to set how you want a discount to apply
-    cost_override: 6.9,   //cost_override is used for setting a discounted price
-    cost_multiplier: 0.9,  //cost_multiplier is used for percentage discount
-    discount_code : "just in case getting the discount needs a code",
+    discount: 0.9,  //Esim 10% alennus, alkuperäinen hinta * 0.9
+    discount_code : "code which activates the discount at checkout",
     date_start: "2025-12-06",
     date_end: "2025-12-06",
     message: "cost_override is used for setting a discounted price, cost_multiplier is used for percentage discount, Start and end dates are redundant if menu is used to target the discount"
 }
+
 
 const default_giftCard = {
     id : 0,
     value: 15.5,
     expiration_date : "2026-01-01",
     password: "giftcardpassword",
-    redeemed: false,
     message : "defauld giftcard, password is used to validate the giftcard, redeemed: boolean indicates if card has been redeemed",
     order: 0,
     user : 0,
@@ -128,4 +117,3 @@ export {
     default_discount,
     default_giftCard
 }
-

@@ -1,6 +1,5 @@
 'use strict';
 
-
 //set .env file for environmental variables
 import dotenv from 'dotenv';
 //Ei toiminut - 2.12.2025
