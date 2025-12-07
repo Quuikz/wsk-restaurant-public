@@ -1,6 +1,15 @@
+'use strict';
 
-//example datastructure
-import {default_order} from "../../../../database/datastructures.js";
+//default datastructure
+const default_order = {
+    id : 0,
+    user: 0,    //user.id = who made the order
+    cost: 10.5,
+    timestamp: '2025-12-06 12:00:00',
+    reservations : [ 1, 2, 3 ], //Vieras avain osoittamaan reservations tauluun, esim. id:1 id:2 id:3
+    gift_cards: [ 1 ],    //Vieras avain osoittamaan giftcards tauluun.
+    message: 'reservations = array of reservation id, gift_cards = array of card id'
+}
 
 const orders = [
     {...default_order, id: 1, message: "order number 1 in order model"},
