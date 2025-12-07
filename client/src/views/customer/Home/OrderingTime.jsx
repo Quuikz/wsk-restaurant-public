@@ -1,5 +1,6 @@
-import {useEffect, useState, useRef} from 'react';
+import {useEffect, useState, useRef, useMemo} from 'react';
 
+// Available times for ordering
 const TIMES = [
   '8:00',
   '9:00',
@@ -13,11 +14,41 @@ const TIMES = [
   '17:00',
 ];
 
+// Check available times for given date
+const getAvailableTimesForDate = (dateStr) => {
+  if (!dateStr) return TIMES.slice();
+
+  const d = new Date(dateStr);
+
+  const weekday = d.getDay();
+
+  // Sunday -> closed
+  if (weekday === 0) {
+    return [];
+  }
+
+  // Saturday -> limited hours
+  if (weekday === 6) {
+    return TIMES.filter((t) => {
+      const hour = Number(t.split(':')[0]);
+      return hour >= 9 && hour <= 16;
+    });
+  }
+
+  // Weekday -> full range
+  return TIMES.slice();
+};
+
 const OrderingTime = ({reservationDate}) => {
   const [timeMenuOpen, setTimeMenuOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
   const menuRef = useRef(null);
-  console.log(reservationDate);
+
+  // Memoized available times for the selected date
+  const availableTimes = useMemo(
+    () => getAvailableTimesForDate(reservationDate),
+    [reservationDate],
+  );
 
   // Close when clicking outside
   useEffect(() => {
@@ -30,32 +61,51 @@ const OrderingTime = ({reservationDate}) => {
     return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
 
-  return (
-    <>
-      <div className="relative flex-col items-center" ref={menuRef}>
-        <label htmlFor="reservationDate" className="block mb-2 font-bold">
-          Kellon aika
-        </label>
-        <button
-          type="button"
-          onClick={() => setTimeMenuOpen((prev) => !prev)}
-          aria-expanded={timeMenuOpen}
-          aria-haspopup="menu"
-          className="relative inline-flex items-center justify-center rounded-md bg-white border border-gray-300 hover:bg-gray-100 w-48 px-3 py-2"
-        >
-          <span className="absolute -inset-0.5"></span>
-          <span className="sr-only">Open main menu</span>
-          {selectedTime ?? 'Valitse aika'}
-        </button>
+  // Invalidate selected time if not available for the date
+  useEffect(() => {
+    if (selectedTime && !availableTimes.includes(selectedTime)) {
+      setSelectedTime(null);
+    }
+  }, [reservationDate, availableTimes, selectedTime]);
 
-        {/* -- Time options -- */}
-        {timeMenuOpen && (
-          <div
-            role="menu"
-            aria-label="Aika valinnat"
-            className="absolute left-1/2   -translate-x-1/2 z-10 w-48 divide-y divide-gray-300 rounded-md overflow-hidden bg-white shadow-lg"
-          >
-            {TIMES.map((t) => (
+  const handleButtonToggle = () => {
+    // Keep closed if no available times
+    if (availableTimes.length === 0) return;
+    setTimeMenuOpen((prev) => !prev);
+  };
+
+  const isClosed = availableTimes.length === 0;
+
+  return (
+    <div className="relative flex flex-col items-center" ref={menuRef}>
+      <label htmlFor="reservationDate" className="block mb-2 font-bold">
+        Kellon aika
+      </label>
+
+      <button
+        type="button"
+        onClick={handleButtonToggle}
+        aria-expanded={timeMenuOpen}
+        aria-haspopup="menu"
+        aria-disabled={isClosed}
+        disabled={isClosed}
+        className={`relative inline-flex items-center justify-center rounded-md w-48 px-3 py-2 border
+          ${isClosed ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white border-gray-300 hover:bg-gray-100'}`}
+      >
+        <span className="sr-only">Open time menu</span>
+        {isClosed ? 'Suljettu' : (selectedTime ?? 'Valitse aika')}
+      </button>
+
+      {/* Time selection menu */}
+      {timeMenuOpen && (
+        <div
+          role="menu"
+          aria-label="Aika valinnat"
+          className="absolute left-1/2 -translate-x-1/2 top-19 z-10 w-48 divide-y divide-gray-300 rounded-md overflow-hidden bg-white shadow-lg"
+        >
+          {/* Time selection menu items */}
+          {availableTimes.length > 0 ? (
+            availableTimes.map((t) => (
               <button
                 key={t}
                 type="button"
@@ -68,11 +118,15 @@ const OrderingTime = ({reservationDate}) => {
               >
                 {t}
               </button>
-            ))}
-          </div>
-        )}
-      </div>
-    </>
+            ))
+          ) : (
+            <div className="px-4 py-2 text-sm text-gray-500">
+              Suljettu tänä päivänä
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 };
 
