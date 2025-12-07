@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
-import {useMenu} from '../../../hooks/admin/apiHooks.js';
+import { useMenuCommon } from '../../../hooks/common/apiHooks.js';
 import MenuRow from '../../admin/Menus/MenuRow.jsx';
 
 const Specials = () => {
-  const {getAllMenuItems} = useMenu();
+  const {getAllMenuItems} = useMenuCommon();
   const [menuItems, setMenuItems] = useState([]);
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import {useEffect, useMemo, useState} from 'react';
-import {useMenu} from '../../hooks/admin/apiHooks.js';
+import { useMenuCommon } from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 
 const Weeklist = () => {
-  const {getAllMenuItems} = useMenu();
+  const {getAllMenuItems} = useMenuCommon();
   const [menuItems, setMenuItems] = useState([]);
   // Set current week number here
   // Currently hardcoded to 12 and 49 for testing
