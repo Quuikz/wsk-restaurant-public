@@ -3,6 +3,7 @@ import MealRow from "../../../components/admin/MealRow";
 const MenuRow = ({ menuItem }) => {
 
     //Test function to display week
+    /*
     const currentWeek = () => {
         const d = new Date();
         let yearStart = +new Date(d.getFullYear(), 0, 1);
@@ -13,6 +14,7 @@ const MenuRow = ({ menuItem }) => {
 
     }
     currentWeek();
+    */
 
 
 
