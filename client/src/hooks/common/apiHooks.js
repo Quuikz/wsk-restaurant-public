@@ -17,7 +17,7 @@ const useMealCommon = () => {
         return getAllMealsResult;
     }
 
-    //Topi
+
     const getMealByIDList = async (IDList) => {
         const fetchOptions = {
             method: 'POST',
@@ -52,7 +52,33 @@ const useMenuCommon = () => {
         return getAllMenuItemsResult;
     }
 
-    return { getAllMenuItems }
+
+    const getMenuByDate = async (date) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+        const getMenuByDateResult = await fetchData(API_URL + `/menus/date/${date}`, fetchOptions);
+        return getMenuByDateResult;
+    }
+
+
+    const getMenuByWeek = async (week) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const getMenuByWeekResult = await fetchData(API_URL + `/menus/week/${week}`, fetchOptions);
+        return getMenuByWeekResult;
+        
+    }
+
+    return { getAllMenuItems, getMenuByDate, getMenuByWeek }
 }
 
 
