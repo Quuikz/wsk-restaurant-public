@@ -3,7 +3,9 @@ Metropolia Web Sovellus Kurssi- Projekti
 
 <br>
 
-### Ohje
+## Ohje
+
+### 1. Tietokanta
 
 1. Luo tietokanta manuaalisesti. Luo tietokantaan käyttäjä jolla kaikki oikeudet.
 
@@ -11,6 +13,8 @@ Metropolia Web Sovellus Kurssi- Projekti
 Muista antaa ohjelmalle pääsy tietokantaan. Aseta käyttäjätunnus ja tietokanta .env -tiedostolla.
 
 3. Täytä tietokannan taulut scriptillä: mock_data_v6.sql
+
+4. Aseta tietokannan tiedot .env tiedostoon.
 
 <br>
 
