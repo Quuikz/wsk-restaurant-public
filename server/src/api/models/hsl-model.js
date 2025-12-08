@@ -1,26 +1,42 @@
 "use strict";
 
-import { getHslData } from "../models/hsl-model.js";
+import dotenv from "dotenv";
 
-const getHslData = (req, res) => {
-  console.log("getHsl in hsl-controller");
+dotenv.config({ path: ".env" });
 
-  getHslData().then(
-    (result) => {
-      if (result) {
-        res.json(result);
-      } else {
-        console.log("no HSL data found");
-        res.status(200).send("no HSL data found");
-      }
-    },
+const apiKey = process.env.HSL_API_KEY;
+const defaultUrl = "https://api.digitransit.fi/routing/v2/hsl/gtfs/v1";
 
-    (result) => {
-      console.log("error in getHsl in hsl-controller");
-      console.log(result);
-      res.sendStatus(500);
+const getHslData = async (query, body) => {
+  console.log("server/src/api/models/hsl-model.js - getHslData");
+  console.log({ body, query });
+
+  const url = (body && body.url) || defaultUrl;
+
+  try {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "digitransit-subscription-key": apiKey,
+      },
+      body: JSON.stringify({ query }),
+    });
+
+    if (!response.ok) {
+      const text = await response.text();
+      console.log("HSL API returned non-OK status", response.status, text);
+      throw new Error(`HSL API request failed: ${response.status}`);
     }
-  );
+
+    const data = await response.json();
+    console.log("return HSL data");
+    return data;
+  } catch (error) {
+    console.log("error in getHslData in api model");
+    console.log(error);
+    throw error;
+  }
 };
 
-export { getHsl };
+export { getHslData };

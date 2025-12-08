@@ -9,8 +9,8 @@ const hslRouter = express.Router();
 //endpoint http://hostname:port/api/hsl/getHsl
 hslRouter.post(
   "/getHsl",
-  authenticateToken,
-  userIsAdmin,
+  // authenticateToken,
+  // userIsAdmin,
   formatBodyTypes,
   getHsl
 );
