@@ -41,7 +41,7 @@ const Orders = () => {
         let giftcards = [];
 
         if(order.reservations?.length > 0){
-            reservations = await getReservationsByIDList(token, order.reservations_id);
+            reservations = await getReservationsByIDList(token, order.reservations);
         }
 
         if(order.gift_cards?.length > 0){

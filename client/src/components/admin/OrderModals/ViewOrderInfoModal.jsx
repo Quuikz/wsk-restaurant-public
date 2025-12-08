@@ -17,39 +17,53 @@ const ViewOrderInfoModal = ({order, onClose}) => {
         <h2 className="text-xl font-bold mb-4">Order #{order.id}</h2>
 
         {/* Basic info */}
-        <p><strong>User:</strong> {order.user}</p>
-        <p><strong>Cost:</strong> {order.cost}</p>
-        <p><strong>Timestamp:</strong> {order.timestamp}</p>
-        <p><strong>Location:</strong> {order.location}</p>
-        <p><strong>Message:</strong> {order.message}</p>
+        <div className="mb-6">
+          <p><strong>User:</strong> {order.user}</p>
+          <p><strong>Cost:</strong> {order.cost}</p>
+          <p><strong>Timestamp:</strong> {order.timestamp}</p>
+          <p><strong>Location:</strong> {order.location}</p>
+          <p><strong>Message:</strong> {order.message}</p>
+        </div>
 
-        <hr className="my-3" />
 
-        {/* Reservations */}
-        <h3 className="text-lg font-semibold">Reservations</h3>
-        {order.reservation_id?.length ? (
-          <ul>
-            {order.reservation_id.map((resID) => (
-              <li key={resID}>Reservation ID: {resID}</li>
-            ))}
-          </ul>
-        ) : (
-          <p>No reservations</p>
-        )}
 
-        <hr className="my-3" />
 
-        {/* Gift cards */}
+        {/* More details: */}
+        <div className="grid grid-cols-2 gap-6">
+
+        {/*Left side: Reservations: */}
+        <div className="border rounded p-4 shadow-sm">
+            <h3 className="text-lg font-semibold">Reservations</h3>
+            {order.reservations?.length ? (
+            <ul>
+                {order.reservations.map((reservation) => (
+                <li key={reservation.id}>Reservation ID: {reservation.id}</li>
+                ))}
+            </ul>
+            ) : (
+            <p>No reservations found for this order</p>
+            )}
+
+        </div>
+
+        
+        {/* Right side: Gift cards */}
+        <div className="border rounded p-4 shadow-sm">
+
+        
         <h3 className="text-lg font-semibold">Gift Cards</h3>
-        {order.gift_card_id?.length ? (
+        {order.gift_cards?.length ? (
           <ul>
-            {order.gift_card_id.map((gcID) => (
-              <li key={gcID}>Gift Card ID: {gcID}</li>
+            {order.gift_cards.map((giftCard) => (
+              <li key={giftCard}>Gift Card ID: {giftCard.id}</li>
             ))}
           </ul>
         ) : (
-          <p>No gift cards</p>
+          <p>No gift cards found for this order</p>
         )}
+        </div>
+
+        </div>
 
         <button
           onClick={onClose}
