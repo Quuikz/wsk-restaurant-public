@@ -249,7 +249,7 @@ const modifyMenu = async (menu, menuId) => {
                 console.log(mealSql);
 
                 const mealParams = [];
-                menu.meals.forEach((mealId) => {
+                updatedMenu.meals.forEach((mealId) => {
                     mealParams.push( [updatedMenu.id, mealId] );
                 })
                 console.log(mealParams);

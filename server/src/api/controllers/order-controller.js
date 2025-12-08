@@ -9,7 +9,7 @@ import {
     modifyOrder,
     removeOrder,
     findOrdersByUserId,
-    findOrdersByDate
+    findOrdersByTimestamp
 } from "../models/order-model.js";
 
 const getOrders = (req, res) => {
@@ -171,7 +171,7 @@ const getOrdersByLocation = (req, res) => {
 const getOrdersByDate = (req, res) => {
     console.log('getOrderByDate in order-controller')
     console.log(req.params.date);
-    const orderArray = findOrdersByDate(req.params.date);
+    const orderArray = findOrdersByTimestamp(req.params.date);
     orderArray.then(
         orderArray => {
             if (orderArray) {

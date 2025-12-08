@@ -16,7 +16,7 @@ const formatParamTypes = (req, res, next) => {
             //TODO: this...
             if(req.params.id) req.params.id = Number(req.params.type);
             if(req.params.username) req.params.username = String(req.params.username);
-            if(req.params.password) req.params.password = String(req.params.password);
+            //if(req.params.password) req.params.password = String(req.params.password);
             if(req.params.week) req.params.week = Number(req.params.week);
 
 
