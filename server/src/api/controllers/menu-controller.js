@@ -83,36 +83,26 @@ const postMenu = async (req, res) => {
     console.log("postMenu in menu-controller");
     console.log(req.body);
 
-    const result = await addMenu(req.body);
-    if (result) {
-      console.log("added menu: ", result);
-      return res.json(result);
-    } else {
-      return res.sendStatus(404);
-    }
-  } catch (error) {
-    console.log("error in postMenu in menu-controller");
-    console.log(error);
-    return res.sendStatus(500);
-  }
+    const result = addMenu(req.body);
+    result.then(
+        result => {
+            if (result) {
+                console.log('added menu: ', result)
+                res.json(result);
+            } else {
+                res.sendStatus(500);
+            }
+        },
+        result => {
+            console.log('error in postMenu in menu-controller');
+            console.log(result);
+            res.sendStatus(500);
+        }
+    );
 };
 
-/**
- * @api {put} /menus/:id Update menu
- * @apiName PutMenu
- * @apiGroup Menu
- *
- * @apiParam {Number} id Menu ID
- * @apiParam {Object} body Updated menu object
- *
- * @apiSuccess {Object} menu Updated menu object
- *
- * @apiError 404 Menu not found
- * @apiError 500 Internal server error
- */
-const putMenu = async (req, res) => {
-  try {
-    console.log("putMenu in menu-controller");
+const putMenu = (req, res) => {
+    console.log('putMenu in menu-controller');
     console.log(req.body);
     console.log(req.params.id);
 

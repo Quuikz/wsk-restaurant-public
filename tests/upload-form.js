@@ -1,6 +1,6 @@
 
 let file = null;
-const currentToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU5NzQ4MSwiZXhwIjoxNzY0NjgzODgxfQ.FNpsX4Dhp6w5i2nYWzQ4KWHysf0h4qlTVkxbhBrH2u4";
+const currentToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTIyOTc3NCwiZXhwIjoxNzY1MzE2MTc0fQ.qCjSeXRSQJqwUKSPCMa4KMEU-zobZnGRK0dJzp0MBic";
 
 let inputs = {
     "id" : 222,
