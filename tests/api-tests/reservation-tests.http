@@ -40,8 +40,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 GET http://localhost:3000/api/reservations/user/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
 
-### get reservations by location id
-GET http://localhost:3000/api/reservations/location/0
+### get reservations by order id
+GET http://localhost:3000/api/reservations/order/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
 
 ### get reservation by date

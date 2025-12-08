@@ -9,7 +9,7 @@ import {
     putReservation,
     deleteReservation,
     getReservationByUserId,
-    getReservationByLocation,
+    getReservationByOrder,
     getReservationByDate
 } from '../controllers/reservation-controller.js';
 
@@ -38,8 +38,8 @@ reservationRouter.route('/:id')
 //endpoint http://hostname:port/api/reservations/user/:id
 reservationRouter.get('/user/:id',authenticateToken, filterByUserIdOrAdmin, formatIdToNumber, getReservationByUserId); //TODO: user should be allowed to access only their own reservations
 
-//endpoint http://hostname:port/api/reservations/location/:id
-reservationRouter.get('/location/:id',authenticateToken, userIsAdmin, formatIdToNumber, getReservationByLocation);
+//endpoint http://hostname:port/api/reservations/order/:id
+reservationRouter.get('/order/:id',authenticateToken, userIsAdmin, formatIdToNumber, getReservationByOrder);
 
 //endpoint http://hostname:port/api/reservations/date/:date
 reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, formatParamTypes, getReservationByDate);
