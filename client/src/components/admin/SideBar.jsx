@@ -12,9 +12,9 @@ const SideBar = () => {
         <Link to="/admin/menus" className="block hover:text-gray-300">Menus</Link>
         <Link to="/admin/addmenus" className="block hover:text-gray-300">Add Menu</Link>
         <Link to="/admin/orders" className="block hover:text-gray-300">Orders</Link>
-
         <Link to="/admin/giftcards" className="block hover:text-gray-300">Gift Cards</Link>
         <Link to="/admin/reservations" className="block hover:text-gray-300">Reservations</Link>
+        <Link to="/admin/users" className="block hover:text-gray-300">Users</Link>
       </nav>
     </div>
   )

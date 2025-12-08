@@ -6,6 +6,31 @@ const API_URL = import.meta.env.VITE_CUSTOM_AUTH_API;
 
 //TODO: common apiHooks.js for some GET requests ?
 
+
+const useUser = () => {
+
+    const getAllUsers = async (token) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getAllUsersResult = await fetchData(API_URL + '/users', fetchOptions);
+        return getAllUsersResult;
+    }
+
+
+    return { getAllUsers }
+
+
+
+
+}
+
+
 const useMeal = () => {
 
     //const token = localStorage.getItem('token');
@@ -244,4 +269,4 @@ const useGiftcards = () => {
 
 
 
-export { useMeal, useMenu, useOrders, useReservations, useGiftcards }
+export { useUser, useMeal, useMenu, useOrders, useReservations, useGiftcards }
