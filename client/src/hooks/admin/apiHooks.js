@@ -135,6 +135,21 @@ const useOrders = () => {
 
 const useReservations = () => {
 
+    const getAllReservations = async (token) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getAllReservationsResult = await fetchData(API_URL + '/reservations', fetchOptions);
+        return getAllReservationsResult
+    }
+
+
+
     const getReservationByID = async (token, reservationID) => {
         const fetchOptions = {
             method: 'GET',
@@ -181,12 +196,28 @@ const useReservations = () => {
 
 
 
-    return { getReservationByID, getReservationByUserID, getReservationsByIDList }
+    return { getAllReservations, getReservationByID, getReservationByUserID, getReservationsByIDList }
 
 }
 
 
 const useGiftcards = () => {
+
+
+    const getAllGiftCards = async (token) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getAllGiftCardsResult = await fetchData(API_URL + '/giftcards/', fetchOptions);
+        return getAllGiftCardsResult;
+
+    }
+
 
     const getGiftcardsByIDList = async (token, giftcardsIDList) => {
         const fetchOptions = {
@@ -202,7 +233,7 @@ const useGiftcards = () => {
         return getGiftcardsByIDListResult;
     }
 
-    return { getGiftcardsByIDList }
+    return { getAllGiftCards, getGiftcardsByIDList }
 
 }
 
