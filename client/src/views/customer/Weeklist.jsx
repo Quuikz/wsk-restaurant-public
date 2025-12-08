@@ -1,10 +1,10 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 
 const Weeklist = () => {
   const {getMenuByWeek} = useMenuCommon();
-  const [menuItems, setMenuItems] = useState([]);
+  const [weeklyMenu, setWeeklyMenu] = useState([]);
   // Set current week number here
   // Currently hardcoded to 12 for testing
   const initialWeek = 50;
@@ -21,14 +21,14 @@ const Weeklist = () => {
     const loadMenuByWeek = async () => {
       try {
         const menuData = await getMenuByWeek(currentWeek);
-        setMenuItems(menuData);
+        setWeeklyMenu(menuData);
         console.log(menuData);
       } catch (error) {
-        console.log('Error in loadMenuItems: ', error);
+        console.log('Error in loadMenuByWeek: ', error);
       }
     };
     loadMenuByWeek();
-  }, []);
+  }, [currentWeek]);
 
   return (
     <>
@@ -42,9 +42,12 @@ const Weeklist = () => {
 
           {/* Weekly list */}
           <div className="grid grid-cols-3 gap-4 ">
-            {console.log('Menu items: ', menuItems)}
-            {menuItems.map((menuItem) => (
-              <WeeklistBox key={menuItem.id} date={menuItem.date} />
+            {console.log('Menu items: ', weeklyMenu)}
+            {weeklyMenu.map((menu) => (
+              <WeeklistBox 
+                key={menu.id} 
+                menu={menu} 
+              />
             ))}
           </div>
 

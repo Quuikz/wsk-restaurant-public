@@ -30,30 +30,49 @@ function isoToDate(isoDate) {
   return datePart;
 }
 
-const WeeklistBox = ({date}) => {
-  const weekDate = isoToDate(date);
 
-  const {getMenuByDate} = useMenuCommon();
-  const [dailyMenu, setDailyMenu] = useState([]);
+//DO NOT LOOK ABOVE THIS CODE
+const WeeklistBox = ({menu}) => {
+  //const weekDate = isoToDate(menu.date);
+  const dateString = menu?.date?.split("T")[0];
+  console.log(dateString);
 
-  console.log('Menu item: ', weekDate);
+  const {getMenuByDate, getMealsByIDList} = useMenuCommon();
+  const [dailyMenu, setDailyMenu] = useState(null);
+  const [meals, setMeals] = useState([]);
+  //const [selectedMenu, setSelectedMenu] = useState(null);
+
+  //const [showDailyMenuMeals, setShowDailyMenuMeals] = useState(false);
+
+  //console.log('Menu item: ', weekDate);
   //console.log('Menu item meals IDs: ', menuItem.meals);
 
   useEffect(() => {
+    if(!dateString){
+      return;
+    }
     // Load all menu items
 
-    const loadDailyMenu = async () => {
+    const loadMenuForDay = async () => {
       try {
-        const mealData = await getMenuByDate(weekDate);
-        setDailyMenu(mealData);
-        console.log('MEAL DATA: ', mealData);
+        const menuData = await getMenuByDate(dateString);
+        setDailyMenu(menuData);
+        console.log('MEAL DATA: ', menuData);
+
+        //Load meals for Menu of the day
+        if(menuData?.meals?.length > 0){
+          const mealItems = await getMealsByIDList(menuData.meals);
+          setMeals(mealItems); 
+        }
+
       } catch (error) {
         console.log('Error in loadMenuItems: ', error);
       }
     };
-    loadDailyMenu();
-  }, []);
+    loadMenuForDay();
+  }, [dateString]);
 
+  /*
   const handleDailyMealInfo = async () => {
     let meals = [];
 
@@ -61,42 +80,52 @@ const WeeklistBox = ({date}) => {
       meals = await getMealsByIDList(dailyMenu.meals);
     }
 
-    setSelectedOrder({
-      ...order,
-      reservations: reservations,
-      gift_cards: giftcards,
+    setSelectedMenu({
+      ...dailyMenu,
+      meals: meals,
     });
 
-    setShowViewOrderModal(true);
+    setShowDailyMenuMeals(true);
   };
+  */
 
-  /*
-      <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+      
+  return (
+    <>
+    <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
       <div className="px-6">
         <h3 className="text-3xl  mt-2 text-center border-b">
-          {isoToWeekdayName(menuItem.date)} | {isoToDate(menuItem.date)}
+          {dateString}
         </h3>
         <div className="grid grid-cols-2 gap-4 my-4">
-          <p className="mt-1 font-bold">Grilli spesiaali</p>
+          <p className="font-bold">Grilli spesiaali</p>
+          {meals[0] ? (
+            <ul>
+              <li>ID - {meals[0].id}</li>
+              <li>Nimi - {meals[0].name_fi}</li>
+              <li>Hinta - {meals[0].cost}€</li>
+              <li>Tietoa - {meals[0].description_fi}</li>
+            </ul>
+          ) : (
+            <p>Ei saatavilla</p>
+          )}
 
-          <ul>
-            <li>ID - {menuItem.meals[0].id}</li>
-            <li>Nimi - {menuItem.meals[0].name_fi}</li>
-            <li>Hinta - {menuItem.meals[0].cost}€</li>
-            <li>Tietoa - {menuItem.meals[0].description_fi}</li>
-          </ul>
-
-          <p className="mt-1 font-bold">Noutopöytä</p>
-          <ul>
-            <li>Nimi - {menuItem.meals[1].name_fi}</li>
-            <li>Hinta - {menuItem.meals[1].cost}€</li>
-            <li>Tietoa - {menuItem.meals[1].description_fi}</li>
-          </ul>
+          <p className="font-bold">Noutopöytä</p>
+          {meals[1] ? (
+            <ul>
+              <li>Nimi - {meals[1].name_fi}</li>
+              <li>Hinta - {meals[1].cost}€</li>
+              <li>Tietoa - {meals[1].description_fi}</li>
+            </ul>
+          ) : (
+            <p>Ei saatavilla</p>
+          )}
         </div>
       </div>
     </div>
-  */
-  return <></>;
+    </>
+    
+  );
 };
 
 export default WeeklistBox;
