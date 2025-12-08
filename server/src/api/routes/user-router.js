@@ -17,26 +17,27 @@ import multer from "multer";
 import authenticateToken from "../../middlewares/authenticateToken.js";
 import userIsAdmin from "../../middlewares/userIsAdmin.js";
 import filterByUserIdOrAdmin from "../../middlewares/filterByUserIdOrAdmin.js";
-import {createImageScaler} from "../../middlewares/createImageScaler.js";
+import createImageScaler from "../../middlewares/createImageScaler.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatParamTypes from "../../middlewares/formatParamTypes.js";
+import createMulterUploader from "../../middlewares/createMulterUploader.js";
 
 //router
 const userRouter = express.Router();
 
+//multer upload
+const imageUploader = createMulterUploader('./uploads');
+
 //configurable middleware for image scaling
 const imageScaler = createImageScaler(160, 160, './public/images/users', '_user', 'webp');
 
-//multer
-const multerUpload = multer({
-    dest: './uploads/'  //uploads kansio
-});
+
 
 //endpoint http://hostname:port/api/users
 userRouter.get('/',authenticateToken, userIsAdmin, getUsers)
     .post('/',
-        multerUpload.single('file'),
+        imageUploader,
         imageScaler,
         formatBodyTypes,
         postUser);
@@ -48,7 +49,7 @@ userRouter.route('/:id')
     .put(authenticateToken,
         formatIdToNumber,
         filterByUserIdOrAdmin,
-        multerUpload.single('file'),
+        imageUploader,
         imageScaler,
         formatBodyTypes,
         putUser)

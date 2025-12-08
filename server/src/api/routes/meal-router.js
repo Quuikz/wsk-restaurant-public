@@ -2,7 +2,7 @@
 
 //node imports
 import express from 'express';
-import multer from "multer";
+
 
 //other imports
 import {
@@ -17,16 +17,15 @@ import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
-import { createImageScaler } from "../../middlewares/createImageScaler.js";
+import createImageScaler from "../../middlewares/createImageScaler.js";
+import createMulterUploader from "../../middlewares/createMulterUploader.js";
 
 
 //router
 const mealRouter = express.Router();
 
-//multer
-const multerUpload = multer({
-    dest: './uploads/'  //uploads kansio
-});
+//multer upload
+const imageUploader = createMulterUploader('./uploads');
 
 //configurable middleware for image scaling
 const imageScaler = createImageScaler(200,200,'./public/images/meals', '_meal', 'webp');
@@ -36,7 +35,7 @@ mealRouter.get('/', getMeals)
     .post('/',
         authenticateToken,
         userIsAdmin,
-        multerUpload.single('file'),
+        imageUploader,
         imageScaler,
         formatBodyTypes,
         postMeal);
@@ -47,7 +46,7 @@ mealRouter.route('/:id')
     .put(authenticateToken,
         formatIdToNumber,
         userIsAdmin,
-        multerUpload.single('file'),
+        imageUploader,
         imageScaler,
         formatBodyTypes,
         putMeal)
