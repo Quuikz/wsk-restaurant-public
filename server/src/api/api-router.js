@@ -10,7 +10,8 @@ import menuRouter from "./routes/menu-router.js";
 import locationRouter from "./routes/location-router.js";
 import reservationRouter from "./routes/reservation-router.js";
 import discountRouter from "./routes/discount-router.js";
-import giftCardRouter from "./routes/giftCard-router.js";
+import hslRouter from "./routes/hsl-router.js";
+// import giftCardRouter from './routes/giftcard-router.js';
 
 //define apiRouter
 const apiRouter = express.Router();
@@ -37,10 +38,11 @@ apiRouter.use("/locations", locationRouter);
 apiRouter.use("/reservations", reservationRouter);
 
 //discount-router  http://hostname:port/api/discounts
-apiRouter.use("/discounts", discountRouter);
+apiRouter.use('/discounts', discountRouter);
 
 //gift-card-router http://hostname:port/api/giftcards
-apiRouter.use("/giftcards", giftCardRouter);
+apiRouter.use('/giftcards', giftCardRouter);
+
 
 //export
 export default apiRouter;

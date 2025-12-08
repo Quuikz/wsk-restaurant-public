@@ -3,7 +3,6 @@
 -- Model: New Model    Version: 1.0
 -- MySQL Workbench Forward Engineering
 
-
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
@@ -11,23 +10,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema wsk_restaurant_schema
 -- -----------------------------------------------------
-
--- -----------------------------------------------------
--- Drop and create database wsk_restaurant
--- -----------------------------------------------------
-
-DROP DATABASE IF EXISTS wsk_restaurant;
-CREATE DATABASE wsk_restaurant;
-USE wsk_restaurant;
-
--- -----------------------------------------------------
--- Create user and grant privileges
--- -----------------------------------------------------
-
-DROP USER IF EXISTS appuser@localhost;
-CREATE USER appuser@localhost IDENTIFIED BY 'password';
-GRANT ALL PRIVILEGES ON wsk_restaurant.* TO appuser@localhost;
-FLUSH PRIVILEGES;
 
 -- -----------------------------------------------------
 -- Table `users`
@@ -219,5 +201,4 @@ CREATE INDEX `gift_card_id_in_ORGC_idx` ON `order_gift_cards` (`gift_card` ASC) 
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
