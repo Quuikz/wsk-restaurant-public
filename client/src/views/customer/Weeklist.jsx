@@ -7,7 +7,7 @@ const Weeklist = () => {
   const [menuItems, setMenuItems] = useState([]);
   // Set current week number here
   // Currently hardcoded to 12 for testing
-  const initialWeek = 12;
+  const initialWeek = 50;
   const [currentWeek, setCurrentWeek] = useState(initialWeek);
 
   // Button managers for week navigation
@@ -37,9 +37,8 @@ const Weeklist = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto">
-        <div className="p-7 pt-20 pb-30 bg-orange-100">
-          {console.log(max)}
+      <div className="max-w-7xl mx-auto ">
+        <div className="p-7 pt-20 pb-30 bg-orange-100 min-h-screen">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">
             <h2 className="text-3xl font-medium">| Viikko {currentWeek} |</h2>
