@@ -9,7 +9,7 @@ import {
     modifyReservation,
     removeReservation,
     findReservationsByUserId,
-    findReservationsByLocation,
+    findReservationsByOrder,
     findReservationsByDate
 } from "../models/reservation-model.js";
 import {listAllDiscounts} from "../models/discount-model.js";
@@ -159,21 +159,21 @@ const getReservationByUserId = (req, res) => {
     );
 }
 
-const getReservationByLocation = (req, res) => {
-    console.log('getReservationByLocation in reservation-controller')
+const getReservationByOrder = (req, res) => {
+    console.log('getReservationByOrder in reservation-controller')
     console.log(req.params.id);
-    const reservationArray = findReservationsByLocation(req.params.id);
+    const reservationArray = findReservationsByOrder(req.params.id);
     reservationArray.then(
         reservationArray => {
             if (reservationArray) {
-                console.log('return reservations for location '+req.params.id)
+                console.log('return reservations for order ', req.params.id)
                 res.json(reservationArray);
             } else {
                 res.sendStatus(404);
             }
         },
         result => {
-            console.log('error in getReservationByLocation in reservation-controller');
+            console.log('error in getReservationByOrder in reservation-controller');
             console.log(result);
             res.sendStatus(500);
         }
@@ -202,6 +202,31 @@ const getReservationByDate = (req, res)=>{
 }
 
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getReservationList = async (req, res) => {
+    try {
+        console.log('getReservationList in reservation-controller')
+
+        if (req.body.reservations) {
+            const reservationArray = await Promise.all( req.body.reservations.map( id => findReservationById(id) ));
+            console.log('reservations found: ', reservationArray);
+            res.json(reservationArray);
+
+        } else {
+            console.log('no id array in getReservationList in reservation-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getReservationList in reservation-controller');
+        res.sendStatus(500);
+    }
+}
+
 export {
     getReservations,
     getReservationById,
@@ -209,6 +234,7 @@ export {
     putReservation,
     deleteReservation,
     getReservationByUserId,
-    getReservationByLocation,
-    getReservationByDate
+    getReservationByOrder,
+    getReservationByDate,
+    getReservationList
 };

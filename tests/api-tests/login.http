@@ -1,13 +1,15 @@
 ### login with default user
+## default user: "username", "password"
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "username": "user",
+  "username": "username",
   "password": "password"
 }
 
 ### login with default admin user
+## default admin: "admin", "password"
 POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 

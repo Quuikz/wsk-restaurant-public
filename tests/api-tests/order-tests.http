@@ -9,11 +9,13 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
 
 {
-  "id" : "75",
-  "user": 15,
-  "date" : "20251202",
-  "location" : "",
-  "message" : "default order"
+  "id" : 0,
+  "user": 0,
+  "cost": 10.5,
+  "timestamp": "2025-12-06 12:00:00",
+  "reservations" : [ 1, 2, 3 ],
+  "gift_cards": [ 1 ],
+  "message": "reservations = array of reservation id, gift_cards = array of card id"
 }
 
 
@@ -28,11 +30,13 @@ Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
 
 {
-  "id" : "75",
-  "user": 15,
-  "date" : "",
-  "location" : "",
-  "message" : "default order"
+  "id" : 0,
+  "user": 0,
+  "cost": 10.5,
+  "timestamp": "2025-12-06 12:00:00",
+  "reservations" : [ 1, 2, 3 ],
+  "gift_cards": [ 1 ],
+  "message": "reservations = array of reservation id, gift_cards = array of card id"
 }
 
 ### delete order by id
@@ -40,18 +44,23 @@ DELETE http://localhost:3000/api/orders/75
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
 
 ### get orders by user id
-#use login with default user first, then copy token here
 GET http://localhost:3000/api/orders/user/15
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
 
 ### get order by location id
-#use login with default user first, then copy token here
 GET http://localhost:3000/api/orders/location/0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
 
 ### get order by date
-#use login with default user first, then copy token here
 GET http://localhost:3000/api/orders/date/20251202
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
 
+### gen an array of orders by sending an array of ids
+## returns false for ids not found
+POST http://localhost:3000/api/orders/list/id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
+{
+  "orders" : [3, 2, 0]
+}

@@ -1,6 +1,6 @@
 ### get giftcards
 GET http://localhost:3000/api/giftcards/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDc3Mjg1NywiZXhwIjoxNzY0ODU5MjU3fQ.h7LtGVPqcww9nCvEjnYSGVm_QjR-0ZLZzH5Nn4L76Bs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
 ### post new giftcards
 POST http://localhost:3000/api/giftcards/
@@ -12,7 +12,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
   "value": 15.5,
   "expiration_date" : "20260101",
   "password": "giftcardpassword",
-  "redeemed": false,
   "message" : "defauld giftcard, password is used to validate the giftcard, redeemed: boolean indicates if card has been redeemed",
   "order": 0,
   "user" : 0
@@ -33,7 +32,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
   "value": 15.5,
   "expiration_date" : "20260101",
   "password": "giftcardpassword",
-  "redeemed": true,
   "message" : "defauld giftcard, password is used to validate the giftcard, redeemed: boolean indicates if card has been redeemed",
   "order": 0,
   "user" : 0
@@ -56,11 +54,12 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
   "password" : "password1"
 }
 
-### redeem a giftcard by password
-PUT http://localhost:3000/api/giftcards/redeem/password
+### gen an array of giftcards by sending an array of ids
+## returns false for ids not found
+POST http://localhost:3000/api/giftcards/list/id
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDc3Mjg1NywiZXhwIjoxNzY0ODU5MjU3fQ.h7LtGVPqcww9nCvEjnYSGVm_QjR-0ZLZzH5Nn4L76Bs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
 {
-  "password" : "password1"
+  "giftCards" : [3, 2,0]
 }

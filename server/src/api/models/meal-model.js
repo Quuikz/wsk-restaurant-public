@@ -64,7 +64,7 @@ const findMealById = async (mealId) => {
  * Add a new meal to the database.
  *
  * Expected `meal` properties: `name_fi`, `name_en`, `description_fi`,
- * `description_en`, `cost` and an optional `image` (picture filename).
+ * `description_en`, `cost` and an optional `image` (image filename).
  * The function inserts the record and returns the newly created meal
  * by calling `findMealById` with the inserted id. On failure returns `false`.
  *
@@ -76,7 +76,7 @@ const findMealById = async (mealId) => {
  * @param {string} [meal.description_fi]
  * @param {string} [meal.description_en]
  * @param {number|string} [meal.cost]
- * @param {string} [meal.image] - Optional filename for the meal picture.
+ * @param {string} [meal.image] - Optional filename for the meal image.
  * @returns {Promise<Object|false>} Resolves to the inserted meal object or `false` on error.
  */
 const addMeal = async (meal) => {
@@ -84,11 +84,11 @@ const addMeal = async (meal) => {
 
   try {
     // Prepare parametrized SQL to avoid injection
-    const sql = `INSERT INTO meals (name_fi, name_en, description_fi, description_en, cost, picture)
+    const sql = `INSERT INTO meals (name_fi, name_en, description_fi, description_en, cost, image)
                  VALUES (?, ?, ?, ?, ?, ?)`;
 
-    // Use provided image filename or null when not provided
-    const pictureName = meal.image ? meal.image : null;
+    // Use provided image filename or placeholder when not provided
+    const imageName = meal.image ? meal.image : "placeholder.jpg";
 
     // Build parameter array matching the INSERT placeholders
     const params = [
@@ -97,7 +97,7 @@ const addMeal = async (meal) => {
       meal.description_fi,
       meal.description_en,
       meal.cost,
-      pictureName,
+      imageName,
     ];
 
     // Execute the insert and check affectedRows
@@ -172,7 +172,7 @@ const modifyMeal = async (meal) => {
       params.push(meal.cost);
     }
     if (meal.image && emptyDataHelper(meal.image) === false) {
-      fields.push("picture = ?");
+      fields.push("image = ?");
       params.push(meal.image);
     }
 

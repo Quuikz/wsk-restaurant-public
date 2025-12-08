@@ -1,6 +1,6 @@
 ### get users
 GET http://localhost:3000/api/users/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NzU2NSwiZXhwIjoxNzY0NzUzOTY1fQ.V42nZ5P0krG60ohNoqlaBkn9f-xjcOgcjO1A1i7NXSc
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
 ### get user by id
 #use login with default user first, then copy token here
@@ -24,7 +24,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6I
   "image": "placeholder.jpg"
 }
 
-
 ### delete user by id
 #use login with default user first, then copy token here
 DELETE http://localhost:3000/api/users/3
@@ -35,6 +34,18 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 GET http://localhost:3000/api/users/username/abc
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NzU2NSwiZXhwIjoxNzY0NzUzOTY1fQ.V42nZ5P0krG60ohNoqlaBkn9f-xjcOgcjO1A1i7NXSc
 
+### gen an array of users by sending an array of ids
+## returns false for ids not found
+POST http://localhost:3000/api/users/list/id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
+
+{
+  "users" : [3, 2, 0]
+}
+
+
+
 
 ### user upload with picture
 POST http://localhost:3000/api/users/
@@ -44,11 +55,45 @@ Content-Type: multipart/form-data; boundary=MyBoundary
 --MyBoundary
 Content-Disposition: form-data; name="id"
 
-54
+0
 --MyBoundary
 Content-Disposition: form-data; name="username"
 
-abc
+username
+--MyBoundary
+Content-Disposition: form-data; name="name"
+
+name
+--MyBoundary
+Content-Disposition: form-data; name="password"
+
+password
+--MyBoundary
+Content-Disposition: form-data; name="role"
+
+user
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--
+
+
+
+### update user with picture
+PUT http://localhost:3000/api/users/17
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MTIwMSwiZXhwIjoxNzY1MTU3NjAxfQ.3lwfVbLmPkpq9Y51qtGCDoR6zunBRSJ8oBR-feeNRHQ
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+17
+--MyBoundary
+Content-Disposition: form-data; name="username"
+
+username
 --MyBoundary
 Content-Disposition: form-data; name="name"
 
