@@ -40,7 +40,7 @@ orderRouter.get('/date/:date',authenticateToken, userIsAdmin, getOrdersByDate)
 //Get a specified list
 //endpoint http://hostname:port/api/orders/list/id
 orderRouter.route('/list/id')
-    .get(authenticateToken, getOrderList);
+    .post(authenticateToken, getOrderList);
 
 
 export default orderRouter;

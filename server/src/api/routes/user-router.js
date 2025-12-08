@@ -61,7 +61,7 @@ userRouter.route('/username/:username')
 //Get a specified list
 //endpoint http://hostname:port/api/users/list/id
 userRouter.route('/list/id')
-    .get(authenticateToken, getUserList);
+    .post(authenticateToken, getUserList);
 
 
 export default userRouter;

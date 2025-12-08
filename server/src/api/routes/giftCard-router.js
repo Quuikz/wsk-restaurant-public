@@ -47,7 +47,7 @@ giftCardRouter.route('/validate/password')
 //Get a specified list
 //endpoint http://hostname:port/api/giftcards/list/id
 giftCardRouter.route('/list/id')
-    .get(authenticateToken, getGiftCardList);
+    .post(authenticateToken, getGiftCardList);
 
 
 export default giftCardRouter;
