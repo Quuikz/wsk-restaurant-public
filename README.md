@@ -52,7 +52,7 @@ Palauttaa:
 ### Tietokantasuunnitelma
 
 <figure>
-<img src="./documentation/database_diagram_v4.png" alt="database_diagram_v1" />
-<figcaption>Tietokanta versio 5, luotu MySQL Workbenchin avulla.
+<img src="./documentation/database_diagram_v6.png" alt="database_diagram_v1" />
+<figcaption>Tietokanta versio 6, luotu MySQL Workbenchin avulla.
 </figcaption>
 </figure>
