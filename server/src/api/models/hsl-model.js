@@ -40,3 +40,83 @@ const getHslData = async (query, body) => {
 };
 
 export { getHslData };
+
+/*
+Get stops by radius example query:
+URL: 
+https://api.digitransit.fi/routing/v2/hsl/gtfs/v1
+Query:
+{ stopsByRadius(lat: 60.159603, lon: 24.948437, radius: 300) { edges { node { stop { name lat lon code gtfsId } distance } } } }
+*/
+
+/*
+Example response:
+{
+    "data": {
+        "stopsByRadius": {
+            "edges": [
+                {
+                    "node": {
+                        "stop": {
+                            "name": "Neitsytpolku",
+                            "lat": 60.158524,
+                            "lon": 24.949516,
+                            "code": "H0438",
+                            "gtfsId": "HSL:1070102"
+                        },
+                        "distance": 158
+                    }
+                },
+                {
+                    "node": {
+                        "stop": {
+                            "name": "Neitsytpolku",
+                            "lat": 60.158524,
+                            "lon": 24.949516,
+                            "code": "H0438",
+                            "gtfsId": "HSL:1070419"
+                        },
+                        "distance": 158
+                    }
+                },
+                {
+                    "node": {
+                        "stop": {
+                            "name": "Neitsytpolku",
+                            "lat": 60.158488,
+                            "lon": 24.949809,
+                            "code": "H0439",
+                            "gtfsId": "HSL:1070420"
+                        },
+                        "distance": 193
+                    }
+                },
+                {
+                    "node": {
+                        "stop": {
+                            "name": "Neitsytpolku",
+                            "lat": 60.158483,
+                            "lon": 24.949833,
+                            "code": "H0439",
+                            "gtfsId": "HSL:1070103"
+                        },
+                        "distance": 193
+                    }
+                },
+                {
+                    "node": {
+                        "stop": {
+                            "name": "Tarkk´ampujankatu",
+                            "lat": 60.161023,
+                            "lon": 24.947501,
+                            "code": "H0708",
+                            "gtfsId": "HSL:1070425"
+                        },
+                        "distance": 232
+                    }
+                }
+            ]
+        }
+    }
+}
+*/

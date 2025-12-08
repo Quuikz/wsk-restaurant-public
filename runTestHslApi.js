@@ -126,6 +126,15 @@ query {
 test();
 
 /*
+Get stops by radius example query:
+URL: 
+https://api.digitransit.fi/routing/v2/hsl/gtfs/v1
+Query:
+{ stopsByRadius(lat: 60.159603, lon: 24.948437, radius: 300) { edges { node { stop { name lat lon code gtfsId } distance } } } }
+*/
+
+/*
+Example response:
 {
     "data": {
         "stopsByRadius": {
