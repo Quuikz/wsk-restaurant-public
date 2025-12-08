@@ -57,3 +57,6 @@ build/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+
+/database/NOPUSH_create-database-v6.sql
