@@ -2,16 +2,29 @@
 
 import { getHslData } from "../models/hsl-model.js";
 
+/**
+ * @api {post} /hsl Get HSL data
+ * @apiName GetHsl
+ * @apiGroup HSL
+ * @apiDescription Retrieves HSL (Helsinki Region Transport) data based on query parameters
+ *
+ * @apiQuery {String} query HSL query parameter (e.g., search term)
+ * @apiParam {Object} body Request body with HSL filter options
+ *
+ * @apiSuccess {Object} data HSL data object
+ *
+ * @apiError 500 Internal server error
+ */
 const getHsl = async (req, res) => {
   console.log("getHsl in hsl-controller");
-  console.log(req.body);
-  console.log(req.query.query);
+
+  const graphqlQuery = req.body.query || req.body;
 
   try {
-    const result = await getHslData(req.body, req.query.query);
+    const result = await getHslData(graphqlQuery);
 
     if (result) {
-      console.log("return HSL data");
+      console.log("return HSL data in hsl-controller");
       res.json(result);
     } else {
       console.log("no HSL data found");

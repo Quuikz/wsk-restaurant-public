@@ -1,136 +1,174 @@
-'use strict';
-
+"use strict";
 
 import {
-    listAllLocations,
-    findLocationById,
-    addLocation,
-    modifyLocation,
-    removeLocation,
+  listAllLocations,
+  findLocationById,
+  addLocation,
+  modifyLocation,
+  removeLocation,
 } from "../models/location-model.js";
-import {listAllDiscounts} from "../models/discount-model.js";
+import { listAllDiscounts } from "../models/discount-model.js";
 
-const getLocations = (req, res) => {
-    console.log('getLocations in location-controller')
+/**
+ * @api {get} /locations Get all locations
+ * @apiName GetLocations
+ * @apiGroup Location
+ *
+ * @apiSuccess {Array} locations Array of location objects
+ *
+ * @apiError 500 Internal server error
+ */
+const getLocations = async (req, res) => {
+  try {
+    console.log("getLocations in location-controller");
     const user = res.locals.user;
-    console.log('user authenticated:' +res.locals.user);
+    console.log("user authenticated:" + res.locals.user);
 
-
-    listAllLocations().then(
-        (result) => {
-            if (result) {
-                res.json(result);
-            } else {
-                console.log('no locations found');
-                res.status(200).send("no locations found");
-            }
-        },
-
-        (result) => {
-            console.log('error in getLocations in location-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+    const result = await listAllLocations();
+    if (result) {
+      return res.json(result);
+    } else {
+      console.log("no locations found");
+      return res.status(200).send("no locations found");
+    }
+  } catch (error) {
+    console.log("error in getLocations in location-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
 
-const getLocationById = (req, res) => {
-    console.log('getLocationById in location-controller')
+/**
+ * @api {get} /locations/:id Get location by ID
+ * @apiName GetLocationById
+ * @apiGroup Location
+ *
+ * @apiParam {Number} id Location ID
+ *
+ * @apiSuccess {Object} location Location object
+ *
+ * @apiError 404 Location not found
+ * @apiError 500 Internal server error
+ */
+const getLocationById = async (req, res) => {
+  try {
+    console.log("getLocationById in location-controller");
     console.log(req.params.id);
-    const location = findLocationById(req.params.id);
-    location.then(
-        location => {
-            if (location) {
-                console.log('return location'+req.params.id)
-                res.json(location);
-
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        result => {
-            console.log('error in getLocationById in location-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+    const location = await findLocationById(req.params.id);
+    if (location) {
+      console.log("return location" + req.params.id);
+      return res.json(location);
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in getLocationById in location-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
 
-const postLocation = (req, res) => {
-    console.log('postLocation in location-controller');
+/**
+ * @api {post} /locations Create new location
+ * @apiName PostLocation
+ * @apiGroup Location
+ *
+ * @apiParam {Object} body Location object
+ *
+ * @apiSuccess {Object} location Created location object
+ *
+ * @apiError 404 Failed to create location
+ * @apiError 500 Internal server error
+ */
+const postLocation = async (req, res) => {
+  try {
+    console.log("postLocation in location-controller");
     console.log(req.body);
 
-    const result = addLocation(req.body);
-    result.then(
-        result => {
-            if (result) {
-                console.log('added location: '+result)
-                res.json(result);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        result => {
-            console.log('error in postLocation in location-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+    const result = await addLocation(req.body);
+    if (result) {
+      console.log("added location: " + result);
+      return res.json(result);
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in postLocation in location-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
 
-const putLocation = (req, res) => {
-    console.log('putLocation in location-controller');
+/**
+ * @api {put} /locations/:id Update location
+ * @apiName PutLocation
+ * @apiGroup Location
+ *
+ * @apiParam {Number} id Location ID
+ * @apiParam {Object} body Updated location object
+ *
+ * @apiSuccess {Object} location Updated location object
+ *
+ * @apiError 404 Location not found
+ * @apiError 500 Internal server error
+ */
+const putLocation = async (req, res) => {
+  try {
+    console.log("putLocation in location-controller");
     console.log(req.body);
     console.log(req.params.id);
 
-    const result = modifyLocation(req.body, req.params.id);
-    result.then(
-        result => {
-            if (result) {
-                console.log('return location: '+result)
-                res.json(result);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        result => {
-            console.log('error in putLocation in location-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+    const result = await modifyLocation(req.body, req.params.id);
+    if (result) {
+      console.log("return location: " + result);
+      return res.json(result);
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in putLocation in location-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
 
-const deleteLocation = (req, res) => {
-    console.log('deleteLocation in location-controller');
+/**
+ * @api {delete} /locations/:id Delete location
+ * @apiName DeleteLocation
+ * @apiGroup Location
+ *
+ * @apiParam {Number} id Location ID
+ *
+ * @apiSuccess {String} message Success message
+ *
+ * @apiError 404 Location not found
+ * @apiError 500 Internal server error
+ */
+const deleteLocation = async (req, res) => {
+  try {
+    console.log("deleteLocation in location-controller");
     console.log(req.params.id);
-    console.log('user authenticated:' +res.locals.user);
+    console.log("user authenticated:" + res.locals.user);
 
-
-    let message = removeLocation(req.params.id, res.locals.user);
-    message.then(
-        message => {
-            if (message) {
-                console.log(message);
-                res.status(200).send(message);
-
-            } else {
-                console.log('deleteLocation: location not found');
-                res.sendStatus(404);
-            }
-        },
-        message => {
-            console.log('error in deleteLocation in location-controller');
-            console.log(message);
-            res.sendStatus(500);
-        }
-    );
-}
+    const message = await removeLocation(req.params.id, res.locals.user);
+    if (message) {
+      console.log(message);
+      return res.status(200).send(message);
+    } else {
+      console.log("deleteLocation: location not found");
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in deleteLocation in location-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
 
 export {
-    getLocations,
-    getLocationById,
-    postLocation,
-    putLocation,
-    deleteLocation,
+  getLocations,
+  getLocationById,
+  postLocation,
+  putLocation,
+  deleteLocation,
 };
