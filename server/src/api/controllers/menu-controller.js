@@ -64,7 +64,7 @@ const postMenu = (req, res) => {
                 console.log('added menu: ', result)
                 res.json(result);
             } else {
-                res.sendStatus(404);
+                res.sendStatus(500);
             }
         },
         result => {
