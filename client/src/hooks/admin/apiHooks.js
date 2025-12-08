@@ -42,6 +42,7 @@ const useMeal = () => {
 
     //Update meal info
     const updateMealInfo = async (inputs, token, mealID) => {
+        console.log("Update called with:", inputs, token, mealID);
         const fetchOptions = {
             method: 'PUT',
             headers: {
@@ -163,10 +164,48 @@ const useReservations = () => {
         return getSingleReservationResult;
     }
 
-    return { getReservationByID, getReservationByUserID }
 
+    const getReservationsByIDList = async (token, reservationsIDList) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({reservations: reservationsIDList}),
+        };
+
+        const getReservationsByIDListResult = await fetchData(API_URL + '/reservations/list/id', fetchOptions);
+        return getReservationsByIDListResult;
+    }
+
+
+
+    return { getReservationByID, getReservationByUserID, getReservationsByIDList }
 
 }
 
 
-export { useMeal, useMenu, useOrders, useReservations }
+const useGiftcards = () => {
+
+    const getGiftcardsByIDList = async (token, giftcardsIDList) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({gift_cards: giftcardsIDList}),
+        };
+
+        const getGiftcardsByIDListResult = await fetchData(API_URL + '/giftcards/list/id', fetchOptions);
+        return getGiftcardsByIDListResult;
+    }
+
+    return { getGiftcardsByIDList }
+
+}
+
+
+
+export { useMeal, useMenu, useOrders, useReservations, useGiftcards }

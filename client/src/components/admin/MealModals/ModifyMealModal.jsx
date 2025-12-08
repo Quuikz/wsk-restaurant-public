@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useForm from "../../../hooks/formHooks";
 import { useMeal } from "../../../hooks/admin/apiHooks";
 
-const ModifyMealModal = ({meal, isOpen, onClose}) => {
+const ModifyMealModal = ({meal, isOpen, onClose, onUpdated}) => {
 
     const { updateMealInfo } = useMeal();
 
@@ -13,6 +13,8 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
 
 
     const doModifyMeal = async () => {
+        console.log("doModifyMeal called!");
+        console.log("Inputs being sent:", inputs);
         const token = localStorage.getItem('token');
         if(!token){
             return;
@@ -20,6 +22,8 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
         try{
             const result = await updateMealInfo(inputs, token, meal.id);
             console.log(result);
+            onUpdated();
+            onClose();
         }
         catch(error){
             console.log('Error in doModifyMeal: ', error);
@@ -27,12 +31,14 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
     }
 
     const {inputs, handleInputChange, handleSubmit } = useForm(doModifyMeal, {
+        id: meal.id,
         name_fi: meal.name_fi,
         name_en: meal.name_en,
         description_fi: meal.description_fi,
         description_en: meal.description_en,
         cost: meal.cost,
-
+        type: meal.type,
+        image: meal.image
     });
 
     return(
@@ -46,9 +52,17 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
         Modify Meal
       </h2>
 
+
+    <label
+        htmlFor="name_fi"
+        className="block mb-2.5 text-sm font-medium text-heading"
+    >
+        Name (in Finnish)
+    </label>
       <div className="space-y-3">
         <input
           type="text"
+          id="name_fi"
           name="name_fi"
           value={inputs.name_fi}
           onChange={handleInputChange}
@@ -56,8 +70,16 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
           className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
         />
 
+
+        <label
+            htmlFor="name_en"
+            className="block mb-2.5 text-sm font-medium text-heading"
+        >
+            Name (in English)
+        </label>
         <input
           type="text"
+          id="name_en"
           name="name_en"
           value={inputs.name_en}
           onChange={handleInputChange}
@@ -65,8 +87,50 @@ const ModifyMealModal = ({meal, isOpen, onClose}) => {
           className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
         />
 
+
+        <label
+            htmlFor="description_fi"
+            className="block mb-2.5 text-sm font-medium text-heading"
+        >
+            Description (in Finnish)
+        </label>
+        <input
+          type="text"
+          id="description_fi"
+          name="description_fi"
+          value={inputs.description_fi}
+          onChange={handleInputChange}
+          placeholder="Description (in Finnish)"
+          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+
+
+        <label
+            htmlFor="description_en"
+            className="block mb-2.5 text-sm font-medium text-heading"
+        >
+            Description (in English)
+        </label>
+        <input
+          type="text"
+          id="description_en"
+          name="description_en"
+          value={inputs.description_en}
+          onChange={handleInputChange}
+          placeholder="Description (in English)"
+          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+        />
+
+
+        <label
+            htmlFor="cost"
+            className="block mb-2.5 text-sm font-medium text-heading"
+        >
+            Cost
+        </label>
         <input
           type="number"
+          id="cost"
           name="cost"
           value={inputs.cost}
           onChange={handleInputChange}

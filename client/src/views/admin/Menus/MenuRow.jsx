@@ -26,7 +26,7 @@ const MenuRow = ({ menuItem }) => {
 
         <div className="text-sm text-gray-600">
             <>
-            <p>Week: week44</p>
+            <p>Week: {menuItem.week}</p>
             <p>Date: {menuItem.date || "N/A"}</p>
             </>
         </div>

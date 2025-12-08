@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useOrders } from "../../../hooks/admin/apiHooks";
-import { useReservations } from "../../../hooks/admin/apiHooks"; 
+import {  useOrders, useReservations, useGiftcards, } from "../../../hooks/admin/apiHooks";
+//import {  } from "../../../hooks/admin/apiHooks"; 
 
 import ViewOrderInfoModal from "../../../components/admin/OrderModals/ViewOrderInfoModal";
 
 const Orders = () => {
 
     const { getAllOrders } = useOrders();
-    const { getReservationByID } = useReservations();
+    const { getReservationsByIDList } = useReservations();
+    const { getGiftcardsByIDList } = useGiftcards();
 
     const [orders, setOrders] = useState([]);
 
@@ -34,16 +35,26 @@ const Orders = () => {
 
 
     const handleViewOrderInfo = async (order) => {
+        const token = localStorage.getItem('token');
         console.log('Viewing the order id: ', order.id)
         let reservations = [];
         let giftcards = [];
 
-        if(order.reservations.id?.length > 0){
-            reservations = await get
+        if(order.reservations?.length > 0){
+            reservations = await getReservationsByIDList(token, order.reservations_id);
+        }
+
+        if(order.gift_cards?.length > 0){
+            giftcards = await getGiftcardsByIDList(token, order.gift_cards);
         }
 
 
-        setSelectedOrder(order);
+        setSelectedOrder({
+            ...order,
+            reservations: reservations,
+            gift_cards: giftcards
+        });
+
         setShowViewOrderModal(true);
     }
 
