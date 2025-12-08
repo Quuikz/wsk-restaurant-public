@@ -97,14 +97,14 @@ INSERT INTO `order_gift_cards` (`order`, `gift_card`) VALUES
 -- -----------------------
 -- Table `gift_cards`
 -- -----------------------
-INSERT INTO `gift_cards` (`value`,`expiration_date`, `password`, gift_cards.`order`, `user`) VALUES
-(50.0,'2026-01-01', 'GC123', 1,1),
-(100.0,'2026-06-30', 'GC456', 1,1),
-(75.0,'2026-03-01', 'GC789', 1,1),
-(30.0,'2026-05-15', 'GC101', 1,1),
-(60.0,'2026-07-20', 'GC102', 1,1),
-(120.0,'2026-08-31', 'GC103', 1,1),
-(25.0,'2026-10-10', 'GC104', 1,1);
+INSERT INTO `gift_cards` (`value`,`expiration_date`, `password`, message, gift_cards.`order`, `user`) VALUES
+(50.0,'2026-01-01', 'GC123','mock data from database', 1,1),
+(100.0,'2026-06-30', 'GC456','mock data from database', 1,1),
+(75.0,'2026-03-01', 'GC789','mock data from database', 1,1),
+(30.0,'2026-05-15', 'GC101','mock data from database', 1,1),
+(60.0,'2026-07-20', 'GC102','mock data from database', 1,1),
+(120.0,'2026-08-31', 'GC103','mock data from database', 1,1),
+(25.0,'2026-10-10', 'GC104','mock data from database', 1,1);
 
 -- -----------------------
 -- Table `reservations`

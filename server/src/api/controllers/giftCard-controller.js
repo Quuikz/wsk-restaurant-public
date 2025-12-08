@@ -7,7 +7,7 @@ import {
     addGiftCard,
     modifyGiftCard,
     removeGiftCard,
-    findGiftCardsByUserId, findGiftCardByPassword,
+    findGiftCardsByUserId
 } from "../models/giftCard-model.js";
 import {findOrdersByUserId} from "../models/order-model.js";
 
