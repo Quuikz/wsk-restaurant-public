@@ -3,7 +3,7 @@ import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 
 const Weeklist = () => {
-  const {getAllMenuItems} = useMenuCommon();
+  const {getMenuByWeek} = useMenuCommon();
   const [menuItems, setMenuItems] = useState([]);
   // Set current week number here
   // Currently hardcoded to 12 for testing
@@ -18,22 +18,17 @@ const Weeklist = () => {
 
   useEffect(() => {
     // Load all menu items
-    const loadAllMenuItems = async () => {
+    const loadMenuByWeek = async () => {
       try {
-        const menuData = await getAllMenuItems();
+        const menuData = await getMenuByWeek(currentWeek);
         setMenuItems(menuData);
         console.log(menuData);
       } catch (error) {
         console.log('Error in loadMenuItems: ', error);
       }
     };
-    loadAllMenuItems();
+    loadMenuByWeek();
   }, []);
-
-  // Filter the menu items for the current week (memoized)
-  const filteredMenuItems = useMemo(() => {
-    return menuItems.filter((item) => item.week === currentWeek);
-  }, [menuItems, currentWeek]);
 
   return (
     <>
@@ -47,8 +42,9 @@ const Weeklist = () => {
 
           {/* Weekly list */}
           <div className="grid grid-cols-3 gap-4 ">
-            {filteredMenuItems.map((menuItem) => (
-              <WeeklistBox key={menuItem.id} menuItem={menuItem} />
+            {console.log('Menu items: ', menuItems)}
+            {menuItems.map((menuItem) => (
+              <WeeklistBox key={menuItem.id} date={menuItem.date} />
             ))}
           </div>
 
