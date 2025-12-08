@@ -8,8 +8,8 @@
 -- Table `users`
 -- -----------------------
 INSERT INTO `users` (username, `password`, `role`, `name`, `email`, `image`, message) VALUES
-('admin','$2b$10$HbivVEenrEEdmGgeTh6SCenA8sqxbv/ssHt1FNrZc1E1luNff9SPm', 'admin', 'admin name', 'admin@email.fi', 'placeholder.jpg','mock data from database'),
-('username','$2b$10$L25D6jeb6P.ZoKZgVgxkz.JpxjjjltJfXfabqudLSqh593XXkUy1u', 'user', 'Bob Smith', 'bob@example.com', 'bob.jpg','mock data from database'),
+('admin','$2b$10$SwiO2GYHWj1WzebSL3taJ.dXiXs5rN9mWz6Tk6PgGnhUopGk8Dhv6', 'admin', 'name', 'admin@email.fi', 'placeholder.jpg','mock data from database'),
+('username','$2b$10$sJ//y1vPPH21XJCGpKDKvuDRx.LFM9b6R02DetaPmzRZQzKUw07y.', 'user', 'Bob Smith', 'bob@example.com', 'placeholder.jpg','mock data from database'),
 ('username3','pass789', 'user', 'Charlie Brown', 'charlie@example.com', NULL,'mock data from database'),
 ('username4','pass101', 'user', 'David Lee', 'david@example.com', 'david.jpg','mock data from database'),
 ('username5','pass102', 'user', 'Eva Green', 'eva@example.com', 'eva.jpg','mock data from database'),

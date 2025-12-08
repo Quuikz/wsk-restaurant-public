@@ -10,22 +10,16 @@
 
 //TODO: validate inputs more ?
 
-    //TODO format request.headers instead?
 
 const formatBodyTypes = (req, res, next) => {
     try {
         console.log('formatBodyTypes');
         if(req.body) {
 
-            if (req.body.id) {
-                req.body.id = Number(req.body.id);
-                console.log('request.body.id: ', req.body.id);
-                next();
+            if (req.body.id) {req.body.id = Number(req.body.id);}
 
-            } else {
-                console.log();
-                next();
-            }
+
+            next();
 
         } else {
             console.log('no request.body');

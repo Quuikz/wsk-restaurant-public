@@ -8,7 +8,7 @@ import promisePool from "../../utils/database.js";
 const default_user = {
     id : 0,
     username : "default username",
-    password: "default name",
+    password: "default password",
     role: "user",
     name: "default",
     email: "default",
@@ -85,7 +85,7 @@ const addUser = async (user) => {
         //sql parameters, password has to be hashed
         const params = [
             newUser.username,
-            bcrypt.hashSync(newUser.password, 10),
+            newUser.password,
             newUser.role,
             newUser.name,
             newUser.email,
@@ -221,6 +221,7 @@ const findUserByUsername = async (username) => {
 
         //only 1 result should be found
         if (userArray.length > 0) {
+            console.log('return user', userArray[0]);
             return userArray[0];
 
         } else if (userArray.length > 1) {

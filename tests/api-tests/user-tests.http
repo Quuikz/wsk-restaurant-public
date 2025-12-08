@@ -44,11 +44,11 @@ Content-Type: multipart/form-data; boundary=MyBoundary
 --MyBoundary
 Content-Disposition: form-data; name="id"
 
-54
+0
 --MyBoundary
 Content-Disposition: form-data; name="username"
 
-abc
+username
 --MyBoundary
 Content-Disposition: form-data; name="name"
 
