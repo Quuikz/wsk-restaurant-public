@@ -16,7 +16,7 @@ const useMealCommon = () => {
   };
 
   const getMealByIDList = async (IDList) => {
-    console.log('IDLIST: ', IDList);
+    //console.log('IDLIST: ', IDList);
     const fetchOptions = {
       method: 'POST',
       headers: {

@@ -22,7 +22,7 @@ const Weeklist = () => {
       try {
         const menuData = await getMenuByWeek(currentWeek);
         setWeeklyMenu(menuData);
-        console.log(menuData);
+        //console.log(menuData);
       } catch (error) {
         console.log('Error in loadMenuByWeek: ', error);
       }
@@ -42,12 +42,8 @@ const Weeklist = () => {
 
           {/* Weekly list */}
           <div className="grid grid-cols-3 gap-4 ">
-            {console.log('Menu items: ', weeklyMenu)}
             {weeklyMenu.map((menu) => (
-              <WeeklistBox 
-                key={menu.id} 
-                menu={menu} 
-              />
+              <WeeklistBox key={menu.id} menu={menu} />
             ))}
           </div>
 
