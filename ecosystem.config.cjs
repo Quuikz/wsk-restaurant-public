@@ -8,10 +8,12 @@ module.exports = {
       watch: true,
       env: {
         NODE_ENV: "development",
+	TZ: 'Europe/Paris',
         PORT: 3000
       },
       env_production: {
         NODE_ENV: "production",
+        TZ: 'Europe/Paris',
         PORT: 3000
       },
       log_date_format: "YYYY-MM-DD HH:mm:ss",

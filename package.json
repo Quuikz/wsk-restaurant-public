@@ -8,9 +8,11 @@
     "test": "jest",
     "server": "node server/src/index.js",
     "dev": "nodemon server/src/index.js",
-    "api-test": "node tests/api-tests/api.test.js"
+    "api-test": "node tests/api-tests/api.test.js",
+    "apidoc": "apidoc -i server/src/ -o docs/"
   },
   "dependencies": {
+    "apidoc": "^1.2.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
