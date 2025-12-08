@@ -1,13 +1,16 @@
 # wsk-restaurant
 Metropolia Web Sovellus Kurssi- Projekti
 
+<br>
 
-<br><br>
 ### Ohje
 
-Luo tietokanta scriptillä: database/create-database-v4.sql (Käytä uusinta versionumeroa.)
+1. Luo tietokanta manuaalisesti. Luo tietokantaan käyttäjä jolla kaikki oikeudet.
 
-Muista antaa ohjelmalle pääsy tietokantaan. Aseta käyttäjätunnus .env -tiedostolla.
+2. Luo tietokannan taulut scriptillä: database/create-database-v6.sql (Käytä uusinta versionumeroa.)
+Muista antaa ohjelmalle pääsy tietokantaan. Aseta käyttäjätunnus ja tietokanta .env -tiedostolla.
+
+3. Täytä tietokannan taulut scriptillä: mock_data_v6.sql
 
 <br>
 
@@ -17,9 +20,9 @@ Katso esimerkki lomakkeen käytöstä tiedostosta: tests/upload-form.html
 
 <br>
 
-### API-testit
+### API
 
-tests/api-tests -kansio sisältää API:n testejä. 
+tests/api-tests -kansio sisältää esimerkit API:n käytöstä. 
 
 Sisäänkirjautuminen toimii kovakoodatulla käyttäjällä:
 
