@@ -4,13 +4,12 @@ GET http://localhost:3000/api/menus/
 ### post new menu without image
 POST http://localhost:3000/api/menus/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
 {
   "id" : 0,
   "date" : "2025-12-06",
   "week": 12,
-  "location": 1,
   "special_meal": 1,
   "meals" : [1,2,3],
   "image": "placeholder.jpg",
@@ -30,7 +29,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiO
   "id" : 46,
   "date" : "2025-12-06",
   "week": 13,
-  "location": 1,
   "special_meal": 1,
   "meals" : [1,2,3],
   "image": "placeholder.jpg",
