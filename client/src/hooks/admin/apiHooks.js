@@ -121,14 +121,15 @@ const useMenu = () => {
     return { getAllMenuItems }
     */
 
-    const postNewMenu = async (inputs, token) => {
+    const postNewMenu = async (formData, token) => {
         const fetchOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                //'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify(inputs),
+            //body: JSON.stringify(inputs),
+            body: formData,
         };
 
         const postNewMenuResult = await fetchData(API_URL + '/menus/', fetchOptions);

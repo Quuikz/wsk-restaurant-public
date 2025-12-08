@@ -12,6 +12,11 @@ const AddMenu = () => {
     const { getAllMeals } = useMealCommon();
     const [availableMeals, setAvailableMeals] = useState([]);
     const [selectedMealsForMenu, setSelectedMealsForMenu] = useState([]);
+    const [file, setFile ] = useState(null);
+
+  
+
+
 
     const loadAllMeals = async () => {
         try{
@@ -41,18 +46,37 @@ const AddMenu = () => {
 
   const doAddMenu = async () => {
     const token = localStorage.getItem('token');
+
+    const formData = new FormData();
+    formData.append('date', inputs.date);
+    formData.append('week', inputs.week);
+    formData.append('special_meal', inputs.special_meal);
+    //formData.append('message', inputs.message);
+
+    if(file){
+        formData.append('file', file);
+    }
+
+    if(inputs.meals){
+        formData.append('meals', JSON.stringify(selectedMealsForMenu));
+    }
+
     try{
-        const dataToSend = {
-            ...inputs,
-            meals: selectedMealsForMenu,
-        };
-        const result = await postNewMenu(dataToSend, token);
+        const result = await postNewMenu(formData, token);
         console.log(result);
     }
     catch (error){
         console.log('Error in doAddMenu: ', error);
     }
   }
+
+    const handleFileChange = (evt) => {
+        if (evt.target.files) {
+            console.log(evt.target.files[0]);
+            setFile(evt.target.files[0]);
+        }
+    };
+
 
 
 
@@ -73,6 +97,29 @@ const AddMenu = () => {
         <div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+
+            {/*Menu: Image Upload */}
+            <div className="flex flex-col">
+                <div>
+        <label htmlFor='file'>File</label>
+        <input
+            name='file'
+            type='file'
+            id='file'
+            accept='image/*'
+            onChange={ handleFileChange }
+            />
+      </div>
+      <img 
+          src={
+              file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
+          }
+          alt='preview'
+          width='200'
+          />
+            </div>
+
+
 
             {/*Menu: date */}
             <div className="flex flex-col">
