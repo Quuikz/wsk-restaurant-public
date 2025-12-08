@@ -103,6 +103,7 @@ CREATE TABLE IF NOT EXISTS `gift_cards` (
   `value` FLOAT NULL,
   `expiration_date` DATE NULL,
   `password` VARCHAR(100) NULL,
+  `message` MEDIUMTEXT NULL,
   `order` INT NULL,
   `user` INT NULL,
   `deleted` TINYINT NULL DEFAULT 0,

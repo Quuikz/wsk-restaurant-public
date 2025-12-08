@@ -120,7 +120,7 @@ const default_discount = {
     discount_code : "code which activates the discount at checkout",
     date_start: "2025-12-06",
     date_end: "2025-12-06",
-    message: "cost_override is used for setting a discounted price, cost_multiplier is used for percentage discount, Start and end dates are redundant if menu is used to target the discount"
+    message: "default_discount"
 }
 
 /**
