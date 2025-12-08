@@ -30,14 +30,14 @@ function isoToDate(isoDate) {
   return datePart;
 }
 
-
 //DO NOT LOOK ABOVE THIS CODE
 const WeeklistBox = ({menu}) => {
   //const weekDate = isoToDate(menu.date);
-  const dateString = menu?.date?.split("T")[0];
-  console.log(dateString);
+  const dateString = menu?.date?.split('T')[0];
+  //console.log(dateString);
 
-  const {getMenuByDate, getMealsByIDList} = useMenuCommon();
+  const {getMenuByDate} = useMenuCommon();
+  const {getMealByIDList} = useMealCommon();
   const [dailyMenu, setDailyMenu] = useState(null);
   const [meals, setMeals] = useState([]);
   //const [selectedMenu, setSelectedMenu] = useState(null);
@@ -48,7 +48,7 @@ const WeeklistBox = ({menu}) => {
   //console.log('Menu item meals IDs: ', menuItem.meals);
 
   useEffect(() => {
-    if(!dateString){
+    if (!dateString) {
       return;
     }
     // Load all menu items
@@ -57,14 +57,16 @@ const WeeklistBox = ({menu}) => {
       try {
         const menuData = await getMenuByDate(dateString);
         setDailyMenu(menuData);
-        console.log('MEAL DATA: ', menuData);
+        //console.log('MENU DATA: ', menuData[0]);
+        //console.log('MEAL FETCH: ', menuData[0].meals[0]);
+        const mealID = menuData[0].meals[0];
 
         //Load meals for Menu of the day
-        if(menuData?.meals?.length > 0){
-          const mealItems = await getMealsByIDList(menuData.meals);
-          setMeals(mealItems); 
+        if (menuData.length > 0) {
+          const mealItems = await getMealByIDList(mealID);
+          console.log('MEAL DATA: ', mealItems);
+          setMeals(mealItems);
         }
-
       } catch (error) {
         console.log('Error in loadMenuItems: ', error);
       }
@@ -89,42 +91,39 @@ const WeeklistBox = ({menu}) => {
   };
   */
 
-      
+  //console.log('GET MEALS', meals);
   return (
     <>
-    <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-      <div className="px-6">
-        <h3 className="text-3xl  mt-2 text-center border-b">
-          {dateString}
-        </h3>
-        <div className="grid grid-cols-2 gap-4 my-4">
-          <p className="font-bold">Grilli spesiaali</p>
-          {meals[0] ? (
-            <ul>
-              <li>ID - {meals[0].id}</li>
-              <li>Nimi - {meals[0].name_fi}</li>
-              <li>Hinta - {meals[0].cost}€</li>
-              <li>Tietoa - {meals[0].description_fi}</li>
-            </ul>
-          ) : (
-            <p>Ei saatavilla</p>
-          )}
+      <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
+        <div className="px-6">
+          <h3 className="text-3xl  mt-2 text-center border-b">{dateString}</h3>
+          <div className="grid grid-cols-2 gap-4 my-4">
+            <p className="font-bold">Grilli spesiaali</p>
+            {meals[0] ? (
+              <ul>
+                <li>ID - {meals[0].id}</li>
+                <li>Nimi - {meals[0].name_fi}</li>
+                <li>Hinta - {meals[0].cost}€</li>
+                <li>Tietoa - {meals[0].description_fi}</li>
+              </ul>
+            ) : (
+              <p>Ei saatavilla</p>
+            )}
 
-          <p className="font-bold">Noutopöytä</p>
-          {meals[1] ? (
-            <ul>
-              <li>Nimi - {meals[1].name_fi}</li>
-              <li>Hinta - {meals[1].cost}€</li>
-              <li>Tietoa - {meals[1].description_fi}</li>
-            </ul>
-          ) : (
-            <p>Ei saatavilla</p>
-          )}
+            <p className="font-bold">Noutopöytä</p>
+            {meals[1] ? (
+              <ul>
+                <li>Nimi - {meals[1].name_fi}</li>
+                <li>Hinta - {meals[1].cost}€</li>
+                <li>Tietoa - {meals[1].description_fi}</li>
+              </ul>
+            ) : (
+              <p>Ei saatavilla</p>
+            )}
+          </div>
         </div>
       </div>
-    </div>
     </>
-    
   );
 };
 
