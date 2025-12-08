@@ -33,9 +33,6 @@ orderRouter.route('/:id')
 //endpoint http://hostname:port/api/orders/user/:id
 orderRouter.get('/user/:id',authenticateToken, getOrdersByUserId)
 
-//endpoint http://hostname:port/api/orders/location/:id
-orderRouter.get('/location/:id',authenticateToken, userIsAdmin, getOrdersByLocation)
-
 //endpoint http://hostname:port/api/orders/date/:date
 orderRouter.get('/date/:date',authenticateToken, userIsAdmin, getOrdersByDate)
 

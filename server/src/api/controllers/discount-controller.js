@@ -6,8 +6,7 @@ import {
     findDiscountById,
     addDiscount,
     modifyDiscount,
-    removeDiscount,
-    findDiscountByMeal
+    removeDiscount
 } from "../models/discount-model.js";
 
 
@@ -128,27 +127,7 @@ const deleteDiscount = (req, res) => {
     );
 }
 
-const getDiscountByMeal = (req, res) => {
-    console.log('getDiscountByMeal in discount-controller')
-    console.log(req.params.id);
-    const orderArray = findDiscountByMeal(req.params.id);
-    orderArray.then(
-        (orderArray) => {
-            if (orderArray) {
-                console.log('return discounts for meal ' + req.params.id)
-                res.json(orderArray);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        (result) => {
-            console.log('error in getDiscountByMeal in order-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
 
-}
 
 
 export {
@@ -156,6 +135,5 @@ export {
     getDiscountById,
     postDiscount,
     putDiscount,
-    deleteDiscount,
-    getDiscountByMeal
+    deleteDiscount
 };

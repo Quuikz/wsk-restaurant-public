@@ -9,7 +9,7 @@ import {
     modifyReservation,
     removeReservation,
     findReservationsByUserId,
-    findReservationsByLocation,
+    findReservationsByOrder,
     findReservationsByDate
 } from "../models/reservation-model.js";
 import {listAllDiscounts} from "../models/discount-model.js";
@@ -159,21 +159,21 @@ const getReservationByUserId = (req, res) => {
     );
 }
 
-const getReservationByLocation = (req, res) => {
-    console.log('getReservationByLocation in reservation-controller')
+const getReservationByOrder = (req, res) => {
+    console.log('getReservationByOrder in reservation-controller')
     console.log(req.params.id);
-    const reservationArray = findReservationsByLocation(req.params.id);
+    const reservationArray = findReservationsByOrder(req.params.id);
     reservationArray.then(
         reservationArray => {
             if (reservationArray) {
-                console.log('return reservations for location '+req.params.id)
+                console.log('return reservations for order ', req.params.id)
                 res.json(reservationArray);
             } else {
                 res.sendStatus(404);
             }
         },
         result => {
-            console.log('error in getReservationByLocation in reservation-controller');
+            console.log('error in getReservationByOrder in reservation-controller');
             console.log(result);
             res.sendStatus(500);
         }
@@ -209,6 +209,6 @@ export {
     putReservation,
     deleteReservation,
     getReservationByUserId,
-    getReservationByLocation,
+    getReservationByOrder,
     getReservationByDate
 };
