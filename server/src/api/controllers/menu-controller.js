@@ -174,8 +174,30 @@ const getMenusByWeek = (req, res) => {
     );
 }
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getMenuList = async (req, res) => {
+    try {
+        console.log('getMenuList in menu-controller')
 
+        if (req.body.menus) {
+            const menuArray = await Promise.all( req.body.menus.map( id => findMenuById(id) ));
+            console.log('menus found: ', menuArray);
+            res.json(menuArray);
 
+        } else {
+            console.log('no id array in getMenuList in menu-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getMenuList in menu-controller');
+        res.sendStatus(500);
+    }
+}
 
 
 export {
@@ -185,5 +207,6 @@ export {
     putMenu,
     deleteMenu,
     getMenusByDate,
-    getMenusByWeek
+    getMenusByWeek,
+    getMenuList
 };

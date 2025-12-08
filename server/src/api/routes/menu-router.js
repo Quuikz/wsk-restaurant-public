@@ -11,7 +11,8 @@ import {
     putMenu,
     deleteMenu,
     getMenusByDate,
-    getMenusByWeek
+    getMenusByWeek,
+    getMenuList
 } from '../controllers/menu-controller.js';
 
 //middleware
@@ -64,6 +65,11 @@ menuRouter.route('/date/:date').get(getMenusByDate)
 //endpoint http://hostname:port/api/menus/week/:week
 menuRouter.route('/week/:week').get(formatParamTypes, getMenusByWeek)
 
+
+//Get a specified list
+//endpoint http://hostname:port/api/users/list/id
+menuRouter.route('/list/id')
+    .get(authenticateToken, getMenuList);
 
 export default menuRouter;
 
