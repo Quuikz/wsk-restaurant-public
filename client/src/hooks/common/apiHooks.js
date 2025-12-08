@@ -17,7 +17,23 @@ const useMealCommon = () => {
         return getAllMealsResult;
     }
 
-    return { getAllMeals }
+    //Topi
+    const getMealByIDList = async (token, IDList) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify({giftCards: IDList}),
+        };
+
+        const getMealByIDListResult = await fetchData(API_URL + '/meals/list/id', fetchOptions);
+        return getMealByIDListResult;
+    }
+
+
+    return { getAllMeals, getMealByIDList }
 
 }
 
