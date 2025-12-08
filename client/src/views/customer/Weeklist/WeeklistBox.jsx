@@ -59,7 +59,7 @@ const WeeklistBox = ({menu}) => {
         //console.log('Date string in useEffect: ', dateString);
         setDailyMenu(menuData);
         console.log('DAILY MENU: ', dailyMenu);
-        console.log('MENU DATA: ', menuData[0]);
+        console.log('MENU DATA: ', menuData.meals);
         //console.log('MEAL FETCH: ', menuData[0].meals[0]);
 
         //Load meals for Menu of the day
