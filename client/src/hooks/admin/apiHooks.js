@@ -67,16 +67,14 @@ const useMeal = () => {
     };
 
     //Update meal info
-    const updateMealInfo = async (inputs, token, mealID) => {
-        console.log("Update called with:", inputs, token, mealID);
+    const updateMealInfo = async (data, token, mealID) => {
         const fetchOptions = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-
             },
-            body: JSON.stringify(inputs),
+            body: JSON.stringify(data),
         };
 
         const updatedMealResult = await fetchData(API_URL + `/meals/${mealID}`, fetchOptions);
