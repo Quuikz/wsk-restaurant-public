@@ -17,14 +17,14 @@ import { getHslData } from "../models/hsl-model.js";
  */
 const getHsl = async (req, res) => {
   console.log("getHsl in hsl-controller");
-  console.log(req.body);
-  console.log(req.query.query);
+
+  const graphqlQuery = req.body.query || req.body;
 
   try {
-    const result = await getHslData(req.body, req.query.query);
+    const result = await getHslData(graphqlQuery);
 
     if (result) {
-      console.log("return HSL data");
+      console.log("return HSL data in hsl-controller");
       res.json(result);
     } else {
       console.log("no HSL data found");
