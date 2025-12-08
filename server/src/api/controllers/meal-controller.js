@@ -139,10 +139,36 @@ const deleteMeal = (req, res) => {
     );
 }
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getMealList = async (req, res) => {
+    try {
+        console.log('getMealList in meal-controller')
+
+        if (req.body.meals) {
+            const mealArray = await Promise.all( req.body.meals.map( id => findMealById(id) ));
+            console.log('meals found: ', mealArray);
+            res.json(mealArray);
+
+        } else {
+            console.log('no id array in getMealList in meal-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getMealList in meal-controller');
+        res.sendStatus(500);
+    }
+}
+
 export {
     getMeals,
     getMealById,
     postMeal,
     putMeal,
     deleteMeal,
+    getMealList
 };

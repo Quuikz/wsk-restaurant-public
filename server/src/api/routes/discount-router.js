@@ -27,9 +27,10 @@ discountRouter.route('/:id')
     .put(authenticateToken, userIsAdmin, formatIdToNumber, putDiscount)
     .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteDiscount);
 
+//Get a specified list
 //endpoint http://hostname:port/api/discounts/list/id
-discountRouter.get('/list/id', getDiscountList)
-
+discountRouter.route('/list/id')
+    .get(authenticateToken, getDiscountList);
 
 export default discountRouter;
 

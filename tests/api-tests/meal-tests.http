@@ -42,6 +42,18 @@ DELETE http://localhost:3000/api/meals/54
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDU5NzQ4MSwiZXhwIjoxNzY0NjgzODgxfQ.FNpsX4Dhp6w5i2nYWzQ4KWHysf0h4qlTVkxbhBrH2u4
 
 
+### gen an array of meals by sending an array of ids
+## returns false for ids not found
+GET http://localhost:3000/api/meals/list/id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
+
+{
+  "meals" : [3, 2, 0]
+}
+
+
+
 ### meal upload WITH picture (formadata  HTTP/1.1 )
 POST http://localhost:3000/api/meals/
 Content-Type: multipart/form-data; boundary=MyBoundary
@@ -122,4 +134,5 @@ Content-Type: image/jpg
 
 < ./lautanen.jpg
 --MyBoundary--
+
 
