@@ -1,8 +1,11 @@
+import { useState } from 'react';
 import {useMeal} from '../../../hooks/admin/apiHooks';
 import useForm from '../../../hooks/formHooks';
 
 const AddMeal = () => {
   const {postNewMeal} = useMeal();
+
+  const [file, setFile] = useState(null);
 
   const initValues = {
     name_fi: '',
@@ -16,13 +19,32 @@ const AddMeal = () => {
 
   const doAddMeal = async () => {
     const token = localStorage.getItem('token');
+
+    const formData = new FormData();
+    formData.append('date', inputs.name_fi);
+    formData.append('date', inputs.name_en);
+    formData.append('date', inputs.description_fi);
+    formData.append('date', inputs.description_en);
+    formData.append('date', inputs.type);
+
+    if(file){
+        formData.append('file', file);
+    }
+
     try {
-      const result = await postNewMeal(inputs, token);
+      const result = await postNewMeal(formData, token);
       console.log(result);
     } catch (error) {
       console.log('Error in doAddMeal', error);
     }
   };
+
+  const handleFileChange = (evt) => {
+        if (evt.target.files) {
+            console.log(evt.target.files[0]);
+            setFile(evt.target.files[0]);
+        }
+    };
 
   const {inputs, handleInputChange, handleSubmit} = useForm(
     doAddMeal,
@@ -38,6 +60,32 @@ const AddMeal = () => {
 
       <div>
         <form onSubmit={handleSubmit} className='space-y-6'>
+
+
+        {/*Menu: Image Upload */}
+            <div className="flex flex-col">
+                <div>
+        <label htmlFor='file'>File</label>
+        <input
+            name='file'
+            type='file'
+            id='file'
+            accept='image/*'
+            onChange={ handleFileChange }
+            />
+      </div>
+      <img 
+          src={
+              file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
+          }
+          alt='preview'
+          width='200'
+          />
+            </div>
+
+
+
+
           {/*Dish: Finnish name */}
           <div className="flex flex-col">
             <label htmlFor="name_fi" className="mb-2 font-medium text-gray-700">name_fi</label>

@@ -50,15 +50,16 @@ const useMeal = () => {
         */
 
     //Add new meal
-    const postNewMeal = async (inputs, token) => {
+    const postNewMeal = async (formData, token) => {
         const fetchOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                //'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
 
             },
-            body: JSON.stringify(inputs),
+            //body: JSON.stringify(inputs),
+            body: formData,
         };
 
         const newMealResult = await fetchData(API_URL + '/meals/', fetchOptions);
@@ -126,7 +127,7 @@ const useMenu = () => {
             method: 'POST',
             headers: {
                 //'Content-Type': 'application/json',
-                'Content-Type': 'multipart/form-data',
+                //'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token}`
             },
             //body: JSON.stringify(inputs),

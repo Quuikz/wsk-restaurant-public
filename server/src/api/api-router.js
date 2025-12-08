@@ -11,7 +11,7 @@ import locationRouter from "./routes/location-router.js";
 import reservationRouter from "./routes/reservation-router.js";
 import discountRouter from "./routes/discount-router.js";
 import hslRouter from "./routes/hsl-router.js";
-// import giftCardRouter from './routes/giftcard-router.js';
+import giftCardRouter from './routes/giftcard-router.js';
 
 //define apiRouter
 const apiRouter = express.Router();

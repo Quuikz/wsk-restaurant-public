@@ -25,7 +25,7 @@ const useMealCommon = () => {
                 'Content-Type': 'application/json',
                 //'Authorization': `Bearer ${token}`
             },
-            body: JSON.stringify({giftCards: IDList}),
+            body: JSON.stringify({meals: IDList}),
         };
 
         const getMealByIDListResult = await fetchData(API_URL + '/meals/list/id', fetchOptions);
