@@ -3,6 +3,7 @@ import express from "express";
 
 //other imports
 import { getHsl } from "../controllers/hsl-controller.js";
+import formatBodyTypes from  '../../middlewares/formatBodyTypes.js'
 
 const hslRouter = express.Router();
 
