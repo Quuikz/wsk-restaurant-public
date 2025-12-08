@@ -127,7 +127,30 @@ const deleteDiscount = (req, res) => {
     );
 }
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getDiscountList = async (req, res) => {
+    try {
+        console.log('getDiscountList in discount-controller')
 
+        if (req.body.discounts) {
+            const discountArray = await Promise.all( req.body.discounts.map( id => findDiscountById(id) ));
+            console.log('discounts found: ', discountArray);
+            res.json(discountArray);
+
+        } else {
+            console.log('no id array in getDiscountList in discount-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getDiscountList in discount-controller');
+        res.sendStatus(500);
+    }
+}
 
 
 export {
@@ -135,5 +158,6 @@ export {
     getDiscountById,
     postDiscount,
     putDiscount,
-    deleteDiscount
+    deleteDiscount,
+    getDiscountList
 };

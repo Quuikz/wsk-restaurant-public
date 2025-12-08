@@ -7,7 +7,8 @@ import {
     getDiscountById,
     postDiscount,
     putDiscount,
-    deleteDiscount
+    deleteDiscount,
+    getDiscountList
 } from '../controllers/discount-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
@@ -25,6 +26,9 @@ discountRouter.route('/:id')
     .get(formatIdToNumber, getDiscountById)
     .put(authenticateToken, userIsAdmin, formatIdToNumber, putDiscount)
     .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteDiscount);
+
+//endpoint http://hostname:port/api/discounts/list/id
+discountRouter.get('/list/id', getDiscountList)
 
 
 export default discountRouter;
