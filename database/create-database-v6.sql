@@ -143,7 +143,7 @@ CREATE INDEX `order_in_LR_idx` ON `reservations` (`order` ASC) VISIBLE;
 DROP TABLE IF EXISTS `discounts` ;
 
 CREATE TABLE IF NOT EXISTS `discounts` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `discount` FLOAT NULL,
   `discount_code` VARCHAR(100) NULL,
   `date_start` DATE NULL,
