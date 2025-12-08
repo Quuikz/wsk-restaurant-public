@@ -21,11 +21,12 @@ const AddMeal = () => {
     const token = localStorage.getItem('token');
 
     const formData = new FormData();
-    formData.append('date', inputs.name_fi);
-    formData.append('date', inputs.name_en);
-    formData.append('date', inputs.description_fi);
-    formData.append('date', inputs.description_en);
-    formData.append('date', inputs.type);
+    formData.append('name_fi', inputs.name_fi);
+    formData.append('name_en', inputs.name_en);
+    formData.append('cost', inputs.cost);
+    formData.append('description_fi', inputs.description_fi);
+    formData.append('description_en', inputs.description_en);
+    formData.append('type', inputs.type);
 
     if(file){
         formData.append('file', file);
@@ -63,8 +64,8 @@ const AddMeal = () => {
 
 
         {/*Menu: Image Upload */}
-            <div className="flex flex-col">
-                <div>
+        <div className="flex flex-col">
+        <div>
         <label htmlFor='file'>File</label>
         <input
             name='file'
@@ -73,15 +74,15 @@ const AddMeal = () => {
             accept='image/*'
             onChange={ handleFileChange }
             />
-      </div>
-      <img 
-          src={
-              file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
-          }
-          alt='preview'
-          width='200'
-          />
-            </div>
+        </div>
+        <img 
+            src={
+                file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
+            }
+            alt='preview'
+            width='200'
+            />
+        </div>
 
 
 
@@ -166,21 +167,6 @@ const AddMeal = () => {
               onChange={handleInputChange}
               autoComplete="type"
               value={inputs.type}
-              className="bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
-
-        {/*Dish: Image/video */}
-          <div className="flex flex-col">
-            <label htmlFor="file">File</label>
-            <input
-              name="file"
-              type="file"
-              id="file"
-              accept="image/*, video/*"
-              onChange={handleInputChange}
-              autoComplete="file"
-              value={inputs.file}
               className="bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
