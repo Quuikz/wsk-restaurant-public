@@ -10,7 +10,7 @@ import menuRouter from "./routes/menu-router.js";
 import locationRouter from "./routes/location-router.js";
 import reservationRouter from "./routes/reservation-router.js";
 import discountRouter from "./routes/discount-router.js";
-import giftCardRouter from './routes/giftCard-router.js';
+import giftCardRouter from "./routes/giftCard-router.js";
 
 //define apiRouter
 const apiRouter = express.Router();
