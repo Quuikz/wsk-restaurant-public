@@ -55,9 +55,9 @@ mealRouter.route('/:id')
 
 
 //Get a specified list
-//endpoint http://hostname:port/api/discounts/list/id
+//endpoint http://hostname:port/api/meals/list/id
 mealRouter.route('/list/id')
-    .post(authenticateToken, getMealList);
+    .post(getMealList);
 
 export default mealRouter;
 

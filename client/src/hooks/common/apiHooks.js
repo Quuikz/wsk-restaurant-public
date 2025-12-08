@@ -18,12 +18,12 @@ const useMealCommon = () => {
     }
 
     //Topi
-    const getMealByIDList = async (token, IDList) => {
+    const getMealByIDList = async (IDList) => {
         const fetchOptions = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
+                //'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify({giftCards: IDList}),
         };
