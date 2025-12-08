@@ -9,7 +9,6 @@ import {
     modifyOrder,
     removeOrder,
     findOrdersByUserId,
-    findOrdersByLocation,
     findOrdersByDate
 } from "../models/order-model.js";
 

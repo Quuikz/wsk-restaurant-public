@@ -7,17 +7,17 @@
 -- -----------------------
 -- Table `users`
 -- -----------------------
-INSERT INTO `users` (`password`, `role`, `name`, `email`, `image`) VALUES
-('pass123', 'user', 'Alice Johnson', 'alice@example.com', 'alice.jpg'),
-('pass456', 'admin', 'Bob Smith', 'bob@example.com', 'bob.jpg'),
-('pass789', 'user', 'Charlie Brown', 'charlie@example.com', NULL),
-('pass101', 'user', 'David Lee', 'david@example.com', 'david.jpg'),
-('pass102', 'user', 'Eva Green', 'eva@example.com', 'eva.jpg'),
-('pass103', 'admin', 'Frank White', 'frank@example.com', NULL),
-('pass104', 'user', 'Grace Kim', 'grace@example.com', 'grace.jpg'),
-('pass105', 'user', 'Henry Tan', 'henry@example.com', NULL),
-('pass106', 'user', 'Ivy Chen', 'ivy@example.com', 'ivy.jpg'),
-('pass107', 'user', 'Jack Liu', 'jack@example.com', NULL);
+INSERT INTO `users` (username, `password`, `role`, `name`, `email`, `image`, message) VALUES
+('admin','$2b$10$HbivVEenrEEdmGgeTh6SCenA8sqxbv/ssHt1FNrZc1E1luNff9SPm', 'admin', 'admin name', 'admin@email.fi', 'placeholder.jpg','mock data from database'),
+('username','$2b$10$L25D6jeb6P.ZoKZgVgxkz.JpxjjjltJfXfabqudLSqh593XXkUy1u', 'user', 'Bob Smith', 'bob@example.com', 'bob.jpg','mock data from database'),
+('username3','pass789', 'user', 'Charlie Brown', 'charlie@example.com', NULL,'mock data from database'),
+('username4','pass101', 'user', 'David Lee', 'david@example.com', 'david.jpg','mock data from database'),
+('username5','pass102', 'user', 'Eva Green', 'eva@example.com', 'eva.jpg','mock data from database'),
+('username6','pass103', 'admin', 'Frank White', 'frank@example.com', NULL,'mock data from database'),
+('username7','pass104', 'user', 'Grace Kim', 'grace@example.com', 'grace.jpg','mock data from database'),
+('username8','pass105', 'user', 'Henry Tan', 'henry@example.com', NULL,'mock data from database'),
+('username9','pass106', 'user', 'Ivy Chen', 'ivy@example.com', 'ivy.jpg','mock data from database'),
+('username10','pass107', 'user', 'Jack Liu', 'jack@example.com', NULL,'mock data from database');
 
 -- -----------------------
 -- Table `locations`
