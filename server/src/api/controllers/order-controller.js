@@ -190,5 +190,40 @@ const getOrdersByDate = (req, res) => {
 
 }
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getOrderList = async (req, res) => {
+    try {
+        console.log('getOrderList in order-controller')
 
-export {getOrders, getOrderById, postOrder, putOrder, deleteOrder, getOrdersByUserId, getOrdersByLocation, getOrdersByDate};
+        if (req.body.orders) {
+            const orderArray = await Promise.all( req.body.orders.map( id => findOrderById(id) ));
+            console.log('orders found: ', orderArray);
+            res.json(orderArray);
+
+        } else {
+            console.log('no id array in getOrderList in order-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getOrderList in order-controller');
+        res.sendStatus(500);
+    }
+}
+
+
+export {
+    getOrders, 
+    getOrderById,
+    postOrder,
+    putOrder,
+    deleteOrder,
+    getOrdersByUserId,
+    getOrdersByLocation,
+    getOrdersByDate,
+    getOrderList
+};
