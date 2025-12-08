@@ -12,9 +12,8 @@ const SideBar = () => {
         <Link to="/admin/menus" className="block hover:text-gray-300">Menus</Link>
         <Link to="/admin/orders" className="block hover:text-gray-300">Orders</Link>
 
-
         <Link to="/admin/giftcards" className="block hover:text-gray-300">Gift Cards</Link>
-        <Link to="/add-giftcard" className="block hover:text-gray-300">Add Gift Card</Link>
+        <Link to="/admin/reservations" className="block hover:text-gray-300">Reservations</Link>
       </nav>
     </div>
   )
