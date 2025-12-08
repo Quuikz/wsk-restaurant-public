@@ -30,7 +30,7 @@ discountRouter.route('/:id')
 //Get a specified list
 //endpoint http://hostname:port/api/discounts/list/id
 discountRouter.route('/list/id')
-    .get(authenticateToken, getDiscountList);
+    .post(authenticateToken, getDiscountList);
 
 export default discountRouter;
 

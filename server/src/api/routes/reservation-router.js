@@ -48,7 +48,8 @@ reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, formatParamT
 
 //Get a specified list
 //endpoint http://hostname:port/api/reservations/list/id
-reservationRouter.get('/list/id',authenticateToken, getReservationList);
+reservationRouter.route('/list/id')
+    .post(authenticateToken, getReservationList);
 
 
 

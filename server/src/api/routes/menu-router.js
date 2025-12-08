@@ -69,7 +69,7 @@ menuRouter.route('/week/:week').get(formatParamTypes, getMenusByWeek)
 //Get a specified list
 //endpoint http://hostname:port/api/users/list/id
 menuRouter.route('/list/id')
-    .get(authenticateToken, getMenuList);
+    .post(authenticateToken, getMenuList);
 
 export default menuRouter;
 
