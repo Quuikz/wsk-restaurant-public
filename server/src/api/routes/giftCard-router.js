@@ -10,8 +10,7 @@ import {
     putGiftCard,
     deleteGiftCard,
     getGiftCardsByUserId,
-    getGiftCardValidation,
-    redeemGiftCard
+    getGiftCardValidation
 } from '../controllers/giftCard-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
@@ -27,7 +26,7 @@ const giftCardRouter = express.Router();
 //endpoint http://hostname:port/api/giftcards
 giftCardRouter.get('/', authenticateToken, userIsAdmin, getGiftCards);
 giftCardRouter.post('/', authenticateToken, userIsAdmin, formatBodyTypes, postGiftCard);
-//giftcards shouldn't be posted, instead they are generated when orders are posted...
+
 
 //endpoint http://hostname:port/api/giftcards/:id
 giftCardRouter.route('/:id')
@@ -44,10 +43,6 @@ giftCardRouter.route('/user/:id')
 giftCardRouter.route('/validate/password')
     .get(authenticateToken, formatParamTypes, formatBodyTypes, getGiftCardValidation)
 
-//used to redeem giftcard
-//endpoint http://hostname:port/api/giftcards/redeem
-giftCardRouter.route('/redeem/password')
-    .put(authenticateToken, formatParamTypes, formatBodyTypes, redeemGiftCard);
 
 
 export default giftCardRouter;
