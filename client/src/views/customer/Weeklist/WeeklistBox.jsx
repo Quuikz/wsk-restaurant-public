@@ -56,16 +56,14 @@ const WeeklistBox = ({menu}) => {
     const loadMenuForDay = async () => {
       try {
         const menuData = await getMenuByDate(dateString);
-        //console.log('Date string in useEffect: ', dateString);
-        setDailyMenu(menuData);
-        console.log('DAILY MENU: ', dailyMenu);
-        console.log('MENU DATA: ', menuData.meals);
-        //console.log('MEAL FETCH: ', menuData[0].meals[0]);
 
-        //Load meals for Menu of the day
         if (menuData.length > 0) {
-          //console.log(dailyMenu);
-          const mealItems = await getMealByIDList(dailyMenu);
+          const menu = menuData[0];
+          setDailyMenu(menu);
+          console.log('DAILY MENU: ', menu);
+
+          // Load meals for Menu of the day
+          const mealItems = await getMealByIDList(menu.meals);
           console.log('MEAL DATA: ', mealItems);
           setMeals(mealItems);
         }
