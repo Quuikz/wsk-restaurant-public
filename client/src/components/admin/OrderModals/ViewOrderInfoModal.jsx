@@ -4,13 +4,7 @@ import { useReservations } from "../../../hooks/admin/apiHooks";
 
 const ViewOrderInfoModal = ({order, onClose}) => {
 
-    //const { getSingleOrder } = useOrders();
-    //const { getReservationByUserID } = useReservations();
-    //Get reservations by this
-    //useEffect
-
-
-    //Refine and see how DB looks
+    
     return (
     <div className="fixed inset-0 bg-black/40 bg-opacity-40 flex justify-center items-center">
       <div className="bg-white p-6 rounded shadow-lg">
