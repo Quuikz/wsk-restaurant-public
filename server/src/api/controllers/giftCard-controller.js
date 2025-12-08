@@ -8,7 +8,7 @@ import {
     modifyGiftCard,
     removeGiftCard,
     findGiftCardsByUserId,
-    findGiftCardByPassword
+    findGiftCardByPassword,
 } from "../models/giftCard-model.js";
 import {findOrdersByUserId} from "../models/order-model.js";
 
@@ -211,6 +211,29 @@ const getGiftCardValidation = (req, res) => {
 }
 
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getGiftCardList = async (req, res) => {
+    try {
+        if (req.body.giftCards) {
+            const giftCardArray = await Promise.all( req.body.giftCards.map( id => findGiftCardById(id) ));
+            console.log('giftcards found: ', giftCardArray);
+            res.json(giftCardArray);
+
+        } else {
+            console.log('no id array in getGiftCardList in giftCard-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getGiftCardList in giftCard-controller');
+        res.sendStatus(500);
+    }
+}
+
 export {
     getGiftCards,
     getGiftCardById,
@@ -219,4 +242,5 @@ export {
     deleteGiftCard,
     getGiftCardsByUserId,
     getGiftCardValidation,
+    getGiftCardList
 };

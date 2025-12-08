@@ -10,7 +10,8 @@ import {
     putGiftCard,
     deleteGiftCard,
     getGiftCardsByUserId,
-    getGiftCardValidation
+    getGiftCardValidation,
+    getGiftCardList
 } from '../controllers/giftCard-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
@@ -43,6 +44,10 @@ giftCardRouter.route('/user/:id')
 giftCardRouter.route('/validate/password')
     .get(authenticateToken, formatParamTypes, formatBodyTypes, getGiftCardValidation)
 
+//Get a specified list
+//endpoint http://hostname:port/api/giftcards/list/id
+giftCardRouter.route('/list/id')
+    .get(authenticateToken, getGiftCardList);
 
 
 export default giftCardRouter;
