@@ -11,6 +11,7 @@ import {
     postMeal,
     putMeal,
     deleteMeal,
+    getMealList
 } from '../controllers/meal-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
@@ -43,8 +44,20 @@ mealRouter.get('/', getMeals)
 //endpoint http://hostname:port/api/meals/:id
 mealRouter.route('/:id')
     .get(formatIdToNumber, getMealById)
-    .put(authenticateToken, userIsAdmin, formatIdToNumber, putMeal)
+    .put(authenticateToken,
+        formatIdToNumber,
+        userIsAdmin,
+        multerUpload.single('file'),
+        imageScaler,
+        formatBodyTypes,
+        putMeal)
     .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteMeal);
+
+
+//Get a specified list
+//endpoint http://hostname:port/api/discounts/list/id
+mealRouter.route('/list/id')
+    .get(authenticateToken, getMealList);
 
 export default mealRouter;
 

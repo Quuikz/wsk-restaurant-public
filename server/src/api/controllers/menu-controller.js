@@ -8,7 +8,6 @@ import {
     addMenu,
     modifyMenu,
     removeMenu,
-    findMenusByLocation,
     findMenusByDate,
     findMenusByWeek
 } from "../models/menu-model.js";
@@ -39,7 +38,7 @@ const getMenuById = (req, res) => {
     menu.then(
         menu => {
             if (menu) {
-                console.log('return menu'+req.params.id)
+                console.log('return menu', req.params.id)
                 res.json(menu);
 
             } else {
@@ -62,7 +61,7 @@ const postMenu = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('added menu: '+result)
+                console.log('added menu: ', result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -85,7 +84,7 @@ const putMenu = (req, res) => {
     result.then(
         result => {
             if (result) {
-                console.log('return menu: '+result)
+                console.log('return menu: ',result)
                 res.json(result);
             } else {
                 res.sendStatus(404);
@@ -125,26 +124,6 @@ const deleteMenu = (req, res) => {
     );
 }
 
-const getMenusByLocation = (req, res) => {
-    console.log('getMenuByLocation in menu-controller')
-    console.log(req.params.id);
-    const menuArray = findMenusByLocation(req.params.id);
-    menuArray.then(
-        menuArray => {
-            if (menuArray) {
-                console.log('return menus for location '+req.params.id)
-                res.json(menuArray);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        result => {
-            console.log('error in getMenuByLocation in menu-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
-}
 
 const getMenusByDate = (req, res) => {
     console.log('getMenuByDate in menu-controller')
@@ -195,8 +174,30 @@ const getMenusByWeek = (req, res) => {
     );
 }
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getMenuList = async (req, res) => {
+    try {
+        console.log('getMenuList in menu-controller')
 
+        if (req.body.menus) {
+            const menuArray = await Promise.all( req.body.menus.map( id => findMenuById(id) ));
+            console.log('menus found: ', menuArray);
+            res.json(menuArray);
 
+        } else {
+            console.log('no id array in getMenuList in menu-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getMenuList in menu-controller');
+        res.sendStatus(500);
+    }
+}
 
 
 export {
@@ -205,7 +206,7 @@ export {
     postMenu,
     putMenu,
     deleteMenu,
-    getMenusByLocation,
     getMenusByDate,
-    getMenusByWeek
+    getMenusByWeek,
+    getMenuList
 };

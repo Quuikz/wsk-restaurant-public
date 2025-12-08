@@ -9,7 +9,8 @@ import {
     putOrder,
     deleteOrder,
     getOrdersByUserId,
-    getOrdersByLocation, getOrdersByDate
+    getOrdersByDate,
+    getOrderList
 } from '../controllers/order-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
@@ -33,13 +34,13 @@ orderRouter.route('/:id')
 //endpoint http://hostname:port/api/orders/user/:id
 orderRouter.get('/user/:id',authenticateToken, getOrdersByUserId)
 
-//endpoint http://hostname:port/api/orders/location/:id
-orderRouter.get('/location/:id',authenticateToken, userIsAdmin, getOrdersByLocation)
-
 //endpoint http://hostname:port/api/orders/date/:date
 orderRouter.get('/date/:date',authenticateToken, userIsAdmin, getOrdersByDate)
 
-
+//Get a specified list
+//endpoint http://hostname:port/api/orders/list/id
+orderRouter.route('/list/id')
+    .get(authenticateToken, getOrderList);
 
 
 export default orderRouter;

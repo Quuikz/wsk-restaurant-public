@@ -7,7 +7,9 @@ import {
     getUserById,
     postUser,
     putUser,
-    deleteUser, getUserByUsername,
+    deleteUser,
+    getUserByUsername,
+    getUserList
 } from '../controllers/user-controller.js';
 
 //middleware
@@ -43,12 +45,23 @@ userRouter.get('/',authenticateToken, userIsAdmin, getUsers)
 //endpoint http://hostname:port/api/users/:id
 userRouter.route('/:id')
     .get(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, getUserById)
-    .put(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, putUser)
+    .put(authenticateToken,
+        formatIdToNumber,
+        filterByUserIdOrAdmin,
+        multerUpload.single('file'),
+        imageScaler,
+        formatBodyTypes,
+        putUser)
     .delete(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, deleteUser);
 
 //endpoint http://hostname:port/api/users/byname/:username
 userRouter.route('/username/:username')
     .get(authenticateToken, userIsAdmin, formatParamTypes, getUserByUsername);
+
+//Get a specified list
+//endpoint http://hostname:port/api/users/list/id
+userRouter.route('/list/id')
+    .get(authenticateToken, getUserList);
 
 
 export default userRouter;

@@ -1,47 +1,138 @@
 ### get menus
 GET http://localhost:3000/api/menus/
 
-### post new menu
+### post new menu without image
 POST http://localhost:3000/api/menus/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3ODQ2MCwiZXhwIjoxNzY0NzY0ODYwfQ.Jg8xI2r2r94mGstp43yazUNZHRTCuLeAgG40LLxMGjo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
 {
-    "id": "0",
-    "date" : 1213123,
-    "items": [
-      {"item" : "item_id1", "amount": 0 },
-      {"item" : "item_id2", "amount": 0 }
-    ]
+  "id" : 0,
+  "date" : "2025-12-06",
+  "week": 12,
+  "special_meal": 1,
+  "meals" : [1,2,3],
+  "image": "placeholder.jpg",
+  "message": "default menu. meals array contains meal.id values. date format: YYYY-MM-DD"
 }
 
 ### get menu by id
-GET http://localhost:3000/api/menus/0
+GET http://localhost:3000/api/menus/1
 
 ### update menu by id
-PUT http://localhost:3000/api/menus/0
+## this will change image name !! remove "image" to not change it
+PUT http://localhost:3000/api/menus/46
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3ODQ2MCwiZXhwIjoxNzY0NzY0ODYwfQ.Jg8xI2r2r94mGstp43yazUNZHRTCuLeAgG40LLxMGjo
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
 
 {
-  "id": 3,
-  "date": "abc",
-  "week": 0,
-  "location": 1,
+  "id" : 46,
+  "date" : "2025-12-06",
+  "week": 13,
   "special_meal": 1,
-  "meals": [1, 2 ]
+  "meals" : [1,2,3],
+  "image": "placeholder.jpg",
+  "message": "default menu. meals array contains meal.id values. date format: YYYY-MM-DD"
 }
 
 ### delete menu by id
 DELETE http://localhost:3000/api/menus/3
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3ODQ2MCwiZXhwIjoxNzY0NzY0ODYwfQ.Jg8xI2r2r94mGstp43yazUNZHRTCuLeAgG40LLxMGjo
 
-
-### get menu by location id
-GET http://localhost:3000/api/menus/location/0
-
 ### get menu by date
-GET http://localhost:3000/api/menus/date/abc
+GET http://localhost:3000/api/menus/date/2025-12-06
 
 ### get menu by week
 GET http://localhost:3000/api/menus/week/12
+
+### gen an array of menus by sending an array of ids
+## returns false for ids not found
+GET http://localhost:3000/api/menus/list/id
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
+
+{
+  "menus" : [3, 2, 0]
+}
+
+
+### menu upload with picture
+POST http://localhost:3000/api/menus/
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+1
+--MyBoundary
+Content-Disposition: form-data; name="date"
+
+2025-12-06
+--MyBoundary
+Content-Disposition: form-data; name="week"
+
+12
+--MyBoundary
+Content-Disposition: form-data; name="location"
+
+1
+--MyBoundary
+Content-Disposition: form-data; name="special_meal"
+
+3
+--MyBoundary
+Content-Disposition: form-data; name="meals"
+
+[1,2,3]
+--MyBoundary
+Content-Disposition: form-data; name="image"
+
+tällä ei väliä koska filen lataaminen kirjoittaa päälle
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--
+
+
+### update menu with picture
+PUT http://localhost:3000/api/menus/62
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+1
+--MyBoundary
+Content-Disposition: form-data; name="date"
+
+2025-12-06
+--MyBoundary
+Content-Disposition: form-data; name="week"
+
+12
+--MyBoundary
+Content-Disposition: form-data; name="location"
+
+1
+--MyBoundary
+Content-Disposition: form-data; name="special_meal"
+
+3
+--MyBoundary
+Content-Disposition: form-data; name="meals"
+
+[1,2,3]
+--MyBoundary
+Content-Disposition: form-data; name="image"
+
+tällä ei väliä koska filen lataaminen kirjoittaa päälle
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--

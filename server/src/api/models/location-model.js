@@ -1,41 +1,57 @@
+'use strict';
 
-//TODO: everything here
+//import
+import promisePool from "../../utils/database.js";
 
-//example datastructure
-import {default_location} from "../../../../database/datastructures.js";
-
-//placeholder table
-const locations = [
-    {...default_location, id: 1, name :"Restauranto 1", message: "location number 1 in location model"},
-    {...default_location, id: 2, name :"Restauranto 2", message: "location number 2 in location model"},
-    {...default_location, id: 3, name :"Restauranto 3", message: "location number 3 in location model"},
-];
+//default datastructure
+const default_location = {
+    id : 0,
+    name: "default name",
+    address : "default address",
+    email : "default email",
+    phone : "default phone",
+    table_count : 10,
+    message: 'default location'
+}
 
 /**
  *
- * @return {Promise<[{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string},{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string},{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}]|boolean>}
+ * @return {Promise<[{id: number, target_meal: number, cost_override: number, location_code: string, date_start: string, date_end: string, message: string},{id: number, target_meal: number, cost_override: number, location_code: string, date_start: string, date_end: string, message: string},{id: number, target_meal: number, cost_override: number, location_code: string, date_start: string, date_end: string, message: string}]|boolean>}
  * array of all objects or false if error
  */
 const listAllLocations = async () => {
     try {
-        return locations;
+        console.log('listAllLocations in location-model');
+        const [locationArray] = await promisePool.query('SELECT * FROM locations');
+        //console.log('locationArray:', locationArray);
+        return locationArray;
 
     } catch (error) {
+        console.log('error in listAllLocations in location-model');
         console.log(error);
         return false;
     }
 };
 
 /**
+ *
  * @param id
- * @return {Promise<{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}|{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}|{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}|boolean>}
+ * @return {Promise<*|boolean>}
  * first object that has the id or false if not found or error
  */
 const findLocationById = async (id) => {
     try {
-        const resultArray = locations.filter(location => location.id === Number(id));
-        if (resultArray.length > 0) {
-            return resultArray[0];
+        console.log('findLocationById in location-model');
+        const query = promisePool.format('SELECT * FROM locations where id = ?', id);
+        const [locationArray] = await promisePool.execute(query);
+
+
+        if (locationArray.length > 0) {
+            return locationArray[0];
+
+        } else if (locationArray.length > 1) {
+            console.log('location table has multiple locations with same id!');
+            return locationArray[0];
         } else {
             return false
         }
@@ -49,41 +65,104 @@ const findLocationById = async (id) => {
 /**
  *
  * @param location
- * @return {Promise<{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}|{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}|{id: number, name: string, address: string, email: string, phone: string, table_count: number, message: string}|boolean>}
- * object added to array/database or false if fails
+ * @return {Promise<{location: *}|boolean>}
+ * object added to database or false if fails
  */
 const addLocation = async (location) => {
     try {
-        locations.push(location);
-        return locations[locations.length - 1];
+        console.log('addLocation in location-model');
+
+        //default location values overridden by location
+        const newLocation = {...default_location, ...location, message: "new location added by location-model"};
+
+        //sql statement
+        const sql =  `INSERT INTO locations (name, address, email, phone, table_count, message)
+                      VALUES (?,?,?,?,?,?)`;
+        console.log(sql);
+
+        //sql parameters
+        const params = [
+            newLocation.name,
+            newLocation.address,
+            newLocation.email,
+            newLocation.phone,
+            newLocation.table_count,
+            newLocation.message
+        ];
+        console.log(params);
+
+        //execute sql
+        const rows = await promisePool.execute(sql, params);
+        console.log('rows', rows);
+
+        //return added location
+        if (rows[0].affectedRows === 0) {
+            console.log('Location not added');
+            return false;
+
+        } else {
+            console.log('Location added');
+            return  findLocationById(rows[0].insertId);
+        }
+
     } catch (error) {
         console.log(error);
         return false;
     }
 };
 
+
 /**
- * @param location
- * @param locationId
+ * Modifies a location by id.
+ *
+ * @param location location object, only fields given will be updated
+ * @param locationId number
  * @return {Promise<*|boolean>}
- * location or false if error or not found
+ * modified location or false if error or not found
  */
 const modifyLocation = async (location, locationId) => {
     try {
-        console.log('modifyLocation: ',locationId, location);
-        const index = locations.findIndex( (d) => {
-            console.log(d.id, locationId);
-            return  d.id === Number(locationId);  //Has to be number!
-        } );
+        console.log('modifyLocation: ', locationId, location);
 
+        //get previous location
+        const previousLocation = await findLocationById(locationId);
 
-        if (index >= 0) {
-            console.log('found at:'+index);
-            locations.splice(index,1, {...locations[index], ...location });
-            return locations[index];
+        //abort if not found
+        if (!previousLocation) {
+            return false;
+        }
+
+        //previous location values overridden by new location
+        const updatedLocation = {...previousLocation, ...location, message: "location modified by location-model"};
+
+        //sql statement
+        const sql = `UPDATE locations SET name = ?, address = ?, email = ?, phone = ?, table_count = ?, message = ?
+                     WHERE locations.id = ?`;
+        console.log(sql);
+
+        //sql parameters
+        const params = [
+            updatedLocation.name,
+            updatedLocation.address,
+            updatedLocation.email,
+            updatedLocation.phone,
+            updatedLocation.table_count,
+            updatedLocation.message,
+            locationId
+        ];
+        console.log(params);
+
+        //execute sql
+        const rows = await promisePool.execute(sql, params);
+        console.log('rows', rows);
+
+        //return modified location of false if no affected rows
+        if (rows[0].affectedRows !== 0) {
+            console.log('return modified location id: ',locationId);
+            return findLocationById(locationId);
 
         } else {
-            console.log('not found: ',locationId);
+            console.log('Location not modified');
             return false;
         }
 
@@ -95,24 +174,30 @@ const modifyLocation = async (location, locationId) => {
 
 /**
  *
- * @param locationId
- * @return {Promise<boolean>}
- * boolean whether id found and removed
+ * @param locationId number
+ * @return {Promise<boolean>} false if not found
  */
 const removeLocation = async (locationId) => {
     try {
-        const index = locations.findIndex(location => location.id === Number(locationId));
-        if (index >= 0) {
-            locations.splice(index,1);
-            return true;
+        // Prepare delete statement and execute
+        const sql = "DELETE FROM locations WHERE id = ?";
+        const params = [locationId];
+        const [rows] = await promisePool.execute(sql, params);
+        // console.log("rows", rows);
 
-        } else {
+        if (rows.affectedRows === 0) {
+            console.log("Location not found or not removed");
             return false;
+        } else {
+            console.log('location removed');
+            return true;
         }
+
     } catch (error) {
         console.log(error);
         return false;
     }
+
 };
 
 

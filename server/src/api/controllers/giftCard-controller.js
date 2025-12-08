@@ -7,7 +7,8 @@ import {
     addGiftCard,
     modifyGiftCard,
     removeGiftCard,
-    findGiftCardsByUserId, findGiftCardByPassword,
+    findGiftCardsByUserId,
+    findGiftCardByPassword,
 } from "../models/giftCard-model.js";
 import {findOrdersByUserId} from "../models/order-model.js";
 
@@ -180,13 +181,12 @@ const getGiftCardValidation = (req, res) => {
         findGiftCardByPassword(req.body.password).then(
             (giftCard) => {
                 if (giftCard) {
-                    console.log('giftcard found, redeemed:', giftCard.redeemed);
+                    console.log('giftcard found');
 
                     const giftCardWithoutPassword = {
                         id: giftCard.id,
                         value: giftCard.value,
                         expiration_date: giftCard.expiration_date,
-                        redeemed: giftCard.redeemed,
                         order: giftCard.order,
                         user: giftCard.user,
                     };
@@ -212,67 +212,29 @@ const getGiftCardValidation = (req, res) => {
 
 
 /**
- * Find a giftcard by given giftcard password and sets it redeemed.
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
  * @param req
  * @param res
  */
-const redeemGiftCard = (req, res) => {
+const getGiftCardList = async (req, res) => {
     try {
-        console.log('redeemGiftCard in giftCard-controller')
-        console.log('giftcard password:', req.body.password);
+        console.log('getGiftCardList in giftCard-controller');
 
-        const giftCard = findGiftCardByPassword(req.body.password);
-        giftCard.then(
-            (giftCard) => {
-                if (giftCard) {
-                    console.log('giftcard found, redeemed:', giftCard.redeemed);
+        if (req.body.giftCards) {
+            const giftCardArray = await Promise.all( req.body.giftCards.map( id => findGiftCardById(id) ));
+            console.log('giftcards found: ', giftCardArray);
+            res.json(giftCardArray);
 
-                    modifyGiftCard({redeemed: true}, giftCard.id).then(
-                            (updatedGiftCard) => {
-                                if (updatedGiftCard.redeemed) {
-                                    console.log('giftcard set to redeemed:', updatedGiftCard.redeemed);
-
-                                    const giftCardWithoutPassword = {
-                                        id : updatedGiftCard.id,
-                                        value: updatedGiftCard.value,
-                                        expiration_date : updatedGiftCard.expiration_date,
-                                        redeemed: updatedGiftCard.redeemed,
-                                        order: updatedGiftCard.order,
-                                        user : updatedGiftCard.user,
-                                    };
-
-                                    res.json(giftCardWithoutPassword);
-
-                                } else {
-                                    console.log('error in redeemGiftCard in redeemGiftCard-controller');
-                                    res.sendStatus(500);
-                                }
-                            },
-                            (error)=>{
-                                console.log(error);
-                            }
-                    );
-
-                } else {
-                    console.log('no giftcard found in redeemGiftCard');
-                    res.status(404).send('No giftcard found.');
-                }
-            },
-            (result) => {
-                console.log('error in redeemGiftCard in redeemGiftCard-controller');
-                console.log(result);
-                res.sendStatus(500);
-            }
-        );
+        } else {
+            console.log('no id array in getGiftCardList in giftCard-controller');
+            res.status(404).send('No id array found in request.');
+        }
 
     } catch (error) {
-        console.log('error in redeemGiftCard in redeemGiftCard-controller');
-        console.log(error);
+        console.log('error in getGiftCardList in giftCard-controller');
         res.sendStatus(500);
     }
 }
-
-
 
 export {
     getGiftCards,
@@ -282,5 +244,5 @@ export {
     deleteGiftCard,
     getGiftCardsByUserId,
     getGiftCardValidation,
-    redeemGiftCard
+    getGiftCardList
 };

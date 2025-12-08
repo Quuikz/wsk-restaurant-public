@@ -6,8 +6,7 @@ import {
     findDiscountById,
     addDiscount,
     modifyDiscount,
-    removeDiscount,
-    findDiscountByMeal
+    removeDiscount
 } from "../models/discount-model.js";
 
 
@@ -128,26 +127,29 @@ const deleteDiscount = (req, res) => {
     );
 }
 
-const getDiscountByMeal = (req, res) => {
-    console.log('getDiscountByMeal in discount-controller')
-    console.log(req.params.id);
-    const orderArray = findDiscountByMeal(req.params.id);
-    orderArray.then(
-        (orderArray) => {
-            if (orderArray) {
-                console.log('return discounts for meal ' + req.params.id)
-                res.json(orderArray);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        (result) => {
-            console.log('error in getDiscountByMeal in order-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getDiscountList = async (req, res) => {
+    try {
+        console.log('getDiscountList in discount-controller')
 
+        if (req.body.discounts) {
+            const discountArray = await Promise.all( req.body.discounts.map( id => findDiscountById(id) ));
+            console.log('discounts found: ', discountArray);
+            res.json(discountArray);
+
+        } else {
+            console.log('no id array in getDiscountList in discount-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getDiscountList in discount-controller');
+        res.sendStatus(500);
+    }
 }
 
 
@@ -157,5 +159,5 @@ export {
     postDiscount,
     putDiscount,
     deleteDiscount,
-    getDiscountByMeal
+    getDiscountList
 };
