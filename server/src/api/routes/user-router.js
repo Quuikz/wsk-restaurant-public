@@ -7,7 +7,9 @@ import {
     getUserById,
     postUser,
     putUser,
-    deleteUser, getUserByUsername,
+    deleteUser,
+    getUserByUsername,
+    getUserList
 } from '../controllers/user-controller.js';
 
 //middleware
@@ -55,6 +57,11 @@ userRouter.route('/:id')
 //endpoint http://hostname:port/api/users/byname/:username
 userRouter.route('/username/:username')
     .get(authenticateToken, userIsAdmin, formatParamTypes, getUserByUsername);
+
+//Get a specified list
+//endpoint http://hostname:port/api/users/list/id
+userRouter.route('/list/id')
+    .get(authenticateToken, getUserList);
 
 
 export default userRouter;

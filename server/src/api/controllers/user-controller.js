@@ -176,6 +176,38 @@ const getUserByUsername = (req, res) => {
     );
 };
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getUserList = async (req, res) => {
+    try {
+        console.log('getUserList in user-controller')
+
+        if (req.body.users) {
+            const userArray = await Promise.all( req.body.users.map( id => findUserById(id) ));
+            console.log('users found: ', userArray);
+            res.json(userArray);
+
+        } else {
+            console.log('no id array in getUserList in user-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getUserList in user-controller');
+        res.sendStatus(500);
+    }
+}
 
 
-export {getUsers, getUserById, postUser, putUser, deleteUser, getUserByUsername};
+export {
+    getUsers,
+    getUserById,
+    postUser,
+    putUser,
+    deleteUser,
+    getUserByUsername,
+    getUserList
+};
