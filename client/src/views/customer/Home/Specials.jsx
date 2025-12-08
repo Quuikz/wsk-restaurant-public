@@ -1,4 +1,24 @@
+import {useEffect, useState} from 'react';
+import { useMenuCommon } from '../../../hooks/common/apiHooks.js';
+import MenuRow from '../../admin/Menus/MenuRow.jsx';
+
 const Specials = () => {
+  const {getAllMenuItems} = useMenuCommon();
+  const [menuItems, setMenuItems] = useState([]);
+
+  useEffect(() => {
+    const loadAllMenuItems = async () => {
+      try {
+        const menuData = await getAllMenuItems();
+        setMenuItems(menuData);
+        console.log(menuData);
+      } catch (error) {
+        console.log('Error in loadMenuItems: ', error);
+      }
+    };
+    loadAllMenuItems();
+  }, []);
+
   return (
     <>
       {/* Daily Special boxes */}
@@ -10,7 +30,9 @@ const Specials = () => {
             alt="Spesiaali ruoka tänään"
           />
           <div className="px-6">
-            <h2 className="text-2xl  mt-2 text-center">Aterian nimi</h2>
+            <h2 className="text-2xl  mt-2 text-center">
+              {/*{menuItems[0].meals[0].name_fi}*/}Aterian nimi
+            </h2>
             <p className="mt-1 font-bold">Tietoa</p>
             <ul>
               <li>Hinta</li>

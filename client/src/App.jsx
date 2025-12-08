@@ -16,14 +16,29 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
 
 //Pages
+//All users
 import Contacts from './views/customer/Contacts.jsx';
 import Home from './views/customer/Home.jsx';
-import Profile from './views/customer/Profile.jsx';
+
 import ShoppingCart from './views/customer/ShoppingCart.jsx';
 import Weeklist from './views/customer/Weeklist.jsx';
 import Giftcards from './views/customer/Giftcards.jsx';
+
+//Logged in users
+import Profile from './views/customer/Profile.jsx';
+
+//Admin
 import Dashboard from './views/admin/Dashboard.jsx';
+import Meals from './views/admin/Meals/Meals.jsx';
 import AddMeal from './views/admin/Meals/AddMeal.jsx';
+import Menus from './views/admin/Menus/Menus.jsx';
+import Orders from './views/admin/Orders/Orders.jsx';
+import GiftcardsAdmin from './views/admin/Giftcards/Giftcards.jsx';
+import ReservationsAdmin from './views/admin/Reservations/Reservations.jsx';
+
+
+
+
 
 const App = () => {
   return (
@@ -33,11 +48,10 @@ const App = () => {
           <Route element={<Layout />}>
             <Route path="/" element={<Home />} />
 
-            {/* Profile not protected */}
-            <Route path="/profile" element={<Profile />} />
 
             {/*<Route path="/single" element={<Single />} />*/}
             <Route path="/contacts" element={<Contacts />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/shoppingcart" element={<ShoppingCart />} />
             <Route path="/weeklist" element={<Weeklist />} />
             <Route path="/login" element={<Login />} />
@@ -56,6 +70,7 @@ const App = () => {
               }
             />
           </Route>
+          
 
           {/* Admin routes - TODO: protect the routes */}
           {/* example path: /admin/addmeal */}
@@ -66,7 +81,13 @@ const App = () => {
                 
             }>
             <Route index element={<Dashboard />} />
+            <Route path="meals" element={<Meals />} />
             <Route path="addmeal" element={<AddMeal />} />
+
+            <Route path="menus" element={<Menus />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="giftcards" element={<GiftcardsAdmin />} />
+            <Route path="reservations" element={<ReservationsAdmin />} />
           </Route>
         </Routes>
       </UserProvider>

@@ -1,15 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router";
+import SideBar from "./SideBar";
+import TopBar from "./TopBar";
 
 const AdminLayout = () => {
 
 
     return(
         <>
-      {/* TODO: Create different header + footer for admin, then uncomment */}
-      {/*<Header />*/}
-      <main className="pt-22 bg-gray-200">
-        {/* Adds little space so header wont take space from pages. */}
+      <TopBar />
+      <SideBar />
+      <main className="ml-64 mt-16 p-6 bg-gray-100 min-h-screen">
         <Outlet />
       </main>
 
