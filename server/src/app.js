@@ -1,12 +1,11 @@
-'use strict';
+"use strict";
 
 //node imports
-import express, {response} from 'express';
-import cors from 'cors';
+import express, { response } from "express";
+import cors from "cors";
 
 //other imports
-import apiRouter from './api/api-router.js'
-
+import apiRouter from "./api/api-router.js";
 
 //express app
 const app = express();
@@ -16,20 +15,21 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 //etusivu html http://hostname:port/
-app.use('/', express.static('./public'));
+app.use("/", express.static("./public"));
 //app.use('/images/meals', express.static('./public/images/meals') );
 
+//dokumentaatio http://hostname:port/docs
+app.use("/docs", express.static("docs"));
+
 //admin sivu html http://hostname:port/admin
-app.use('/admin', express.static('./public/admin'));
+app.use("/admin", express.static("./public/admin"));
 
 //testisivu http://hostname:port/test-page
-app.use('/test-page', express.static('test-page'));
+app.use("/test-page", express.static("test-page"));
 
 //polku API:lle
-app.use('/api', apiRouter)
+app.use("/api", apiRouter);
 
 //export
 export default app;
