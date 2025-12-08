@@ -81,7 +81,7 @@ const addGiftCard = async (gift_card) => {
 
         //sql statement
         const sql = `INSERT INTO gift_cards (value, expiration_date, password, message, gift_cards.order, user)
-                      VALUES (?,?,?,?,?)`;
+                      VALUES (?,?,?,?,?,?)`;
         console.log(sql);
 
         //sql parameters
@@ -252,6 +252,32 @@ const findGiftCardsByOrder = async (orderId) => {
     }
 }
 
+/**
+ * @return
+ * array filtered by id given or false if error
+ * @param password
+ */
+const findGiftCardByPassword = async (password) => {
+    try {
+        console.log('findGiftCardByPassword in gift_card-model:', password);
+        const query = promisePool.format('SELECT * FROM gift_cards where gift_cards.order = ?',
+            bcrypt.hashSync(password, 10)
+        );
+        const [gift_cardArray] = await promisePool.execute(query);
+
+        if (gift_cardArray.length > 0) {
+            return gift_cardArray[0];
+
+        } else {
+            return false;
+        }
+
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
+
 
 
 export {
@@ -261,5 +287,6 @@ export {
     modifyGiftCard,
     removeGiftCard,
     findGiftCardsByUserId,
-    findGiftCardsByOrder
+    findGiftCardsByOrder,
+    findGiftCardByPassword
 }
