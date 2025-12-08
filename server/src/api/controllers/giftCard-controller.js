@@ -218,6 +218,8 @@ const getGiftCardValidation = (req, res) => {
  */
 const getGiftCardList = async (req, res) => {
     try {
+        console.log('getGiftCardList in giftCard-controller');
+
         if (req.body.giftCards) {
             const giftCardArray = await Promise.all( req.body.giftCards.map( id => findGiftCardById(id) ));
             console.log('giftcards found: ', giftCardArray);

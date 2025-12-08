@@ -202,6 +202,31 @@ const getReservationByDate = (req, res)=>{
 }
 
 
+/**
+ * Takes an array if id numbers from request.body and returns a corresponding array of objects.
+ * @param req
+ * @param res
+ */
+const getReservationList = async (req, res) => {
+    try {
+        console.log('getReservationList in reservation-controller')
+
+        if (req.body.reservations) {
+            const reservationArray = await Promise.all( req.body.reservations.map( id => findReservationById(id) ));
+            console.log('reservations found: ', reservationArray);
+            res.json(reservationArray);
+
+        } else {
+            console.log('no id array in getReservationList in reservation-controller');
+            res.status(404).send('No id array found in request.');
+        }
+
+    } catch (error) {
+        console.log('error in getReservationList in reservation-controller');
+        res.sendStatus(500);
+    }
+}
+
 export {
     getReservations,
     getReservationById,
@@ -210,5 +235,6 @@ export {
     deleteReservation,
     getReservationByUserId,
     getReservationByOrder,
-    getReservationByDate
+    getReservationByDate,
+    getReservationList
 };

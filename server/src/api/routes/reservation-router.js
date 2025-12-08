@@ -10,7 +10,8 @@ import {
     deleteReservation,
     getReservationByUserId,
     getReservationByOrder,
-    getReservationByDate
+    getReservationByDate,
+    getReservationList
 } from '../controllers/reservation-controller.js';
 
 //middlewares
@@ -43,6 +44,12 @@ reservationRouter.get('/order/:id',authenticateToken, userIsAdmin, formatIdToNum
 
 //endpoint http://hostname:port/api/reservations/date/:date
 reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, formatParamTypes, getReservationByDate);
+
+
+//Get a specified list
+//endpoint http://hostname:port/api/reservations/list/id
+reservationRouter.get('/list/id',authenticateToken, getReservationList);
+
 
 
 
