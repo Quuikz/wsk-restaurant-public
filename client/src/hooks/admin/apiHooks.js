@@ -62,7 +62,7 @@ const useMeal = () => {
             body: formData,
         };
 
-        const newMealResult = await fetchData(API_URL + '/meals/', fetchOptions);
+        const newMealResult = await fetchData(API_URL + '/meals', fetchOptions);
         return newMealResult;
     };
 
