@@ -6,6 +6,31 @@ const API_URL = import.meta.env.VITE_CUSTOM_AUTH_API;
 
 //TODO: common apiHooks.js for some GET requests ?
 
+
+const useUser = () => {
+
+    const getAllUsers = async (token) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getAllUsersResult = await fetchData(API_URL + '/users', fetchOptions);
+        return getAllUsersResult;
+    }
+
+
+    return { getAllUsers }
+
+
+
+
+}
+
+
 const useMeal = () => {
 
     //const token = localStorage.getItem('token');
@@ -25,15 +50,16 @@ const useMeal = () => {
         */
 
     //Add new meal
-    const postNewMeal = async (inputs, token) => {
+    const postNewMeal = async (formData, token) => {
         const fetchOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                //'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
 
             },
-            body: JSON.stringify(inputs),
+            //body: JSON.stringify(inputs),
+            body: formData,
         };
 
         const newMealResult = await fetchData(API_URL + '/meals/', fetchOptions);
@@ -41,16 +67,14 @@ const useMeal = () => {
     };
 
     //Update meal info
-    const updateMealInfo = async (inputs, token, mealID) => {
-        console.log("Update called with:", inputs, token, mealID);
+    const updateMealInfo = async (data, token, mealID) => {
         const fetchOptions = {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
-
             },
-            body: JSON.stringify(inputs),
+            body: JSON.stringify(data),
         };
 
         const updatedMealResult = await fetchData(API_URL + `/meals/${mealID}`, fetchOptions);
@@ -69,6 +93,9 @@ const useMeal = () => {
         const deleteMealResult = await fetchData(API_URL + `/meals/${mealID}`, fetchOptions);
         return deleteMealResult;
     }
+
+
+    
 
 
     return { postNewMeal, updateMealInfo, deleteMeal }
@@ -93,6 +120,38 @@ const useMenu = () => {
     return { getAllMenuItems }
     */
 
+    const postNewMenu = async (formData, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                //'Content-Type': 'application/json',
+                //'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token}`
+            },
+            //body: JSON.stringify(inputs),
+            body: formData,
+        };
+
+        const postNewMenuResult = await fetchData(API_URL + '/menus/', fetchOptions);
+        return postNewMenuResult;
+    }
+
+    const updateMenu = async (data, token, menuID) =>{
+        const fetchOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data),
+        };
+
+        const updateMenuResult = await fetchData(API_URL + `/menus/${menuID}`, fetchOptions);
+        return updateMenuResult;
+
+    }
+
+    return { postNewMenu, updateMenu }
 
 }
 
@@ -241,4 +300,4 @@ const useGiftcards = () => {
 
 
 
-export { useMeal, useMenu, useOrders, useReservations, useGiftcards }
+export { useUser, useMeal, useMenu, useOrders, useReservations, useGiftcards }

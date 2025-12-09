@@ -9,26 +9,36 @@ const ModifyMealModal = ({meal, isOpen, onClose, onUpdated}) => {
     if(!isOpen){
         return null;
     }
+    
+    const [file, setFile] = useState(null);
 
 
 
     const doModifyMeal = async () => {
-        console.log("doModifyMeal called!");
-        console.log("Inputs being sent:", inputs);
         const token = localStorage.getItem('token');
-        if(!token){
-            return;
-        }
-        try{
-            const result = await updateMealInfo(inputs, token, meal.id);
+        if(!token) return;
+
+        const updatedMeal = {
+            id: inputs.id,
+            name_fi: inputs.name_fi,
+            name_en: inputs.name_en,
+            description_fi: inputs.description_fi,
+            description_en: inputs.description_en,
+            cost: parseFloat(inputs.cost),
+            type: inputs.type,
+            image: file ? `/images/${file.name}` : inputs.image // if using a new file, just send path
+        };
+
+        try {
+            const result = await updateMealInfo(updatedMeal, token, meal.id);
             console.log(result);
             onUpdated();
             onClose();
+        } catch(error) {
+            console.log("Error in doModifyMeal: ", error);
         }
-        catch(error){
-            console.log('Error in doModifyMeal: ', error);
-        }
-    }
+    };
+
 
     const {inputs, handleInputChange, handleSubmit } = useForm(doModifyMeal, {
         id: meal.id,
@@ -41,51 +51,92 @@ const ModifyMealModal = ({meal, isOpen, onClose, onUpdated}) => {
         image: meal.image
     });
 
+    const handleFileChange = (evt) => {
+        if (evt.target.files) {
+            console.log(evt.target.files[0]);
+            setFile(evt.target.files[0]);
+        }
+    };
+
     return(
         <>
   <div className="fixed inset-0 flex items-center justify-center bg-black/40 backdrop-blur-sm p-4">
     <form
+    
       onSubmit={handleSubmit}
-      className="bg-white w-full max-w-md p-6 rounded-xl shadow-xl animate-fadeIn"
+      className="bg-white w-full max-w-md p-4 rounded-xl shadow-xl"
     >
+    <div>
       <h2 className="text-2xl font-semibold mb-5 text-gray-800">
         Modify Meal
       </h2>
 
+      {/*Menu: Image Upload */}
+    <div className="flex items-center gap-4">
 
-    <label
-        htmlFor="name_fi"
-        className="block mb-2.5 text-sm font-medium text-heading"
-    >
-        Name (in Finnish)
-    </label>
-      <div className="space-y-3">
-        <input
-          type="text"
-          id="name_fi"
-          name="name_fi"
-          value={inputs.name_fi}
-          onChange={handleInputChange}
-          placeholder="Name (in Finnish)"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-        />
+        {/* Image preview */}
+        <div>
+            <img 
+                src={
+                    file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
+                }
+                alt='preview'
+                width='200'
+                />
+            </div>
+        
 
+        {/* Upload button */}
+        <div>
+            <label htmlFor='file' className="cursor-pointer px-4 py-2 text-white rounded-md bg-gray-400 hover:bg-gray-500">Valitse tiedosto</label>
+            <input
+                name='file'
+                type='file'
+                id='file'
+                accept='image/*'
+                onChange={ handleFileChange }
+                />
+        </div>
+    </div>
+        
 
+    <div className="grid grid-cols-2 gap-4 mb-3">
+        <div>
         <label
-            htmlFor="name_en"
+            htmlFor="name_fi"
             className="block mb-2.5 text-sm font-medium text-heading"
         >
-            Name (in English)
+            Name (in Finnish)
         </label>
-        <input
-          type="text"
-          id="name_en"
-          name="name_en"
-          value={inputs.name_en}
-          onChange={handleInputChange}
-          placeholder="Name (in English)"
-          className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
-        />
+            <input
+            type="text"
+            id="name_fi"
+            name="name_fi"
+            value={inputs.name_fi}
+            onChange={handleInputChange}
+            placeholder="Name (in Finnish)"
+            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+            />
+        </div>
+
+        <div>
+            <label
+                htmlFor="name_en"
+                className="block mb-2.5 text-sm font-medium text-heading"
+            >
+                Name (in English)
+            </label>
+            <input
+            type="text"
+            id="name_en"
+            name="name_en"
+            value={inputs.name_en}
+            onChange={handleInputChange}
+            placeholder="Name (in English)"
+            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
+            />
+        </div>
+        </div>
 
 
         <label

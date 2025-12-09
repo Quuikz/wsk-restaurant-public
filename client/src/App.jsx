@@ -35,6 +35,8 @@ import Menus from './views/admin/Menus/Menus.jsx';
 import Orders from './views/admin/Orders/Orders.jsx';
 import GiftcardsAdmin from './views/admin/Giftcards/Giftcards.jsx';
 import ReservationsAdmin from './views/admin/Reservations/Reservations.jsx';
+import AddMenu from './views/admin/Menus/AddMenu.jsx';
+import UsersAdminView from './views/admin/User/Users.jsx';
 
 
 
@@ -85,9 +87,11 @@ const App = () => {
             <Route path="addmeal" element={<AddMeal />} />
 
             <Route path="menus" element={<Menus />} />
+            <Route path="addmenus" element={<AddMenu />} />
             <Route path="orders" element={<Orders />} />
             <Route path="giftcards" element={<GiftcardsAdmin />} />
             <Route path="reservations" element={<ReservationsAdmin />} />
+            <Route path="users" element={<UsersAdminView />} />
           </Route>
         </Routes>
       </UserProvider>

@@ -1,13 +1,24 @@
-import {useEffect, useMemo, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 
 const Weeklist = () => {
-  const {getAllMenuItems} = useMenuCommon();
-  const [menuItems, setMenuItems] = useState([]);
+  // Function to get current week number
+  const realTimeWeek = () => {
+    const d = new Date();
+    let yearStart = +new Date(d.getFullYear(), 0, 1);
+    let today = +new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    let dayOfYear = (today - yearStart + 1) / 86400000;
+    let week = Math.ceil(dayOfYear / 7);
+    console.log(week);
+    return week;
+  };
+
+  // State and hook for weekly menu
+  const {getMenuByWeek} = useMenuCommon();
+  const [weeklyMenu, setWeeklyMenu] = useState([]);
   // Set current week number here
-  // Currently hardcoded to 12 for testing
-  const initialWeek = 12;
+  const initialWeek = realTimeWeek();
   const [currentWeek, setCurrentWeek] = useState(initialWeek);
 
   // Button managers for week navigation
@@ -18,28 +29,22 @@ const Weeklist = () => {
 
   useEffect(() => {
     // Load all menu items
-    const loadAllMenuItems = async () => {
+    const loadMenuByWeek = async () => {
       try {
-        const menuData = await getAllMenuItems();
-        setMenuItems(menuData);
+        const menuData = await getMenuByWeek(currentWeek);
+        setWeeklyMenu(menuData);
         console.log(menuData);
       } catch (error) {
-        console.log('Error in loadMenuItems: ', error);
+        console.log('Error in loadMenuByWeek: ', error);
       }
     };
-    loadAllMenuItems();
-  }, []);
-
-  // Filter the menu items for the current week (memoized)
-  const filteredMenuItems = useMemo(() => {
-    return menuItems.filter((item) => item.week === currentWeek);
-  }, [menuItems, currentWeek]);
+    loadMenuByWeek();
+  }, [currentWeek]);
 
   return (
     <>
-      <div className="max-w-7xl mx-auto">
-        <div className="p-7 pt-20 pb-30 bg-orange-100">
-          {console.log(max)}
+      <div className="max-w-7xl mx-auto ">
+        <div className="p-7 pt-20 pb-30 bg-orange-100 min-h-screen">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">
             <h2 className="text-3xl font-medium">| Viikko {currentWeek} |</h2>
@@ -48,8 +53,8 @@ const Weeklist = () => {
 
           {/* Weekly list */}
           <div className="grid grid-cols-3 gap-4 ">
-            {filteredMenuItems.map((menuItem) => (
-              <WeeklistBox key={menuItem.id} menuItem={menuItem} />
+            {weeklyMenu.map((menu) => (
+              <WeeklistBox key={menu.id} menu={menu} />
             ))}
           </div>
 
