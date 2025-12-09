@@ -2,11 +2,12 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router';
 import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
 
-//TODO:
-const auth_api = import.meta.env.VITE_CUSTOM_AUTH_API;
-const server_url = import.meta.env.VITE_SERVER_URL;
-console.log('AUTH_API:',auth_api);
-console.log('SERVER_URL:',server_url);
+//Set server URL
+let server_url = import.meta.env.VITE_SERVER_URL;
+if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+  server_url = import.meta.env.VITE_SERVER_URL_LOCAL;
+}
+console.log("server_url in Specials: ", server_url);
 
 const Specials = () => {
   // Get today's date in YYYY-MM-DD format

@@ -39,9 +39,6 @@ import AddMenu from './views/admin/Menus/AddMenu.jsx';
 import UsersAdminView from './views/admin/User/Users.jsx';
 
 
-
-
-
 const App = () => {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
