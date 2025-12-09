@@ -2,6 +2,12 @@ import {useEffect, useState} from 'react';
 import {Link} from 'react-router';
 import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
 
+//TODO:
+const auth_api = import.meta.env.VITE_CUSTOM_AUTH_API;
+const server_url = import.meta.env.VITE_SERVER_URL;
+console.log('AUTH_API:',auth_api);
+console.log('SERVER_URL:',server_url);
+
 const Specials = () => {
   // Get today's date in YYYY-MM-DD format
   // Switch between hardcoded date and real-time date here
@@ -58,7 +64,7 @@ const Specials = () => {
         {meals.map((meal) => (
           <div key={meal.id}>
             <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-              <img src={meal.image} alt="Spesiaali ruoka tänään" />
+              <img src={server_url+'/images/meals/'+meal.image} alt="Spesiaali ruoka tänään" />
               <div className="px-6">
                 <h2 className="text-2xl  mt-2 text-center">{meal.name_fi}</h2>
                 <p className="mt-1 font-bold">
