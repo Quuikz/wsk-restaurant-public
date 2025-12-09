@@ -132,7 +132,37 @@ const useOrderCommon = () => {
     return deletedOrderResult;
   };
 
-  return {postOrder, updateOrder, deleteOrder};
+
+  const getOrderByID = async (token, orderID) => {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        //'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const getOrderByIDResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+    return getOrderByIDResult;
+
+  }
+
+  const getOrdersByUserID = async (token, orderID) => {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const getOrdersByUserIDResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+    return getOrdersByUserIDResult;
+
+  }
+
+
+
+  return {postOrder, updateOrder, deleteOrder, getOrderByID, getOrdersByUserID};
 };
 
 const useReservationCommon = () => {};

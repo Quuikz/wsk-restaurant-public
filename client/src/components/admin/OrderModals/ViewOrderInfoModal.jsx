@@ -49,7 +49,7 @@ const ViewOrderInfoModal = ({order, onClose}) => {
         {order.gift_cards?.length ? (
           <ul>
             {order.gift_cards.map((giftCard) => (
-              <li key={giftCard}>Gift Card ID: {giftCard.id}</li>
+              <li key={giftCard.id}>Gift Card ID: {giftCard.id}</li>
             ))}
           </ul>
         ) : (

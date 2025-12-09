@@ -5,6 +5,7 @@ import AvatarModal from './Profile/AvatarModal.jsx';
 
 import { useUser } from '../../hooks/apiHooks.js';
 import { useUserContext } from '../../hooks/contextHooks.js';
+import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
@@ -103,44 +104,14 @@ const Profile = () => {
                         <th className="px-4 py-2 border">Hinta</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      {/* Example row */}
-                      <tr>
-                        <td className="px-4 py-2 border text-center">
-                          2024-01-15
-                        </td>
-                        <td className="px-4 py-2 border text-center">
-                          Grillipöytä varaus
-                        </td>
-                        <td className="px-4 py-2 border text-center">2</td>
-                        <td className="px-4 py-2 border text-center">45.00€</td>
-                      </tr>
-                      {/* More rows can be added here */}
-                    </tbody>
-                    <tbody>
-                      <tr>
-                        <td className="px-4 py-2 border text-center">
-                          2024-01-15
-                        </td>
-                        <td className="px-4 py-2 border text-center">
-                          Grillipöytä varaus
-                        </td>
-                        <td className="px-4 py-2 border text-center">2</td>
-                        <td className="px-4 py-2 border text-center">45.00€</td>
-                      </tr>
-                    </tbody>
-                    <tbody>
-                      <tr>
-                        <td className="px-4 py-2 border text-center">
-                          2024-01-15
-                        </td>
-                        <td className="px-4 py-2 border text-center">
-                          Grillipöytä varaus
-                        </td>
-                        <td className="px-4 py-2 border text-center">2</td>
-                        <td className="px-4 py-2 border text-center">45.00€</td>
-                      </tr>
-                    </tbody>
+
+                    <ShoppingHistory 
+                      
+                    />
+
+
+
+                    
                   </table>
                 </div>
               </div>
@@ -171,6 +142,49 @@ const Profile = () => {
       </div>
     </>
   );
+
+
+  
 };
+
+/*
+<tbody>
+                      <tr>
+                        <td className="px-4 py-2 border text-center">
+                          2024-01-15
+                        </td>
+                        <td className="px-4 py-2 border text-center">
+                          Grillipöytä varaus
+                        </td>
+                        <td className="px-4 py-2 border text-center">2</td>
+                        <td className="px-4 py-2 border text-center">45.00€</td>
+                      </tr>
+                    </tbody>
+                    <tbody>
+                      <tr>
+                        <td className="px-4 py-2 border text-center">
+                          2024-01-15
+                        </td>
+                        <td className="px-4 py-2 border text-center">
+                          Grillipöytä varaus
+                        </td>
+                        <td className="px-4 py-2 border text-center">2</td>
+                        <td className="px-4 py-2 border text-center">45.00€</td>
+                      </tr>
+                    </tbody>
+                    <tbody>
+                      <tr>
+                        <td className="px-4 py-2 border text-center">
+                          2024-01-15
+                        </td>
+                        <td className="px-4 py-2 border text-center">
+                          Grillipöytä varaus
+                        </td>
+                        <td className="px-4 py-2 border text-center">2</td>
+                        <td className="px-4 py-2 border text-center">45.00€</td>
+                      </tr>
+                    </tbody>
+                    
+                    */
 
 export default Profile;
