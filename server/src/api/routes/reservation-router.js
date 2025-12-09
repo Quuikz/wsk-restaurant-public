@@ -48,7 +48,7 @@ reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, formatParamT
 
 //number of reservations for given datetime
 //endpoint http://hostname:port/api/reservations/count/:date
-reservationRouter.get('/count/:date',authenticateToken, userIsAdmin, formatParamTypes, getReservationCountByDate);
+reservationRouter.get('/count/:date', formatParamTypes, getReservationCountByDate);
 
 
 //Get a specified list

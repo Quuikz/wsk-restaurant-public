@@ -253,7 +253,7 @@ const findReservationsByOrder = async (orderId) => {
 /**
  * @param date
  * @return
- * array filtered by id given or false if error
+ * array filtered by date given or false if error
  */
 const findReservationsByDate = async (date) => {
     try {
