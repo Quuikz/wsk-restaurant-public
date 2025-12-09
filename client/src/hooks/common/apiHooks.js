@@ -165,6 +165,28 @@ const useOrderCommon = () => {
   return {postOrder, updateOrder, deleteOrder, getOrderByID, getOrdersByUserID};
 };
 
-const useReservationCommon = () => {};
+const useReservationCommon = () => {
 
-export {useMealCommon, useMenuCommon, useOrderCommon};
+
+    const postNewReservation = async (data, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        };
+
+        const postNewReservationResult = await fetchData(API_URL + '/reservations', fetchOptions);
+        return postNewReservationResult;
+
+    }
+
+    return { postNewReservation }
+
+
+
+};
+
+export {useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon};

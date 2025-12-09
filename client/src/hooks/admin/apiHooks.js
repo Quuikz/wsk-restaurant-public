@@ -255,20 +255,7 @@ const useReservations = () => {
         return getReservationsByIDListResult;
     }
 
-    const postNewReservation = async (data, token) => {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                //'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        };
-
-        const postNewReservationResult = await fetchData(API_URL + '/reservations', fetchOptions);
-        return postNewReservationResult;
-
-    }
+    
 
 
 
