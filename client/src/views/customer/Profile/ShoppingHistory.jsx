@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useOrderCommon } from "../../../hooks/common/apiHooks";
 import { useUserContext } from "../../../hooks/contextHooks.js";
+import { useReservations } from "../../../hooks/admin/apiHooks";
 
 const ShoppingHistory = () => {
 
     const { getOrdersByUserID } = useOrderCommon();
+    const { getReservationsByIDList } = useReservations();
 
     const [shoppingHistories, setShoppingHistories] = useState([]);
+    
+    const [userReservations, setUserReservations] = useState([]);
 
     const {user} = useUserContext();
 
@@ -16,10 +20,18 @@ const ShoppingHistory = () => {
         console.log('USER ID:', user?.id);
         try{
             
-            const result = await getOrdersByUserID(token, 2);
-            console.log(result);
+            const data = await getOrdersByUserID(token, 2);
+            console.log(data);
             //setShoppingHistories(result);
-            setShoppingHistories(Array.isArray(result) ? result : [result]);
+            const orders = Array.isArray(data) ? data : [data];
+
+            //For each order, get its reservations & giftcards
+            //const all
+
+
+
+
+
         }
         catch(error){
             console.log('Error in loadUserShoppingHistory: ', error);
@@ -29,6 +41,7 @@ const ShoppingHistory = () => {
     useEffect(() => {
         loadUserShoppingHistory();
     }, []);
+
 
 
     return(

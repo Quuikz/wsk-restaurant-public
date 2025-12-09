@@ -10,7 +10,7 @@ const Weeklist = () => {
     let today = +new Date(d.getFullYear(), d.getMonth(), d.getDate());
     let dayOfYear = (today - yearStart + 1) / 86400000;
     let week = Math.ceil(dayOfYear / 7);
-    console.log(week);
+    //console.log(week);
     return week;
   };
 
