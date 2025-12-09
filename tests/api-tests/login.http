@@ -21,3 +21,17 @@ Content-Type: application/json
 ### get validate current token
 GET http://localhost:3000/api/auth/validate
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2MzU1Mzk3MCwiZXhwIjoxNzYzNjQwMzcwfQ.KJRGU6iy55Utgi4qNRVHB8S-GrtyF2fuKitb_aNYBYg
+
+
+
+### login to server
+POST https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+###
+## eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5MDAzMSwiZXhwIjoxNzY1Mzc2NDMxfQ.-I-2OKtX3q7N3Aw95U5N-ajZvXXC-a_G-o8sP4bBHik

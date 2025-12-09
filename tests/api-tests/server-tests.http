@@ -1,0 +1,22 @@
+### login to server
+POST https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/auth/login
+Content-Type: application/json
+
+{
+  "username": "admin",
+  "password": "password"
+}
+
+###
+## eyJh
+
+
+### get meals from server
+GET https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/
+
+
+
+### get giftcards from server
+GET https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/giftcards/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5MDAzMSwiZXhwIjoxNzY1Mzc2NDMxfQ.-I-2OKtX3q7N3Aw95U5N-ajZvXXC-a_G-o8sP4bBHik
+

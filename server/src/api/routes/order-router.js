@@ -33,7 +33,7 @@ orderRouter.route('/:id')
     .delete(authenticateToken, formatIdToNumber, deleteOrder);
 
 //endpoint http://hostname:port/api/orders/user/:id
-orderRouter.get('/user/:id',authenticateToken, filterByUserIdOrAdmin, getOrdersByUserId)
+orderRouter.get('/user/:id',authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, getOrdersByUserId)
 
 //endpoint http://hostname:port/api/orders/date/:date
 orderRouter.get('/date/:date',authenticateToken, userIsAdmin, getOrdersByDate)
