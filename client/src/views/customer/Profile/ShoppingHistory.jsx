@@ -30,10 +30,10 @@ const ShoppingHistory = () => {
             const allOrdersWithDetails = await Promise.all(
                 orders.map(async (order) => {
                     const reservationData = order.reservations?.length 
-                        ? await getReservationsByIDList(token, { reservations: order.reservations }) : [];
+                        ? await getReservationsByIDList(token, order.reservations ) : [];
                 
                     const giftcardData = order.gift_cards?.length
-                        ? await getGiftcardsByIDList(token, { giftCards: order.gift_cards }) : [];
+                        ? await getGiftcardsByIDList(token, order.gift_cards) : [];
                 
                     
                     return {
