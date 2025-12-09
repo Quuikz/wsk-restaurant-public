@@ -73,7 +73,12 @@ const getOrderById = async (req, res) => {
  * @apiName PostOrder
  * @apiGroup Order
  *
- * @apiParam {Object} body Order object
+ * @apiBody {Number} user User ID placing the order
+ * @apiBody {Number} cost Total cost
+ * @apiBody {String} timestamp Order timestamp (YYYY-MM-DD HH:mm:ss)
+ * @apiBody {Number[]} [reservations] Reservation IDs linked to order
+ * @apiBody {Number[]} [gift_cards] Gift card IDs linked to order
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} order Created order object
  *
@@ -105,7 +110,12 @@ const postOrder = async (req, res) => {
  * @apiGroup Order
  *
  * @apiParam {Number} id Order ID
- * @apiParam {Object} body Updated order object
+ * @apiBody {Number} [user] User ID placing the order
+ * @apiBody {Number} [cost] Total cost
+ * @apiBody {String} [timestamp] Order timestamp (YYYY-MM-DD HH:mm:ss)
+ * @apiBody {Number[]} [reservations] Reservation IDs linked to order
+ * @apiBody {Number[]} [gift_cards] Gift card IDs linked to order
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} order Updated order object
  *
@@ -262,7 +272,7 @@ const getOrdersByDate = async (req, res) => {
  * @apiGroup Order
  * @apiDescription Takes an array of order IDs and returns corresponding order objects
  *
- * @apiParam {Array} orders Array of order IDs
+ * @apiBody {Number[]} orders Array of order IDs
  *
  * @apiSuccess {Array} orders Array of order objects
  *
