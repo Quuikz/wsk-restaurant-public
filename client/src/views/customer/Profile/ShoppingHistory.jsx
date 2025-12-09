@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { useOrderCommon } from "../../../hooks/common/apiHooks";
 import { useUserContext } from "../../../hooks/contextHooks.js";
-import { useReservations } from "../../../hooks/admin/apiHooks";
+import { useGiftcards, useReservations } from "../../../hooks/admin/apiHooks";
 
 const ShoppingHistory = () => {
 
     const { getOrdersByUserID } = useOrderCommon();
     const { getReservationsByIDList } = useReservations();
+    const { getGiftcardsByIDList } = useGiftcards();
 
     const [shoppingHistories, setShoppingHistories] = useState([]);
     
@@ -26,7 +27,24 @@ const ShoppingHistory = () => {
             const orders = Array.isArray(data) ? data : [data];
 
             //For each order, get its reservations & giftcards
-            //const all
+            const allOrdersWithDetails = await Promise.all(
+                orders.map(async (order) => {
+                    const reservationData = order.reservations?.length 
+                        ? await getReservationsByIDList(token, { reservations: order.reservations }) : [];
+                
+                    const giftcardData = order.gift_cards?.length
+                        ? await getGiftcardsByIDList(token, { giftCards: order.gift_cards }) : [];
+                
+                    
+                    return {
+                        ...order,
+                        reservationData,
+                        giftcardData,
+                    };
+                })
+            );
+
+            setShoppingHistories(allOrdersWithDetails);
 
 
 

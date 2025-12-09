@@ -259,7 +259,7 @@ const useReservations = () => {
 
 
 
-    return { getAllReservations, getReservationByID, getReservationByUserID, getReservationsByIDList, postNewReservation }
+    return { getAllReservations, getReservationByID, getReservationByUserID, getReservationsByIDList }
 
 }
 
