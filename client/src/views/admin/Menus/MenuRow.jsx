@@ -1,4 +1,7 @@
+import { useEffect, useState } from "react";
 import MealRow from "../../../components/admin/MealRow";
+import { useMealCommon } from "../../../hooks/common/apiHooks";
+import { useMenu } from "../../../hooks/admin/apiHooks";
 
 const MenuRow = ({ menuItem }) => {
 
@@ -15,6 +18,45 @@ const MenuRow = ({ menuItem }) => {
     }
     currentWeek();
     */
+
+    const { getMealByIDList } = useMealCommon();
+    const { updateMenu } = useMenu();
+
+
+
+
+    const [meals, setMeals] = useState([]);
+
+    const loadMealsByIDs = async () => {
+        try{
+            const mealsByIDsData = await getMealByIDList(menuItem.meals);
+            setMeals(mealsByIDsData.filter(Boolean));
+        }
+        catch(error){
+            console.log('Error in loadMealsByIDs: ', error);
+        }
+    }
+
+    useEffect(() => {
+        loadMealsByIDs();
+    }, []);
+
+
+    const handleDeleteMealFromMenu = async (mealID) => {
+        const token = localStorage.getItem('token');
+        try{
+            const updatedMealIDs = menuItem.meals.filter(ID => ID != mealID);
+
+            await updateMenu({ meals: updatedMealIDs }, token, menuItem.id);
+
+            setMeals(meals.filter(meal => meal.id !== mealID));
+            console.log(`Meal ${mealID} removed from menu ${menuItem.id}`);
+            //menuItem.meals = updatedMealIDs;
+        }
+        catch(error){
+            console.log('Error removing meal from menu: ', error);
+        }
+    }
 
 
 
@@ -37,29 +79,27 @@ const MenuRow = ({ menuItem }) => {
       {/* Add Meal */}
       <button
         onClick={() => console.log("ADD meal for menu", menuItem.id)}
-        className="mb-4 px-3 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+        className="mb-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
       >
         ➕ Add Meal
       </button>
 
       {/* Meals list */}
       {/*TODO: refine style */}
-        <div className="grid grid-cols-7 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
+        <div className="grid grid-cols-5 items-center gap-4 px-4 py-3 bg-gray-100 font-semibold border-b text-gray-700">
             <span>ID</span>
-            <span>Name FI</span>
-            <span>Name EN</span>
-            <span>Type</span>
-            <span>Cost</span>
-            <span>Edit</span>
-            <span>Delete</span>
+            <span>Name (fi/en)</span>
+            <span>Description (fi/en)</span>
+            <span>Cost (€)</span>
+            <span>Delete from menu</span>
         </div>
       <ul className="divide-y">
-        {menuItem.meals.map((meal) => (
+        {meals.map((meal) => (
           <MealRow
             key={meal.id}
             meal={meal}
-            onModify={() => console.log("Modify meal", meal.id)}
-            onDelete={() => console.log("Delete meal", meal.id)}
+            //onModify={() => console.log("Modify meal", meal.id)}
+            onDelete={() => handleDeleteMealFromMenu(meal.id)}
           />
         ))}
       </ul>

@@ -136,8 +136,22 @@ const useMenu = () => {
         return postNewMenuResult;
     }
 
-    return { postNewMenu }
+    const updateMenu = async (data, token, menuID) =>{
+        const fetchOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data),
+        };
 
+        const updateMenuResult = await fetchData(API_URL + `/menus/${menuID}`, fetchOptions);
+        return updateMenuResult;
+
+    }
+
+    return { postNewMenu, updateMenu }
 
 }
 
