@@ -3,11 +3,22 @@ import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 
 const Weeklist = () => {
+  // Function to get current week number
+  const realTimeWeek = () => {
+    const d = new Date();
+    let yearStart = +new Date(d.getFullYear(), 0, 1);
+    let today = +new Date(d.getFullYear(), d.getMonth(), d.getDate());
+    let dayOfYear = (today - yearStart + 1) / 86400000;
+    let week = Math.ceil(dayOfYear / 7);
+    console.log(week);
+    return week;
+  };
+
+  // State and hook for weekly menu
   const {getMenuByWeek} = useMenuCommon();
   const [weeklyMenu, setWeeklyMenu] = useState([]);
   // Set current week number here
-  // Currently hardcoded to 12 for testing
-  const initialWeek = 50;
+  const initialWeek = realTimeWeek();
   const [currentWeek, setCurrentWeek] = useState(initialWeek);
 
   // Button managers for week navigation

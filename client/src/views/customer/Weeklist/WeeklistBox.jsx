@@ -20,6 +20,7 @@ function isoToWeekdayName(isoDate, locale = 'fi-FI', weekday = 'long') {
 
 const WeeklistBox = ({menu}) => {
   //console.log('MENU PROP: ', menu);
+  console.log('MENU DATE: ', menu?.date);
   const dateString = menu?.date?.split('T')[0];
   //console.log('DATE STRING: ', dateString);
 
@@ -77,7 +78,6 @@ const WeeklistBox = ({menu}) => {
                 <p className="font-bold">
                   {meal.id == specialMealID ? 'Grilli spesiaali' : 'Noutopöytä'}
                 </p>
-                {console.log(meal)}
 
                 {meal ? (
                   <ul>
