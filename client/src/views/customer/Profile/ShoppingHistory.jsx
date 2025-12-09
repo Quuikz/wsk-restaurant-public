@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useOrderCommon } from "../../../hooks/common/apiHooks";
-import { useUserContext } from "../../../hooks/contextHooks";
+import { useUserContext } from "../../../hooks/contextHooks.js";
 
 const ShoppingHistory = () => {
 
@@ -13,9 +13,10 @@ const ShoppingHistory = () => {
 
     const loadUserShoppingHistory = async () => {
         const token = localStorage.getItem('token');
-
+        console.log('USER ID:', user.username);
         try{
-            const result = await getOrdersByUserID(token, user.id);
+            
+            const result = await getOrdersByUserID(token, 2);
             console.log(result);
             //setShoppingHistories(result);
             setShoppingHistories(Array.isArray(result) ? result : [result]);
