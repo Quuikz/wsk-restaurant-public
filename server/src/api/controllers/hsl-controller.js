@@ -3,7 +3,7 @@
 import { getHslData } from "../models/hsl-model.js";
 
 /**
- * @api {post} /hsl Get HSL data
+ * @api {post} /hsl/getHsl Get HSL data
  * @apiName GetHsl
  * @apiGroup HSL
  * @apiDescription Retrieves HSL (Helsinki Region Transport) data based on query parameters

@@ -1,7 +1,5 @@
 "use strict";
 
-import bcrypt from "bcrypt";
-
 import {
   listAllReservations,
   findReservationById,
@@ -12,13 +10,14 @@ import {
   findReservationsByOrder,
   findReservationsByDate,
 } from "../models/reservation-model.js";
-import { listAllDiscounts } from "../models/discount-model.js";
+
 
 /**
  * @api {get} /reservations Get all reservations
  * @apiName GetReservations
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiSuccess {Array} reservations Array of reservation objects
  *
  * @apiError 500 Internal server error
@@ -26,7 +25,6 @@ import { listAllDiscounts } from "../models/discount-model.js";
 const getReservations = async (req, res) => {
   try {
     console.log("getReservations in reservation-controller");
-    const user = res.locals.user;
     console.log("user authenticated:" + res.locals.user);
 
     //TODO: only admins can get all reservations!
@@ -50,6 +48,7 @@ const getReservations = async (req, res) => {
  * @apiName GetReservationById
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
  *
  * @apiSuccess {Object} reservation Reservation object
@@ -81,6 +80,7 @@ const getReservationById = async (req, res) => {
  * @apiName PostReservation
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number} user User ID
  * @apiBody {Number} order Order ID
  * @apiBody {String} date Reservation date/time (YYYY-MM-DD HH:mm:ss)
@@ -117,6 +117,7 @@ const postReservation = async (req, res) => {
  * @apiName PutReservation
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
  * @apiBody {Number} [user] User ID
  * @apiBody {Number} [order] Order ID
@@ -161,6 +162,7 @@ const putReservation = async (req, res) => {
  * @apiName DeleteReservation
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
  *
  * @apiSuccess {String} message Success message
@@ -196,6 +198,7 @@ const deleteReservation = async (req, res) => {
  * @apiName GetReservationByUserId
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {Array} reservations Array of reservations for user
@@ -227,6 +230,7 @@ const getReservationByUserId = async (req, res) => {
  * @apiName GetReservationByOrder
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Order ID
  *
  * @apiSuccess {Array} reservations Array of reservations for order
@@ -257,6 +261,7 @@ const getReservationByOrder = async (req, res) => {
  * @apiName GetReservationByDate
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} date Date/timestamp to filter reservations
  *
  * @apiSuccess {Array} reservations Array of reservations for date
@@ -283,11 +288,12 @@ const getReservationByDate = async (req, res) => {
 };
 
 /**
- * @api {post} /reservations/list Get reservation list by IDs
+ * @api {post} /reservations/list/id Get reservation list by IDs
  * @apiName GetReservationList
  * @apiGroup Reservation
  * @apiDescription Takes an array of reservation IDs and returns corresponding reservation objects
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number[]} reservations Array of reservation IDs
  *
  * @apiSuccess {Array} reservations Array of reservation objects
@@ -317,6 +323,38 @@ const getReservationList = async (req, res) => {
   }
 };
 
+
+/**
+ * @api {get} /reservations/date/:date Get reservation count by date
+ * @apiName GetReservationCountByDate
+ * @apiGroup Reservation
+ *
+ * @apiParam {String} date Date/timestamp to filter reservations
+ *
+ * @apiSuccess {Number} number of reservations for date
+ *
+ * @apiError 500 Internal server error
+ */
+const getReservationCountByDate = async (req, res) => {
+    try {
+        console.log("getReservationCountByDate in reservation-controller");
+        console.log("date: ", req.params.date);
+        const reservationArray = await findReservationsByDate(req.params.date);
+        if (reservationArray) {
+            console.log("return reservation count for date " + req.params.date);
+            return res.json(reservationArray.length);
+
+        } else {
+            console.log("error in getReservationCountByDate in reservation-controller");
+            return res.sendStatus(500);
+        }
+    } catch (error) {
+        console.log("error in getReservationCountByDate in reservation-controller");
+        console.log(error);
+        return res.sendStatus(500);
+    }
+};
+
 export {
   getReservations,
   getReservationById,
@@ -326,5 +364,6 @@ export {
   getReservationByUserId,
   getReservationByOrder,
   getReservationByDate,
+  getReservationCountByDate,
   getReservationList,
 };

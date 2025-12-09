@@ -73,6 +73,7 @@ const getLocationById = async (req, res) => {
  * @apiName PostLocation
  * @apiGroup Location
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiBody {String} name Location name
  * @apiBody {String} address Street address
  * @apiBody {String} email Contact email
@@ -109,6 +110,7 @@ const postLocation = async (req, res) => {
  * @apiName PutLocation
  * @apiGroup Location
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Location ID
  * @apiBody {String} [name] Location name
  * @apiBody {String} [address] Street address
@@ -147,6 +149,7 @@ const putLocation = async (req, res) => {
  * @apiName DeleteLocation
  * @apiGroup Location
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Location ID
  *
  * @apiSuccess {String} message Success message
