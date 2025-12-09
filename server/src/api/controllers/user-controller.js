@@ -18,6 +18,7 @@ import {
  * @apiName GetUsers
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiSuccess {Array} users Array of user objects
  *
  * @apiError 500 Internal server error
@@ -39,6 +40,7 @@ const getUsers = async (req, res) => {
  * @apiName GetUserById
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {Object} user User object (without password)
@@ -116,6 +118,7 @@ const postUser = async (req, res) => {
  * @apiName PutUser
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  * @apiBody {String} [username] User's username
  * @apiBody {String} [password] User's password (will be hashed)
@@ -165,6 +168,7 @@ const putUser = async (req, res) => {
  * @apiName DeleteUser
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {String} message Success message
@@ -198,6 +202,7 @@ const deleteUser = async (req, res) => {
  * @apiName GetUserByUsername
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} username User's username
  *
  * @apiSuccess {Object} user User object
@@ -225,11 +230,12 @@ const getUserByUsername = async (req, res) => {
 };
 
 /**
- * @api {post} /users/list Get user list by IDs
+ * @api {post} /users/list/id Get user list by IDs
  * @apiName GetUserList
  * @apiGroup User
  * @apiDescription Takes an array of user IDs and returns corresponding user objects
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiBody {Number[]} users Array of user IDs
  *
  * @apiSuccess {Array} users Array of user objects
@@ -258,7 +264,7 @@ const getUserList = async (req, res) => {
 };
 
 /**
- * @api {get} /users/exists/:username is Username Taken
+ * @api {get} /users/username/exists/:username is Username Taken
  * @apiName isUsernameTaken
  * @apiGroup User
  *

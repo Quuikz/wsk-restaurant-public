@@ -19,6 +19,7 @@ import { listAllDiscounts } from "../models/discount-model.js";
  * @apiName GetReservations
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiSuccess {Array} reservations Array of reservation objects
  *
  * @apiError 500 Internal server error
@@ -50,6 +51,7 @@ const getReservations = async (req, res) => {
  * @apiName GetReservationById
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
  *
  * @apiSuccess {Object} reservation Reservation object
@@ -81,6 +83,7 @@ const getReservationById = async (req, res) => {
  * @apiName PostReservation
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number} user User ID
  * @apiBody {Number} order Order ID
  * @apiBody {String} date Reservation date/time (YYYY-MM-DD HH:mm:ss)
@@ -117,6 +120,7 @@ const postReservation = async (req, res) => {
  * @apiName PutReservation
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
  * @apiBody {Number} [user] User ID
  * @apiBody {Number} [order] Order ID
@@ -161,6 +165,7 @@ const putReservation = async (req, res) => {
  * @apiName DeleteReservation
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
  *
  * @apiSuccess {String} message Success message
@@ -196,6 +201,7 @@ const deleteReservation = async (req, res) => {
  * @apiName GetReservationByUserId
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {Array} reservations Array of reservations for user
@@ -227,6 +233,7 @@ const getReservationByUserId = async (req, res) => {
  * @apiName GetReservationByOrder
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Order ID
  *
  * @apiSuccess {Array} reservations Array of reservations for order
@@ -257,6 +264,7 @@ const getReservationByOrder = async (req, res) => {
  * @apiName GetReservationByDate
  * @apiGroup Reservation
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} date Date/timestamp to filter reservations
  *
  * @apiSuccess {Array} reservations Array of reservations for date
@@ -283,11 +291,12 @@ const getReservationByDate = async (req, res) => {
 };
 
 /**
- * @api {post} /reservations/list Get reservation list by IDs
+ * @api {post} /reservations/list/id Get reservation list by IDs
  * @apiName GetReservationList
  * @apiGroup Reservation
  * @apiDescription Takes an array of reservation IDs and returns corresponding reservation objects
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number[]} reservations Array of reservation IDs
  *
  * @apiSuccess {Array} reservations Array of reservation objects
