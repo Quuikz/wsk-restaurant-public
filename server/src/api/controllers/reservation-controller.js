@@ -1,7 +1,5 @@
 "use strict";
 
-import bcrypt from "bcrypt";
-
 import {
   listAllReservations,
   findReservationById,
@@ -12,7 +10,7 @@ import {
   findReservationsByOrder,
   findReservationsByDate,
 } from "../models/reservation-model.js";
-import { listAllDiscounts } from "../models/discount-model.js";
+
 
 /**
  * @api {get} /reservations Get all reservations
@@ -27,7 +25,6 @@ import { listAllDiscounts } from "../models/discount-model.js";
 const getReservations = async (req, res) => {
   try {
     console.log("getReservations in reservation-controller");
-    const user = res.locals.user;
     console.log("user authenticated:" + res.locals.user);
 
     //TODO: only admins can get all reservations!
@@ -326,6 +323,38 @@ const getReservationList = async (req, res) => {
   }
 };
 
+
+/**
+ * @api {get} /reservations/date/:date Get reservation count by date
+ * @apiName GetReservationCountByDate
+ * @apiGroup Reservation
+ *
+ * @apiParam {String} date Date/timestamp to filter reservations
+ *
+ * @apiSuccess {Number} number of reservations for date
+ *
+ * @apiError 500 Internal server error
+ */
+const getReservationCountByDate = async (req, res) => {
+    try {
+        console.log("getReservationCountByDate in reservation-controller");
+        console.log("date: ", req.params.date);
+        const reservationArray = await findReservationsByDate(req.params.date);
+        if (reservationArray) {
+            console.log("return reservation count for date " + req.params.date);
+            return res.json(reservationArray.length);
+
+        } else {
+            console.log("error in getReservationCountByDate in reservation-controller");
+            return res.sendStatus(500);
+        }
+    } catch (error) {
+        console.log("error in getReservationCountByDate in reservation-controller");
+        console.log(error);
+        return res.sendStatus(500);
+    }
+};
+
 export {
   getReservations,
   getReservationById,
@@ -335,5 +364,6 @@ export {
   getReservationByUserId,
   getReservationByOrder,
   getReservationByDate,
+  getReservationCountByDate,
   getReservationList,
 };

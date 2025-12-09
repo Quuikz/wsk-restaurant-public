@@ -1,17 +1,17 @@
 ### get reservations
 GET http://localhost:3000/api/reservations/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5NDgwNywiZXhwIjoxNzY1MzgxMjA3fQ.WY0gx2dIyHe22FHJUTYK-3hVJJRxbuvEfskj5NhbkN4
 
 ### post new reservation
 POST http://localhost:3000/api/reservations/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY4MjQ4MCwiZXhwIjoxNzY0NzY4ODgwfQ.etXaESLrQBWGdgMxdaS43HuAEKp4_2x36WF7FOPBrk4
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5NDgwNywiZXhwIjoxNzY1MzgxMjA3fQ.WY0gx2dIyHe22FHJUTYK-3hVJJRxbuvEfskj5NhbkN4
 
 {
   "id" : 0,
   "user": 1,
   "order" : 1,
-  "date" : "2025-12-06",
+  "date" : "2025-12-06 16:00:00",
   "table_customer_count" : 1,
   "grill_customer_count" : 2,
   "message" : "default reservation"
@@ -42,15 +42,20 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 
 ### get reservations by user id
 GET http://localhost:3000/api/reservations/user/1
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwibmFtZSI6IkJvYiBTbWl0aCIsInVzZXJuYW1lIjoidXNlcm5hbWUiLCJlbWFpbCI6ImJvYkBleGFtcGxlLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzY1MjkyMjgzLCJleHAiOjE3NjUzNzg2ODN9.DJHqJ7KmKUk1wMjbWGez3TL6vjJXvCSKlHQ2__tr_ZM
 
 ### get reservations by order id
 GET http://localhost:3000/api/reservations/order/1
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
 
 ### get reservation by date
-GET http://localhost:3000/api/reservations/date/20251219
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
+GET http://localhost:3000/api/reservations/date/2025-12-06 16:00:00
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5NDgwNywiZXhwIjoxNzY1MzgxMjA3fQ.WY0gx2dIyHe22FHJUTYK-3hVJJRxbuvEfskj5NhbkN4
+
+### get number of reservation on a datetime
+GET http://localhost:3000/api/reservations/count/2025-12-06 16:00:00
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5NDgwNywiZXhwIjoxNzY1MzgxMjA3fQ.WY0gx2dIyHe22FHJUTYK-3hVJJRxbuvEfskj5NhbkN4
+
 
 ### gen an array of reservations by sending an array of ids
 ## returns false for ids not found
