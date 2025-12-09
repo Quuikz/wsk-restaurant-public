@@ -209,7 +209,7 @@ const getMealList = async (req, res) => {
       res.json(mealArray);
     } else {
       console.log("no id array in getMealList in meal-controller");
-      res.status(404).send("No id array found in request.");
+      res.status(400).send("No id array found in request.");
     }
   } catch (error) {
     console.log("error in getMealList in meal-controller");
