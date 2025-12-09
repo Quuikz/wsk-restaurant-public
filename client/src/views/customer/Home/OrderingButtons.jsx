@@ -1,39 +1,52 @@
 import {useEffect, useState} from 'react';
 
-const OrderingButtons = () => {
+const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount }) => {
   // Table max ocapacity
   const tableCapacity = 4;
 
-  // Grill number state
-  const [grillNumber, setGrillNumber] = useState(0);
-  const minGrill = 0;
-  const maxGrill = tableCapacity;
+  // Grill number state, probably delete
+  //const [grillNumber, setGrillNumber] = useState(0);
+  //const minGrill = 0;
+  //const maxGrill = tableCapacity;
+  //setGrillNumber(Math.max(0, grillCount - 1));
+
+  // Buffet number state, probably delete
+  //const [buffetNumber, setBuffetNumber] = useState(0);
+  //const minBuffet = 0;
+  //const maxBuffet = tableCapacity;
+  //const decrementBuffet = () =>
+  //  setBuffetNumber((v) => Math.max(minBuffet, v - 1));
 
   const incrementGrill = () => {
-    const totalGuests = grillNumber + buffetNumber;
+    const totalGuests = grillCount + tableCount;
     if (totalGuests < tableCapacity) {
-      setGrillNumber((v) => Math.min(maxGrill, v + 1));
+      setGrillCount(grillCount + 1)
     } else {
       alert('Täysi kapasiteetti saavutettu! Vähennä noutopöydän henkilöitä.');
     }
   };
-  const decrementGrill = () => setGrillNumber((v) => Math.max(minGrill, v - 1));
+  const decrementGrill = () => {
+    setGrillCount(Math.max(0, grillCount - 1));
+  }
 
-  // Buffet number state
-  const [buffetNumber, setBuffetNumber] = useState(0);
-  const minBuffet = 0;
-  const maxBuffet = tableCapacity;
+  
 
-  const incrementBuffet = () => {
-    const totalGuests = grillNumber + buffetNumber;
+  const incrementBuffetTable = () => {
+    const totalGuests = grillCount + tableCount;
     if (totalGuests < tableCapacity) {
-      setBuffetNumber((v) => Math.min(maxBuffet, v + 1));
+      setTableCount(tableCount + 1);
+      //setBuffetNumber((v) => Math.min(maxBuffet, v + 1));
     } else {
       alert('Täysi kapasiteetti saavutettu! Vähennä grillipöydän henkilöitä.');
     }
   };
-  const decrementBuffet = () =>
-    setBuffetNumber((v) => Math.max(minBuffet, v - 1));
+
+  const decrementBuffetTable = () => {
+    setTableCount(Math.max(0, tableCount - 1));
+  }
+
+
+  
   return (
     <>
       <div className="flex flex-col items-center ">
@@ -46,13 +59,13 @@ const OrderingButtons = () => {
             onClick={decrementGrill}
             aria-label="Decrease grill number"
             className="px-3 py-2 rounded bg-orange-200 hover:bg-orange-300 disabled:opacity-50"
-            disabled={grillNumber <= minGrill}
           >
             −
           </button>
 
+        {/* Current grill count */}
           <div className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded mx-2">
-            {grillNumber}
+            {grillCount}
           </div>
 
           <button
@@ -60,13 +73,13 @@ const OrderingButtons = () => {
             onClick={incrementGrill}
             aria-label="Increase grill number"
             className="px-3 py-2 rounded bg-orange-200 hover:bg-orange-300 disabled:opacity-50"
-            disabled={grillNumber >= maxGrill}
           >
             +
           </button>
         </div>
         <p className="mt-5">Henkilöiden määrä</p>
       </div>
+
 
       {/* Buffet number selector */}
       <div className="flex flex-col items-center ">
@@ -76,24 +89,25 @@ const OrderingButtons = () => {
         <div className="m-auto flex">
           <button
             type="button"
-            onClick={decrementBuffet}
+            onClick={decrementBuffetTable}
             aria-label="Decrease Buffet number"
             className="px-3 py-2 rounded bg-orange-200 hover:bg-orange-300 disabled:opacity-50"
-            disabled={buffetNumber <= minBuffet}
+            //disabled={buffetNumber <= minBuffet}
           >
             −
           </button>
 
+        {/* Current table count */}
           <div className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded mx-2">
-            {buffetNumber}
+            {tableCount}
           </div>
 
           <button
             type="button"
-            onClick={incrementBuffet}
+            onClick={incrementBuffetTable}
             aria-label="Increase Buffet number"
             className="px-3 py-2 rounded bg-orange-200 hover:bg-orange-300 disabled:opacity-50"
-            disabled={buffetNumber >= maxBuffet}
+            //disabled={buffetNumber >= maxBuffet}
           >
             +
           </button>

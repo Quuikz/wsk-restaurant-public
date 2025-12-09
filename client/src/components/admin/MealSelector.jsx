@@ -13,8 +13,8 @@ const MealSelector = ({availableMeals, selectedMeals, setSelectedMeals}) =>{
 
     return(
     <div className="flex flex-col">
-        <label className="mb-2 font-medium">Meals</label>
-        <div className="border rounded p-2 max-h-60 overflow-y-auto">
+        <label className="mb-4 font-medium">Select meals to add:</label>
+        <div className="border rounded p-4 max-h-60 overflow-y-auto">
             {availableMeals.map((meal) => {
             const isSelected = selectedMeals.includes(meal.id);
             return (

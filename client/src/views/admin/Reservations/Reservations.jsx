@@ -34,9 +34,9 @@ const ReservationsAdmin = () => {
 
         <li className="grid grid-cols-7 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
             <span>ID</span>
+            <span>date</span>
             <span>Table (customer count)</span>
             <span>Grill (customer count)</span>
-            <span>date</span>
             <span>Order</span>
             <span>User</span>
             <span>Redeemed</span>

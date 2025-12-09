@@ -26,7 +26,7 @@ const WeeklistBox = ({menu}) => {
 
   const {getMenuByDate} = useMenuCommon();
   const {getMealByIDList} = useMealCommon();
-  const [dailyMenu, setDailyMenu] = useState([]);
+  const [, setDailyMenu] = useState([]);
   const [meals, setMeals] = useState([]);
   const [specialMealID, setSpecialMealID] = useState([]);
 
