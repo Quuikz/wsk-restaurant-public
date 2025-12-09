@@ -22,7 +22,7 @@ const Weeklist = () => {
       try {
         const menuData = await getMenuByWeek(currentWeek);
         setWeeklyMenu(menuData);
-        //console.log(menuData);
+        console.log(menuData);
       } catch (error) {
         console.log('Error in loadMenuByWeek: ', error);
       }

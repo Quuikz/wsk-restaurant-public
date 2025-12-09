@@ -18,20 +18,10 @@ function isoToWeekdayName(isoDate, locale = 'fi-FI', weekday = 'long') {
   }
 }
 
-// Function to convert ISO date to date string "YYYY-MM-DD"
-function isoToDate(isoDate) {
-  if (!isoDate) return 'Päivämäärä puuttuu';
-
-  let datePart = isoDate;
-  if (typeof isoDate === 'string' && isoDate.includes('T')) {
-    datePart = isoDate.split('T')[0];
-  }
-
-  return datePart;
-}
-
 const WeeklistBox = ({menu}) => {
+  //console.log('MENU PROP: ', menu);
   const dateString = menu?.date?.split('T')[0];
+  //console.log('DATE STRING: ', dateString);
 
   const {getMenuByDate} = useMenuCommon();
   const {getMealByIDList} = useMealCommon();
@@ -40,7 +30,7 @@ const WeeklistBox = ({menu}) => {
   const [specialMealID, setSpecialMealID] = useState([]);
 
   useEffect(() => {
-    if (!dateString) {
+    if (!menu?.date?.split('T')[0]) {
       return;
     }
     // Load all menu items
@@ -49,6 +39,7 @@ const WeeklistBox = ({menu}) => {
       try {
         const menuData = await getMenuByDate(dateString);
 
+        //console.log('DATE STRING: ', dateString);
         //console.log('MENU DATA: ', menuData);
 
         if (menuData.length > 0) {
@@ -70,23 +61,26 @@ const WeeklistBox = ({menu}) => {
       }
     };
     loadMenuForDay();
-  }, [dateString]);
+  }, []);
 
   return (
     <>
       <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
         <div className="px-6">
-          <h3 className="text-3xl  mt-2 text-center border-b">{dateString}</h3>
+          <h3 className="text-3xl  mt-2 text-center border-b">
+            {isoToWeekdayName(menu?.date?.split('T')[0])} |{' '}
+            {menu?.date?.split('T')[0]}
+          </h3>
           <div className="grid grid-cols-2 gap-4 my-4">
             {meals.map((meal) => (
               <div key={meal.id}>
                 <p className="font-bold">
                   {meal.id == specialMealID ? 'Grilli spesiaali' : 'Noutopöytä'}
                 </p>
+                {console.log(meal)}
 
                 {meal ? (
                   <ul>
-                    <li>ID - {meal.id}</li>
                     <li>Nimi - {meal.name_fi}</li>
                     <li>Hinta - {meal.cost}€</li>
                     <li>Tietoa - {meal.description_fi}</li>
