@@ -34,6 +34,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 GET http://localhost:3000/api/users/username/abc
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NzU2NSwiZXhwIjoxNzY0NzUzOTY1fQ.V42nZ5P0krG60ohNoqlaBkn9f-xjcOgcjO1A1i7NXSc
 
+### check if username is taken
+##http://localhost:3000/api/users/username/exists/:username
+GET http://localhost:3000/api/users/username/exists/myName
+
+
+
+
 ### gen an array of users by sending an array of ids
 ## returns false for ids not found
 POST http://localhost:3000/api/users/list/id

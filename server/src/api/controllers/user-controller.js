@@ -251,6 +251,39 @@ const getUserList = async (req, res) => {
   }
 };
 
+
+/**
+ * @api {get} /users/exists/:username is Username Taken
+ * @apiName isUsernameTaken
+ * @apiGroup User
+ *
+ * @apiParam {String} username User username
+ *
+ * @apiSuccess {boolean} boolean if username exists
+ *
+ * @apiError 404 User not found
+ * @apiError 500 Internal server error
+ */
+const isUsernameTaken = async (req, res) => {
+    try {
+        console.log("isUsernameTaken in user-controller");
+        console.log(req.params.username);
+        const user = await findUserByUsername(req.params.username);
+        if (user) {
+            console.log("user found with name: ", req.params.username, user);
+            return res.json(true);
+        } else {
+            return res.json(false);
+        }
+
+    } catch (error) {
+        console.log("error in isUsernameTaken in user-controller");
+        console.log(error);
+        return res.sendStatus(500);
+    }
+};
+
+
 export {
   getUsers,
   getUserById,
@@ -259,4 +292,5 @@ export {
   deleteUser,
   getUserByUsername,
   getUserList,
+  isUsernameTaken
 };
