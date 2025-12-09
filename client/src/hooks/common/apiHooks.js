@@ -183,7 +183,22 @@ const useReservationCommon = () => {
 
     }
 
-    return { postNewReservation }
+
+    const getReservationOnDateTime = async (token, dateTime) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getReservationOnDateTimeResult = await fetchData(API_URL + `/reservations/count/${dateTime}`, fetchOptions);
+        return getReservationOnDateTimeResult;
+
+    }
+
+    return { postNewReservation, getReservationOnDateTime }
 
 
 
