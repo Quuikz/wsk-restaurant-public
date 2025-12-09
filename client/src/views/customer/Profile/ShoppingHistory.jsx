@@ -21,7 +21,7 @@ const ShoppingHistory = () => {
         console.log('USER ID:', user?.id);
         try{
             
-            const data = await getOrdersByUserID(token, 2);
+            const data = await getOrdersByUserID(token, 1);
             console.log(data);
             //setShoppingHistories(result);
             const orders = Array.isArray(data) ? data : [data];
@@ -44,12 +44,8 @@ const ShoppingHistory = () => {
                 })
             );
 
+            console.log(allOrdersWithDetails);
             setShoppingHistories(allOrdersWithDetails);
-
-
-
-
-
         }
         catch(error){
             console.log('Error in loadUserShoppingHistory: ', error);
@@ -77,26 +73,61 @@ const ShoppingHistory = () => {
         {/* user has shopping history */}
         {shoppingHistories.map((order) => {
             
-            const reservationCount = order.reservations?.length || 0;
-            const giftcardCount = order.gift_cards?.length || 0;
+            const reservationCount = order.reservationData?.length || 0;
+            const giftcardCount = order.giftcardData?.length || 0;
 
             //Find out what item: Pöytävaraus/lahjakortti/unknown
-            const item = reservationCount > 0 ? 'Pöytävaraus' : giftcardCount > 0 ? 'Lahjakortti' : 'Tuntematon?';
+            const itemType = reservationCount > 0 ? 'Pöytävaraus' : giftcardCount > 0 ? 'Lahjakortti' : 'Tuntematon?';
 
             const quantity = reservationCount || giftcardCount;
 
 
             return (
-            <tr key={order.id}>
-                <td className="px-4 py-2 border text-center">
-                {new Date(order.timestamp).toLocaleDateString("fi-FI")}
-                </td>
-                <td className="px-4 py-2 border text-center">{item}</td>
-                <td className="px-4 py-2 border text-center">{quantity}</td>
-                <td className="px-4 py-2 border text-center">
-                {order.cost.toFixed(2)}€
-                </td>
-            </tr>
+            <>
+
+        {/* Reservations history */}
+        {reservationCount > 0 && (
+          <tr>
+            <td colSpan="4" className="bg-orange-50 border p-4">
+              <div className="font-semibold mb-2">
+                <h3 className="text-2xl">Varaukset:</h3>
+              </div>
+
+              <ul className="space-y-1">
+                {order.reservationData.map((res) => (
+                  <li key={res.id} className="border-b py-2">
+                    <div><strong>Varauksen tiedot:</strong></div>
+                    <div><strong>Päivä:</strong> {res.date}</div>
+                    <div><strong>Noutopöytä:</strong> {res.table_customer_count} henkilö(ä)</div>
+                    <div><strong>Grilli:</strong> {res.grill_customer_count} henkilö(ä)</div>
+                  </li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+        )}
+
+        {/* Giftcards history */}
+        {giftcardCount > 0 && (
+          <tr>
+            <td colSpan="4" className="bg-orange-50 border p-4">
+              <div className="font-semibold mb-2">
+                <h3 className="text-2xl">Lahjakortit:</h3>
+              </div>
+
+              <ul className="space-y-1">
+                {order.giftcardData.map((gift) => (
+                  <li key={gift.id} className="border-b py-2">
+                    <div><strong>Lahjakortin tiedot:</strong></div>
+                    <div><strong>Arvo:</strong> {gift.value}€</div>
+                    <div><strong>Erääntymispvm:</strong> {gift.expiration_date}</div>
+                  </li>
+                ))}
+              </ul>
+            </td>
+          </tr>
+        )}
+      </>
             );
         })}
         </tbody>

@@ -92,17 +92,11 @@ const Profile = () => {
               {/* Purchase history */}
               <div className="col-span-2 flex flex-col  border-l pl-4">
                 <div className="flex items-center gap-4 pb-4 border-b mt-3">
-                  <h2 className="text-lg font-medium">Ostoshirstoria</h2>
+                  <h2 className="text-2xl font-medium">Ostoshistoria</h2>
                 </div>
-                <div className="overflow-y-auto h-31 border">
+                <div className="overflow-y-auto h-64 border">
                   <table className="min-w-full table-auto">
                     <thead>
-                      <tr>
-                        <th className="px-4 py-2 border">Tilauspäivä</th>
-                        <th className="px-4 py-2 border">Tuote</th>
-                        <th className="px-4 py-2 border">Määrä</th>
-                        <th className="px-4 py-2 border">Hinta</th>
-                      </tr>
                     </thead>
 
                     <ShoppingHistory 
