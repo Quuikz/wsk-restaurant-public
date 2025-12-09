@@ -76,8 +76,12 @@ const getDiscountById = async (req, res) => {
  * @apiName PostDiscount
  * @apiGroup Discount
  *
- * @apiParam {Object} body Discount object
- * @apiParam {String} body.code Discount code
+ * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiBody {Number} discount Multiplier for discount (e.g. 0.9 for 10% off)
+ * @apiBody {String} discount_code Discount code used at checkout
+ * @apiBody {String} date_start Start date in YYYY-MM-DD format
+ * @apiBody {String} date_end End date in YYYY-MM-DD format
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} discount Created discount object
  * @apiSuccess {Number} discount.id Discount ID
@@ -109,8 +113,13 @@ const postDiscount = async (req, res) => {
  * @apiName PutDiscount
  * @apiGroup Discount
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Discount ID
- * @apiParam {Object} body Updated discount object
+ * @apiBody {Number} [discount] Multiplier for discount (e.g. 0.9 for 10% off)
+ * @apiBody {String} [discount_code] Discount code used at checkout
+ * @apiBody {String} [date_start] Start date in YYYY-MM-DD format
+ * @apiBody {String} [date_end] End date in YYYY-MM-DD format
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} discount Updated discount object
  *
@@ -142,6 +151,7 @@ const putDiscount = async (req, res) => {
  * @apiName DeleteDiscount
  * @apiGroup Discount
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Discount ID
  *
  * @apiSuccess {String} message Success message
@@ -171,12 +181,13 @@ const deleteDiscount = async (req, res) => {
 };
 
 /**
- * @api {post} /discounts/list Get discount list by IDs
+ * @api {post} /discounts/list/id Get discount list by IDs
  * @apiName GetDiscountList
  * @apiGroup Discount
  * @apiDescription Takes an array of discount IDs and returns corresponding discount objects
  *
- * @apiParam {Array} discounts Array of discount IDs
+ * @apiHeader {String} Authorization Bearer token
+ * @apiBody {Number[]} discounts Array of discount IDs
  *
  * @apiSuccess {Array} discounts Array of discount objects
  *

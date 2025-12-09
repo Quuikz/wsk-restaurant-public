@@ -73,7 +73,13 @@ const getLocationById = async (req, res) => {
  * @apiName PostLocation
  * @apiGroup Location
  *
- * @apiParam {Object} body Location object
+ * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiBody {String} name Location name
+ * @apiBody {String} address Street address
+ * @apiBody {String} email Contact email
+ * @apiBody {String} phone Contact phone
+ * @apiBody {Number} table_count Table count
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} location Created location object
  *
@@ -104,8 +110,14 @@ const postLocation = async (req, res) => {
  * @apiName PutLocation
  * @apiGroup Location
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Location ID
- * @apiParam {Object} body Updated location object
+ * @apiBody {String} [name] Location name
+ * @apiBody {String} [address] Street address
+ * @apiBody {String} [email] Contact email
+ * @apiBody {String} [phone] Contact phone
+ * @apiBody {Number} [table_count] Table count
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} location Updated location object
  *
@@ -137,6 +149,7 @@ const putLocation = async (req, res) => {
  * @apiName DeleteLocation
  * @apiGroup Location
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Location ID
  *
  * @apiSuccess {String} message Success message

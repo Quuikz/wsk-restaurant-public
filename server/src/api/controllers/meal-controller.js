@@ -73,8 +73,13 @@ const getMealById = async (req, res) => {
  * @apiName PostMeal
  * @apiGroup Meal
  *
- * @apiParam {Object} body Meal object
- * @apiParam {File} file Optional meal image file
+ * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiBody {String} name_fi Meal name (Finnish)
+ * @apiBody {String} name_en Meal name (English)
+ * @apiBody {String} description_fi Description (Finnish)
+ * @apiBody {String} description_en Description (English)
+ * @apiBody {Number} cost Meal cost
+ * @apiBody {File} [image] Optional meal image file
  *
  * @apiSuccess {Object} meal Created meal object
  *
@@ -106,8 +111,14 @@ const postMeal = async (req, res) => {
  * @apiName PutMeal
  * @apiGroup Meal
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Meal ID
- * @apiParam {Object} body Updated meal object
+ * @apiBody {String} [name_fi] Meal name (Finnish)
+ * @apiBody {String} [name_en] Meal name (English)
+ * @apiBody {String} [description_fi] Description (Finnish)
+ * @apiBody {String} [description_en] Description (English)
+ * @apiBody {Number} [cost] Meal cost
+ * @apiBody {File} [image] Optional meal image file
  *
  * @apiSuccess {Object} meal Updated meal object
  *
@@ -144,6 +155,7 @@ const putMeal = async (req, res) => {
  * @apiName DeleteMeal
  * @apiGroup Meal
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Meal ID
  *
  * @apiSuccess {String} message Success message
@@ -173,12 +185,12 @@ const deleteMeal = async (req, res) => {
 };
 
 /**
- * @api {post} /meals/list Get meal list by IDs
+ * @api {post} /meals/list/id Get meal list by IDs
  * @apiName GetMealList
  * @apiGroup Meal
  * @apiDescription Takes an array of meal IDs and returns corresponding meal objects
  *
- * @apiParam {Array} meals Array of meal IDs
+ * @apiBody {Number[]} meals Array of meal IDs
  *
  * @apiSuccess {Array} meals Array of meal objects
  *
@@ -197,7 +209,7 @@ const getMealList = async (req, res) => {
       res.json(mealArray);
     } else {
       console.log("no id array in getMealList in meal-controller");
-      res.status(404).send("No id array found in request.");
+      res.status(400).send("No id array found in request.");
     }
   } catch (error) {
     console.log("error in getMealList in meal-controller");

@@ -14,6 +14,7 @@ import {
 } from '../controllers/order-controller.js';
 import authenticateToken from '../../middlewares/authenticateToken.js';
 import userIsAdmin from '../../middlewares/userIsAdmin.js';
+import filterByUserIdOrAdmin from "../../middlewares/filterByUserIdOrAdmin.js";
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 
@@ -32,7 +33,7 @@ orderRouter.route('/:id')
     .delete(authenticateToken, formatIdToNumber, deleteOrder);
 
 //endpoint http://hostname:port/api/orders/user/:id
-orderRouter.get('/user/:id',authenticateToken, getOrdersByUserId)
+orderRouter.get('/user/:id',authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, getOrdersByUserId)
 
 //endpoint http://hostname:port/api/orders/date/:date
 orderRouter.get('/date/:date',authenticateToken, userIsAdmin, getOrdersByDate)

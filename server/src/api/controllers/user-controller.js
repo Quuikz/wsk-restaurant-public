@@ -18,6 +18,7 @@ import {
  * @apiName GetUsers
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiSuccess {Array} users Array of user objects
  *
  * @apiError 500 Internal server error
@@ -39,6 +40,7 @@ const getUsers = async (req, res) => {
  * @apiName GetUserById
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {Object} user User object (without password)
@@ -69,10 +71,10 @@ const getUserById = async (req, res) => {
  * @apiName PostUser
  * @apiGroup User
  *
- * @apiParam {String} username User's username
- * @apiParam {String} password User's password (will be hashed)
- * @apiParam {String} name User's full name
- * @apiParam {String} email User's email
+ * @apiBody {String} username User's username
+ * @apiBody {String} password User's password (will be hashed)
+ * @apiBody {String} name User's full name
+ * @apiBody {String} email User's email
  *
  * @apiSuccess {Object} user Created user object (without password)
  *
@@ -116,8 +118,15 @@ const postUser = async (req, res) => {
  * @apiName PutUser
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
- * @apiParam {Object} body Updated user object
+ * @apiBody {String} [username] User's username
+ * @apiBody {String} [password] User's password (will be hashed)
+ * @apiBody {String} [role] User role
+ * @apiBody {String} [name] User's full name
+ * @apiBody {String} [email] User's email
+ * @apiBody {String} [image] User image filename
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} user Updated user object (without password)
  *
@@ -159,6 +168,7 @@ const putUser = async (req, res) => {
  * @apiName DeleteUser
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {String} message Success message
@@ -192,6 +202,7 @@ const deleteUser = async (req, res) => {
  * @apiName GetUserByUsername
  * @apiGroup User
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} username User's username
  *
  * @apiSuccess {Object} user User object
@@ -219,12 +230,13 @@ const getUserByUsername = async (req, res) => {
 };
 
 /**
- * @api {post} /users/list Get user list by IDs
+ * @api {post} /users/list/id Get user list by IDs
  * @apiName GetUserList
  * @apiGroup User
  * @apiDescription Takes an array of user IDs and returns corresponding user objects
  *
- * @apiParam {Array} users Array of user IDs
+ * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiBody {Number[]} users Array of user IDs
  *
  * @apiSuccess {Array} users Array of user objects
  *
@@ -251,6 +263,36 @@ const getUserList = async (req, res) => {
   }
 };
 
+/**
+ * @api {get} /users/username/exists/:username is Username Taken
+ * @apiName isUsernameTaken
+ * @apiGroup User
+ *
+ * @apiParam {String} username User username
+ *
+ * @apiSuccess {boolean} boolean if username exists
+ *
+ * @apiError 404 User not found
+ * @apiError 500 Internal server error
+ */
+const isUsernameTaken = async (req, res) => {
+  try {
+    console.log("isUsernameTaken in user-controller");
+    console.log(req.params.username);
+    const user = await findUserByUsername(req.params.username);
+    if (user) {
+      console.log("user found with name: ", req.params.username, user);
+      return res.json(true);
+    } else {
+      return res.json(false);
+    }
+  } catch (error) {
+    console.log("error in isUsernameTaken in user-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
+
 export {
   getUsers,
   getUserById,
@@ -259,4 +301,5 @@ export {
   deleteUser,
   getUserByUsername,
   getUserList,
+  isUsernameTaken,
 };

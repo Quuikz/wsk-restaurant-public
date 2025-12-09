@@ -10,8 +10,8 @@ import { findUserByUsername } from "../models/user-model.js";
  * @apiName Login
  * @apiGroup Auth
  *
- * @apiParam {String} username User's username
- * @apiParam {String} password User's password
+ * @apiBody {String} username User's username
+ * @apiBody {String} password User's password
  *
  * @apiSuccess {Object} user User object (without password)
  * @apiSuccess {String} token JWT access token (expires in 24h)

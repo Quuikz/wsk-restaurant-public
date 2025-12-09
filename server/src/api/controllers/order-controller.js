@@ -17,6 +17,7 @@ import {
  * @apiName GetOrders
  * @apiGroup Order
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiSuccess {Array} orders Array of order objects
  *
  * @apiError 500 Internal server error
@@ -43,6 +44,7 @@ const getOrders = async (req, res) => {
  * @apiName GetOrderById
  * @apiGroup Order
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Order ID
  *
  * @apiSuccess {Object} order Order object
@@ -73,7 +75,12 @@ const getOrderById = async (req, res) => {
  * @apiName PostOrder
  * @apiGroup Order
  *
- * @apiParam {Object} body Order object
+ * @apiBody {Number} user User ID placing the order
+ * @apiBody {Number} cost Total cost
+ * @apiBody {String} timestamp Order timestamp (YYYY-MM-DD HH:mm:ss)
+ * @apiBody {Number[]} [reservations] Reservation IDs linked to order
+ * @apiBody {Number[]} [gift_cards] Gift card IDs linked to order
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} order Created order object
  *
@@ -104,8 +111,14 @@ const postOrder = async (req, res) => {
  * @apiName PutOrder
  * @apiGroup Order
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Order ID
- * @apiParam {Object} body Updated order object
+ * @apiBody {Number} [user] User ID placing the order
+ * @apiBody {Number} [cost] Total cost
+ * @apiBody {String} [timestamp] Order timestamp (YYYY-MM-DD HH:mm:ss)
+ * @apiBody {Number[]} [reservations] Reservation IDs linked to order
+ * @apiBody {Number[]} [gift_cards] Gift card IDs linked to order
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} order Updated order object
  *
@@ -138,6 +151,7 @@ const putOrder = async (req, res) => {
  * @apiName DeleteOrder
  * @apiGroup Order
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Order ID
  *
  * @apiSuccess {String} message Success message
@@ -171,6 +185,7 @@ const deleteOrder = async (req, res) => {
  * @apiName GetOrdersByUserId
  * @apiGroup Order
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {Array} orders Array of orders for user
@@ -196,18 +211,7 @@ const getOrdersByUserId = async (req, res) => {
   }
 };
 
-/**
- * @api {get} /orders/location/:id Get orders by location ID
- * @apiName GetOrdersByLocation
- * @apiGroup Order
- *
- * @apiParam {Number} id Location ID
- *
- * @apiSuccess {Array} orders Array of orders for location
- *
- * @apiError 404 No orders found for location
- * @apiError 500 Internal server error
- */
+// NOTE: getOrdersByLocation is not currently exposed via a router endpoint.
 const getOrdersByLocation = async (req, res) => {
   try {
     console.log("getOrderByLocation in order-controller");
@@ -231,6 +235,7 @@ const getOrdersByLocation = async (req, res) => {
  * @apiName GetOrdersByDate
  * @apiGroup Order
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} date Date/timestamp to filter orders
  *
  * @apiSuccess {Array} orders Array of orders for date
@@ -257,12 +262,13 @@ const getOrdersByDate = async (req, res) => {
 };
 
 /**
- * @api {post} /orders/list Get order list by IDs
+ * @api {post} /orders/list/id Get order list by IDs
  * @apiName GetOrderList
  * @apiGroup Order
  * @apiDescription Takes an array of order IDs and returns corresponding order objects
  *
- * @apiParam {Array} orders Array of order IDs
+ * @apiHeader {String} Authorization Bearer token
+ * @apiBody {Number[]} orders Array of order IDs
  *
  * @apiSuccess {Array} orders Array of order objects
  *
