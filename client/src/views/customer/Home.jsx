@@ -22,7 +22,7 @@ const Home = () => {
 
         {/* Daily Special title */}
         <div className="text-center absolute left-1/2 transform -translate-x-1/2 translate-y-[-30%]">
-          <h2 className="text-3xl font-medium">| Grilliruoka |</h2>
+          <h2 className="text-3xl font-medium">| Päivän Ateriat |</h2>
           <p className="mt-2 ">Tutustu herkullisiin erikoisuuksiimme!</p>
         </div>
 

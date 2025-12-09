@@ -62,7 +62,7 @@ const useMeal = () => {
             body: formData,
         };
 
-        const newMealResult = await fetchData(API_URL + '/meals/', fetchOptions);
+        const newMealResult = await fetchData(API_URL + '/meals', fetchOptions);
         return newMealResult;
     };
 
@@ -132,7 +132,7 @@ const useMenu = () => {
             body: formData,
         };
 
-        const postNewMenuResult = await fetchData(API_URL + '/menus/', fetchOptions);
+        const postNewMenuResult = await fetchData(API_URL + '/menus', fetchOptions);
         return postNewMenuResult;
     }
 
@@ -255,6 +255,8 @@ const useReservations = () => {
         return getReservationsByIDListResult;
     }
 
+    
+
 
 
     return { getAllReservations, getReservationByID, getReservationByUserID, getReservationsByIDList }
@@ -274,7 +276,7 @@ const useGiftcards = () => {
             },
         };
 
-        const getAllGiftCardsResult = await fetchData(API_URL + '/giftcards/', fetchOptions);
+        const getAllGiftCardsResult = await fetchData(API_URL + '/giftcards', fetchOptions);
         return getAllGiftCardsResult;
 
     }

@@ -37,70 +37,58 @@ import GiftcardsAdmin from './views/admin/Giftcards/Giftcards.jsx';
 import ReservationsAdmin from './views/admin/Reservations/Reservations.jsx';
 import AddMenu from './views/admin/Menus/AddMenu.jsx';
 import UsersAdminView from './views/admin/User/Users.jsx';
-
-
-
-
+import {CartProvider} from './contexts/ShoppingCartContext.jsx';
 
 const App = () => {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <UserProvider>
-        <Routes>
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
+        <CartProvider>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
 
+              {/*<Route path="/single" element={<Single />} />*/}
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/shoppingcart" element={<ShoppingCart />} />
+              <Route path="/weeklist" element={<Weeklist />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/logout" element={<Logout />} />
+              <Route path="/giftcards" element={<Giftcards />} />
 
-            {/*<Route path="/single" element={<Single />} />*/}
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/shoppingcart" element={<ShoppingCart />} />
-            <Route path="/weeklist" element={<Weeklist />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/logout" element={<Logout />} />
-            <Route path="/giftcards" element={<Giftcards />} />
+              {/* Login required routes below! */}
+              {/* An example of protectedroute based on course assignments */}
+              <Route
+                path="/upload"
+                element={
+                  <ProtectedRoute>
+                    {' '}
+                    <Upload />{' '}
+                  </ProtectedRoute>
+                }
+              />
+            </Route>
 
-            {/* Login required routes below! */}
-            {/* An example of protectedroute based on course assignments */}
-            <Route
-              path="/upload"
-              element={
-                <ProtectedRoute>
-                  {' '}
-                  <Upload />{' '}
-                </ProtectedRoute>
-              }
-            />
-          </Route>
-          
+            {/* Admin routes - TODO: protect the routes */}
+            {/* example path: /admin/addmeal */}
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="meals" element={<Meals />} />
+              <Route path="addmeal" element={<AddMeal />} />
 
-          {/* Admin routes - TODO: protect the routes */}
-          {/* example path: /admin/addmeal */}
-          <Route
-            path="/admin"
-            element={
-                <AdminLayout />
-                
-            }>
-            <Route index element={<Dashboard />} />
-            <Route path="meals" element={<Meals />} />
-            <Route path="addmeal" element={<AddMeal />} />
-
-            <Route path="menus" element={<Menus />} />
-            <Route path="addmenus" element={<AddMenu />} />
-            <Route path="orders" element={<Orders />} />
-            <Route path="giftcards" element={<GiftcardsAdmin />} />
-            <Route path="reservations" element={<ReservationsAdmin />} />
-            <Route path="users" element={<UsersAdminView />} />
-          </Route>
-        </Routes>
+              <Route path="menus" element={<Menus />} />
+              <Route path="addmenus" element={<AddMenu />} />
+              <Route path="orders" element={<Orders />} />
+              <Route path="giftcards" element={<GiftcardsAdmin />} />
+              <Route path="reservations" element={<ReservationsAdmin />} />
+              <Route path="users" element={<UsersAdminView />} />
+            </Route>
+          </Routes>
+        </CartProvider>
       </UserProvider>
     </BrowserRouter>
-
-    
   );
-
-
 };
 
 export default App;
