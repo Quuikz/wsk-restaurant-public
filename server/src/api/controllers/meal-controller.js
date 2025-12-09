@@ -73,8 +73,12 @@ const getMealById = async (req, res) => {
  * @apiName PostMeal
  * @apiGroup Meal
  *
- * @apiParam {Object} body Meal object
- * @apiParam {File} file Optional meal image file
+ * @apiBody {String} name_fi Meal name (Finnish)
+ * @apiBody {String} name_en Meal name (English)
+ * @apiBody {String} description_fi Description (Finnish)
+ * @apiBody {String} description_en Description (English)
+ * @apiBody {Number} cost Meal cost
+ * @apiBody {File} [image] Optional meal image file
  *
  * @apiSuccess {Object} meal Created meal object
  *
@@ -107,7 +111,12 @@ const postMeal = async (req, res) => {
  * @apiGroup Meal
  *
  * @apiParam {Number} id Meal ID
- * @apiParam {Object} body Updated meal object
+ * @apiBody {String} [name_fi] Meal name (Finnish)
+ * @apiBody {String} [name_en] Meal name (English)
+ * @apiBody {String} [description_fi] Description (Finnish)
+ * @apiBody {String} [description_en] Description (English)
+ * @apiBody {Number} [cost] Meal cost
+ * @apiBody {File} [image] Optional meal image file
  *
  * @apiSuccess {Object} meal Updated meal object
  *
@@ -178,7 +187,7 @@ const deleteMeal = async (req, res) => {
  * @apiGroup Meal
  * @apiDescription Takes an array of meal IDs and returns corresponding meal objects
  *
- * @apiParam {Array} meals Array of meal IDs
+ * @apiBody {Number[]} meals Array of meal IDs
  *
  * @apiSuccess {Array} meals Array of meal objects
  *

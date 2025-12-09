@@ -69,10 +69,10 @@ const getUserById = async (req, res) => {
  * @apiName PostUser
  * @apiGroup User
  *
- * @apiParam {String} username User's username
- * @apiParam {String} password User's password (will be hashed)
- * @apiParam {String} name User's full name
- * @apiParam {String} email User's email
+ * @apiBody {String} username User's username
+ * @apiBody {String} password User's password (will be hashed)
+ * @apiBody {String} name User's full name
+ * @apiBody {String} email User's email
  *
  * @apiSuccess {Object} user Created user object (without password)
  *
@@ -117,7 +117,13 @@ const postUser = async (req, res) => {
  * @apiGroup User
  *
  * @apiParam {Number} id User ID
- * @apiParam {Object} body Updated user object
+ * @apiBody {String} [username] User's username
+ * @apiBody {String} [password] User's password (will be hashed)
+ * @apiBody {String} [role] User role
+ * @apiBody {String} [name] User's full name
+ * @apiBody {String} [email] User's email
+ * @apiBody {String} [image] User image filename
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} user Updated user object (without password)
  *
@@ -224,7 +230,7 @@ const getUserByUsername = async (req, res) => {
  * @apiGroup User
  * @apiDescription Takes an array of user IDs and returns corresponding user objects
  *
- * @apiParam {Array} users Array of user IDs
+ * @apiBody {Number[]} users Array of user IDs
  *
  * @apiSuccess {Array} users Array of user objects
  *
@@ -251,7 +257,6 @@ const getUserList = async (req, res) => {
   }
 };
 
-
 /**
  * @api {get} /users/exists/:username is Username Taken
  * @apiName isUsernameTaken
@@ -265,24 +270,22 @@ const getUserList = async (req, res) => {
  * @apiError 500 Internal server error
  */
 const isUsernameTaken = async (req, res) => {
-    try {
-        console.log("isUsernameTaken in user-controller");
-        console.log(req.params.username);
-        const user = await findUserByUsername(req.params.username);
-        if (user) {
-            console.log("user found with name: ", req.params.username, user);
-            return res.json(true);
-        } else {
-            return res.json(false);
-        }
-
-    } catch (error) {
-        console.log("error in isUsernameTaken in user-controller");
-        console.log(error);
-        return res.sendStatus(500);
+  try {
+    console.log("isUsernameTaken in user-controller");
+    console.log(req.params.username);
+    const user = await findUserByUsername(req.params.username);
+    if (user) {
+      console.log("user found with name: ", req.params.username, user);
+      return res.json(true);
+    } else {
+      return res.json(false);
     }
+  } catch (error) {
+    console.log("error in isUsernameTaken in user-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
-
 
 export {
   getUsers,
@@ -292,5 +295,5 @@ export {
   deleteUser,
   getUserByUsername,
   getUserList,
-  isUsernameTaken
+  isUsernameTaken,
 };

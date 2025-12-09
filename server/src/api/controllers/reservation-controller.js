@@ -81,7 +81,12 @@ const getReservationById = async (req, res) => {
  * @apiName PostReservation
  * @apiGroup Reservation
  *
- * @apiParam {Object} body Reservation object
+ * @apiBody {Number} user User ID
+ * @apiBody {Number} order Order ID
+ * @apiBody {String} date Reservation date/time (YYYY-MM-DD HH:mm:ss)
+ * @apiBody {Number} table_customer_count Table reservation customer count
+ * @apiBody {Number} grill_customer_count Grill reservation customer count
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} reservation Created reservation object
  *
@@ -113,7 +118,12 @@ const postReservation = async (req, res) => {
  * @apiGroup Reservation
  *
  * @apiParam {Number} id Reservation ID
- * @apiParam {Object} body Updated reservation object
+ * @apiBody {Number} [user] User ID
+ * @apiBody {Number} [order] Order ID
+ * @apiBody {String} [date] Reservation date/time (YYYY-MM-DD HH:mm:ss)
+ * @apiBody {Number} [table_customer_count] Table reservation customer count
+ * @apiBody {Number} [grill_customer_count] Grill reservation customer count
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} reservation Updated reservation object
  *
@@ -278,7 +288,7 @@ const getReservationByDate = async (req, res) => {
  * @apiGroup Reservation
  * @apiDescription Takes an array of reservation IDs and returns corresponding reservation objects
  *
- * @apiParam {Array} reservations Array of reservation IDs
+ * @apiBody {Number[]} reservations Array of reservation IDs
  *
  * @apiSuccess {Array} reservations Array of reservation objects
  *

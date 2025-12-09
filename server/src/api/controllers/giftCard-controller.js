@@ -73,7 +73,12 @@ const getGiftCardById = async (req, res) => {
  * @apiName PostGiftCard
  * @apiGroup GiftCard
  *
- * @apiParam {Object} body Gift card object
+ * @apiBody {Number} value Gift card value
+ * @apiBody {String} expiration_date Expiration date YYYY-MM-DD
+ * @apiBody {String} password Gift card password/code
+ * @apiBody {Number} [order] Order ID the card belongs to
+ * @apiBody {Number} [user] User ID owner
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} giftCard Created gift card object
  *
@@ -105,7 +110,12 @@ const postGiftCard = async (req, res) => {
  * @apiGroup GiftCard
  *
  * @apiParam {Number} id Gift card ID
- * @apiParam {Object} body Updated gift card object
+ * @apiBody {Number} [value] Gift card value
+ * @apiBody {String} [expiration_date] Expiration date YYYY-MM-DD
+ * @apiBody {String} [password] Gift card password/code
+ * @apiBody {Number} [order] Order ID the card belongs to
+ * @apiBody {Number} [user] User ID owner
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} giftCard Updated gift card object
  *
@@ -222,7 +232,7 @@ const getGiftCardsByUserId = async (req, res) => {
  * @apiGroup GiftCard
  * @apiDescription Validates a gift card by password and checks if it has been redeemed
  *
- * @apiParam {String} password Gift card password/code
+ * @apiBody {String} password Gift card password/code
  *
  * @apiSuccess {Object} giftCard Gift card object (without password)
  *
@@ -265,7 +275,7 @@ const getGiftCardValidation = async (req, res) => {
  * @apiGroup GiftCard
  * @apiDescription Takes an array of gift card IDs and returns corresponding gift card objects
  *
- * @apiParam {Array} giftCards Array of gift card IDs
+ * @apiBody {Number[]} giftCards Array of gift card IDs
  *
  * @apiSuccess {Array} giftCards Array of gift card objects
  *

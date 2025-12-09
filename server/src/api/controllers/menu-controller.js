@@ -71,7 +71,12 @@ const getMenuById = async (req, res) => {
  * @apiName PostMenu
  * @apiGroup Menu
  *
- * @apiParam {Object} body Menu object
+ * @apiBody {String} date Menu date (YYYY-MM-DD)
+ * @apiBody {Number} week Week number
+ * @apiBody {Number} special_meal ID of special meal
+ * @apiBody {Number[]} meals Array of meal IDs
+ * @apiBody {String} [image] Optional menu image filename
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} menu Created menu object
  *
@@ -103,7 +108,12 @@ const postMenu = async (req, res) => {
  * @apiGroup Menu
  *
  * @apiParam {Number} id Menu ID
- * @apiParam {Object} body Updated menu object
+ * @apiBody {String} [date] Menu date (YYYY-MM-DD)
+ * @apiBody {Number} [week] Week number
+ * @apiBody {Number} [special_meal] ID of special meal
+ * @apiBody {Number[]} [meals] Array of meal IDs
+ * @apiBody {String} [image] Optional menu image filename
+ * @apiBody {String} [message] Optional description
  *
  * @apiSuccess {Object} menu Updated menu object
  *
@@ -230,7 +240,7 @@ const getMenusByWeek = async (req, res) => {
  * @apiGroup Menu
  * @apiDescription Takes an array of menu IDs and returns corresponding menu objects
  *
- * @apiParam {Array} menus Array of menu IDs
+ * @apiBody {Number[]} menus Array of menu IDs
  *
  * @apiSuccess {Array} menus Array of menu objects
  *

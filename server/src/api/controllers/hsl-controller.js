@@ -8,8 +8,7 @@ import { getHslData } from "../models/hsl-model.js";
  * @apiGroup HSL
  * @apiDescription Retrieves HSL (Helsinki Region Transport) data based on query parameters
  *
- * @apiQuery {String} query HSL query parameter (e.g., search term)
- * @apiParam {Object} body Request body with HSL filter options
+ * @apiBody {Object|String} query GraphQL query payload sent to HSL API
  *
  * @apiSuccess {Object} data HSL data object
  *
