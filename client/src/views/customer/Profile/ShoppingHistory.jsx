@@ -13,7 +13,7 @@ const ShoppingHistory = () => {
 
     const loadUserShoppingHistory = async () => {
         const token = localStorage.getItem('token');
-        console.log('USER ID:', user.username);
+        console.log('USER ID:', user?.id);
         try{
             
             const result = await getOrdersByUserID(token, 2);
