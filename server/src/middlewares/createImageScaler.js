@@ -65,4 +65,4 @@ const createImageScaler = (width, height, outputPath, suffix, fileType) => {
     };
 }
 
-export { createImageScaler };
+export default createImageScaler ;

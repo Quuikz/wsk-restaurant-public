@@ -1,163 +1,213 @@
-'use strict';
-
+"use strict";
 
 import {
-    listAllDiscounts,
-    findDiscountById,
-    addDiscount,
-    modifyDiscount,
-    removeDiscount
+  listAllDiscounts,
+  findDiscountById,
+  addDiscount,
+  modifyDiscount,
+  removeDiscount,
 } from "../models/discount-model.js";
 
-
-const getDiscounts = (req, res) => {
-    console.log('getDiscounts in discount-controller')
+/**
+ * @api {get} /discounts Get all discounts
+ * @apiName GetDiscounts
+ * @apiGroup Discount
+ *
+ * @apiSuccess {Array} discounts Array of discount objects
+ * @apiSuccess {Number} discounts.id Discount ID
+ * @apiSuccess {String} discounts.code Discount code
+ *
+ * @apiError 500 Internal server error
+ */
+const getDiscounts = async (req, res) => {
+  try {
+    console.log("getDiscounts in discount-controller");
     const user = res.locals.user;
-    console.log('user authenticated:' + res.locals.user);
+    console.log("user authenticated:" + res.locals.user);
 
-
-    listAllDiscounts().then(
-        (result) => {
-            if (result) {
-                res.json(result);
-            } else {
-                console.log('no discounts found');
-                res.status(200).send("no discounts found");
-            }
-        },
-
-        (result) => {
-            console.log('error in getDiscounts in discount-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
+    const result = await listAllDiscounts();
+    if (result) {
+      return res.json(result);
+    } else {
+      console.log("no discounts found");
+      return res.status(200).send("no discounts found");
+    }
+  } catch (error) {
+    console.log("error in getDiscounts in discount-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
-
-const getDiscountById = (req, res) => {
-    console.log('getDiscountById in discount-controller')
-    console.log(req.params.id);
-    const discount = findDiscountById(req.params.id);
-    discount.then(
-        (discount) => {
-            if (discount) {
-                console.log('return discount' + req.params.id)
-                res.json(discount);
-
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        (result) => {
-            console.log('error in getDiscountById in discount-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
-};
-
-const postDiscount = (req, res) => {
-    console.log('postDiscount in discount-controller');
-    console.log(req.body);
-
-    const result = addDiscount(req.body);
-    result.then(
-        (result) => {
-            if (result) {
-                console.log('added discount: ' + result)
-                res.json(result);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        (result) => {
-            console.log('error in postDiscount in discount-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
-};
-
-const putDiscount = (req, res) => {
-    console.log('putDiscount in discount-controller');
-    console.log(req.body);
-    console.log(req.params.id);
-
-    const result = modifyDiscount(req.body, req.params.id);
-    result.then(
-        (result) => {
-            if (result) {
-                console.log('return discount: ' + result)
-                res.json(result);
-            } else {
-                res.sendStatus(404);
-            }
-        },
-        (result) => {
-            console.log('error in putDiscount in discount-controller');
-            console.log(result);
-            res.sendStatus(500);
-        }
-    );
-};
-
-const deleteDiscount = (req, res) => {
-    console.log('deleteDiscount in discount-controller');
-    console.log(req.params.id);
-    console.log('user authenticated:' + res.locals.user);
-
-
-    let message = removeDiscount(req.params.id, res.locals.user);
-    message.then(
-        (message) => {
-            if (message) {
-                console.log(message);
-                res.status(200).send(message);
-
-            } else {
-                console.log('deleteDiscount: discount not found');
-                res.sendStatus(404);
-            }
-        },
-        (message) => {
-            console.log('error in deleteDiscount in discount-controller');
-            console.log(message);
-            res.sendStatus(500);
-        }
-    );
-}
 
 /**
- * Takes an array if id numbers from request.body and returns a corresponding array of objects.
- * @param req
- * @param res
+ * @api {get} /discounts/:id Get discount by ID
+ * @apiName GetDiscountById
+ * @apiGroup Discount
+ *
+ * @apiParam {Number} id Discount ID
+ *
+ * @apiSuccess {Object} discount Discount object
+ * @apiSuccess {Number} discount.id Discount ID
+ * @apiSuccess {String} discount.code Discount code
+ *
+ * @apiError 404 Discount not found
+ * @apiError 500 Internal server error
+ */
+const getDiscountById = async (req, res) => {
+  try {
+    console.log("getDiscountById in discount-controller");
+    console.log(req.params.id);
+    const discount = await findDiscountById(req.params.id);
+    if (discount) {
+      console.log("return discount" + req.params.id);
+      return res.json(discount);
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in getDiscountById in discount-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
+
+/**
+ * @api {post} /discounts Create new discount
+ * @apiName PostDiscount
+ * @apiGroup Discount
+ *
+ * @apiParam {Object} body Discount object
+ * @apiParam {String} body.code Discount code
+ *
+ * @apiSuccess {Object} discount Created discount object
+ * @apiSuccess {Number} discount.id Discount ID
+ *
+ * @apiError 404 Failed to create discount
+ * @apiError 500 Internal server error
+ */
+const postDiscount = async (req, res) => {
+  try {
+    console.log("postDiscount in discount-controller");
+    console.log(req.body);
+
+    const result = await addDiscount(req.body);
+    if (result) {
+      console.log("added discount: " + result);
+      return res.json(result);
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in postDiscount in discount-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
+
+/**
+ * @api {put} /discounts/:id Update discount
+ * @apiName PutDiscount
+ * @apiGroup Discount
+ *
+ * @apiParam {Number} id Discount ID
+ * @apiParam {Object} body Updated discount object
+ *
+ * @apiSuccess {Object} discount Updated discount object
+ *
+ * @apiError 404 Discount not found
+ * @apiError 500 Internal server error
+ */
+const putDiscount = async (req, res) => {
+  try {
+    console.log("putDiscount in discount-controller");
+    console.log(req.body);
+    console.log(req.params.id);
+
+    const result = await modifyDiscount(req.body, req.params.id);
+    if (result) {
+      console.log("return discount: " + result);
+      return res.json(result);
+    } else {
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in putDiscount in discount-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
+
+/**
+ * @api {delete} /discounts/:id Delete discount
+ * @apiName DeleteDiscount
+ * @apiGroup Discount
+ *
+ * @apiParam {Number} id Discount ID
+ *
+ * @apiSuccess {String} message Success message
+ *
+ * @apiError 404 Discount not found
+ * @apiError 500 Internal server error
+ */
+const deleteDiscount = async (req, res) => {
+  try {
+    console.log("deleteDiscount in discount-controller");
+    console.log(req.params.id);
+    console.log("user authenticated:" + res.locals.user);
+
+    const message = await removeDiscount(req.params.id, res.locals.user);
+    if (message) {
+      console.log(message);
+      return res.status(200).send(message);
+    } else {
+      console.log("deleteDiscount: discount not found");
+      return res.sendStatus(404);
+    }
+  } catch (error) {
+    console.log("error in deleteDiscount in discount-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
+};
+
+/**
+ * @api {post} /discounts/list Get discount list by IDs
+ * @apiName GetDiscountList
+ * @apiGroup Discount
+ * @apiDescription Takes an array of discount IDs and returns corresponding discount objects
+ *
+ * @apiParam {Array} discounts Array of discount IDs
+ *
+ * @apiSuccess {Array} discounts Array of discount objects
+ *
+ * @apiError 404 No ID array in request
+ * @apiError 500 Internal server error
  */
 const getDiscountList = async (req, res) => {
-    try {
-        console.log('getDiscountList in discount-controller')
+  try {
+    console.log("getDiscountList in discount-controller");
 
-        if (req.body.discounts) {
-            const discountArray = await Promise.all( req.body.discounts.map( id => findDiscountById(id) ));
-            console.log('discounts found: ', discountArray);
-            res.json(discountArray);
-
-        } else {
-            console.log('no id array in getDiscountList in discount-controller');
-            res.status(404).send('No id array found in request.');
-        }
-
-    } catch (error) {
-        console.log('error in getDiscountList in discount-controller');
-        res.sendStatus(500);
+    if (req.body.discounts) {
+      const discountArray = await Promise.all(
+        req.body.discounts.map((id) => findDiscountById(id))
+      );
+      console.log("discounts found: ", discountArray);
+      res.json(discountArray);
+    } else {
+      console.log("no id array in getDiscountList in discount-controller");
+      res.status(404).send("No id array found in request.");
     }
-}
-
+  } catch (error) {
+    console.log("error in getDiscountList in discount-controller");
+    res.sendStatus(500);
+  }
+};
 
 export {
-    getDiscounts,
-    getDiscountById,
-    postDiscount,
-    putDiscount,
-    deleteDiscount,
-    getDiscountList
+  getDiscounts,
+  getDiscountById,
+  postDiscount,
+  putDiscount,
+  deleteDiscount,
+  getDiscountList,
 };

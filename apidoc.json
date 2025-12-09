@@ -1,0 +1,17 @@
+  {
+      "name": "wsk Restaurant",
+      "version": "1.0.0",
+      "description": "API documentation for my project",
+      "title": "My API Documentation",
+      "url": "/api",
+      "header": {
+          "title": "My API Documentation",
+          "content": "<p>This is a sample API documentation.</p>"
+      },
+      "template": {
+          "withCompare": true,
+          "withGenerator": true
+      },
+      "exclude": ["node_modules/", "uploads/", "client/"],
+      "files": ["server/src/**/*.js"]
+  }

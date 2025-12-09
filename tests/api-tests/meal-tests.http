@@ -19,7 +19,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlc
 }
 
 ### get meal by id
-GET http://localhost:3000/api/meals/2
+GET http://localhost:3000/api/meals/24
 
 ### update meal by id
 PUT http://localhost:3000/api/meals/234
@@ -57,7 +57,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 ### meal upload WITH picture (formadata  HTTP/1.1 )
 POST http://localhost:3000/api/meals/
 Content-Type: multipart/form-data; boundary=MyBoundary
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6ImRlZmF1bHQiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJkZWZhdWx0Iiwicm9sZSI6ImFkbWluIiwiaWF0IjoxNzY0OTM0ODIzLCJleHAiOjE3NjUwMjEyMjN9.easmf4SlV-0hKRkF-zlEWYtmJKu-oRMuWQVJt7pq_Ik
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTIzMjgzNCwiZXhwIjoxNzY1MzE5MjM0fQ.jPc5eVacv1mKXETe9lOkPTujGx03mNsisRgd5YuaD5U
 
 --MyBoundary
 Content-Disposition: form-data; name="id"
@@ -98,7 +98,7 @@ Content-Type: image/jpg
 ### update meal with picture
 PUT http://localhost:3000/api/meals/24
 Content-Type: multipart/form-data; boundary=MyBoundary
-Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTIzMjgzNCwiZXhwIjoxNzY1MzE5MjM0fQ.jPc5eVacv1mKXETe9lOkPTujGx03mNsisRgd5YuaD5U
 
 --MyBoundary
 Content-Disposition: form-data; name="id"
@@ -129,10 +129,10 @@ Content-Disposition: form-data; name="type"
 
 "food?"
 --MyBoundary
-Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Disposition: form-data; name="file"; filename="burger.jpg"
 Content-Type: image/jpg
 
-< ./lautanen.jpg
+< ./burger.jpg
 --MyBoundary--
 
 

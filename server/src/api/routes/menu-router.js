@@ -22,18 +22,18 @@ import userIsAdmin from '../../middlewares/userIsAdmin.js';
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 import formatParamTypes from "../../middlewares/formatParamTypes.js";
-import {createImageScaler} from "../../middlewares/createImageScaler.js";
+import createImageScaler from "../../middlewares/createImageScaler.js";
+import createMulterUploader from "../../middlewares/createMulterUploader.js";
 
 
 const menuRouter = express.Router();
 
+
+//multer upload
+const imageUploader = createMulterUploader('./uploads');
+
 //configurable middleware for image scaling
 const imageScaler = createImageScaler(300, 100, './public/images/menus', '_menu', 'webp');
-
-//multer
-const multerUpload = multer({
-    dest: './uploads/'  //uploads kansio
-});
 
 
 //endpoint http://hostname:port/api/menus
@@ -41,7 +41,7 @@ menuRouter.get('/', getMenus)
     .post('/',
         authenticateToken,
         userIsAdmin,
-        multerUpload.single('file'),
+        imageUploader,
         imageScaler,
         formatBodyTypes,
         postMenu);
@@ -52,7 +52,7 @@ menuRouter.route('/:id')
     .put(authenticateToken,
         userIsAdmin,
         formatIdToNumber,
-        multerUpload.single('file'),
+        imageUploader,
         imageScaler,
         formatBodyTypes,
         putMenu)
