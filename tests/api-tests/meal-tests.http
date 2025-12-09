@@ -1,6 +1,10 @@
 ### get meals
 GET http://localhost:3000/api/meals/
 
+### get meals from server
+GET https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/
+
+
 ### post new meal WITHOUT picture
 ## see tests/upload-form.html how to upload with image
 POST http://localhost:3000/api/meals/
