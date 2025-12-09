@@ -9,7 +9,8 @@ import {
     putUser,
     deleteUser,
     getUserByUsername,
-    getUserList
+    isUsernameTaken,
+    getUserList,
 } from '../controllers/user-controller.js';
 
 //middleware
@@ -55,9 +56,14 @@ userRouter.route('/:id')
         putUser)
     .delete(authenticateToken, formatIdToNumber, filterByUserIdOrAdmin, deleteUser);
 
-//endpoint http://hostname:port/api/users/byname/:username
+//endpoint http://hostname:port/api/users/username/:username
 userRouter.route('/username/:username')
     .get(authenticateToken, userIsAdmin, formatParamTypes, getUserByUsername);
+
+//Retruns boolean if username exists already.
+//endpoint http://hostname:port/api/users/username/exists/:username
+userRouter.route('/username/exists/:username')
+    .get(formatParamTypes, isUsernameTaken);
 
 //Get a specified list
 //endpoint http://hostname:port/api/users/list/id

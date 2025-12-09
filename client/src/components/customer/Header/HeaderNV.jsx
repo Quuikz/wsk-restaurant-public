@@ -9,13 +9,12 @@ import {useUserContext} from '../../../hooks/contextHooks.js';
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
 //import Logo from '../../assets/Restauranto-Logo2.png';
-import Logo from '../../../assets/Restauranto-Logo2.png'
+import Logo from '../../../assets/Restauranto-Logo2.png';
 
-
-const Header = () => {
+const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
-  const {handleAutoLogin, user} = useUserContext();
+  const {user, handleAutoLogin} = useUserContext();
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -49,7 +48,7 @@ const Header = () => {
   const [displayRegisterModal, setDisplayRegisterModal] = useState(false);
 
   useEffect(() => {
-    handleAutoLogin();
+    //handleAutoLogin();
 
     // Burger closed on window click outside
     function handleClickOutside(event) {
@@ -60,7 +59,7 @@ const Header = () => {
 
     window.addEventListener('click', handleClickOutside);
     return () => window.removeEventListener('click', handleClickOutside);
-  }, [handleAutoLogin]);
+  }, []);
 
   return (
     <header className="fixed w-full z-50">
@@ -167,7 +166,6 @@ const Header = () => {
                 </button>
 
                 {/* -- Burger menu items -- */}
-                {/* !!! Can't do full right. Issue in navbar padding */}
                 <div className="absolute right-0 top-20 z-50">
                   {menuOpen && (
                     <div
@@ -224,7 +222,7 @@ const Header = () => {
                             to="/profile"
                             className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
                           >
-                            👤 &nbsp;&nbsp;Kirjautunut
+                            👤 &nbsp;&nbsp;{user.username}
                           </Link>
                         ) : (
                           <button
@@ -272,4 +270,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default HeaderNV;

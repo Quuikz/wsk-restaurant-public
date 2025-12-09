@@ -13,6 +13,7 @@ const pool = mysql.createPool({
   queueLimit: 0,
   connectTimeout: 10000,
   enableKeepAlive: true,
+  dateStrings: true, //stops automatic Date object formatting
 });
 
 const promisePool = pool.promise();

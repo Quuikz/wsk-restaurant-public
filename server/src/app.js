@@ -1,7 +1,7 @@
 "use strict";
 
 //node imports
-import express, { response } from "express";
+import express from "express";
 import cors from "cors";
 
 //other imports
@@ -24,9 +24,6 @@ app.use("/docs", express.static("docs"));
 
 //admin sivu html http://hostname:port/admin
 app.use("/admin", express.static("./public/admin"));
-
-//testisivu http://hostname:port/test-page
-app.use("/test-page", express.static("test-page"));
 
 //polku API:lle
 app.use("/api", apiRouter);

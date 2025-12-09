@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 //set .env file for environmental variables
 import dotenv from "dotenv";

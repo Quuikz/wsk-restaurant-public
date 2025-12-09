@@ -1,109 +1,145 @@
-import { useState, useEffect } from 'react';
-import { useUserContext } from './contextHooks';
-
+import {useUserContext} from './contextHooks';
 
 const AUTH_API2 = import.meta.env.VITE_CUSTOM_AUTH_API;
 //TODO instead of hardcoding them
 const AUTH_API = import.meta.env.VITE_CUSTOM_AUTH_API;
+const MEDIA_API = import.meta.env.VITE_MEDIA_API;
 
 const fetchData = async (url, options = {}) => {
-    const response = await fetch(url, options);
-    const data = await response.json();
+  const response = await fetch(url, options);
+  const data = await response.json();
 
-    if(!response.ok){
-        if(data.message){
-            throw new Error(data.message);
-        }
-        throw new Error(`Error ${response.status} occured`);
+  if (!response.ok) {
+    if (data.message) {
+      throw new Error(data.message);
     }
-    return data;
+    throw new Error(`Error ${response.status} occured`);
+  }
+  return data;
 };
 
-
 const useAuthentication = () => {
-
-    //Login
-    const postLogin = async (inputs) => {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(inputs),
-        };
-
-        const loginResult = await fetchData(AUTH_API + '/auth/login', fetchOptions);
-        return loginResult
+  //Login
+  const postLogin = async (inputs) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(inputs),
     };
 
-    //Register
-    const postRegister = async (inputs) => {
-        try{
-            const fetchOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(inputs),
-            };
+    const loginResult = await fetchData(AUTH_API + '/auth/login', fetchOptions);
+    return loginResult;
+  };
 
-            const registerResult = await fetchData(AUTH_API + '/users', fetchOptions);
-            return registerResult;
-        }
-        catch(error){
-            console.log('Error in postRegister: ', error);
-        }
+  //Register
+  const postRegister = async (inputs) => {
+    try {
+      const fetchOptions = {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(inputs),
+      };
+
+      const registerResult = await fetchData(AUTH_API + '/users', fetchOptions);
+      return registerResult;
+    } catch (error) {
+      console.log('Error in postRegister: ', error);
     }
+  };
 
-    return { postLogin, postRegister }
+  
+
+  return {postLogin, postRegister};
+};
+
+const useUser = () => {
+    const getUserByToken = async (token) => {
+    try {
+      const fetchOptions = {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        },
+      };
+
+      const tokenResult = await fetchData(AUTH_API + '/auth/validate', fetchOptions);
+      return tokenResult;
+    }
+    catch (error) {
+        console.log('Error in getUserByToken: ', error);
+    }
+  };
+
+  return { getUserByToken};
+
 }
+
+
+
+
+
 
 const useCurrentUser = () => {
+  const {user} = useUserContext();
 
-    const { user } = useUserContext(); 
+  //Modify account info (currently: name, email)
+  const modifyUserInfo = async (inputs, token) => {
+    try {
+      console.log('user token test display: ', token);
 
-    //Modify account info (currently: name, email)
-    const modifyUserInfo = async (inputs, token) => {
-        try{
-            console.log('user token test display: ', token);
+      const fetchOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(inputs),
+      };
 
-            const fetchOptions = {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(inputs),
-            };
-
-            //How tf am I getting the id.. 0.10am thoughts
-            const modifyUserInfoResult = await fetchData(AUTH_API + `/users/${user.id}`, fetchOptions);
-            return modifyUserInfoResult;
-
-
-        }
-        catch(error){
-            console.log('Error in modifyUserinfo: ', error);
-        }
-
+      //How tf am I getting the id.. 0.10am thoughts
+      const modifyUserInfoResult = await fetchData(
+        AUTH_API + `/users/${user.id}`,
+        fetchOptions,
+      );
+      return modifyUserInfoResult;
+    } catch (error) {
+      console.log('Error in modifyUserinfo: ', error);
     }
+  };
 
+  //Modify account avatar
+  const modifyUserAvatar = async (file, token) => {
+    try {
+      console.log(file);
 
-    //Modify account avatar
-    /*
-    const modifyUserAvatar = async (inputs) => {
-        try{
+      const payload = {
+        image: file,
+      };
 
-        }
-        catch(error){
-            console.log('Error in modifyUserAvatar: ', error);
-        }
+      const fetchOptions = {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      };
 
+      const modifyUserAvatarResult = await fetchData(
+        MEDIA_API + `/users`,
+        fetchOptions,
+      );
+      return modifyUserAvatarResult;
+    } catch (error) {
+      console.log('Error in modifyUserAvatar: ', error);
     }
-    */
-   
-    return {modifyUserInfo}
-}
+  };
 
+  return {modifyUserInfo, modifyUserAvatar};
+};
 
-export { useAuthentication, useCurrentUser };
+export {useAuthentication, useUser, useCurrentUser};
