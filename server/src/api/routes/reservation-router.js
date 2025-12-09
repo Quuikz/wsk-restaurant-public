@@ -11,6 +11,7 @@ import {
     getReservationByUserId,
     getReservationByOrder,
     getReservationByDate,
+    getReservationCountByDate,
     getReservationList
 } from '../controllers/reservation-controller.js';
 
@@ -44,6 +45,10 @@ reservationRouter.get('/order/:id',authenticateToken, userIsAdmin, formatIdToNum
 
 //endpoint http://hostname:port/api/reservations/date/:date
 reservationRouter.get('/date/:date',authenticateToken, userIsAdmin, formatParamTypes, getReservationByDate);
+
+//number of reservations for given datetime
+//endpoint http://hostname:port/api/reservations/count/:date
+reservationRouter.get('/count/:date', formatParamTypes, getReservationCountByDate);
 
 
 //Get a specified list

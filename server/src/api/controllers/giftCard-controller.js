@@ -16,6 +16,7 @@ import { findOrdersByUserId } from "../models/order-model.js";
  * @apiName GetGiftCards
  * @apiGroup GiftCard
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiSuccess {Array} giftCards Array of gift card objects
  *
  * @apiError 500 Internal server error
@@ -43,6 +44,7 @@ const getGiftCards = async (req, res) => {
  * @apiName GetGiftCardById
  * @apiGroup GiftCard
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Gift card ID
  *
  * @apiSuccess {Object} giftCard Gift card object
@@ -73,6 +75,7 @@ const getGiftCardById = async (req, res) => {
  * @apiName PostGiftCard
  * @apiGroup GiftCard
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiBody {Number} value Gift card value
  * @apiBody {String} expiration_date Expiration date YYYY-MM-DD
  * @apiBody {String} password Gift card password/code
@@ -109,6 +112,7 @@ const postGiftCard = async (req, res) => {
  * @apiName PutGiftCard
  * @apiGroup GiftCard
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Gift card ID
  * @apiBody {Number} [value] Gift card value
  * @apiBody {String} [expiration_date] Expiration date YYYY-MM-DD
@@ -147,6 +151,7 @@ const putGiftCard = async (req, res) => {
  * @apiName DeleteGiftCard
  * @apiGroup GiftCard
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Gift card ID
  *
  * @apiSuccess {String} message Success message
@@ -181,6 +186,7 @@ const deleteGiftCard = async (req, res) => {
  * @apiGroup GiftCard
  * @apiDescription Returns array of gift cards for a specific user (without password hashes)
  *
+ * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
  * @apiSuccess {Array} giftCards Array of gift card objects
@@ -227,11 +233,12 @@ const getGiftCardsByUserId = async (req, res) => {
 };
 
 /**
- * @api {post} /giftcards/validate Validate gift card
+ * @api {get} /giftcards/validate/password Validate gift card
  * @apiName GetGiftCardValidation
  * @apiGroup GiftCard
  * @apiDescription Validates a gift card by password and checks if it has been redeemed
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiBody {String} password Gift card password/code
  *
  * @apiSuccess {Object} giftCard Gift card object (without password)
@@ -270,11 +277,12 @@ const getGiftCardValidation = async (req, res) => {
 };
 
 /**
- * @api {post} /giftcards/list Get gift card list by IDs
+ * @api {post} /giftcards/list/id Get gift card list by IDs
  * @apiName GetGiftCardList
  * @apiGroup GiftCard
  * @apiDescription Takes an array of gift card IDs and returns corresponding gift card objects
  *
+ * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number[]} giftCards Array of gift card IDs
  *
  * @apiSuccess {Array} giftCards Array of gift card objects
