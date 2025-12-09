@@ -132,7 +132,7 @@ const useMenu = () => {
             body: formData,
         };
 
-        const postNewMenuResult = await fetchData(API_URL + '/menus/', fetchOptions);
+        const postNewMenuResult = await fetchData(API_URL + '/menus', fetchOptions);
         return postNewMenuResult;
     }
 
@@ -274,7 +274,7 @@ const useGiftcards = () => {
             },
         };
 
-        const getAllGiftCardsResult = await fetchData(API_URL + '/giftcards/', fetchOptions);
+        const getAllGiftCardsResult = await fetchData(API_URL + '/giftcards', fetchOptions);
         return getAllGiftCardsResult;
 
     }
