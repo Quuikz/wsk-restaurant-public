@@ -2,8 +2,12 @@
 import React from 'react';
 import {Link} from 'react-router';
 import Logo from '../../../assets/Restauranto-Logo2.png'
+import {useLanguageContext} from "../../../hooks/contextHooks.js";
+
 
 const Footer = () => {
+  const {finnish} = useLanguageContext();
+
   return (
     <>
       {/*<footer className="px-4 divide-y dark:bg-gray-100 dark:text-gray-800" >*/}
@@ -30,16 +34,16 @@ const Footer = () => {
           {/*Services*/}
           <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-3">
             <div className="space-y-3">
-              <h3 className="tracking-wide uppercase text-white">Palvelut</h3>
+              <h3 className="tracking-wide uppercase text-white">{finnish ? 'Palvelut' : 'Services'}</h3>
               <ul className="space-y-1">
                 <li>
                   <Link to="/weeklist" className="hover:underline">
-                    Viikon Lista
+                    {finnish ? 'Viikon lista' : 'Week menu'}
                   </Link>
                 </li>
                 <li>
                   <Link to="/giftcards" className="hover:underline">
-                    Lahjakortit
+                    {finnish ? 'Lahjakortit' : 'Gift cards'}
                   </Link>
                 </li>
               </ul>
@@ -48,22 +52,22 @@ const Footer = () => {
             {/* Contact section */}
             <div className="space-y-3">
               <h3 className="tracking-wide uppercase text-white">
-                Ota yhteyttä
+                {finnish ? 'Ota yhteyttä' : 'Contact us'}
               </h3>
               <ul className="space-y-1">
                 <li>
                   <Link to="/contacts" className="hover:underline">
-                    Sijainti kartalla
+                    {finnish ? 'Sijainti' : 'Location'}
                   </Link>
                 </li>
                 <li>
                   <Link to="/contacts" className="hover:underline">
-                    Aukioloajat
+                    {finnish ? 'Aukioloajat' : 'Opening hours'}
                   </Link>
                 </li>
                 <li>
                   <Link to="/contacts" className="hover:underline">
-                    Yhteystiedot
+                    {finnish ? 'Yhteystiedot' : 'Contact information'}
                   </Link>
                 </li>
               </ul>
@@ -71,7 +75,7 @@ const Footer = () => {
 
             {/* Social media */}
             <div className="space-y-3">
-              <div className="uppercase text-white">Sosiaalinen media</div>
+              <div className="uppercase text-white">{finnish ? 'Sosiaalinen media' : 'Social media'}</div>
               <div className="flex justify-start space-x-3">
                 <a
                   rel="noopener noreferrer"
@@ -142,7 +146,7 @@ const Footer = () => {
           </div>
         </div>
         <div className="py-6 text-sm text-center dark:text-gray-600">
-          © 2025 RyhmaUno 1. All rights reserved. You better believe so.
+          © 2025 RyhmaUno 1. {finnish ? 'Kaikki oikeudet pidätetään. Parempi uskoa.' : 'All rights reserved. You better believe so.' }
         </div>
       </footer>
     </>
