@@ -14,7 +14,7 @@ import {UserProvider} from './contexts/UserContext';
 import Logout from './views/customer/Logout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
-import Language from './components/customer/Language.jsx';
+// import Language from './components/customer/Language.jsx';         <Route path="/language" element={<Language />} />
 
 //Pages
 //All users
@@ -59,7 +59,7 @@ const App = () => {
               <Route path="/weeklist" element={<Weeklist />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
-              <Route path="/language" element={<Language />} />
+
               <Route path="/giftcards" element={<Giftcards />} />
 
               {/* Login required routes below! */}

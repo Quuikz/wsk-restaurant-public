@@ -4,6 +4,7 @@ import OrderingButtons from './OrderingButtons';
 import OrderingTime from './OrderingTime';
 import { ShoppingCartContext } from '../../../contexts/ShoppingCartContext';
 import useForm from '../../../hooks/formHooks';
+import {useLanguageContext} from "../../../hooks/contextHooks.js";
 // Custom Time selector. Check if table still empty at selected time etc.
 
 const Ordering = ({id}) => {
@@ -12,7 +13,7 @@ const Ordering = ({id}) => {
   //const [reservationDate, setReservationDate] = useState(today);
 
   const { addReservationToCart } = useContext(ShoppingCartContext);
-
+  const {finnish } = useLanguageContext();
 
   //States for table, grill, date?, time?
   const [tableCount, setTableCount] = useState(0);
@@ -63,11 +64,11 @@ const Ordering = ({id}) => {
       <section id={id}>
         {/* Table ordering */}
         <div className=" bg-orange-100 text-center p-20 pb-30">
-          <form 
-            onSubmit={(e) => doAddToCart(e)} 
+          <form
+            onSubmit={(e) => doAddToCart(e)}
             className="grid grid-cols-4 gap-4 p-20 bg-orange-50">
             {/* Grill number selector */}
-            <OrderingButtons 
+            <OrderingButtons
               tableCount={form.tableCount}
               grillCount={form.grillCount}
               //setTableCount={setTableCount}
@@ -85,7 +86,7 @@ const Ordering = ({id}) => {
             {/* Date */}
             <div className="flex flex-col items-center ">
               <label htmlFor="reservationDate" className="block mb-2 font-bold">
-                Päivämäärä
+                {finnish ? 'Päivämäärä' : 'Date'}
               </label>
               <input
                 type="date"
@@ -100,8 +101,8 @@ const Ordering = ({id}) => {
             </div>
 
             {/* Time */}
-            <OrderingTime 
-              reservationDate={form.reservationDate} 
+            <OrderingTime
+              reservationDate={form.reservationDate}
               reservationTime={form.reservationTime}
               //setReservationTime={(value) =>
               //  handleInputChange({ target: { name: 'reservationTime', value: value } })
@@ -117,7 +118,7 @@ const Ordering = ({id}) => {
                 type="submit"
                 className="px-6 py-3 bg-orange-200   rounded hover:bg-orange-300"
               >
-                Varaa Pöytä
+                {finnish ? 'Varaa pöytä' : 'Reserve table'}
               </button>
             </div>
           </form>

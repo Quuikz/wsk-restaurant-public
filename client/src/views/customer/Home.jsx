@@ -1,8 +1,18 @@
 //Components
 import Ordering from './Home/Ordering.jsx';
 import Specials from './Home/Specials.jsx';
+import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 const Home = () => {
+
+  const {finnish} = useLanguageContext();
+  const bannerFinnish =   `Tervetuloa Restaurantoon! Tule maistamaan päivittäin vaihtuvat erikoisuutemme tai
+   nauttimaan lounas runsaasta noutopöydästämme.`;
+
+  const bannerEnglish = `Welcome to Restauranto! Come and taste our daily changing specials or
+  enjoy a lunch from our abundant buffet.`;
+
+
   return (
     <>
       <div className="max-w-7xl mx-auto px-4 relative">
@@ -14,16 +24,14 @@ const Home = () => {
         <div className=" p-20 pb-30 text-center bg-orange-100">
           <h1 className="text-4xl font-bold">Restauranto</h1>
           <p className="mt-4 text-xl text-gray-600">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam non
-            sapiente iste enim esse asperiores debitis excepturi nostrum porro,
-            eum unde omnis veniam voluptatum at vero adipisci aut? Sequi, sed.
+            {finnish ? bannerFinnish : bannerEnglish}
           </p>
         </div>
 
         {/* Daily Special title */}
         <div className="text-center absolute left-1/2 transform -translate-x-1/2 translate-y-[-30%]">
-          <h2 className="text-3xl font-medium">| Päivän Ateriat |</h2>
-          <p className="mt-2 ">Tutustu herkullisiin erikoisuuksiimme!</p>
+          <h2 className="text-3xl font-medium">| {finnish ? 'Päivän Ateriat' : 'Meals of the Day'} |</h2>
+          <p className="mt-2 ">{finnish ? 'Tutustu herkullisiin erikoisuuksiimme!' : 'Check out our delicious specials!'}</p>
         </div>
 
         {/* Daily Specials component */}
@@ -31,8 +39,8 @@ const Home = () => {
 
         {/* Table ordering title */}
         <div className="text-center absolute left-1/2 transform -translate-x-1/2 translate-y-[-30%]">
-          <h2 className="text-3xl font-medium">| Varaa Pöytä |</h2>
-          <p className="mt-2 ">Varaa pöytä helposti tästä!</p>
+          <h2 className="text-3xl font-medium">| {finnish ? 'Varaa Pöytä' : 'Table reservation'} |</h2>
+          <p className="mt-2 ">{finnish ? 'Varaa helposti tästä!' : 'Reserve your table here!'}</p>
         </div>
 
         {/* Table ordering component */}

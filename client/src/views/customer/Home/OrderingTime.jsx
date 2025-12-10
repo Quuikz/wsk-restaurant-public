@@ -1,4 +1,5 @@
 import {useEffect, useState, useRef, useMemo} from 'react';
+import {useLanguageContext} from "../../../hooks/contextHooks.js";
 
 // Available times for ordering
 const TIMES = [
@@ -43,6 +44,7 @@ const OrderingTime = ({ reservationDate, reservationTime, setReservationTime }) 
   const [timeMenuOpen, setTimeMenuOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
   const menuRef = useRef(null);
+  const {finnish} = useLanguageContext();
 
   // Memoized available times for the selected date
   const availableTimes = useMemo(
@@ -84,7 +86,7 @@ const OrderingTime = ({ reservationDate, reservationTime, setReservationTime }) 
   return (
     <div className="relative flex flex-col items-center" ref={menuRef}>
       <label htmlFor="reservationDate" className="block mb-2 font-bold">
-        Kellon aika
+        {finnish ? 'Aika' : 'Time'}
       </label>
 
       <button
@@ -98,7 +100,10 @@ const OrderingTime = ({ reservationDate, reservationTime, setReservationTime }) 
           ${isClosed ? 'bg-gray-100 border-gray-200 text-gray-400 cursor-not-allowed' : 'bg-white border-gray-300 hover:bg-gray-100'}`}
       >
         <span className="sr-only">Open time menu</span>
-        {isClosed ? 'Suljettu' : (selectedTime ?? 'Valitse aika')}
+        {isClosed ?
+          (finnish ? 'Suljettu' : 'Closed') :
+          (selectedTime ?? (finnish ? 'Valitse aika' : 'Select time'))
+        }
       </button>
 
       {/* Time selection menu */}
@@ -127,7 +132,7 @@ const OrderingTime = ({ reservationDate, reservationTime, setReservationTime }) 
             ))
           ) : (
             <div className="px-4 py-2 text-sm text-gray-500">
-              Suljettu tänä päivänä
+              {finnish ? 'Suljettu tänä päivänä' : 'Closed this day'}
             </div>
           )}
         </div>
