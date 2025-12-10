@@ -1,66 +1,78 @@
 const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
-  return (
-      <li className={
-        'grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ' +
-        (showModifyButton ? "grid-cols-6" : "grid-cols-5")
-      }>
-        
-        
-        {/* Meal info */}
 
-        <p className="text-lg font-semibold text-gray-800">{meal.id}</p>
+ let SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+    SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
+  }
+
+  const mealImages = SERVER_URL+`/images/meals/`;
+
+  return (
+    <li
+      className={
+        'grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ' +
+        (showModifyButton ? 'grid-cols-7' : 'grid-cols-5')
+      }
+    >
+      {/* Meal info */}
+
+      {/* Meal image */}
+      <div className="w-20 h-20 flex-shrink-0">
+        <img
+          src={meal ? mealImages+meal.image : mealImages+'placeholder.jpg' }
+          alt='An image of meal'
+          className="w-full h-full object-cover rounded-md"
+        />
+      </div>
+
+      <p className="text-lg font-semibold text-gray-800">{meal.id}</p>
 
       {/* Names */}
       <div className="space-y-1">
         <p className="text-lg font-semibold text-gray-800">
           {`${meal.name_fi}`}
         </p>
-        <p className="text-lg text-gray-600">
-          {`${meal.name_en}`}
-        </p>
+        <p className="text-lg text-gray-600">{`${meal.name_en}`}</p>
       </div>
-        
-        {/* Descriptions */}
-        <div className="space-y-1">
-          <p className="text-lg font-semibold text-gray-800">
-            {`${meal.description_fi}`}
-          </p>
-          <p className="text-lg text-gray-600">
-            {`${meal.description_en}`}
-          </p>
-        </div>
 
-
+      {/* Descriptions */}
+      <div className="space-y-1">
         <p className="text-lg font-semibold text-gray-800">
-          {`${meal.cost}€`}
+          {`${meal.description_fi}`}
         </p>
+        <p className="text-lg text-gray-600">{`${meal.description_en}`}</p>
+      </div>
 
-        {/* Buttons */}
-        {showModifyButton ? (
-          <>
+      <p className="text-lg font-semibold text-gray-800">{`${meal.cost}€`}</p>
+
+      {/* Buttons */}
+      {showModifyButton ? (
+        <>
           <button
-          onClick={onModify}
-          className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
-        >Modify Meal
-        </button>
+            onClick={onModify}
+            className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
+          >
+            Modify Meal
+          </button>
 
-        <button
-          onClick={onDelete}
-          className="px-4 py-2 text-sm rounded-md bg-red-500 text-white hover:bg-red-600 transition"
-        >Delete Meal
-        </button>
-          </>
-        ) : (
-          <>
           <button
             onClick={onDelete}
             className="px-4 py-2 text-sm rounded-md bg-red-500 text-white hover:bg-red-600 transition"
-          >Delete Meal
+          >
+            Delete Meal
           </button>
-          </>
-        )}
-        
-      </li>
+        </>
+      ) : (
+        <>
+          <button
+            onClick={onDelete}
+            className="px-4 py-2 text-sm rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+          >
+            Delete Meal
+          </button>
+        </>
+      )}
+    </li>
   );
 };
 
