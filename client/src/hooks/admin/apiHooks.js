@@ -22,8 +22,22 @@ const useUser = () => {
         return getAllUsersResult;
     }
 
+    const updateUserByID = async (data, token, userID) =>{
+        const fetchOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data),
+        };
 
-    return { getAllUsers }
+        const updateUserByIDResult = await fetchData(API_URL + `/users/${userID}`, fetchOptions);
+        return updateUserByIDResult;
+    }
+
+
+    return { getAllUsers, updateUserByID }
 
 
 
