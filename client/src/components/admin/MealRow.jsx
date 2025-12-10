@@ -1,6 +1,11 @@
-const MealRow = ({meal, onModify, onDelete}) => {
+const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
   return (
-      <li className="grid grid-cols-5 items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition">
+      <div>
+        <ul>
+      <li className={
+        `grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ` +
+        (showModifyButton ? "grid-cols-6" : "grid-cols-5")
+      }>
         
         
         {/* Meal info */}
@@ -33,14 +38,33 @@ const MealRow = ({meal, onModify, onDelete}) => {
         </p>
 
         {/* Buttons */}
+        {showModifyButton ? (
+          <>
+          <button
+          onClick={onModify}
+          className="px-4 py-2 text-sm rounded-md bg-blue-500 text-white hover:bg-blue-600 transition"
+        >Modify Meal
+        </button>
 
         <button
           onClick={onDelete}
           className="px-4 py-2 text-sm rounded-md bg-red-500 text-white hover:bg-red-600 transition"
-        >
-          Delete Meal
+        >Delete Meal
         </button>
+          </>
+        ) : (
+          <>
+          <button
+            onClick={onDelete}
+            className="px-4 py-2 text-sm rounded-md bg-red-500 text-white hover:bg-red-600 transition"
+          >Delete Meal
+          </button>
+          </>
+        )}
+        
       </li>
+      </ul>
+      </div>
   );
 };
 

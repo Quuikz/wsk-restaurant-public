@@ -61,6 +61,7 @@ const Meals = () => {
                     meal={meal}
                     onDelete={() => handleDelete(meal)}
                     onModify={() => handleModify(meal)} 
+                    showModifyButton={true}
                 />
             ))}
         </ul>

@@ -134,6 +134,7 @@ const MenuRow = ({menuItem}) => {
             meal={meal}
             //onModify={() => console.log("Modify meal", meal.id)}
             onDelete={() => handleDeleteMealFromMenu(meal.id)}
+            showModifyButton={false}
           />
         ))}
       </ul>
