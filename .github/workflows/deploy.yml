@@ -18,9 +18,8 @@ jobs:
         uses: appleboy/ssh-action@master
         with:
           # connect to server using credentials stored in github secrets
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.PRIVATE_KEY }}
+          host: ${{ secrets.DB_HOST }}
+          username: ${{ secrets.DB_USERNAME }}
           port: 22
           script: |
             # after login to server go to application folder
