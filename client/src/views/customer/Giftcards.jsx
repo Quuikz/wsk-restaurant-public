@@ -1,5 +1,6 @@
 import React, {useContext, useState} from 'react';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
+import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 
 
@@ -15,7 +16,7 @@ const Giftcards = () => {
   const dec = (set) => () => set((v) => Math.max(min, v - 1));
 
   const {addGiftCardToCart} = useContext(ShoppingCartContext);
-
+  const {finnish} = useLanguageContext();
 
   const doAddToCart = (value, qty) => {
     if (qty <= 0) return;
@@ -32,8 +33,8 @@ const Giftcards = () => {
         <div className="p-7 pt-20 pb-30 bg-orange-100">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">
-            <h2 className="text-3xl font-medium">| Lahjakortit |</h2>
-            <p className="mt-2 ">Osta lahjakortti helposti tästä!</p>
+            <h2 className="text-3xl font-medium">| {finnish ? 'Lahjakortit' : 'Gift cards'} |</h2>
+            <p className="mt-2 ">{finnish ? 'Osta lahjakortti helposti tästä!' : 'Buy gift cards here!'}</p>
           </div>
 
           {/* Giftcard boxes */}
@@ -43,20 +44,20 @@ const Giftcards = () => {
               <img src="https://placehold.co/1148x498" alt="5€ lahjakortti" />
               <div className="px-6">
                 <h2 className="text-2xl mt-2 text-center border-b">
-                  5€ Lahjakortti
+                  5€ {finnish ? 'Lahjakortti' : 'Gift card'}
                 </h2>
                 <ul>
                   <li>
-                    <p className="mt-1 font-bold">Tietoa</p>Napostelijan
-                    lahjakortti
+                    <p className="mt-1 font-bold">{finnish ? 'Tietoa' : 'Info'}</p>
+                    {finnish ? 'Napostelijan lahjakortti' : 'Snackers gift card'}
                   </li>
                   <li>
-                    <p className="mt-1 font-bold">Voimassaoloaika</p>12kk (1
-                    vuosi)
+                    <p className="mt-1 font-bold">{finnish ? 'Voimassaoloaika' : 'Valid for'}</p>
+                     {finnish ? '12kk (1 vuosi)' : '12 months (1 year)'}
                   </li>
                   <li>
-                    <p className="mt-1 font-bold">Käyttöehdot</p>Lahjakorttia
-                    voi käyttää vain Restauranto-ravintolassa.
+                    <p className="mt-1 font-bold">{finnish ? 'Käyttöehdot' : 'Terms of use'}</p>
+                    {finnish ? 'Lahjakorttia voi käyttää vain Restauranto-ravintolassa.' : 'Gift card can only be used in Restauranto-restaurant.'}
                   </li>
                 </ul>
                 <div className="grid grid-cols-2 gap-10">
@@ -90,7 +91,7 @@ const Giftcards = () => {
                       +
                     </button>
                   </div>
-                  <button 
+                  <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
                     onClick={() => doAddToCart(5, qty5)}
                   >Lisää
@@ -103,20 +104,20 @@ const Giftcards = () => {
               <img src="https://placehold.co/1148x498" alt="20€ lahjakortti" />
               <div className="px-6">
                 <h2 className="text-2xl mt-2 text-center border-b">
-                  20€ Lahjakortti
+                  20€ {finnish ? 'Lahjakortti' : 'Gift card'}
                 </h2>
                 <ul>
                   <li>
-                    <p className="mt-1 font-bold">Tietoa</p>Edullinen
-                    lahjakortti arkeen
+                    <p className="mt-1 font-bold">{finnish ? 'Tietoa' : 'Info'}</p>
+                    {finnish ? 'Edullinen lahjakortti arkeen' : 'Affordable everyday gift card'}
                   </li>
                   <li>
-                    <p className="mt-1 font-bold">Voimassaoloaika</p>12kk (1
-                    vuosi)
+                    <p className="mt-1 font-bold">{finnish ? 'Voimassaoloaika' : 'Valid for'}</p>
+                    {finnish ? '12kk (1 vuosi)' : '12 months (1 year)'}
                   </li>
                   <li>
-                    <p className="mt-1 font-bold">Käyttöehdot</p>Voidaan käyttää
-                    ravintolassa ja verkkokaupassa.
+                    <p className="mt-1 font-bold">{finnish ? 'Käyttöehdot' : 'Terms of use'}</p>
+                    {finnish ? 'Lahjakorttia voi käyttää vain Restauranto-ravintolassa.' : 'Gift card can only be used in Restauranto-restaurant.'}
                   </li>
                 </ul>
                 <div className="grid grid-cols-2 gap-10">
@@ -163,20 +164,20 @@ const Giftcards = () => {
               <img src="https://placehold.co/1148x498" alt="50€ lahjakortti" />
               <div className="px-6">
                 <h2 className="text-2xl mt-2 text-center border-b">
-                  50€ Lahjakortti
+                  50€ {finnish ? 'Lahjakortti' : 'Gift card'}
                 </h2>
                 <ul>
                   <li>
-                    <p className="mt-1 font-bold">Tietoa</p>Erityinen
-                    lahjakortti juhlaan
+                    <p className="mt-1 font-bold">Tietoa</p>
+                    {finnish ? 'Erityinen lahjakortti juhlaan' : 'Gift card for a special occasion'}
                   </li>
                   <li>
-                    <p className="mt-1 font-bold">Voimassaoloaika</p>12kk (1
+                    <p className="mt-1 font-bold">{finnish ? 'Voimassaoloaika' : 'Valid for'}</p>12kk (1
                     vuosi)
                   </li>
                   <li>
-                    <p className="mt-1 font-bold">Käyttöehdot</p>Voidaan käyttää
-                    kaikissa palveluissamme.
+                    <p className="mt-1 font-bold">{finnish ? 'Käyttöehdot' : 'Terms of use'}</p>
+                    {finnish ? 'Lahjakorttia voi käyttää vain Restauranto-ravintolassa.' : 'Gift card can only be used in Restauranto-restaurant.'}
                   </li>
                 </ul>
                 <div className="grid grid-cols-2 gap-10">
@@ -210,10 +211,10 @@ const Giftcards = () => {
                       +
                     </button>
                   </div>
-                  <button 
+                  <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
                     onClick={() => doAddToCart(50, qty50)}
-                  >Lisää
+                  >{finnish ? 'Lisää ostoskoriin' : 'Add to cart'}
                   </button>
                 </div>
               </div>
