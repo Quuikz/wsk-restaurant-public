@@ -99,7 +99,7 @@ const postMeal = async (req, res) => {
     console.log("postMeal in meal-controller");
     console.log(req.body);
 
-    const result = await addMeal(req.body, req.file);
+    const result = await addMeal(req.body);
     //TODO: what to do with image data in req.file? nothing?
     if (result) {
       console.log("added meal: ", result);
@@ -110,7 +110,7 @@ const postMeal = async (req, res) => {
   } catch (error) {
     console.log("error in postMeal in meal-controller");
     console.log(error);
-    return res.sendStatus(500);
+    return res.status(500).send("error in postMeal in meal-controller");
   }
 };
 
