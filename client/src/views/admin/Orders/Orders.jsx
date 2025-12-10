@@ -62,50 +62,49 @@ const Orders = () => {
         console.log('Modifying the order id: ', order.id);
     }
 
-    const handleDeleteOrder = async (order) => {
-        console.log('Deleting order id: ', order.id);
-    }
-
-
 
     return(
         <>
         {/*TODO: refine style */}
         <ul>
-            <li className="grid grid-cols-9 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
+            <li className="grid grid-cols-8 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
                 <span>ID</span>
                 <span>User</span>
                 <span>Cost</span>
                 <span>Timestamp</span>
-                <span>Location</span>
+                <span>Status</span>
                 <span>View order</span>
                 <span>Accept</span>
                 <span>Reject</span>
-                <span>Delete</span>
             </li>
  
             {orders.map((order) => (
                 <li
-                    className="grid grid-cols-9 gap-4 px-4 py-2 border-b"
+                    className="grid grid-cols-8 gap-4 px-4 py-2 border-b text-lg"
                     key={order.id}
                 >
                     <span>{order.id}</span>
                     <span>{order.user}</span>
                     <span>{order.cost}</span>
                     <span>{order.timestamp}</span>
-                    <span>{order.location}</span>
+                    <span
+                        className={order.deleted ? 'text-green-500' : 'text-red-500'}
+                    
+                    >{order.deleted ? 'Accepted' : 'Pending'}
+                    </span>
                     <button
+                        className="border rounded-xl border-black bg-gray-300 hover:bg-gray-400"
                         onClick={() => handleViewOrderInfo(order)}>View order
                     </button>
                     <button
+                        className="border rounded-xl border-black text-white bg-green-600 hover:bg-green-700"
                         onClick={() => handleModifyOrder(order)}>Accept order
                     </button>
                     <button
+                        className="border rounded-xl border-black text-white bg-red-600 hover:bg-red-700"
                         onClick={() => handleModifyOrder(order)}>Reject order
                     </button>
-                    <button
-                        onClick={() => handleDeleteOrder(order)}>Delete order
-                    </button>
+
                 </li>
             ))}
         </ul>
