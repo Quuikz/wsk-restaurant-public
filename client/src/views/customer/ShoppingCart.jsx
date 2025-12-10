@@ -18,6 +18,21 @@ const ShoppingCart = () => {
   //const [orderID, setOrderID] = useState(null);
 
   //Collection of IDs for POST reservations+giftcards
+
+  const getCurrentTimestamp = () => {
+    const date = new Date();
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1);
+    const day = String(date.getDate());
+    const hours = String(date.getHours());
+    const minutes = String(date.getMinutes());
+    const seconds = String(date.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+  }
+
+
+
   
   const sendOrder = async (cart, user, token) => {
     //TODO: consider useState..
@@ -89,7 +104,7 @@ const ShoppingCart = () => {
       id: orderID,
       user: 2,
       cost: 10,
-      timestamp:' 2024-10-12 12:00:00',
+      timestamp: getCurrentTimestamp(),
       reservations: reservationIDs,
       gift_cards: giftCardIDs
     };
