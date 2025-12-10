@@ -62,10 +62,29 @@ const CartProvider = ({ children }) => {
      * 
      */
     const addGiftCardToCart = (newGiftCard) => {
-        setCart(prev => ({
+        //setCart(prev => ({
+        //    ...prev,
+        //    gift_cards: [...prev.gift_cards, newGiftCard]
+        //}));
+    //};
+    setCart(prev => {
+        const giftCardInCartAlready = prev.gift_cards.find(giftCard => giftCard.value == newGiftCard.value);
+    
+    
+        if(giftCardInCartAlready){
+            return{
+                ...prev,
+                gift_cards: prev.gift_cards.map(giftCard =>
+                    giftCard.value == newGiftCard.value ? { ...giftCard, quantity: giftCard.quantity + newGiftCard.quantity } : giftCard
+                )
+            };
+        }
+
+        return {
             ...prev,
             gift_cards: [...prev.gift_cards, newGiftCard]
-        }));
+        };  
+        });
     };
 
     /**
