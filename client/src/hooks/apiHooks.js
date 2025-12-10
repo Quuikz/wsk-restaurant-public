@@ -97,7 +97,7 @@ const useCurrentUser = () => {
   //Modify account info (currently: name, email)
   const modifyUserInfo = async (inputs, token) => {
     try {
-      console.log('user token test display: ', token);
+      console.log('modifyUserInfo: ',inputs, token);
 
       const fetchOptions = {
         method: 'PUT',

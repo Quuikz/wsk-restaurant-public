@@ -3,11 +3,13 @@ import useForm from '../../../hooks/formHooks.js';
 //import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
 import {useCurrentUser} from '../../../hooks/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
+import {useNavigate} from "react-router";
 
 const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
-  const { user } = useUserContext();
+  const { user, setUser, handleLogout } = useUserContext();
   const {finnish} = useLanguageContext();
   const { modifyUserInfo } = useCurrentUser();
+  const navigate = useNavigate();
 
   if (!isOpen || !user) {
     return null;
@@ -23,8 +25,15 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
     const token = localStorage.getItem('token');
     try {
       const result = await modifyUserInfo(inputs, token);
-
       console.log(result);
+
+      if (result) {
+        setUser(result);
+        localStorage.removeItem('token');
+        setUser(null);
+        navigate('/');
+      }
+
     } catch (error) {
       console.log('Error in doRegister: ', error);
     }
@@ -60,7 +69,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your information is secure.'}</p>
+            <p>❗{finnish ? 'Tietojen muokkauksen jälkeen sinun pitää kirjautua uudelleen.' : 'You must login again after changing your information.'}</p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
