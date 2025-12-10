@@ -5,7 +5,7 @@ import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 const ShoppingCart = () => {
 
 
-  const { cart, clearCart, incrementGiftCard, decrementGiftCard } = useContext(ShoppingCartContext); 
+  const { cart, clearCart, removeReservationFromCart, incrementGiftCard, decrementGiftCard, removeGiftCardFromCart } = useContext(ShoppingCartContext); 
 
 
 
@@ -59,8 +59,10 @@ const ShoppingCart = () => {
               <div className="flex items-center justify-between h-full gap-4">
                 {/* Trash button */}
                 <div>
-                  <button className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700">
-                    🗑️
+                  <button 
+                    className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700"
+                    onClick={() => removeReservationFromCart(i)}
+                  >🗑️
                   </button>
                 </div>
               </div>
@@ -104,8 +106,10 @@ const ShoppingCart = () => {
                 </div>
                 {/* Trash button */}
                 <div>
-                  <button className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700">
-                    🗑️
+                  <button 
+                    className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700"
+                    onClick={() => removeGiftCardFromCart(i)}
+                  >🗑️
                   </button>
                 </div>
               </div>
