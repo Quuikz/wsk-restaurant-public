@@ -43,9 +43,7 @@ jobs:
         run: npm run apidoc
 
       # 7. Run tests
-      # - name: Run Apitests
-      #   run: npm run api-test
-      #- name: Run backend tests
-      #  run: npm test
+      - name: Run backend tests
+        run: npm run test
       #- name: Run frontend tests
       #  run: npm test --prefix client
