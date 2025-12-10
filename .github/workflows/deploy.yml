@@ -30,7 +30,7 @@ jobs:
             # git fetch to see if there are any changes
             git fetch
             # pull the changes from Github
-            git pull origin main
+            git pull --no-rebase origin main
             # to get the status and to check that everything is ok
             git status
             # install possibly updated dependencies
