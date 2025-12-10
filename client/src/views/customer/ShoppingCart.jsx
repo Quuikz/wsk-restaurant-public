@@ -1,12 +1,13 @@
 import { useContext } from 'react';
 import {Link} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
+import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 const ShoppingCart = () => {
 
 
-  const { cart, clearCart, removeReservationFromCart, incrementGiftCard, decrementGiftCard, removeGiftCardFromCart } = useContext(ShoppingCartContext); 
-
+  const { cart, clearCart, removeReservationFromCart, incrementGiftCard, decrementGiftCard, removeGiftCardFromCart } = useContext(ShoppingCartContext);
+  const { finnish } = useLanguageContext();
 
 
 
@@ -18,8 +19,8 @@ const ShoppingCart = () => {
       <div className="bg-orange-100 min-h-screen max-w-7xl mx-auto p-4 sm:p-8">
         {/* Title section */}
         <div className="mb-4">
-          <h1 className="text-xl font-semibold sm:text-2xl ">Ostoskori</h1>
-          <p className="text-gray-600">X TUOTETTA</p>
+          <h1 className="text-xl font-semibold sm:text-2xl ">{finnish ? 'Ostoskori' : 'Cart'}</h1>
+          <p className="text-gray-600">{finnish ? 'X TUOTETTA' : 'X PRODUCT'}</p>
         </div>
 
         {/* Whole layout */}
@@ -31,13 +32,13 @@ const ShoppingCart = () => {
 
             {/* No Item in cart: */}
             {cart.reservations.length == 0 && cart.gift_cards.length == 0 && (
-              <p className="text-gray-600">Ostoskorisi on tyhjä.</p>
+              <p className="text-gray-600">{finnish ? 'Ostoskorisi on tyhjä.' : 'Cart is empty.'}</p>
             )}
 
 
             {/* Item in cart */}
-            {cart.reservations.map((reservation, i) => (              
-              <div 
+            {cart.reservations.map((reservation, i) => (
+              <div
                 key={`reservation-${i}`}
                 className="flex items-start justify-between p-4 bg-white rounded-lg shadow border border-gray-200"
               >
@@ -49,17 +50,17 @@ const ShoppingCart = () => {
                   </div>
                   {/* Item in cart: info */}
                 <div>
-                  <p className="font-medium text-lg">Varaus</p>
+                  <p className="font-medium text-lg">{finnish ? 'Varaus' : 'Reservation'}</p>
                   <p className="text-gray-600">{reservation.date}</p>
-                  <p className="text-gray-600">Noutopöytä: {reservation.table_customer_count} henkilö(ä)</p>
-                  <p className="text-gray-600">Grillipöytä: {reservation.grill_customer_count} henkilö(ä)</p>
+                  <p className="text-gray-600">{finnish ? 'Noutopöytä:' : 'Buffet:'} {reservation.table_customer_count} {finnish ? 'henkilöä' : 'persons'}</p>
+                  <p className="text-gray-600">{finnish ? 'Grillipöytä' : 'Grill:'} {reservation.grill_customer_count} {finnish ? 'henkilöä' : 'persons'}</p>
                 </div>
               </div>
               {/* Item - right: counter + remove from cart button */}
               <div className="flex items-center justify-between h-full gap-4">
                 {/* Trash button */}
                 <div>
-                  <button 
+                  <button
                     className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700"
                     onClick={() => removeReservationFromCart(i)}
                   >🗑️
@@ -70,7 +71,7 @@ const ShoppingCart = () => {
             ))}
 
             {cart.gift_cards.map((giftCard, i) => (
-              <div 
+              <div
                 key={`reservation-${i}`}
                 className="flex items-start justify-between p-4 bg-white rounded-lg shadow border border-gray-200"
               >
@@ -82,7 +83,7 @@ const ShoppingCart = () => {
                   </div>
                   {/* Item in cart: info */}
                 <div>
-                  <p className="font-medium text-lg">Lahjakortti</p>
+                  <p className="font-medium text-lg">{finnish ? 'Lahjakortti' : 'Gift card'}</p>
                   <p className="text-gray-600">{giftCard.value} €</p>
                   <p className="text-gray-600">{giftCard.expiration_date}</p>
                 </div>
@@ -91,14 +92,14 @@ const ShoppingCart = () => {
               <div className="flex items-center justify-between h-full gap-4">
                 {/* Counter */}
                 <div className="flex items-center gap-2">
-                  <button 
+                  <button
                     className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-100"
                     onClick={() => decrementGiftCard(giftCard.value)}
                   >-
                   </button>
 
                   <p className="w-6 text-center">{giftCard.quantity}</p>
-                  <button 
+                  <button
                     className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-100"
                     onClick={() => incrementGiftCard(giftCard.value)}
                   >+
@@ -106,7 +107,7 @@ const ShoppingCart = () => {
                 </div>
                 {/* Trash button */}
                 <div>
-                  <button 
+                  <button
                     className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700"
                     onClick={() => removeGiftCardFromCart(i)}
                   >🗑️
@@ -123,15 +124,15 @@ const ShoppingCart = () => {
             {/* Information related to cart */}
             <div className="bg-white p-4 rounded-lg border shadow-sm space-y-3">
               <div className="flex justify-between">
-                <h2>Alkuperäinen hinta</h2>
+                <h2>{finnish ? 'Alkuperäinen hinta' : 'Original cost'}</h2>
                 <p>995,95€</p>
               </div>
               <div className="flex justify-between">
-                <h2>Säästösi</h2>
+                <h2>{finnish ? 'Alennukset' : 'Discounts'}</h2>
                 <p>-222,95€</p>
               </div>
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
-                <h3>Kokonaishinta</h3>
+                <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
                 <p>773.00€</p>
               </div>
             </div>
@@ -143,15 +144,15 @@ const ShoppingCart = () => {
                   className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-lg"
                   to="#"
                 >
-                  Kassalle
+                  {finnish ? 'Kassalle' : 'Checkout'}
                 </Link>
               </div>
               <div>
                 <Link
                   className="block text-center text-sm text-gray-700 underline hover:no-underline"
-                  to="#"
+                  to="/"
                 >
-                  Jatka ostoksia
+                  {finnish ? 'Jatka ostoksia' : 'Continue shopping'}
                 </Link>
               </div>
             </div>
