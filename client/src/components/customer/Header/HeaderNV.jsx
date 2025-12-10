@@ -1,7 +1,9 @@
 //Consider moving content of <header> here, then import this into Layout
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState, useRef, useContext} from 'react';
 import {Link, useNavigate, useLocation} from 'react-router';
-import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
+import {useLanguageContext, useShoppingCartContext, useUserContext} from '../../../hooks/contextHooks.js';
+import { ShoppingCartContext } from '../../../contexts/ShoppingCartContext.jsx';
+
 
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
@@ -12,6 +14,21 @@ const HeaderNV = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const {user, handleLogout} = useUserContext();
   const {finnish ,handleLanguageToggle} = useLanguageContext();
+  const { cart } = useContext(ShoppingCartContext);
+
+  /**
+   * 
+   * 
+
+  
+  /**
+   * Iterates over the array
+   * 
+   * 
+   * result: single value
+   */
+  const cartItemCount = cart.reservations.length || 0 + cart.gift_cards.reduce((acc, currentGiftCard) => acc + currentGiftCard.quantity, 0) || 0
+
 
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -114,6 +131,13 @@ const HeaderNV = () => {
                         d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                       />
                     </svg>
+                    {/* Red Notification on shoppingcart when items in cart */}
+                    {cartItemCount > 0 && (
+                    <span 
+                        className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs text-white font-bold leading-none bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2"
+                    >!
+                    </span>
+                    )}
                   </button>
                 </Link>
               </div>
