@@ -11,7 +11,13 @@ import {
   findReservationsByDate,
 } from "../models/reservation-model.js";
 
-/**n * @api {get} /reservations Get all reservationsn * @apiName GetReservationsn * @apiGroup Reservationn *n * @apiHeader {String} Authorization Bearer token (admin)n * @apiDescription Returns an array of all reservations. This endpoint is protected
+/**
+ * @api {get} /reservations Get all reservations
+ * @apiName GetReservations
+ * @apiGroup Reservation
+ *
+ * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiDescription Returns an array of all reservations. This endpoint is protected
  * and the router applies `authenticateToken` and `userIsAdmin` middleware. Each
  * reservation object contains `id`, `user`, `order`, `date`, `table_customer_count`,
  * `grill_customer_count`, and `message`.
