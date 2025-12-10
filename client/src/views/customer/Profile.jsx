@@ -18,6 +18,13 @@ const Profile = () => {
   const { getUserByToken } = useUser();
   const [user, setUser] = useState(null);
 
+  //Set server URL
+  let SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+    SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
+  }
+  const userImages = SERVER_URL+'/images/users/'
+
   console.log("PROFILE RENDER");
   useEffect(() => {
     console.log("USE EFFECT RUN");
@@ -54,7 +61,7 @@ const Profile = () => {
                 <div className="flex items-center gap-4 pb-2 border-b">
                   <button onClick={() => setDisplayAvatarModal(true)}>
                     <img
-                      src="https://placehold.co/50x50"
+                      src={user ? userImages+user.image : userImages+'placeholder.jpg' }
                       alt="User profile"
                       className="rounded-full "
                     />

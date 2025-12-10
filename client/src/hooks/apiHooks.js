@@ -1,9 +1,17 @@
 import {useUserContext} from './contextHooks';
 
-const AUTH_API2 = import.meta.env.VITE_CUSTOM_AUTH_API;
 //TODO instead of hardcoding them
-const AUTH_API = import.meta.env.VITE_CUSTOM_AUTH_API;
-const MEDIA_API = import.meta.env.VITE_MEDIA_API;
+
+
+
+//Set server URL
+let SERVER_URL = import.meta.env.VITE_SERVER_URL;
+let API_URL = import.meta.env.VITE_API_URL;
+if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+  SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
+  API_URL = import.meta.env.VITE_API_URL_LOCAL;
+}
+
 
 const fetchData = async (url, options = {}) => {
   const response = await fetch(url, options);
@@ -29,7 +37,7 @@ const useAuthentication = () => {
       body: JSON.stringify(inputs),
     };
 
-    const loginResult = await fetchData(AUTH_API + '/auth/login', fetchOptions);
+    const loginResult = await fetchData(SERVER_URL + '/api/auth/login', fetchOptions);
     return loginResult;
   };
 
@@ -44,14 +52,14 @@ const useAuthentication = () => {
         body: JSON.stringify(inputs),
       };
 
-      const registerResult = await fetchData(AUTH_API + '/users', fetchOptions);
+      const registerResult = await fetchData(API_URL + '/users', fetchOptions);
       return registerResult;
     } catch (error) {
       console.log('Error in postRegister: ', error);
     }
   };
 
-  
+
 
   return {postLogin, postRegister};
 };
@@ -66,7 +74,7 @@ const useUser = () => {
         },
       };
 
-      const tokenResult = await fetchData(AUTH_API + '/auth/validate', fetchOptions);
+      const tokenResult = await fetchData(API_URL + '/auth/validate', fetchOptions);
       return tokenResult;
     }
     catch (error) {
@@ -102,7 +110,7 @@ const useCurrentUser = () => {
 
       //How tf am I getting the id.. 0.10am thoughts
       const modifyUserInfoResult = await fetchData(
-        AUTH_API + `/users/${user.id}`,
+        API_URL + `/users/${user.id}`,
         fetchOptions,
       );
       return modifyUserInfoResult;
@@ -116,21 +124,22 @@ const useCurrentUser = () => {
     try {
       console.log(file);
 
-      const payload = {
-        image: file,
-      };
+      //create FormData object
+      const formData = new FormData();
+
+      //add file to FormData
+      formData.append("file", file, file.name);
 
       const fetchOptions = {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(payload),
+        body: formData
       };
 
       const modifyUserAvatarResult = await fetchData(
-        MEDIA_API + `/users`,
+        API_URL + `/users/`+user.id,
         fetchOptions,
       );
       return modifyUserAvatarResult;

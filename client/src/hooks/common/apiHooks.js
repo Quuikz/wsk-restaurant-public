@@ -1,6 +1,10 @@
 import fetchData from '../../utils/fetchData';
 
-const API_URL = import.meta.env.VITE_CUSTOM_AUTH_API;
+//Set server URL
+let API_URL = import.meta.env.VITE_API_URL;
+if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+  API_URL = import.meta.env.VITE_API_URL_LOCAL;
+}
 
 const useMealCommon = () => {
   const getAllMeals = async () => {
@@ -203,7 +207,7 @@ const useReservationCommon = () => {
 };
 
 const useGiftcardsCommon = () => {
-    
+
     const postGiftCard = async (data, token) => {
         const fetchOptions = {
             method: 'POST',

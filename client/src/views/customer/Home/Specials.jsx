@@ -4,11 +4,10 @@ import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
 import {useLanguageContext} from "../../../hooks/contextHooks.js";
 
 //Set server URL
-let server_url = import.meta.env.VITE_SERVER_URL;
+let SERVER_URL = import.meta.env.VITE_SERVER_URL;
 if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
-  server_url = import.meta.env.VITE_SERVER_URL_LOCAL;
+  SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
 }
-console.log("server_url in Specials: ", server_url);
 
 const Specials = () => {
   // Get today's date in YYYY-MM-DD format
@@ -68,7 +67,7 @@ const Specials = () => {
         {meals.map((meal) => (
           <div key={meal.id}>
             <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-              <img src={server_url+'/images/meals/'+meal.image} alt={finnish ? "Spesiaali ruoka tänään" : "Special meal today"} />
+              <img src={SERVER_URL+'/images/meals/'+meal.image} alt={finnish ? "Spesiaali ruoka tänään" : "Special meal today"} />
               <div className="px-6">
                 <h2 className="text-2xl  mt-2 text-center">{finnish ? meal.name_fi : meal.name_en}</h2>
                 <p className="mt-1 font-bold">

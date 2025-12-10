@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
 import fetchData from "../../utils/fetchData";
 
-const API_URL = import.meta.env.VITE_CUSTOM_AUTH_API;
+//Set API URL
+let API_URL = import.meta.env.VITE_API_URL;
+if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+  API_URL = import.meta.env.VITE_API_URL_LOCAL;
+}
 
 
 //TODO: common apiHooks.js for some GET requests ?
@@ -109,7 +113,7 @@ const useMeal = () => {
     }
 
 
-    
+
 
 
     return { postNewMeal, updateMealInfo, deleteMeal }
@@ -269,7 +273,7 @@ const useReservations = () => {
         return getReservationsByIDListResult;
     }
 
-    
+
 
 
 
