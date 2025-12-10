@@ -48,44 +48,77 @@ const OrderingTime = ({
 }) => {
   const [timeMenuOpen, setTimeMenuOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
+  const [timeAvailability, setTimeAvailability] = useState({});
   const {getReservationOnDateTime} = useReservationCommon();
   const menuRef = useRef(null);
   const {finnish} = useLanguageContext();
 
-  // Additional check for reserved times
+  // Check available times for given date
+  const isTimeAvailableForDate = (reservationDate) => {
+    //console.log('CHECKING AVAILABILITY FOR: ', dateTime);
+    if (!reservationDate) return true;
 
-  const isTimeAvailableForDate = async (reservationDate, reservationTime) => {
-    /*
-    console.log(
-      'Loading reserved times for: ',
-      reservationDate,
-      reservationTime,
-    );
-    */
-    if (!reservationDate || !reservationTime) return;
+    const [year, month, day] = reservationDate.split('-').map(Number);
+    const d = new Date(year, month - 1, day);
+    const weekday = d.getDay();
 
-    const dateTime = reservationDate + ' ' + reservationTime + ':00';
+    // Sunday -> closed
+    if (weekday === 0) return false;
+
+    return true;
+  };
+
+  // Check availability for a single time
+  const checkTimeAvailability = async (date, time) => {
+    const dateTime = date + ' ' + time + ':00';
+
+    const [year, month, day] = reservationDate.split('-').map(Number);
+    const d = new Date(year, month - 1, day);
+    const weekday = d.getDay();
+    //console.log(dateTime);
     try {
       const token = localStorage.getItem('token');
       const data = await getReservationOnDateTime(token, dateTime);
+      //console.log(data);
 
-      console.log('RESERVED COUNT: ', data);
-
-      if (data > 5) {
+      // Saturday -> closed
+      if (
+        (weekday === 6 && time === '17:00') ||
+        (weekday === 6 && time === '8:00')
+      ) {
         return false;
-      } else {
-        return true;
       }
+      return data <= 5; // Set limit for reservations
     } catch (error) {
-      console.log('Error loading reserved times: ', error);
+      console.log('Error checking time availability:', error);
       return true;
     }
   };
+
+  // Load availability for all times when date changes
+  useEffect(() => {
+    const loadAllTimeAvailability = async () => {
+      const availability = {};
+      for (const time of TIMES) {
+        availability[time] = await checkTimeAvailability(reservationDate, time);
+      }
+      setTimeAvailability(availability);
+    };
+
+    if (reservationDate) {
+      loadAllTimeAvailability();
+    }
+  }, [reservationDate]);
 
   // Memoized available times for the selected date
   const hasAvailableTimes = useMemo(() => {
     return TIMES.some((t) => isTimeAvailableForDate(reservationDate, t));
   }, [reservationDate]);
+
+  const handleButtonToggle = () => {
+    if (!hasAvailableTimes) return;
+    setTimeMenuOpen((prev) => !prev);
+  };
 
   //console.log('RESERVED TIMES: ', reservedTimes);
 
@@ -103,18 +136,6 @@ const OrderingTime = ({
   useEffect(() => {
     setSelectedTime(reservationTime);
   }, [reservationTime]);
-
-  // Invalidate selected time if not available for the date
-  //useEffect(() => {
-  //  if (selectedTime && !availableTimes.includes(selectedTime)) {
-  //    setSelectedTime(null);
-  //  }
-  //}, [reservationDate, availableTimes, selectedTime]);
-
-  const handleButtonToggle = () => {
-    if (!hasAvailableTimes) return;
-    setTimeMenuOpen((prev) => !prev);
-  };
 
   return (
     <div className="relative flex flex-col items-center" ref={menuRef}>
@@ -149,8 +170,8 @@ const OrderingTime = ({
         >
           {/* Time selection menu items */}
           {TIMES.map((t) => {
-            const isAvailable = isTimeAvailableForDate(reservationDate, t);
-            console.log('TIME ', t, ' AVAILABLE: ', isAvailable);
+            const isAvailable = timeAvailability[t] !== false;
+            //console.log('TIME ', t, ' AVAILABLE: ', isAvailable);
             return (
               <button
                 key={t}
