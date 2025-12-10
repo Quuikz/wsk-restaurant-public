@@ -200,8 +200,25 @@ const useReservationCommon = () => {
 
     return { postNewReservation, getReservationOnDateTime }
 
-
-
 };
 
-export {useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon};
+const useGiftcardsCommon = () => {
+    
+    const postGiftCard = async (data, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        };
+
+        const postGiftCardResult = await fetchData(API_URL + '/giftcards', fetchOptions);
+        return postGiftCardResult;
+    }
+
+    return { postGiftCard }
+}
+
+export {useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon};

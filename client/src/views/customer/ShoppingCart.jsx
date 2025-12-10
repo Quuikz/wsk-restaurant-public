@@ -72,7 +72,7 @@ const ShoppingCart = () => {
 
             {cart.gift_cards.map((giftCard, i) => (
               <div
-                key={`reservation-${i}`}
+                key={`giftcard-${i}`}
                 className="flex items-start justify-between p-4 bg-white rounded-lg shadow border border-gray-200"
               >
                 {/* Item - left: img + name, price, amount */}
