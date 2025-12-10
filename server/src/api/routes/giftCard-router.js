@@ -19,6 +19,7 @@ import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 import filterByUserIdOrAdmin from "../../middlewares/filterByUserIdOrAdmin.js";
 import formatParamTypes from "../../middlewares/formatParamTypes.js";
+import filterIfPurchase from "../../middlewares/filterIfPurchase.js";
 
 const giftCardRouter = express.Router();
 
@@ -27,7 +28,8 @@ giftCardRouter.get("/", authenticateToken, userIsAdmin, getGiftCards);
 giftCardRouter.post(
   "/",
   authenticateToken,
-  userIsAdmin,
+  // userIsAdmin,
+  filterIfPurchase,
   formatBodyTypes,
   postGiftCard
 );

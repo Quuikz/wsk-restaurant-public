@@ -4,40 +4,40 @@ GET http://localhost:3000/api/menus/
 ### post new menu without image
 POST http://localhost:3000/api/menus/
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTE3NDkzNiwiZXhwIjoxNzY1MjYxMzM2fQ.54PX88Tt0p54w2cjN-2Y6HslSKpqcoRcFG4iPoPVaUw
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTM4MzEwOSwiZXhwIjoxNzY1NDY5NTA5fQ.KDy2tWkBnXWsfAVugGXW3SR0b46a3rUt6l5p3-bA1A4
 
 {
   "id" : 0,
   "date" : "2025-12-06",
-  "week": 12,
-  "special_meal": 12,
-  "meals" : [1,2,3],
+  "week": 14,
+
+  "meals" : [],
   "image": "placeholder.jpg",
   "message": "default menu. meals array contains meal.id values. date format: YYYY-MM-DD"
 }
 
 ### get menu by id
-GET http://localhost:3000/api/menus/1
+GET http://localhost:3000/api/menus/22
 
 ### update menu by id
 ## this will change image name !! remove "image" to not change it
-PUT http://localhost:3000/api/menus/46
+PUT http://localhost:3000/api/menus/19
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTgsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJhZG1pbiIsImVtYWlsIjoiZGVmYXVsdCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTA3MDQwMCwiZXhwIjoxNzY1MTU2ODAwfQ.nWMZfsdH8CI6wsXofSEMWSeX0zjRhi2YxEUs6PTQLc0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTM4MzEwOSwiZXhwIjoxNzY1NDY5NTA5fQ.KDy2tWkBnXWsfAVugGXW3SR0b46a3rUt6l5p3-bA1A4
 
 {
-  "id" : 46,
+  "id" : 22,
   "date" : "2025-12-06",
   "week": 13,
   "special_meal": 1,
-  "meals" : [1,2,3],
+  "meals" : [],
   "image": "placeholder.jpg",
   "message": "default menu. meals array contains meal.id values. date format: YYYY-MM-DD"
 }
 
 ### delete menu by id
-DELETE http://localhost:3000/api/menus/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY3ODQ2MCwiZXhwIjoxNzY0NzY0ODYwfQ.Jg8xI2r2r94mGstp43yazUNZHRTCuLeAgG40LLxMGjo
+DELETE http://localhost:3000/api/menus/22
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTM4MzEwOSwiZXhwIjoxNzY1NDY5NTA5fQ.KDy2tWkBnXWsfAVugGXW3SR0b46a3rUt6l5p3-bA1A4
 
 ### get menu by date
 GET http://localhost:3000/api/menus/date/2025-12-06

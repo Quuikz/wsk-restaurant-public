@@ -94,7 +94,7 @@ const postOrder = async (req, res) => {
 
     const result = await addOrder(req.body);
     if (result) {
-      console.log("added order: " + result);
+      console.log("added order: ", result);
       return res.json(result);
     } else {
       return res.sendStatus(404);
@@ -126,24 +126,61 @@ const postOrder = async (req, res) => {
  * @apiError 500 Internal server error
  */
 const putOrder = async (req, res) => {
-  try {
-    console.log("putOrder in order-controller");
-    console.log("user authenticated:" + res.locals.user);
-    console.log(req.body);
-    console.log(req.params.id);
+    try {
+        console.log("putOrder in order-controller");
+        console.log("user authenticated:" + res.locals.user);
+        console.log(req.body);
+        console.log(req.params.id);
 
-    const result = await modifyOrder(req.body, req.params.id, res.locals.user);
-    if (result) {
-      console.log("return order: " + result);
-      return res.json(result);
-    } else {
-      return res.sendStatus(404);
+        //check for id mismatch
+        if ((req.params.id && req.body.id) && (req.params?.id !== req.body?.id)) {
+            console.log(req.params.id, req.body.id);
+            return res.status(400).send(`param.id !== body.id: ${req.params.id} ${req.body.id}`);
+        }
+
+        //get previous order
+        const previousOrder = await findOrderById(req.params.id);
+
+        //abort if not found
+        if (!previousOrder) {
+            return res.status(404).send(`No order found by id ${req.params.id}`);
+        }
+
+        //check for ownership. if user not admin, only allow edit reservations, and gift_cards
+        let updatedFields = {}
+        if (res.locals.user.role === "user" && res.locals.user.id === previousOrder.user) {
+            updatedFields = {
+                reservations: req.body.reservations,
+                gift_cards: req.body.gift_cards,
+                message: `order modified by user ${res.locals.user.username}`
+            };
+
+        } else if (res.locals.user.role === "admin") {
+            updatedFields = {...req.body, message: `order modified by admin ${res.locals.user.username}`};
+
+        } else {
+            return res.status(401).send('user not authorized for this order');
+        }
+
+        //previous order values overridden by new order
+        const updatedOrder = {
+            ...previousOrder,
+            ...updatedFields,
+        };
+
+        const result = await modifyOrder(updatedOrder, previousOrder.id);
+        if (result) {
+            console.log("return order: ", result);
+            return res.json(result);
+
+        } else {
+            return res.sendStatus(404);
+        }
+    } catch (error) {
+        console.log("error in putOrder in order-controller");
+        console.log(error);
+        return res.sendStatus(500);
     }
-  } catch (error) {
-    console.log("error in putOrder in order-controller");
-    console.log(error);
-    return res.sendStatus(500);
-  }
 };
 
 /**
@@ -199,7 +236,7 @@ const getOrdersByUserId = async (req, res) => {
     console.log(req.params.id);
     const orderArray = await findOrdersByUserId(req.params.id);
     if (orderArray) {
-      console.log("return orders for user " + req.params.id);
+      console.log("return orders for user ", req.params.id);
       return res.json(orderArray);
     } else {
       return res.sendStatus(404);
@@ -218,7 +255,7 @@ const getOrdersByLocation = async (req, res) => {
     console.log(req.params.id);
     const orderArray = await findOrdersByLocation(req.params.id);
     if (orderArray) {
-      console.log("return orders for location " + req.params.id);
+      console.log("return orders for location ", req.params.id);
       return res.json(orderArray);
     } else {
       return res.sendStatus(404);
