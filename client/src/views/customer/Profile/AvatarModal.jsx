@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {useUserContext} from '../../../hooks/contextHooks.js';
+import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
 import {useCurrentUser} from '../../../hooks/apiHooks.js';
 
 const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
@@ -10,6 +10,7 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
   //const { postLogin } = useAuthentication();
   const [file, setFile] = useState(null);
   const {user} = useUserContext();
+  const {finnish} = useLanguageContext();
   const {modifyUserAvatar} = useCurrentUser();
 
   const doModifyUserAvatar = async () => {
@@ -46,7 +47,7 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
             {/* Modal header */}
             <div className="flex items-center justify-between border-b pb-4 ">
               <h3 className="text-lg font-semibold pt-4 absolute left-1/2 transform -translate-x-1/2">
-                Vaihda profiilikuvaa
+                {finnish ? 'Vaihda profiilikuva' : 'Change profile picture'}
               </h3>
               <button
                 type="button"
@@ -58,14 +59,14 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ Tietosi ovat turvassa.</p>
+            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your information is secure.'}</p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - profile picture */}
               <img
                 src={
                   file
                     ? URL.createObjectURL(file)
-                    : user.image || 'https://placehold.co/200?text=Valitse+kuva'
+                    : user.image || 'https://placehold.co/200?text='+(finnish ? 'Valitse+kuva' : 'Select+picture')
                 }
                 alt="preview"
                 className="w-30 h-30 object-cover rounded-full mb-2 mx-auto"
@@ -75,7 +76,7 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
                   htmlFor="file"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Valitse uusi kuva
+                  {finnish ? 'Valitse uusi kuva' : 'Select new picture'}
                 </label>
                 <input
                   name="profilePicture"
@@ -90,20 +91,20 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
                 type="submit"
                 className="cursor-pointer w-full mb-3  bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
               >
-                Vaihda kuva
+                {finnish ? 'Vaihda kuva' : 'Change picture'}
               </button>
             </form>
 
             <div className="text-center">
               <h2 className="text-lg font-medium">
-                | Haluatko muokata profiilia? |
+                | {finnish ? 'Haluatko muokata profiilia?' : 'Want to change profile?'} |
               </h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"
                 onClick={onOpenEdit}
               >
-                Muokkaa profiilia
+                {finnish ? 'Muokkaa profiilia' : 'Edit profile'}
               </button>
             </div>
           </div>

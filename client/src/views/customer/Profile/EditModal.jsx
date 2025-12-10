@@ -2,12 +2,13 @@ import React from 'react';
 import useForm from '../../../hooks/formHooks.js';
 //import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
 import {useCurrentUser} from '../../../hooks/apiHooks.js';
-import { useUserContext } from '../../../hooks/contextHooks.js';
+import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
 
 const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
   const { user } = useUserContext();
+  const {finnish} = useLanguageContext();
   const { modifyUserInfo } = useCurrentUser();
-  
+
   if (!isOpen || !user) {
     return null;
   }
@@ -47,7 +48,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
             {/* Modal header */}
             <div className="flex items-center justify-between border-b pb-4 ">
               <h3 className="text-lg font-semibold pt-4 absolute left-1/2 transform -translate-x-1/2">
-                Muokkaa profiilia
+                {finnish ? 'Muokkaa Profiilia' : 'Edit Profile'}
               </h3>
               <button
                 type="button"
@@ -59,7 +60,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ Tietosi ovat turvassa.</p>
+            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your information is secure.'}</p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
@@ -67,7 +68,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   htmlFor="registeruser"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Muokkaa käyttäjätunnusta
+                  {finnish ? 'Muokkaa käyttäjätunnusta' : 'Edit username'}
                 </label>
                 <input
                   name="username"
@@ -76,7 +77,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   onChange={handleInputChange}
                   autoComplete="username"
                   value={inputs.username}
-                  className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                  className="rounded-lg bg-neutral-secondary-medium border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 />
               </div>
 
@@ -86,7 +87,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   htmlFor="registeremail"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Muokkaa sähköpostia
+                  {finnish ? 'Muokkaa sähköpostia' : 'Edit email'}
                 </label>
                 <input
                   name="email"
@@ -95,29 +96,29 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                   onChange={handleInputChange}
                   autoComplete="email"
                   value={inputs.email}
-                  className="rounded-lg bg-neutral-secondary-medium border border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
+                  className="rounded-lg bg-neutral-secondary-medium border-2 text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
                 />
               </div>
-              
+
 
               <button
                 type="submit"
                 className="cursor-pointer w-full mb-3  bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
               >
-                Muokkaa
+                {finnish ? 'Muokkaa' : 'Edit'}
               </button>
             </form>
 
             <div className="text-center">
               <h2 className="text-lg font-medium">
-                | Haluatko vaihtaa profiilikuvaa? |
+                | {finnish ? 'Haluatko vaihtaa profiilikuvan?' : 'Want to change profile picture?'} |
               </h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"
                 onClick={onOpenAvatar}
               >
-                Vaihda profiilikuvaa
+                {finnish ? 'Vaihda profiilikuva' : 'Change profile picture'}
               </button>
             </div>
           </div>

@@ -42,7 +42,7 @@ const Profile = () => {
       <div className="max-w-7xl mx-auto">
         {/* Profile title */}
         <div className="text-center w-full bg-orange-50 pt-20">
-          <h2 className="text-3xl font-medium">| Profiili |</h2>
+          <h2 className="text-3xl font-medium">| {finnish ? 'Profiili' : 'Profile'} |</h2>
           <p className="mt-2 "></p> {finnish ? 'Tarkista tiedot ja muokkaa halutessa!' : 'Check and change your info!'}
         </div>
 
@@ -65,13 +65,13 @@ const Profile = () => {
 
               {user ? (
                 <div>
-                <p className="pt-3">Nimi: {user.username}</p>
-                <p className="pt-1">Sähköposti: {user.email}</p>
-                <p className="pt-1">Käyttäjän ID: {user.id}</p>
+                <p className="pt-3">{finnish ? 'Nimi:' : 'Name:'} {user.username}</p>
+                <p className="pt-1">{finnish ? 'Sähköposti:' : 'Email:'} {user.email}</p>
+                <p className="pt-1">{finnish ? 'Käyttäjän ID:' : 'User ID:'} {user.id}</p>
                 </div>
               ) : (
                 <div className="max-w-7xl mx-auto text-center pt-20">
-                  <h2 className="text-2xl font-medium">Ladataan profiilia...</h2>
+                  <h2 className="text-2xl font-medium">{finnish ? 'Ladataan profiilia...' : 'Loading profile...'}</h2>
                 </div>
               )}
 
@@ -81,13 +81,13 @@ const Profile = () => {
                     className="mt-4 text-sm text-black bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"
                     onClick={() => setDisplayEditModal(true)}
                   >
-                    Muokkaa profiilia
+                    {finnish ? 'Muokkaa profiilia' : 'Edit profile'}
                   </button>
                   <button
                     className="mt-4 text-sm text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"
                     onClick={() => null}
                   >
-                    Kirjaudu ulos
+                    {finnish ? 'Kirjaudu ulos' : 'Logout'}
                   </button>
                 </div>
               </div>
@@ -95,7 +95,7 @@ const Profile = () => {
               {/* Purchase history */}
               <div className="col-span-2 flex flex-col  border-l pl-4">
                 <div className="flex items-center gap-4 pb-4 border-b mt-3">
-                  <h2 className="text-2xl font-medium">Ostoshistoria</h2>
+                  <h2 className="text-2xl font-medium">{finnish ? 'Ostoshistoria' : 'Purchase history'}</h2>
                 </div>
                 <div className="overflow-y-auto h-64 border">
                   <table className="min-w-full table-auto">
