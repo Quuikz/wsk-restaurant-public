@@ -1,13 +1,103 @@
 import { useContext } from 'react';
 import {Link} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
-import {useLanguageContext} from "../../hooks/contextHooks.js";
+import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
+import { useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
 
 const ShoppingCart = () => {
 
 
   const { cart, clearCart, removeReservationFromCart, incrementGiftCard, decrementGiftCard, removeGiftCardFromCart } = useContext(ShoppingCartContext);
   const { finnish } = useLanguageContext();
+
+  const { postOrder } = useOrderCommon();
+  const { postNewReservation} = useReservationCommon();
+  const { postGiftCard } = useGiftcardsCommon();
+  const {user} = useUserContext();
+
+  //Collection of IDs for POST reservations+giftcards
+  
+  const sendOrder = async () => {
+    //TODO: consider useState..
+    const reservationIDs = [];
+    const giftCardIDs = [];
+
+
+    //POST reservation
+    for(const reservation of cart.reservations){
+      try{
+        const reservationResult = await postNewReservation({
+          user: user.id,
+          date: reservation.date,
+          table_customer_count: reservation.table_customer_count,
+          grill_customer_count: reservation.grill_customer_count,
+        }, token);
+        reservationIDs.push(reservationResult.id);
+      }
+      catch(error){
+        console.log('Error in ShoppingCart: POST Reservation: ', error);
+      }
+    }
+
+
+    //POST gift card
+    for(const giftCard of cart.gift_cards){
+      for(let i=0; i<giftCard.quantity; i++){
+        try{
+          const giftCardResult = await postGiftCard({
+            user: user.id,
+            value: giftCard.value,
+            expiration_date: giftCard.expiration_date,
+            password: '',
+          }, token);
+          giftCardIDs.push(giftCardResult.id);
+        }
+        catch(error){
+          console.log('Error in ShoppingCart: POST Giftcard: ', error);
+        } 
+      }
+    }
+
+
+    //POST order
+    const orderData = {
+      user: user.id,
+      cost: 10,
+      timestamp:' 2024-10-12',
+      reservations: reservationIDs,
+      gift_cards: giftCardIDs
+    };
+
+    try{
+      const orderResult = await postOrder(orderData, token);
+      return orderResult;
+    }
+    catch(error){
+      console.log('Error in ShoppingCart: POST order: ', error);
+    }
+
+  }
+
+
+
+  const handleCheckout = async () => {
+    const token = localStorage.getItem('token');
+
+    try{
+      const result = await sendOrder(cart, user, token);
+      console.log(result);
+      console.log('handleCheckout: order successfull');
+
+      clearCart();
+
+    }
+    catch(error){
+      console.log('Error in handleCheckout: ', error);
+    }
+
+  }
+  
+
 
 
 
@@ -140,12 +230,12 @@ const ShoppingCart = () => {
             {/* Payment */}
             <div className="space-y-2">
               <div>
-                <Link
+                <button
                   className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-lg"
-                  to="#"
+                  onClick={handleCheckout}
                 >
                   {finnish ? 'Kassalle' : 'Checkout'}
-                </Link>
+                </button>
               </div>
               <div>
                 <Link

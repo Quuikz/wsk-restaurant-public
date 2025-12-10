@@ -21,7 +21,7 @@ const ShoppingHistory = () => {
         const token = localStorage.getItem('token');
         console.log('USER ID:', user?.id);
         try{
-
+            //todo get userid
             const data = await getOrdersByUserID(token, 1);
             console.log(data);
             //setShoppingHistories(result);
