@@ -1,8 +1,9 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
 import { useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
+import { useUser } from '../../hooks/apiHooks.js';
 
 const ShoppingCart = () => {
 
@@ -14,7 +15,10 @@ const ShoppingCart = () => {
   const { postOrder, updateOrder } = useOrderCommon();
   const { postNewReservation} = useReservationCommon();
   const { postGiftCard } = useGiftcardsCommon();
-  const {user} = useUserContext();
+  //const {user} = useUserContext();
+
+  const { getUserByToken } = useUser();
+  const [user, setUser] = useState(null);
 
   const getCurrentTimestamp = () => {
     const date = new Date();
@@ -29,19 +33,43 @@ const ShoppingCart = () => {
   }
 
 
+  const getUserData = async () => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      console.log('No token found');
+      return;
+    }
+    try{
+      const userData = await getUserByToken(token);
+      setUser(userData.user);
+    }
+    catch(error){
+      console.log('Error while fetching userData: ', error);
+    }
+  }
+
+  useEffect(() => {
+    getUserData();
+  }, []);
+
+
 
   
   const sendOrder = async (cart, user, token) => {
     const reservationIDs = [];
     const giftCardIDs = [];
 
+    console.log('User before posting:', user);
+    console.log('User ID:', user?.id);
+
 
     let orderID = null;
+    
     //POST empty order (to get id)
     try{
       const emptyOrder = await postOrder({
         id: orderID,
-        user: 2,
+        user: user.id,
         cost: 10,
         timestamp: getCurrentTimestamp(),
       }, token);
@@ -57,13 +85,16 @@ const ShoppingCart = () => {
       console.log('Error in ShoppingCart: POST empty Order: ', error);
     }
     
-    
+    if (!user?.id || !orderID) {
+      console.log('Cannot send reservation, missing user or orderID', {user, orderID});
+      return;
+  }
 
     //POST reservation
     for(const reservation of cart.reservations){
       try{
         const reservationResult = await postNewReservation({
-          user: 2,
+          user: user.id,
           order: orderID,
           date: reservation.date,
           table_customer_count: reservation.table_customer_count,
@@ -82,7 +113,7 @@ const ShoppingCart = () => {
       for(let i=0; i<giftCard.quantity; i++){
         try{
           const giftCardResult = await postGiftCard({
-            user: 2,
+            user: user.id,
             order: orderID,
             value: giftCard.value,
             expiration_date: giftCard.expiration_date,
@@ -119,6 +150,11 @@ const ShoppingCart = () => {
 
   const handleCheckout = async () => {
     const token = localStorage.getItem('token');
+    if (!user) {
+      console.log('User not loaded yet!');
+      return;
+    }
+    
     if(!token){
       console.log('EI TOKENIA');
       return;
@@ -126,11 +162,11 @@ const ShoppingCart = () => {
 
     try{
       const result = await sendOrder(cart, user, token);
-      console.log(result);
-      console.log('handleCheckout: order successful');
+      
 
       navigate('/');
       clearCart();
+      return(result);
       
 
     }
@@ -274,8 +310,10 @@ const ShoppingCart = () => {
             {/* Payment */}
             <div className="space-y-2">
               <div>
+                {/*Disabled until user */}
                 <button
                   className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-lg"
+                  disabled={!user}
                   onClick={handleCheckout}
                 >
                   {finnish ? 'Kassalle' : 'Checkout'}

@@ -172,7 +172,7 @@ const useReservationCommon = () => {
         const fetchOptions = {
             method: 'POST',
             headers: {
-                //'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
@@ -208,7 +208,7 @@ const useGiftcardsCommon = () => {
         const fetchOptions = {
             method: 'POST',
             headers: {
-                //'Content-Type': 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(data)
