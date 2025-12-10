@@ -25,6 +25,10 @@ jobs:
           script: |
             # after login to server go to application folder
             cd ~/wsk-restaurant
+            # ensure we are on the main branch
+            git checkout main
+            # git fetch to see if there are any changes
+            git fetch
             # pull the changes from Github
             git pull origin main
             # to get the status and to check that everything is ok
