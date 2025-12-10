@@ -21,21 +21,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
 
 ### get order by id
 #use login with default user first, then copy token here
-GET http://localhost:3000/api/orders/3
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+GET http://localhost:3000/api/orders/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTM4MzEwOSwiZXhwIjoxNzY1NDY5NTA5fQ.KDy2tWkBnXWsfAVugGXW3SR0b46a3rUt6l5p3-bA1A4
 
 ### update order by id
-PUT http://localhost:3000/api/orders/1
+PUT http://localhost:3000/api/orders/18
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NDY2NjQ3OSwiZXhwIjoxNzY0NzUyODc5fQ.4UA-oa-6DBO53g1nSpbmX87HGQeCsxlISCbgocO-cXE
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTM4MzEwOSwiZXhwIjoxNzY1NDY5NTA5fQ.KDy2tWkBnXWsfAVugGXW3SR0b46a3rUt6l5p3-bA1A4
 
 {
-  "id" : 0,
+  "id" : 1,
   "user": 0,
   "cost": 10.5,
   "timestamp": "2025-12-06 12:00:00",
-  "reservations" : [ 1, 2, 3 ],
-  "gift_cards": [ 1 ],
+  "reservations" : [2],
+  "gift_cards": [],
   "message": "reservations = array of reservation id, gift_cards = array of card id"
 }
 
