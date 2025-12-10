@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import {  useOrders, useReservations, useGiftcards, } from "../../../hooks/admin/apiHooks";
-//import {  } from "../../../hooks/admin/apiHooks"; 
 
 import ViewOrderInfoModal from "../../../components/admin/OrderModals/ViewOrderInfoModal";
+import { useOrderCommon } from "../../../hooks/common/apiHooks";
 
 const Orders = () => {
 
     const { getAllOrders } = useOrders();
+    const { updateOrder } = useOrderCommon();
     const { getReservationsByIDList } = useReservations();
     const { getGiftcardsByIDList } = useGiftcards();
 
@@ -14,8 +15,8 @@ const Orders = () => {
 
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [showViewOrderModal, setShowViewOrderModal] = useState(false);
-    const [showModifyOrderModal, setShowModifyOrderModal] = useState(false);
-    const [showDeleteOrderModal, setShowDeleteOrderModal] = useState(false);
+    //const [showModifyOrderModal, setShowModifyOrderModal] = useState(false);
+    //const [showDeleteOrderModal, setShowDeleteOrderModal] = useState(false);
 
     useEffect(() => {
         const loadAllOrders = async () => {
@@ -58,8 +59,75 @@ const Orders = () => {
         setShowViewOrderModal(true);
     }
 
-    const handleModifyOrder = async (order) => {
-        console.log('Modifying the order id: ', order.id);
+    const handleAcceptOrder = async (order) => {
+        const token = localStorage.getItem('token');
+        console.log('Accepting the order id: ', order.id);
+
+        const acceptOrderData = {
+            deleted: 1
+        }
+
+        try{
+            const acceptOrderResult = await updateOrder(acceptOrderData, token, order.id);
+            
+
+            /**
+             * Creates a new array based on current orders
+             * Each order is processed,
+             * returns a new array, if the order's id matches the targeted order,
+             * new objected is returned with deleted set to 1.
+             * 
+             * New array triggers re-render as it replaces previous orders state.
+             */
+            setOrders((previousOrders) => 
+                previousOrders.map((o) => 
+                    o.id == order.id ? { ...o, deleted: 1 } : o
+                )
+            )
+
+            return acceptOrderResult;
+
+
+        }
+        catch(error){
+            console.log(`Error in accepting order (ID) ${order.id}: `, error)
+        }
+
+
+    }
+
+
+    const handleDeclineOrder = async (order) => {
+        const token = localStorage.getItem('token');
+        console.log('Rejecting the order id: ', order.id)
+
+        const acceptOrderData = {
+            deleted: 0
+        }
+
+        try{
+            const acceptOrderResult = await updateOrder(acceptOrderData, token, order.id);
+            
+            /**
+             * Creates a new array based on current orders
+             * Each order is processed,
+             * returns a new array, if the order's id matches the targeted order,
+             * new objected is returned with deleted set to 0.
+             * 
+             * New array triggers re-render as it replaces previous orders state.
+             */
+            setOrders((previousOrders) => 
+                previousOrders.map((o) => 
+                    o.id == order.id ? { ...o, deleted: 0 } : o
+                )
+            )
+            
+            
+            return acceptOrderResult;
+        }
+        catch(error){
+            console.log(`Error in accepting order (ID) ${order.id}: `, error)
+        }
     }
 
 
@@ -98,11 +166,11 @@ const Orders = () => {
                     </button>
                     <button
                         className="border rounded-xl border-black text-white bg-green-600 hover:bg-green-700"
-                        onClick={() => handleModifyOrder(order)}>Accept order
+                        onClick={() => handleAcceptOrder(order)}>Accept order
                     </button>
                     <button
                         className="border rounded-xl border-black text-white bg-red-600 hover:bg-red-700"
-                        onClick={() => handleModifyOrder(order)}>Reject order
+                        onClick={() => handleDeclineOrder(order)}>Reject order
                     </button>
 
                 </li>
