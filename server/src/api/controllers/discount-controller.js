@@ -13,10 +13,17 @@ import {
  * @apiName GetDiscounts
  * @apiGroup Discount
  *
- * @apiSuccess {Array} discounts Array of discount objects
- * @apiSuccess {Number} discounts.id Discount ID
- * @apiSuccess {String} discounts.code Discount code
+ * @apiDescription Returns an array of all discount objects stored in the system.
  *
+ * @apiSuccess {Object[]} discounts Array of discount objects
+ * @apiSuccess {Number} discounts.id Discount ID
+ * @apiSuccess {Number} discounts.discount Multiplier applied to original price (e.g. 0.9)
+ * @apiSuccess {String} discounts.discount_code Code that triggers the discount at checkout
+ * @apiSuccess {String} discounts.date_start Start date in YYYY-MM-DD format
+ * @apiSuccess {String} discounts.date_end End date in YYYY-MM-DD format
+ * @apiSuccess {String} discounts.message Optional description or note
+ *
+ * @apiError 400 Bad Request - Invalid request parameters
  * @apiError 500 Internal server error
  */
 const getDiscounts = async (req, res) => {
@@ -44,12 +51,18 @@ const getDiscounts = async (req, res) => {
  * @apiName GetDiscountById
  * @apiGroup Discount
  *
- * @apiParam {Number} id Discount ID
+ * @apiDescription Returns a single discount object matching the provided ID.
  *
- * @apiSuccess {Object} discount Discount object
- * @apiSuccess {Number} discount.id Discount ID
- * @apiSuccess {String} discount.code Discount code
+ * @apiParam (Path) {Number} id Discount ID
  *
+ * @apiSuccess {Number} id Discount ID
+ * @apiSuccess {Number} discount Multiplier applied to original price (e.g. 0.9)
+ * @apiSuccess {String} discount_code Code that triggers the discount at checkout
+ * @apiSuccess {String} date_start Start date in YYYY-MM-DD format
+ * @apiSuccess {String} date_end End date in YYYY-MM-DD format
+ * @apiSuccess {String} message Optional description or note
+ *
+ * @apiError 400 Bad Request - Invalid ID parameter
  * @apiError 404 Discount not found
  * @apiError 500 Internal server error
  */
@@ -76,17 +89,26 @@ const getDiscountById = async (req, res) => {
  * @apiName PostDiscount
  * @apiGroup Discount
  *
+ * @apiDescription Create a new discount. Requires admin authorization.
+ *
  * @apiHeader {String} Authorization Bearer token (admin)
+ *
  * @apiBody {Number} discount Multiplier for discount (e.g. 0.9 for 10% off)
  * @apiBody {String} discount_code Discount code used at checkout
  * @apiBody {String} date_start Start date in YYYY-MM-DD format
  * @apiBody {String} date_end End date in YYYY-MM-DD format
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} discount Created discount object
- * @apiSuccess {Number} discount.id Discount ID
+ * @apiSuccess (201) {Number} id ID of created discount
+ * @apiSuccess {Number} discount Multiplier applied to original price (e.g. 0.9)
+ * @apiSuccess {String} discount_code Discount code
+ * @apiSuccess {String} date_start Start date
+ * @apiSuccess {String} date_end End date
+ * @apiSuccess {String} message Description set on the discount
  *
- * @apiError 404 Failed to create discount
+ * @apiError 400 Bad Request - Invalid request body or missing required fields
+ * @apiError 401 Unauthorized - Missing or invalid authentication token
+ * @apiError 403 Forbidden - Insufficient permissions (admin required)
  * @apiError 500 Internal server error
  */
 const postDiscount = async (req, res) => {
@@ -96,10 +118,10 @@ const postDiscount = async (req, res) => {
 
     const result = await addDiscount(req.body);
     if (result) {
-      console.log("added discount: " + result);
-      return res.json(result);
+      console.log("added discount:", result);
+      return res.status(201).json(result);
     } else {
-      return res.sendStatus(404);
+      return res.status(400).send("Failed to create discount");
     }
   } catch (error) {
     console.log("error in postDiscount in discount-controller");
@@ -113,16 +135,27 @@ const postDiscount = async (req, res) => {
  * @apiName PutDiscount
  * @apiGroup Discount
  *
+ * @apiDescription Update fields of an existing discount. Requires admin authorization.
+ *
  * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Discount ID
+ * @apiParam (Path) {Number} id Discount ID
+ *
  * @apiBody {Number} [discount] Multiplier for discount (e.g. 0.9 for 10% off)
  * @apiBody {String} [discount_code] Discount code used at checkout
  * @apiBody {String} [date_start] Start date in YYYY-MM-DD format
  * @apiBody {String} [date_end] End date in YYYY-MM-DD format
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} discount Updated discount object
+ * @apiSuccess {Number} id Discount ID
+ * @apiSuccess {Number} discount Multiplier applied to original price
+ * @apiSuccess {String} discount_code Discount code
+ * @apiSuccess {String} date_start Start date
+ * @apiSuccess {String} date_end End date
+ * @apiSuccess {String} message Description or note
  *
+ * @apiError 400 Bad Request - Invalid ID or request body
+ * @apiError 401 Unauthorized - Missing or invalid authentication token
+ * @apiError 403 Forbidden - Insufficient permissions (admin required)
  * @apiError 404 Discount not found
  * @apiError 500 Internal server error
  */
@@ -151,11 +184,17 @@ const putDiscount = async (req, res) => {
  * @apiName DeleteDiscount
  * @apiGroup Discount
  *
+ * @apiDescription Remove a discount by ID. Requires admin authorization.
+ *
  * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Discount ID
+ * @apiParam (Path) {Number} id Discount ID
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess {Boolean} success true when delete succeeds
+ * @apiSuccess {String} [message] Optional text message (may be implementation-dependent)
  *
+ * @apiError 400 Bad Request - Invalid ID parameter
+ * @apiError 401 Unauthorized - Missing or invalid authentication token
+ * @apiError 403 Forbidden - Insufficient permissions (admin required)
  * @apiError 404 Discount not found
  * @apiError 500 Internal server error
  */
@@ -165,10 +204,10 @@ const deleteDiscount = async (req, res) => {
     console.log(req.params.id);
     console.log("user authenticated:" + res.locals.user);
 
-    const message = await removeDiscount(req.params.id, res.locals.user);
-    if (message) {
-      console.log(message);
-      return res.status(200).send(message);
+    const removed = await removeDiscount(req.params.id);
+    if (removed) {
+      console.log('discount removed');
+      return res.status(200).json({ success: true, message: 'Discount removed' });
     } else {
       console.log("deleteDiscount: discount not found");
       return res.sendStatus(404);
@@ -184,14 +223,21 @@ const deleteDiscount = async (req, res) => {
  * @api {post} /discounts/list/id Get discount list by IDs
  * @apiName GetDiscountList
  * @apiGroup Discount
- * @apiDescription Takes an array of discount IDs and returns corresponding discount objects
+ * @apiDescription Takes an array of discount IDs and returns corresponding discount objects.
  *
  * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number[]} discounts Array of discount IDs
  *
- * @apiSuccess {Array} discounts Array of discount objects
+ * @apiSuccess {Object[]} discounts Array of discount objects
+ * @apiSuccess {Number} discounts.id Discount ID
+ * @apiSuccess {Number} discounts.discount Multiplier applied to original price
+ * @apiSuccess {String} discounts.discount_code Discount code
+ * @apiSuccess {String} discounts.date_start Start date
+ * @apiSuccess {String} discounts.date_end End date
+ * @apiSuccess {String} discounts.message Optional description
  *
- * @apiError 404 No ID array in request
+ * @apiError 400 Bad Request - No ID array or invalid body in request
+ * @apiError 401 Unauthorized - Missing or invalid authentication token
  * @apiError 500 Internal server error
  */
 const getDiscountList = async (req, res) => {

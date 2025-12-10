@@ -12,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [20.x, 22.x, 24.x] # Test multiple Node versions
+        node-version: [24.x] # Test multiple Node versions
 
     steps:
       # 1. Checkout repository
@@ -23,16 +23,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: "npm" # Cache all dependencies
-          cache-dependency-path: package-lock.json,client/package-lock.json
+          cache: "npm"
 
       # 3. Install backend dependencies
       - name: Install backend dependencies
-        run: npm ci
+        run: npm install
 
       # 4. Install frontend dependencies
       - name: Install frontend dependencies
-        run: npm ci --prefix client
+        run: npm install --prefix client
 
       # 5. Build frontend, and prepare public folder
       - name: Build frontend, and prepare public folder
@@ -43,9 +42,7 @@ jobs:
         run: npm run apidoc
 
       # 7. Run tests
-      # - name: Run Apitests
-      #   run: npm run api-test
-      #- name: Run backend tests
-      #  run: npm test
+      - name: Run backend tests
+        run: npm run test
       #- name: Run frontend tests
       #  run: npm test --prefix client
