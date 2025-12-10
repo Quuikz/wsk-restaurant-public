@@ -8,6 +8,7 @@ let SERVER_URL = import.meta.env.VITE_SERVER_URL;
 if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
   SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
 }
+console.log('url in Specials',SERVER_URL);
 
 const Specials = () => {
   // Get today's date in YYYY-MM-DD format
