@@ -7,7 +7,6 @@ import { getAdminToken, getUserToken } from "./authHelper.js";
 
 let adminToken = null;
 let userToken = null;
-let adminUser = null;
 let normalUser = null;
 
 const clearGiftCardIds = [];
@@ -15,7 +14,15 @@ const clearGiftCardIds = [];
 beforeAll(async () => {
   console.log("[BEFORE ALL] Setting up tokens for tests...");
   adminToken = await getAdminToken();
+
   userToken = await getUserToken();
+  const userRes = await request(app)
+    .post("/api/auth/login")
+    .send({ username: "username", password: "password" })
+    .set("Accept", "application/json");
+  normalUser = userRes.body.user;
+  console.log("[BEFORE ALL] normalUser set to:", normalUser);
+
   console.log("[BEFORE ALL] Tokens set up completed.");
   console.log("[BEFORE ALL] Admin Token:", adminToken);
   console.log("[BEFORE ALL] User Token:", userToken);
