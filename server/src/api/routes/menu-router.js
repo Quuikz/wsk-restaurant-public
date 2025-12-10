@@ -1,78 +1,80 @@
-'use strict';
+"use strict";
 
 //node imports
-import express from 'express';
+import express from "express";
 
 //other imports
 import {
-    getMenus,
-    getMenuById,
-    postMenu,
-    putMenu,
-    deleteMenu,
-    getMenusByDate,
-    getMenusByWeek,
-    getMenuList
-} from '../controllers/menu-controller.js';
+  getMenus,
+  getMenuById,
+  postMenu,
+  putMenu,
+  deleteMenu,
+  getMenusByDate,
+  getMenusByWeek,
+  getMenuList,
+} from "../controllers/menu-controller.js";
 
 //middleware
 import multer from "multer";
-import authenticateToken from '../../middlewares/authenticateToken.js';
-import userIsAdmin from '../../middlewares/userIsAdmin.js';
+import authenticateToken from "../../middlewares/authenticateToken.js";
+import userIsAdmin from "../../middlewares/userIsAdmin.js";
 import formatIdToNumber from "../../middlewares/formatIdToNumber.js";
 import formatBodyTypes from "../../middlewares/formatBodyTypes.js";
 import formatParamTypes from "../../middlewares/formatParamTypes.js";
 import createImageScaler from "../../middlewares/createImageScaler.js";
 import createMulterUploader from "../../middlewares/createMulterUploader.js";
 
-
 const menuRouter = express.Router();
 
-
 //multer upload
-const imageUploader = createMulterUploader('./uploads');
+const imageUploader = createMulterUploader("./uploads");
 
 //configurable middleware for image scaling
-const imageScaler = createImageScaler(300, 100, './public/images/menus', '_menu', 'webp');
-
+const imageScaler = createImageScaler(
+  300,
+  100,
+  "./public/images/menus",
+  "_menu",
+  "webp"
+);
 
 //endpoint http://hostname:port/api/menus
-menuRouter.get('/', getMenus)
-    .post('/',
-        authenticateToken,
-        userIsAdmin,
-        imageUploader,
-        imageScaler,
-        formatBodyTypes,
-        postMenu);
+menuRouter
+  .get("/", getMenus)
+  .post(
+    "/",
+    authenticateToken,
+    userIsAdmin,
+    imageUploader,
+    imageScaler,
+    formatBodyTypes,
+    postMenu
+  );
 
 //endpoint http://hostname:port/api/menus/:id
-menuRouter.route('/:id')
-    .get(formatIdToNumber, getMenuById)
-    .put(authenticateToken,
-        userIsAdmin,
-        formatIdToNumber,
-        imageUploader,
-        imageScaler,
-        formatBodyTypes,
-        putMenu)
-    .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteMenu);
-
+menuRouter
+  .route("/:id")
+  .get(formatIdToNumber, getMenuById)
+  .put(
+    authenticateToken,
+    userIsAdmin,
+    formatIdToNumber,
+    imageUploader,
+    imageScaler,
+    formatBodyTypes,
+    putMenu
+  )
+  .delete(authenticateToken, userIsAdmin, formatIdToNumber, deleteMenu);
 
 //endpoint http://hostname:port/api/menus/date/:date
-menuRouter.route('/date/:date').get(getMenusByDate)
+menuRouter.route("/date/:date").get(getMenusByDate);
 
 //endpoint http://hostname:port/api/menus/week/:week
-menuRouter.route('/week/:week').get(formatParamTypes, getMenusByWeek)
-
+menuRouter.route("/week/:week").get(formatParamTypes, getMenusByWeek);
 
 //Get a specified list
 //endpoint http://hostname:port/api/users/list/id
-menuRouter.route('/list/id')
-    .post(authenticateToken, getMenuList);
+menuRouter.route("/list/id").post(authenticateToken, getMenuList);
 
 export default menuRouter;
-
-
-
-

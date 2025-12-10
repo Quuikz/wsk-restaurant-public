@@ -14,7 +14,13 @@ import { listAllLocations } from "../models/location-model.js";
  * @apiName GetMeals
  * @apiGroup Meal
  *
- * @apiSuccess {Array} meals Array of meal objects
+ * @apiSuccess {Object[]} meals Array of meal objects (returns 200 and JSON array)
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [ {"id":1,"name_fi":"...","cost":9.5}, {...} ]
+ *
+ * @apiNote If no meals are found the endpoint currently returns 200 with a plain
+ * text message `"no meals found"` instead of an empty array.
  *
  * @apiError 500 Internal server error
  */
@@ -43,11 +49,11 @@ const getMeals = async (req, res) => {
  * @apiName GetMealById
  * @apiGroup Meal
  *
- * @apiParam {Number} id Meal ID
+ * @apiParam {Number} id Meal ID (path parameter)
  *
- * @apiSuccess {Object} meal Meal object
+ * @apiSuccess {Object} meal Meal object (returns 200 and the meal JSON)
  *
- * @apiError 404 Meal not found
+ * @apiError 404 Meal not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const getMealById = async (req, res) => {
@@ -73,17 +79,19 @@ const getMealById = async (req, res) => {
  * @apiName PostMeal
  * @apiGroup Meal
  *
- * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiHeader {String} Content-Type `multipart/form-data` when uploading image
  * @apiBody {String} name_fi Meal name (Finnish)
  * @apiBody {String} name_en Meal name (English)
  * @apiBody {String} description_fi Description (Finnish)
  * @apiBody {String} description_en Description (English)
- * @apiBody {Number} cost Meal cost
- * @apiBody {File} [image] Optional meal image file
+ * @apiBody {Number|String} cost Meal cost (will be coerced to number)
+ * @apiBody {File} [image] Optional meal image file (use multipart upload field `image`)
  *
- * @apiSuccess {Object} meal Created meal object
+ * @apiSuccess {Object} meal Created meal object (returns 200 and the created object)
  *
- * @apiError 404 Failed to create meal
+ * @apiError 400 Bad request (e.g., missing required fields)
+ * @apiError 404 Failed to create meal (database insert did not affect rows)
  * @apiError 500 Internal server error
  */
 const postMeal = async (req, res) => {
@@ -111,19 +119,21 @@ const postMeal = async (req, res) => {
  * @apiName PutMeal
  * @apiGroup Meal
  *
- * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Meal ID
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiHeader {String} Content-Type `multipart/form-data` when uploading image
+ * @apiParam {Number} id Meal ID (path parameter)
+ * @apiBody {String} [id] ID may be supplied in body (multipart forms often send strings)
  * @apiBody {String} [name_fi] Meal name (Finnish)
  * @apiBody {String} [name_en] Meal name (English)
  * @apiBody {String} [description_fi] Description (Finnish)
  * @apiBody {String} [description_en] Description (English)
- * @apiBody {Number} [cost] Meal cost
- * @apiBody {File} [image] Optional meal image file
+ * @apiBody {Number|String} [cost] Meal cost
+ * @apiBody {File} [image] Optional meal image file (multipart field `image`)
  *
- * @apiSuccess {Object} meal Updated meal object
+ * @apiSuccess {Object} meal Updated meal object (returns 200 and the updated object)
  *
- * @apiError 400 ID mismatch between body and params
- * @apiError 404 Meal not found
+ * @apiError 400 ID mismatch between body and params (controller returns 400 when ids differ)
+ * @apiError 404 Meal not found (returns 404 when update didn't affect rows)
  * @apiError 500 Internal server error
  */
 const putMeal = async (req, res) => {
@@ -155,12 +165,12 @@ const putMeal = async (req, res) => {
  * @apiName DeleteMeal
  * @apiGroup Meal
  *
- * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Meal ID
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiParam {Number} id Meal ID (path parameter)
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess {Boolean} success Returns `true` when the meal was deleted (HTTP 200)
  *
- * @apiError 404 Meal not found
+ * @apiError 404 Meal not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const deleteMeal = async (req, res) => {
@@ -190,11 +200,17 @@ const deleteMeal = async (req, res) => {
  * @apiGroup Meal
  * @apiDescription Takes an array of meal IDs and returns corresponding meal objects
  *
- * @apiBody {Number[]} meals Array of meal IDs
+ * @apiBody {Number[]} meals Array of meal IDs (JSON body)
  *
- * @apiSuccess {Array} meals Array of meal objects
+ * @apiSuccess {Object[]} meals Array of meal objects (returns 200 and JSON array)
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [ {"id":1,"name_fi":"..."}, null ]
  *
- * @apiError 404 No ID array in request
+ * @apiNote When an id is not found the implementation returns `false` for that position
+ * (controller currently will return an array that can contain `false` for missing items).
+ *
+ * @apiError 400 No ID array in request (returns 400 and message when `meals` missing)
  * @apiError 500 Internal server error
  */
 const getMealList = async (req, res) => {

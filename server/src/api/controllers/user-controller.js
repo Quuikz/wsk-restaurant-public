@@ -19,9 +19,15 @@ import {
  * @apiGroup User
  *
  * @apiHeader {String} Authorization Bearer token (admin)
- * @apiSuccess {Array} users Array of user objects
+ * @apiDescription Returns an array of all users. This endpoint is protected
+ * and requires an admin token (router applies `authenticateToken` and
+ * `userIsAdmin`). Note: controller currently returns full user objects; do
+ * not rely on passwords being omitted unless the controller strips them.
  *
- * @apiError 500 Internal server error
+ * @apiSuccess (200) {Object[]} users Array of user objects
+ *
+ * @apiError (401) Unauthorized Invalid or missing token / not admin
+ * @apiError (500) Internal server error
  */
 const getUsers = async (req, res) => {
   try {
@@ -42,11 +48,18 @@ const getUsers = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
+ * @apiDescription Returns a user object for the specified id. The router
+ * applies `authenticateToken` and `filterByUserIdOrAdmin` so only the user or
+ * an admin may fetch this resource. The controller responds with the full
+ * user record as returned by the model. Note: passwords should not be
+ * exposed; the controller currently returns the model result unchanged.
  *
- * @apiSuccess {Object} user User object (without password)
+ * @apiSuccess (200) {Object} user User object
  *
- * @apiError 404 User not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (403) Forbidden User not allowed to access this resource
+ * @apiError (404) User not found
+ * @apiError (500) Internal server error
  */
 const getUserById = async (req, res) => {
   try {
@@ -72,14 +85,20 @@ const getUserById = async (req, res) => {
  * @apiGroup User
  *
  * @apiBody {String} username User's username
- * @apiBody {String} password User's password (will be hashed)
+ * @apiBody {String} password User's password (will be hashed by controller)
  * @apiBody {String} name User's full name
  * @apiBody {String} email User's email
+ * @apiDescription Creates a new user. The router applies image upload and
+ * scaling middleware for file uploads, and `formatBodyTypes`. The controller
+ * hashes the password before calling the model and returns a user object with
+ * the password removed. On failure the controller returns 404 (legacy
+ * behavior) or 500 on server error.
  *
- * @apiSuccess {Object} user Created user object (without password)
+ * @apiSuccess (200) {Object} user Created user object (password omitted)
  *
- * @apiError 404 Failed to create user
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request Invalid payload
+ * @apiError (404) Failed to create user
+ * @apiError (500) Internal server error
  */
 const postUser = async (req, res) => {
   try {
@@ -121,17 +140,24 @@ const postUser = async (req, res) => {
  * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  * @apiBody {String} [username] User's username
- * @apiBody {String} [password] User's password (will be hashed)
+ * @apiBody {String} [password] User's password (will be hashed by controller)
  * @apiBody {String} [role] User role
  * @apiBody {String} [name] User's full name
  * @apiBody {String} [email] User's email
  * @apiBody {String} [image] User image filename
  * @apiBody {String} [message] Optional description
+ * @apiDescription Updates a user. The router applies `authenticateToken`,
+ * `filterByUserIdOrAdmin`, image upload/scaling middleware, and `formatBodyTypes`.
+ * On success the updated user (without password) is returned. If the user is
+ * not found the controller returns 404.
  *
- * @apiSuccess {Object} user Updated user object (without password)
+ * @apiSuccess (200) {Object} user Updated user object (password omitted)
  *
- * @apiError 404 User not found
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request Invalid payload
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (403) Forbidden User not allowed to modify this resource
+ * @apiError (404) User not found
+ * @apiError (500) Internal server error
  */
 const putUser = async (req, res) => {
   try {
@@ -170,11 +196,17 @@ const putUser = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
+ * @apiDescription Deletes a user. The router applies `authenticateToken` and
+ * `filterByUserIdOrAdmin` so only the user or an admin may delete. On success
+ * the controller returns HTTP 200 with a textual message; if not found it
+ * returns 404.
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess (200) {String} message Success message
  *
- * @apiError 404 User not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (403) Forbidden User not allowed to delete this user
+ * @apiError (404) User not found
+ * @apiError (500) Internal server error
  */
 const deleteUser = async (req, res) => {
   try {
@@ -204,11 +236,16 @@ const deleteUser = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} username User's username
+ * @apiDescription Admin-only endpoint (router applies `authenticateToken` and
+ * `userIsAdmin`) to return a user object by username. Returns 404 if not
+ * found.
  *
- * @apiSuccess {Object} user User object
+ * @apiSuccess (200) {Object} user User object
  *
- * @apiError 404 User not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (403) Forbidden Not an admin
+ * @apiError (404) User not found
+ * @apiError (500) Internal server error
  */
 const getUserByUsername = async (req, res) => {
   try {
@@ -233,15 +270,19 @@ const getUserByUsername = async (req, res) => {
  * @api {post} /users/list/id Get user list by IDs
  * @apiName GetUserList
  * @apiGroup User
- * @apiDescription Takes an array of user IDs and returns corresponding user objects
+ * @apiDescription Takes an array of user IDs in the request body under
+ * `users` and returns the corresponding user objects. The router restricts
+ * this endpoint to authenticated admins.
  *
  * @apiHeader {String} Authorization Bearer token (admin)
  * @apiBody {Number[]} users Array of user IDs
  *
- * @apiSuccess {Array} users Array of user objects
+ * @apiSuccess (200) {Object[]} users Array of user objects
  *
- * @apiError 404 No ID array in request
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request Invalid body
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) No ID array in request
+ * @apiError (500) Internal server error
  */
 const getUserList = async (req, res) => {
   try {
@@ -269,11 +310,13 @@ const getUserList = async (req, res) => {
  * @apiGroup User
  *
  * @apiParam {String} username User username
+ * @apiDescription Returns a boolean true/false indicating whether the
+ * username exists. This endpoint is public (router applies only
+ * `formatParamTypes`).
  *
- * @apiSuccess {boolean} boolean if username exists
+ * @apiSuccess (200) {Boolean} exists true if username exists, false otherwise
  *
- * @apiError 404 User not found
- * @apiError 500 Internal server error
+ * @apiError (500) Internal server error
  */
 const isUsernameTaken = async (req, res) => {
   try {

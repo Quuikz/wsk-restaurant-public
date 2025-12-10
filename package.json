@@ -13,7 +13,7 @@
     "install-all": "npm install && npm run install:vite",
     "deploy:build": "npm run build && find ./public -mindepth 1 -not -name images -exec rm -rf {} + && cp -r client/dist/* public/",
     "api-test": "node tests/api-tests/api.test.js",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --detectOpenHandles"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
@@ -30,5 +30,8 @@
     "jest": "^30.2.0",
     "nodemon": "^3.1.11",
     "supertest": "^7.1.4"
+  },
+  "jest": {
+    "silent": true
   }
 }
