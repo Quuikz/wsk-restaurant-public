@@ -18,14 +18,14 @@
      // login, logout and autologin functions are here instead of components
      const handleLogin = async (inputs) => {
          try {
-             // TODO: post login credentials to API
+             // post login credentials to API
              const { token, user } = await postLogin(inputs);
-             // TODO: set token to local storage
+             // set token to local storage
              localStorage.setItem('token', token);
              console.log(token);
-             // TODO: set user to state
+             // set user to state
              setUser(user);
-             // TODO: navigate to home
+             // navigate to home
              navigate('/');
          } catch (e) {
              console.log(e.message);
@@ -34,11 +34,11 @@
 
      const handleLogout = () => {
          try {
-             // TODO: remove token from local storage
+             // remove token from local storage
              localStorage.removeItem('token');
-             // TODO: set user to null
+             // set user to null
              setUser(null);
-             // TODO: navigate to home or login page
+             // navigate to home or login page
              navigate('/');
          } catch (e) {
              console.log(e.message);
@@ -48,17 +48,17 @@
      // handleAutoLogin is used when the app is loaded to check if there is a valid token in local storage
      const handleAutoLogin = async () => {
          try {
-             // TODO: get token from local storage
+             // get token from local storage
              const token = localStorage.getItem('token');
-             // TODO: if token exists, get user data from API
+             // if token exists, get user data from API
              if(!token){
                 return;
              }
              const userData = await getUserByToken(token);
-             // TODO: set user to state
+             // set user to state
              console.log('userData from API:', userData.user);
              setUser(userData.user);
-             // TODO: navigate to home
+             // navigate to home
              //navigate(location.pathname);
              //navigate('/');
              navigate(location.pathname);

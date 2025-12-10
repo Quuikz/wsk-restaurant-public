@@ -5,6 +5,7 @@ import OrderingTime from './OrderingTime';
 import {ShoppingCartContext} from '../../../contexts/ShoppingCartContext';
 import useForm from '../../../hooks/formHooks';
 import {useLanguageContext} from '../../../hooks/contextHooks.js';
+import {useNavigate} from "react-router";
 // Custom Time selector. Check if table still empty at selected time etc.
 
 const Ordering = ({id}) => {
@@ -14,6 +15,7 @@ const Ordering = ({id}) => {
 
   const {addReservationToCart} = useContext(ShoppingCartContext);
   const {finnish} = useLanguageContext();
+  const navigate = useNavigate();
 
   /*
   const initValues = {
@@ -45,7 +47,8 @@ const Ordering = ({id}) => {
       table_customer_count: form.tableCount,
       grill_customer_count: form.grillCount,
     });
-    console.log('Reservation added to cart!');
+    console.log('Reservation added to cart! Navigate to cart');
+    navigate('/shoppingcart');
   };
 
   //const {inputs, handleInputChange, handleSubmit} = useForm(doAddToCart, initValues)

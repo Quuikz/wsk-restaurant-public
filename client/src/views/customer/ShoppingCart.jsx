@@ -316,7 +316,7 @@ const ShoppingCart = () => {
                   disabled={!user}
                   onClick={handleCheckout}
                 >
-                  {finnish ? 'Kassalle' : 'Checkout'}
+                  {finnish ? 'Vahvista tilaus' : 'Confirm your order'}
                 </button>
               </div>
               <div>
