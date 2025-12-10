@@ -16,5 +16,11 @@ const pool = mysql.createPool({
   dateStrings: true, //stops automatic Date object formatting
 });
 
+// function to close pool
+const closePool = async () => {
+  await promisePool.end();
+};
+
 const promisePool = pool.promise();
 export default promisePool;
+export { closePool };

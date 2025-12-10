@@ -166,6 +166,7 @@ const putOrder = async (req, res) => {
         const updatedOrder = {
             ...previousOrder,
             ...updatedFields,
+            id: previousOrder.id
         };
 
         const result = await modifyOrder(updatedOrder, previousOrder.id);
