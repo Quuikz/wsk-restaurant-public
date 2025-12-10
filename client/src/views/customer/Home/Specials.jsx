@@ -45,13 +45,12 @@ const Specials = () => {
           setDailyMenu(menu);
           // console.log('DAILY MENU: ', menu);
 
-          // Load meals for Menu of the day
-          const mealItems = await getMealByIDList(menu.meals);
-          const specialMealID = menu.meals[menu.special_meal - 1];    //TODO: mitä tämä tekee?
+          // Load meals for Menu of the day AND special meal
+          const mealItems = await getMealByIDList([menu.special_meal, ...menu.meals]);
           //console.log('SPECIAL MEAL ID: ', specialMealID);
           //console.log('MEAL DATA: ', mealItems);
           setMeals(mealItems);
-          setSpecialMealID(specialMealID);
+          setSpecialMealID(menu.special_meal);
           //console.log('isSpecial? ', menu.special_meal);
         }
       } catch (error) {
@@ -73,7 +72,7 @@ const Specials = () => {
               <div className="px-6">
                 <h2 className="text-2xl  mt-2 text-center">{finnish ? meal.name_fi : meal.name_en}</h2>
                 <p className="mt-1 font-bold">
-                  {meal.id == specialMealID ?
+                  {meal.id === specialMealID ?
                     (finnish ?'Grilli spesiaali' : 'Grill special' )
                     : (finnish ? 'Noutopöytä' : 'Buffet')
                   }
