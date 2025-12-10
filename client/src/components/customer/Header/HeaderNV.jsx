@@ -1,20 +1,17 @@
 //Consider moving content of <header> here, then import this into Layout
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, useNavigate, useLocation} from 'react-router';
-
-//import {useUserContext} from '../../hooks/contextHooks';
-
 import {useUserContext} from '../../../hooks/contextHooks.js';
 
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
-//import Logo from '../../assets/Restauranto-Logo2.png';
 import Logo from '../../../assets/Restauranto-Logo2.png';
 
 const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
-  const {user, handleAutoLogin} = useUserContext();
+  const {user, handleLogout} = useUserContext();
+
   const menuRef = useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
@@ -168,19 +165,18 @@ const HeaderNV = () => {
                 {/* -- Burger menu items -- */}
                 <div className="absolute right-0 top-20 z-50">
                   {menuOpen && (
-                    <div
-                      anchor="bottom end"
-                      className="absolute right-0 mt-2 w-50 divide-y divide-white/10 rounded-b-md overflow-hidden bg-gray-800 shadow-lg outline-1 -outline-offset-1 outline-white/10"
-                    >
+                    <div className="absolute right-0 mt-2 w-50 divide-y divide-white/10 rounded-b-md overflow-hidden bg-gray-800 shadow-lg outline-1 -outline-offset-1 outline-white/10">
                       <div className="py-1">
                         <Link
                           to="/"
+                          onClick={() => setMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
                           Pääsivu
                         </Link>
                         <Link
                           to="/weeklist"
+                          onClick={() => setMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
                           Viikon lista
@@ -189,6 +185,7 @@ const HeaderNV = () => {
                       <div className="py-1">
                         <Link
                           to="/giftcards"
+                          onClick={() => setMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
                           Lahjakortit
@@ -216,23 +213,32 @@ const HeaderNV = () => {
                         </Link>
                       </div>
                       {/* TODO: Conditional rendering to show either Login/Account settings?*/}
-                      <div className="py-1 hover:bg-white/5">
-                        {user ? (
+
+                      {user ? (
+                        <div className="py-1 ">
                           <Link
                             to="/profile"
-                            className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
+                            onClick={() => setMenuOpen(false)}
+                            className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5  focus:bg-white/5 focus:text-white focus:outline-hidden"
                           >
                             👤 &nbsp;&nbsp;{user.username}
                           </Link>
-                        ) : (
+
                           <button
-                            onClick={() => setDisplayLoginModal(true)}
-                            className="block px-4 py-2 text-sm text-gray-300  focus:bg-white/5 focus:text-white focus:outline-hidden"
+                            onClick={handleLogout}
+                            className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                           >
-                            🔒 &nbsp;&nbsp;Kirjaudu sisään
+                            🚪 &nbsp;&nbsp;Kirjaudu ulos
                           </button>
-                        )}
-                      </div>
+                        </div>
+                      ) : (
+                        <button
+                          onClick={() => setDisplayLoginModal(true)}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
+                        >
+                          🔒 &nbsp;&nbsp;Kirjaudu sisään
+                        </button>
+                      )}
                     </div>
                   )}
                 </div>

@@ -132,9 +132,76 @@ const useOrderCommon = () => {
     return deletedOrderResult;
   };
 
-  return {postOrder, updateOrder, deleteOrder};
+
+  const getOrderByID = async (token, orderID) => {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        //'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const getOrderByIDResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+    return getOrderByIDResult;
+
+  }
+
+  const getOrdersByUserID = async (token, orderID) => {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    const getOrdersByUserIDResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+    return getOrdersByUserIDResult;
+
+  }
+
+
+
+  return {postOrder, updateOrder, deleteOrder, getOrderByID, getOrdersByUserID};
 };
 
-const useReservationCommon = () => {};
+const useReservationCommon = () => {
 
-export {useMealCommon, useMenuCommon, useOrderCommon};
+
+    const postNewReservation = async (data, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                //'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(data)
+        };
+
+        const postNewReservationResult = await fetchData(API_URL + '/reservations', fetchOptions);
+        return postNewReservationResult;
+
+    }
+
+
+    const getReservationOnDateTime = async (token, dateTime) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const getReservationOnDateTimeResult = await fetchData(API_URL + `/reservations/count/${dateTime}`, fetchOptions);
+        return getReservationOnDateTimeResult;
+
+    }
+
+    return { postNewReservation, getReservationOnDateTime }
+
+
+
+};
+
+export {useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon};

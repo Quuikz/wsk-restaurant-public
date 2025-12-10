@@ -39,7 +39,7 @@ const getAvailableTimesForDate = (dateStr) => {
   return TIMES.slice();
 };
 
-const OrderingTime = ({reservationDate}) => {
+const OrderingTime = ({ reservationDate, reservationTime, setReservationTime }) => {
   const [timeMenuOpen, setTimeMenuOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
   const menuRef = useRef(null);
@@ -61,12 +61,17 @@ const OrderingTime = ({reservationDate}) => {
     return () => document.removeEventListener('mousedown', onDocClick);
   }, []);
 
-  // Invalidate selected time if not available for the date
+
   useEffect(() => {
-    if (selectedTime && !availableTimes.includes(selectedTime)) {
-      setSelectedTime(null);
-    }
-  }, [reservationDate, availableTimes, selectedTime]);
+      setSelectedTime(reservationTime);
+  }, [reservationTime]);
+
+  // Invalidate selected time if not available for the date
+  //useEffect(() => {
+  //  if (selectedTime && !availableTimes.includes(selectedTime)) {
+  //    setSelectedTime(null);
+  //  }
+  //}, [reservationDate, availableTimes, selectedTime]);
 
   const handleButtonToggle = () => {
     // Keep closed if no available times
@@ -112,6 +117,7 @@ const OrderingTime = ({reservationDate}) => {
                 role="menuitem"
                 onClick={() => {
                   setSelectedTime(t);
+                  setReservationTime(t);
                   setTimeMenuOpen(false);
                 }}
                 className="block w-full px-4 py-2 text-sm text-black hover:bg-black/5 text-left"
