@@ -20,6 +20,7 @@ jobs:
           # connect to server using credentials stored in github secrets
           host: ${{ secrets.DB_HOST }}
           username: ${{ secrets.DB_USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
           port: 22
           script: |
             # after login to server go to application folder
