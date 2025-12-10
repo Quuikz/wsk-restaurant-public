@@ -15,10 +15,6 @@ const ShoppingCart = () => {
   const { postGiftCard } = useGiftcardsCommon();
   const {user} = useUserContext();
 
-  //const [orderID, setOrderID] = useState(null);
-
-  //Collection of IDs for POST reservations+giftcards
-
   const getCurrentTimestamp = () => {
     const date = new Date();
     const year = String(date.getFullYear());
@@ -35,7 +31,6 @@ const ShoppingCart = () => {
 
   
   const sendOrder = async (cart, user, token) => {
-    //TODO: consider useState..
     const reservationIDs = [];
     const giftCardIDs = [];
 
@@ -52,7 +47,6 @@ const ShoppingCart = () => {
       throw new Error('No order id!');
     }
     orderID = emptyOrder.id;
-    console.log(orderID);
     
     }
     catch(error){
