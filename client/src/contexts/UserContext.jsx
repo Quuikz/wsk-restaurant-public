@@ -4,9 +4,9 @@
  //temp - as it's not yet implemented, just use old
  //import { useUser } from '../hooks/BackupOfOldAssignments/apiHooks';
  import {useLocation, useNavigate} from 'react-router';
-    
+
  const UserContext = createContext(null);
-    
+
  const UserProvider = ({children}) => {
      const [user, setUser] = useState(null);
      const {postLogin} = useAuthentication();
@@ -14,7 +14,7 @@
 
      const navigate = useNavigate();
      const location = useLocation();
-        
+
      // login, logout and autologin functions are here instead of components
      const handleLogin = async (inputs) => {
          try {
@@ -31,7 +31,7 @@
              console.log(e.message);
          }
      };
-        
+
      const handleLogout = () => {
          try {
              // TODO: remove token from local storage
@@ -44,7 +44,7 @@
              console.log(e.message);
          }
      };
-        
+
      // handleAutoLogin is used when the app is loaded to check if there is a valid token in local storage
      const handleAutoLogin = async () => {
          try {
@@ -66,11 +66,12 @@
              console.log(e.message);
          }
      };
-               
+
      return (
-         <UserContext.Provider 
+         <UserContext.Provider
          value={{
             user,
+            setUser,
             handleLogin,
             handleLogout,
             handleAutoLogin,

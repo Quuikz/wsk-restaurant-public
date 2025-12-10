@@ -10,13 +10,11 @@ import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
-  //const {user} = useUserContext();  //TODO: miksi ei user context ?
+  const {user, setUser} = useUserContext();
+  const { getUserByToken } = useUser();
 
   //language
   const {finnish} = useLanguageContext();
-
-  const { getUserByToken } = useUser();
-  const [user, setUser] = useState(null);
 
   //Set server URL
   let SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -25,7 +23,8 @@ const Profile = () => {
   }
   const userImages = SERVER_URL+'/images/users/'
 
-  console.log("PROFILE RENDER");
+  console.log("PROFILE RENDER", user ? user : 'no user');
+
   useEffect(() => {
     console.log("USE EFFECT RUN");
     const token = localStorage.getItem('token');
@@ -36,7 +35,9 @@ const Profile = () => {
 
     const getUserData = async () => {
       const userData = await getUserByToken(token);
-      setUser(userData.user);
+      if(userData.user){
+        setUser(userData.user);
+      }
 
     };
     getUserData();

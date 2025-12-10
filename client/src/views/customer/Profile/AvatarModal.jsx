@@ -9,7 +9,7 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
 
   //const { postLogin } = useAuthentication();
   const [file, setFile] = useState(null);
-  const {user} = useUserContext();
+  const {user, setUser} = useUserContext();
   const {finnish} = useLanguageContext();
   const {modifyUserAvatar} = useCurrentUser();
 
@@ -18,8 +18,11 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
 
     try {
       const result = await modifyUserAvatar(file, token);
-
       console.log(result);
+      if (result) {
+        setUser(result);
+      }
+
     } catch (error) {
       console.log('Error in doModifyUserAvatar', error);
     }
