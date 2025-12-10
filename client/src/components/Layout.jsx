@@ -16,7 +16,7 @@ const Layout = () => {
     handleAutoLogin();
   }, []);
 
-  
+
   useEffect(() => {
     // Burger closed on window click outside
     function handleClickOutside(event) {

@@ -3,6 +3,7 @@ import useForm from '../../hooks/formHooks';
 import {useUser} from '../../hooks/BackupOfOldAssignments/apiHooks';
 //import { useAuthentication } from "../hooks/apiHooks";
 import { useAuthentication } from '../../hooks/apiHooks.js';
+import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
   if (!isOpen){
@@ -11,6 +12,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
 
   //const { postLogin } = useAuthentication();
   const { postRegister } = useAuthentication();
+  const {finnish} = useLanguageContext();
 
   const initValues = {
     username: '',
@@ -23,7 +25,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
     //Do bunch of logic like pw matching, empty inputs and such.
     try {
       const result = await postRegister(inputs);
-      
+
       console.log(result);
     } catch (error) {
       console.log('Error in doRegister', error);
@@ -48,7 +50,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
             {/* Modal header */}
             <div className="flex items-center justify-between border-b pb-4 ">
               <h3 className="text-lg font-semibold pt-4 absolute left-1/2 transform -translate-x-1/2">
-                Rekisteröidy hetkessä
+                {finnish ? 'Rekisteröidy' : 'Register'}
               </h3>
               <button
                 type="button"
@@ -60,7 +62,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ Tietosi ovat turvassa.</p>
+            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your infromation is secure.'}</p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
@@ -68,7 +70,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
                   htmlFor="registeruser"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Käyttäjätunnus
+                  {finnish ? 'Käyttäjätunnus' : 'Username'}
                 </label>
                 <input
                   name="username"
@@ -87,7 +89,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
                   htmlFor="registeremail"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Sähköposti
+                  {finnish ? 'Sähköposti' : 'Email'}
                 </label>
                 <input
                   name="email"
@@ -106,7 +108,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
                   htmlFor="registerpassword"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Salasana
+                  {finnish ? 'Salasana' : 'Password'}
                 </label>
                 <input
                   name="password"
@@ -123,7 +125,7 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
                   htmlFor="confirmpassword"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Vahvista salasana
+                  {finnish ? 'Vahvista Salasana' : 'Confirm Password'}
                 </label>
                 <input
                   name="confirmPassword"
@@ -140,18 +142,18 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
                 type="submit"
                 className="cursor-pointer w-full mb-3  bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
               >
-                Rekisteröidy
+                {finnish ? 'Rekisteröidy' : 'Register'}
               </button>
             </form>
 
             <div className="text-center">
-              <h2 className="text-lg font-medium">| Onko sinulla jo tili? |</h2>
+              <h2 className="text-lg font-medium">| {finnish ? 'Onko sinulla jo tili?' : 'Already have an account?'} |</h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"
                 onClick={onOpenLogin}
               >
-                Kirjaudu tililläsi sisään
+                {finnish ? 'Kirjaudu tililläsi' : 'Login with your account'}
               </button>
             </div>
           </div>

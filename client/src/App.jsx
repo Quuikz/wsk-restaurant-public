@@ -14,6 +14,7 @@ import {UserProvider} from './contexts/UserContext';
 import Logout from './views/customer/Logout.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 //import Register from './views/Register.jsx';
+import Language from './components/customer/Language.jsx';
 
 //Pages
 //All users
@@ -38,12 +39,15 @@ import ReservationsAdmin from './views/admin/Reservations/Reservations.jsx';
 import AddMenu from './views/admin/Menus/AddMenu.jsx';
 import UsersAdminView from './views/admin/User/Users.jsx';
 import {CartProvider} from './contexts/ShoppingCartContext.jsx';
+import {LanguageProvider} from "./contexts/LanguageContext.jsx";
 
 const App = () => {
   return (
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <UserProvider>
         <CartProvider>
+          <LanguageProvider>
+
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
@@ -55,6 +59,7 @@ const App = () => {
               <Route path="/weeklist" element={<Weeklist />} />
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
+              <Route path="/language" element={<Language />} />
               <Route path="/giftcards" element={<Giftcards />} />
 
               {/* Login required routes below! */}
@@ -85,6 +90,8 @@ const App = () => {
               <Route path="users" element={<UsersAdminView />} />
             </Route>
           </Routes>
+
+          </LanguageProvider>
         </CartProvider>
       </UserProvider>
     </BrowserRouter>

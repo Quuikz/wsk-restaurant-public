@@ -1,6 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router';
 import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
+import {useLanguageContext} from "../../../hooks/contextHooks.js";
 
 //Set server URL
 let server_url = import.meta.env.VITE_SERVER_URL;
@@ -19,6 +20,9 @@ const Specials = () => {
   const [, setDailyMenu] = useState([]);
   const [meals, setMeals] = useState([]);
   const [specialMealID, setSpecialMealID] = useState([]);
+
+  //language
+  const {finnish} = useLanguageContext();
 
   //console.log('DATE STRING: ', dateString);
 
@@ -43,7 +47,7 @@ const Specials = () => {
 
           // Load meals for Menu of the day
           const mealItems = await getMealByIDList(menu.meals);
-          const specialMealID = menu.meals[menu.special_meal - 1];
+          const specialMealID = menu.meals[menu.special_meal - 1];    //TODO: mitä tämä tekee?
           //console.log('SPECIAL MEAL ID: ', specialMealID);
           //console.log('MEAL DATA: ', mealItems);
           setMeals(mealItems);
@@ -65,18 +69,21 @@ const Specials = () => {
         {meals.map((meal) => (
           <div key={meal.id}>
             <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-              <img src={server_url+'/images/meals/'+meal.image} alt="Spesiaali ruoka tänään" />
+              <img src={server_url+'/images/meals/'+meal.image} alt={finnish ? "Spesiaali ruoka tänään" : "Special meal today"} />
               <div className="px-6">
-                <h2 className="text-2xl  mt-2 text-center">{meal.name_fi}</h2>
+                <h2 className="text-2xl  mt-2 text-center">{finnish ? meal.name_fi : meal.name_en}</h2>
                 <p className="mt-1 font-bold">
-                  {meal.id == specialMealID ? 'Grilli spesiaali' : 'Noutopöytä'}
+                  {meal.id == specialMealID ?
+                    (finnish ?'Grilli spesiaali' : 'Grill special' )
+                    : (finnish ? 'Noutopöytä' : 'Buffet')
+                  }
                 </p>
                 <ul>
-                  <li>Hinta - {meal.cost}€</li>
-                  <li>Tietoa - {meal.description_fi}</li>
+                  <li>{finnish ? 'Hinta' : 'Cost'} - {meal.cost}€</li>
+                  <li>{finnish ? 'Tietoa' : 'Description'} - {meal.description_fi}</li>
                 </ul>
                 <div className="my-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300 max-w-fit hover:cursor-pointer">
-                  <Link to="/weeklist">Lisää</Link>
+                  <Link to="/weeklist">{finnish ? 'Viikon lista' : 'Week menu'}</Link>
                 </div>
               </div>
             </div>

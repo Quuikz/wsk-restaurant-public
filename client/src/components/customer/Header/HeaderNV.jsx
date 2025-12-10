@@ -1,7 +1,7 @@
 //Consider moving content of <header> here, then import this into Layout
 import React, {useEffect, useState, useRef} from 'react';
 import {Link, useNavigate, useLocation} from 'react-router';
-import {useUserContext} from '../../../hooks/contextHooks.js';
+import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
 
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
@@ -11,6 +11,7 @@ const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const {user, handleLogout} = useUserContext();
+  const {finnish ,handleLanguageToggle} = useLanguageContext();
 
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -74,7 +75,7 @@ const HeaderNV = () => {
                     aria-current="page"
                     className="rounded-md hover:bg-white/5 bg-gray-900 px-3 py-2 text-lg font-medium text-white "
                   >
-                    🍽️&nbsp;&nbsp;Viikon lista
+                    🍽️&nbsp;&nbsp;{finnish ? 'Viikon lista' : 'Week menu'}
                   </Link>
                 </div>
               </div>
@@ -172,14 +173,14 @@ const HeaderNV = () => {
                           onClick={() => setMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          Pääsivu
+                          {finnish ? 'Pääsivu' : 'Home page'}
                         </Link>
                         <Link
                           to="/weeklist"
                           onClick={() => setMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          Viikon lista
+                          {finnish ? 'Viikon lista' : 'Week menu'}
                         </Link>
                       </div>
                       <div className="py-1">
@@ -188,29 +189,30 @@ const HeaderNV = () => {
                           onClick={() => setMenuOpen(false)}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          Lahjakortit
+                          {finnish ? 'Lahjakortit' : 'Gift cards'}
                         </Link>
                         <a
                           href="/#orderTableSection"
                           onClick={handleReserveClick}
                           className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          Varaa pöytä
+                          {finnish ? 'Varaa pöytä' : 'Table reservation'}
                         </a>
                       </div>
                       <div className="py-1">
-                        <Link
-                          to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
+                        <button
+                          //to="/language"
+                          onClick={handleLanguageToggle}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          🇬🇧 &nbsp;&nbsp;English
-                        </Link>
-                        <Link
+                          {finnish ? "🇬🇧 English" : 'FI - Finnish'}
+                        </button>
+                        <button
                           to="#"
-                          className="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          🌙 &nbsp;&nbsp;Pimeä tila
-                        </Link>
+                          🌙 &nbsp;&nbsp; {finnish ? 'Pimeä tila' : 'Dark mode'}
+                        </button>
                       </div>
                       {/* TODO: Conditional rendering to show either Login/Account settings?*/}
 
@@ -228,7 +230,7 @@ const HeaderNV = () => {
                             onClick={handleLogout}
                             className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                           >
-                            🚪 &nbsp;&nbsp;Kirjaudu ulos
+                            🚪 &nbsp;&nbsp;{finnish ? 'Kirjaudu ulos' : 'Logout'}
                           </button>
                         </div>
                       ) : (
@@ -236,7 +238,7 @@ const HeaderNV = () => {
                           onClick={() => setDisplayLoginModal(true)}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          🔒 &nbsp;&nbsp;Kirjaudu sisään
+                          🔒 &nbsp;&nbsp;{finnish ? 'Kirjaudu sisään' : 'Login'}
                         </button>
                       )}
                     </div>

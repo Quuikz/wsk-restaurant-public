@@ -1,23 +1,24 @@
 import React, {useState} from 'react';
 import useForm from '../../hooks/formHooks.js';
-import {useUserContext} from '../../hooks/contextHooks.js';
+import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import { useAuthentication } from '../../hooks/apiHooks.js';
 
 
 const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
   if (!isOpen){
     return null;
-  } 
+  }
 
   const { postLogin } = useAuthentication();
   const {handleLogin} = useUserContext();
+  const {finnish} = useLanguageContext();
 
   const initValues = {
     username: '',
     password: '',
   };
 
-  
+
 
   const doLogin = async () => {
     try {
@@ -82,7 +83,7 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
             {/* Modal header */}
             <div className="flex items-center justify-between border-b pb-4">
               <h3 className="text-lg font-semibold pt-4 absolute left-1/2 transform -translate-x-1/2">
-                Kirjaudu sisään
+                {finnish ? 'Kirjaudu sisään' : 'Login'}
               </h3>
 
               <button
@@ -95,7 +96,7 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ Tietosi ovat turvassa.</p>
+            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your information is secure.'}</p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
@@ -103,7 +104,7 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
                   htmlFor="loginuser"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Käyttäjätunnus
+                  {finnish ? 'Käyttäjätunnus' : 'Username'}
                 </label>
                 <input
                   name="username"
@@ -121,7 +122,7 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
                   htmlFor="loginpassword"
                   className="block mb-2.5 text-sm font-medium text-heading"
                 >
-                  Salasana
+                  {finnish ? 'Salasana' : 'Password'}
                 </label>
                 <input
                   name="password"
@@ -137,18 +138,18 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
                 type="submit"
                 className="cursor-pointer w-full mb-5 text-black bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
               >
-                Kirjaudu
+                {finnish ? 'Kirjaudu' : 'Login'}
               </button>
             </form>
 
             <div className="text-center">
-              <h2 className="text-lg font-medium">| Oletko uusi asiakas? |</h2>
+              <h2 className="text-lg font-medium">| {finnish ? 'Oletko uusi asiakas?' : 'Are you a new customer?'} |</h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"
                 onClick={onOpenRegister}
               >
-                Luo uusi tili
+                {finnish ? 'Luo uusi tili' : 'Create new account'}
               </button>
             </div>
           </div>
