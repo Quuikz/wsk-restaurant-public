@@ -27,7 +27,7 @@ giftCardRouter.get("/", authenticateToken, userIsAdmin, getGiftCards);
 giftCardRouter.post(
   "/",
   authenticateToken,
-  userIsAdmin,
+  // userIsAdmin,
   formatBodyTypes,
   postGiftCard
 );
