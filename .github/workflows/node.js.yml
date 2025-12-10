@@ -24,17 +24,14 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-          cache-dependency-path: |
-            wsk-restaurant/package-lock.json
-            wsk-restaurant/client/package-lock.json
 
       # 3. Install backend dependencies
       - name: Install backend dependencies
-        run: npm ci
+        run: npm install
 
       # 4. Install frontend dependencies
       - name: Install frontend dependencies
-        run: npm ci --prefix client
+        run: npm install --prefix client
 
       # 5. Build frontend, and prepare public folder
       - name: Build frontend, and prepare public folder
