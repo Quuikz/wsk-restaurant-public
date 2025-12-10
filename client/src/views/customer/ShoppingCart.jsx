@@ -15,10 +15,10 @@ const ShoppingCart = () => {
   const { postOrder, updateOrder } = useOrderCommon();
   const { postNewReservation} = useReservationCommon();
   const { postGiftCard } = useGiftcardsCommon();
-  //const {user} = useUserContext();
+  const {user, setUser} = useUserContext();
 
   const { getUserByToken } = useUser();
-  const [user, setUser] = useState(null);
+
 
   const getCurrentTimestamp = () => {
     const date = new Date();
@@ -54,7 +54,7 @@ const ShoppingCart = () => {
 
 
 
-  
+
   const sendOrder = async (cart, user, token) => {
     const reservationIDs = [];
     const giftCardIDs = [];
@@ -64,7 +64,7 @@ const ShoppingCart = () => {
 
 
     let orderID = null;
-    
+
     //POST empty order (to get id)
     try{
       const emptyOrder = await postOrder({
@@ -79,12 +79,12 @@ const ShoppingCart = () => {
       throw new Error('No order id!');
     }
     orderID = emptyOrder.id;
-    
+
     }
     catch(error){
       console.log('Error in ShoppingCart: POST empty Order: ', error);
     }
-    
+
     if (!user?.id || !orderID) {
       console.log('Cannot send reservation, missing user or orderID', {user, orderID});
       return;
@@ -123,7 +123,7 @@ const ShoppingCart = () => {
         }
         catch(error){
           console.log('Error in ShoppingCart: POST Giftcard: ', error);
-        } 
+        }
       }
     }
 
@@ -154,7 +154,7 @@ const ShoppingCart = () => {
       console.log('User not loaded yet!');
       return;
     }
-    
+
     if(!token){
       console.log('EI TOKENIA');
       return;
@@ -162,12 +162,12 @@ const ShoppingCart = () => {
 
     try{
       const result = await sendOrder(cart, user, token);
-      
+
 
       navigate('/');
       clearCart();
       return(result);
-      
+
 
     }
     catch(error){
@@ -175,7 +175,7 @@ const ShoppingCart = () => {
     }
 
   }
-  
+
 
 
 
@@ -201,7 +201,7 @@ const ShoppingCart = () => {
 
             {/* No Item in cart: */}
             {/* Checks if both array are undefined/empty {(!cart.reservations?.length && !cart.gift_cards?.length) &&*/}
-            {cart.reservations.length == 0 && cart.gift_cards.length == 0 && (
+            {cart.reservations.length === 0 && cart.gift_cards.length === 0 && (
               <p className="text-gray-600">{finnish ? 'Ostoskorisi on tyhjä.' : 'Cart is empty.'}</p>
             )}
 

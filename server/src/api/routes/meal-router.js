@@ -28,7 +28,7 @@ const mealRouter = express.Router();
 const imageUploader = createMulterUploader('./uploads');
 
 //configurable middleware for image scaling
-const imageScaler = createImageScaler(200,200,'./public/images/meals', '_meal', 'webp');
+const imageScaler = createImageScaler(300,200,'./public/images/meals', '_meal', 'webp');
 
 //endpoint http://hostname:port/api/meals
 mealRouter.get('/', getMeals)

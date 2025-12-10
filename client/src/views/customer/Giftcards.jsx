@@ -94,7 +94,7 @@ const Giftcards = () => {
                   <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
                     onClick={() => doAddToCart(5, qty5)}
-                  >Lisää
+                  >{finnish ? 'Lisää ostoskoriin' : 'Add to cart'}
                   </button>
                 </div>
               </div>
@@ -154,7 +154,7 @@ const Giftcards = () => {
                   <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
                     onClick={() => doAddToCart(20, qty20)}
-                    >Lisää
+                    >{finnish ? 'Lisää ostoskoriin' : 'Add to cart'}
                   </button>
                 </div>
               </div>
