@@ -4,6 +4,7 @@ import useWeather from '../../hooks/widgetApiHooks.js';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 // Custom icon for the marker
 const customIcon = L.icon({
@@ -21,6 +22,9 @@ const customIcon = L.icon({
 });
 
 const Contacts = () => {
+  //language
+  const {finnish} = useLanguageContext();
+
   // Restaurant position
   const position = [60.1599, 24.9484];
 
@@ -33,13 +37,15 @@ const Contacts = () => {
 
   const weatherData = data?.current_weather;
 
+  const terraceOpen = (weatherData?.temperature > 15);
+
   return (
     <>
       <div className="bg-orange-50 max-w-7xl mx-auto p-7 pt-20 pb-30">
         {/* Page title */}
         <div className="text-center w-full pb-10 ">
-          <h2 className="text-3xl font-medium">| Yhteystiedot |</h2>
-          <p className="mt-2 ">Etsi teitoa tai ota yhteyttä tarvittaessa!</p>
+          <h2 className="text-3xl font-medium">| {finnish ? 'Yhteystiedot' : 'Contact information'} |</h2>
+          <p className="mt-2 ">{finnish ? 'Tule paikalle tai ota yhteyttä!' : 'Come visit or contact us!'}</p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8 p-6">
@@ -71,40 +77,43 @@ const Contacts = () => {
               {/* !!! Departures Widget NOT WORKING CORS*/}
               {/* <DeparturesWidget lat={60.1599} lon={24.9484} radius={500} /> */}
 
-              <h3 className="text-xl font-semibold mb-2">Yhteystiedot</h3>
+              <h3 className="text-xl font-semibold mb-2">{finnish ? 'Yhteystiedot' : 'Contact information'}</h3>
 
               <div className="text-lg font-medium">
-                <p>Osoite: Kasarmikatu 2</p>
-                <p>Puhelinnumero: +358 4403025563</p>
-                <p>Sähköposti: Restauranto@mail.com</p>
+                <p>{finnish ? 'Osoite':'Address'}: Kasarmikatu 2</p>
+                <p>{finnish ? 'Puhelin':'Phone'}: +358 4403025563</p>
+                <p>{finnish ? 'Sähköposti':'Email'}: Restauranto@mail.com</p>
               </div>
             </div>
 
             {/* Right side - (right/bottom) - Restaurant - opening hours */}
             <div className="p-4 bg-gray-100 rounded-lg shadow bg-orange-100">
-              <h3 className="text-xl font-semibold mb-2">Aukioloajat</h3>
+              <h3 className="text-xl font-semibold mb-2">{finnish ? 'Aukioloajat':'Opening hours'}</h3>
 
               <div className="text-lg font-medium">
-                <p>MA - PE: 8-17</p>
-                <p>LA: 9-16</p>
-                <p>SU: Kiinni</p>
+                <p>{finnish ? 'MA - PE: 8-17':'MON - FRI: 8-17'}</p>
+                <p>{finnish ? 'SAT: 8-17':'SAT: 9-16'}</p>
+                <p>{finnish ? 'SU: Kiinni':'SUN: Closed'}</p>
               </div>
               <div className="text-lg font-medium">
                 {/* !!! Check code better */}
                 <p>
-                  Sää Helsinki:{' '}
+                  {finnish ? 'Sää, Helsinki:':'Weather, Helsinki'}{' '}
                   {weatherData
-                    ? `${weatherData.temperature}°C, Tuuli: ${weatherData.windspeed} ${weatherData.windspeed_unit}`
+                    ? `${weatherData.temperature}°C, ${finnish ? 'Tuuli':'Wind'}: ${weatherData.windspeed} m/s`
                     : loading
-                      ? 'Ladataan säätietoja...'
+                      ? (finnish ? 'Ladataan säätietoja...':'Loading weather...')
                       : error
-                        ? `Virhe: ${error}`
-                        : 'Ei säätietoja saatavilla'}
+                        ? (`Error: ${error}`)
+                        : (finnish ? 'Ei säätietoja saatavilla':'No weather available')}
                 </p>
               </div>
               <div className="text-lg font-medium">
                 {/* !!! Set functionality using temperature and ?weather */}
-                <p>Terassi: Auki / Kiinni</p>
+                <p>{finnish ?
+                  'Terassi on '+(terraceOpen ? 'auki!':'suljettu sään takia.')
+                  :'Terrace is '+(terraceOpen ? 'open!':'closed due to weather.')}
+                </p>
               </div>
             </div>
           </div>
