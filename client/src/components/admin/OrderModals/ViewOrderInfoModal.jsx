@@ -7,7 +7,7 @@ const ViewOrderInfoModal = ({order, onClose}) => {
     
     return (
     <div className="fixed inset-0 bg-black/40 bg-opacity-40 flex justify-center items-center">
-      <div className="bg-white p-6 rounded shadow-lg">
+      <div className="mt-16 bg-white p-6 rounded shadow-lg max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-bold mb-4">Order #{order.id}</h2>
 
         {/* Basic info */}
@@ -15,8 +15,6 @@ const ViewOrderInfoModal = ({order, onClose}) => {
           <p><strong>User:</strong> {order.user}</p>
           <p><strong>Cost:</strong> {order.cost}</p>
           <p><strong>Timestamp:</strong> {order.timestamp}</p>
-          <p><strong>Location:</strong> {order.location}</p>
-          <p><strong>Message:</strong> {order.message}</p>
         </div>
 
 
@@ -31,7 +29,12 @@ const ViewOrderInfoModal = ({order, onClose}) => {
             {order.reservations?.length ? (
             <ul>
                 {order.reservations.map((reservation) => (
-                <li key={reservation.id}>Reservation ID: {reservation.id}</li>
+                <li key={reservation.id} className="p-2 border-b">
+                  <p><span className="font-semibold">Reservation ID: </span>{reservation.id}</p>
+                  <p><span className="font-semibold"> Date: </span>{reservation.date}</p>
+                  <p><span className="font-semibold">Table: </span>{reservation.table_customer_count} Customers</p>
+                  <p><span className="font-semibold">Grill: </span>{reservation.grill_customer_count} Customers</p>
+                </li>
                 ))}
             </ul>
             ) : (
@@ -49,7 +52,13 @@ const ViewOrderInfoModal = ({order, onClose}) => {
         {order.gift_cards?.length ? (
           <ul>
             {order.gift_cards.map((giftCard) => (
-              <li key={giftCard.id}>Gift Card ID: {giftCard.id}</li>
+              <li key={giftCard.id}>
+                <p><span className="font-semibold">Gift Card ID: </span>{giftCard.id}</p>
+                <p><span className="font-semibold">Value: </span>{giftCard.value} €</p>
+                <p><span className="font-semibold">Expiration date: </span>{giftCard.expiration_date}</p>
+              
+              
+              </li>
             ))}
           </ul>
         ) : (

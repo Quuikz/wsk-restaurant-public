@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import {Link} from 'react-router';
+import {Link, useNavigate} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
 import { useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
@@ -9,6 +9,7 @@ const ShoppingCart = () => {
 
   const { cart, clearCart, removeReservationFromCart, incrementGiftCard, decrementGiftCard, removeGiftCardFromCart } = useContext(ShoppingCartContext);
   const { finnish } = useLanguageContext();
+  const navigate = useNavigate();
 
   const { postOrder, updateOrder } = useOrderCommon();
   const { postNewReservation} = useReservationCommon();
@@ -130,6 +131,7 @@ const ShoppingCart = () => {
       console.log('handleCheckout: order successful');
 
       clearCart();
+      navigate('/');
 
     }
     catch(error){
@@ -162,6 +164,7 @@ const ShoppingCart = () => {
 
 
             {/* No Item in cart: */}
+            {/* Checks if both array are undefined/empty {(!cart.reservations?.length && !cart.gift_cards?.length) &&*/}
             {cart.reservations.length == 0 && cart.gift_cards.length == 0 && (
               <p className="text-gray-600">{finnish ? 'Ostoskorisi on tyhjä.' : 'Cart is empty.'}</p>
             )}
