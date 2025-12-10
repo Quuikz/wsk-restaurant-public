@@ -9,7 +9,7 @@ const CartProvider = ({ children }) => {
         gift_cards: [],
     });
 
-
+    //Reservations
     const addReservationToCart = (newReservation) => {
         setCart(prev => ({
             ...prev,
@@ -18,12 +18,34 @@ const CartProvider = ({ children }) => {
     }
 
 
+    //Giftcards
     const addGiftCardToCart = (newGiftCard) => {
         setCart(prev => ({
             ...prev,
             gift_cards: [...prev.gift_cards, newGiftCard]
         }));
     }
+
+    //When clicking + button on shoppingcart to increase amount of giftcards
+    const incrementGiftCard = (value) => {
+        setCart((prev) => ({
+            ...prev,
+            gift_cards: prev.gift_cards.map((giftCard) => 
+                giftCard.value == value ? {...giftCard, quantity: giftCard.quantity + 1} : giftCard
+            ),
+        }));
+    };
+
+    //When clicking - button on shoppingcart to decrease amount of giftcards
+    const decrementGiftCard = (value) => {
+        setCart((prev) => ({
+            ...prev,
+            gift_cards: prev.gift_cards.map((giftCard) => 
+                giftCard.value == value ? {...giftCard, quantity: giftCard.quantity - 1} : giftCard
+            ),
+        }));
+    };
+
 
     const clearCart = () =>{
         setCart([]);
@@ -35,6 +57,8 @@ const CartProvider = ({ children }) => {
             cart, 
             addReservationToCart,
             addGiftCardToCart,
+            incrementGiftCard,
+            decrementGiftCard,
             clearCart
         }}>
             {children}

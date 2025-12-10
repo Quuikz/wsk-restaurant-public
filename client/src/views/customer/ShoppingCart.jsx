@@ -5,7 +5,7 @@ import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 const ShoppingCart = () => {
 
 
-  const { cart, clearCart } = useContext(ShoppingCartContext); 
+  const { cart, clearCart, incrementGiftCard, decrementGiftCard } = useContext(ShoppingCartContext); 
 
 
 
@@ -89,13 +89,17 @@ const ShoppingCart = () => {
               <div className="flex items-center justify-between h-full gap-4">
                 {/* Counter */}
                 <div className="flex items-center gap-2">
-                  <button className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-100">
-                    -
+                  <button 
+                    className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-100"
+                    onClick={() => decrementGiftCard(giftCard.value)}
+                  >-
                   </button>
 
-                  <p className="w-6 text-center">2</p>
-                  <button className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-100">
-                    +
+                  <p className="w-6 text-center">{giftCard.quantity}</p>
+                  <button 
+                    className="w-8 h-8 flex items-center justify-center border rounded-md hover:bg-gray-100"
+                    onClick={() => incrementGiftCard(giftCard.value)}
+                  >+
                   </button>
                 </div>
                 {/* Trash button */}

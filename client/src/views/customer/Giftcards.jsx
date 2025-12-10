@@ -1,5 +1,8 @@
-//Components
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
+
+
+
 
 const Giftcards = () => {
   //
@@ -10,6 +13,18 @@ const Giftcards = () => {
   const [qty50, setQty50] = useState(0);
   const inc = (set) => () => set((v) => Math.min(max, v + 1));
   const dec = (set) => () => set((v) => Math.max(min, v - 1));
+
+  const {addGiftCardToCart} = useContext(ShoppingCartContext);
+
+
+  const doAddToCart = (value, qty) => {
+    if (qty <= 0) return;
+    addGiftCardToCart({ value, quantity: qty });
+    console.log(`${qty} x ${value}€ Added to shoppingcart`);
+  }
+
+
+
 
   return (
     <>
@@ -75,8 +90,10 @@ const Giftcards = () => {
                       +
                     </button>
                   </div>
-                  <button className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300">
-                    Lisää
+                  <button 
+                    className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
+                    onClick={() => doAddToCart(5, qty5)}
+                  >Lisää
                   </button>
                 </div>
               </div>
@@ -133,8 +150,10 @@ const Giftcards = () => {
                       +
                     </button>
                   </div>
-                  <button className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300">
-                    Lisää
+                  <button
+                    className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
+                    onClick={() => doAddToCart(20, qty20)}
+                    >Lisää
                   </button>
                 </div>
               </div>
@@ -191,8 +210,10 @@ const Giftcards = () => {
                       +
                     </button>
                   </div>
-                  <button className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300">
-                    Lisää
+                  <button 
+                    className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
+                    onClick={() => doAddToCart(50, qty50)}
+                  >Lisää
                   </button>
                 </div>
               </div>

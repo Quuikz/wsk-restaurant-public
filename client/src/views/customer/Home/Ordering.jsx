@@ -51,9 +51,7 @@ const Ordering = ({id}) => {
       table_customer_count: form.tableCount,
       grill_customer_count: form.grillCount,
     });
-
-    console.log()
-    alert('Reservation added to cart!');
+    console.log('Reservation added to cart!');
   };
 
 
