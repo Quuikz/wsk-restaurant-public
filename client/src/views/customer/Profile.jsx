@@ -4,13 +4,16 @@ import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
 
 import { useUser } from '../../hooks/apiHooks.js';
-import { useUserContext } from '../../hooks/contextHooks.js';
+import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
-  //const {user} = useUserContext();
+  //const {user} = useUserContext();  //TODO: miksi ei user context ?
+
+  //language
+  const {finnish} = useLanguageContext();
 
   const { getUserByToken } = useUser();
   const [user, setUser] = useState(null);
@@ -27,7 +30,7 @@ const Profile = () => {
     const getUserData = async () => {
       const userData = await getUserByToken(token);
       setUser(userData.user);
-  
+
     };
     getUserData();
 
@@ -40,7 +43,7 @@ const Profile = () => {
         {/* Profile title */}
         <div className="text-center w-full bg-orange-50 pt-20">
           <h2 className="text-3xl font-medium">| Profiili |</h2>
-          <p className="mt-2 ">Tarkista tiedot ja muokkaa halutessa!</p>
+          <p className="mt-2 "></p> {finnish ? 'Tarkista tiedot ja muokkaa halutessa!' : 'Check and change your info!'}
         </div>
 
         <div className=" p-20 pb-30  bg-orange-100">
@@ -57,7 +60,7 @@ const Profile = () => {
                     />
                   </button>
 
-                  <h2 className="text-lg font-medium">Käyttäjä profiili</h2>
+                  <h2 className="text-lg font-medium">{finnish ? 'Käyttäjäprofiili' : 'User profile'}</h2>
                 </div>
 
               {user ? (
@@ -71,7 +74,7 @@ const Profile = () => {
                   <h2 className="text-2xl font-medium">Ladataan profiilia...</h2>
                 </div>
               )}
-                
+
 
                 <div className="grid grid-cols-2 gap-5">
                   <button
@@ -99,13 +102,13 @@ const Profile = () => {
                     <thead>
                     </thead>
 
-                    <ShoppingHistory 
-                      
+                    <ShoppingHistory
+
                     />
 
 
 
-                    
+
                   </table>
                 </div>
               </div>
@@ -138,7 +141,7 @@ const Profile = () => {
   );
 
 
-  
+
 };
 
 /*
@@ -178,7 +181,7 @@ const Profile = () => {
                         <td className="px-4 py-2 border text-center">45.00€</td>
                       </tr>
                     </tbody>
-                    
+
                     */
 
 export default Profile;
