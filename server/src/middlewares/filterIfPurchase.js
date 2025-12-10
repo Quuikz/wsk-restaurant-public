@@ -10,7 +10,7 @@ const filterIfPurchase = (req, res, next) => {
     //check if purchase is made
     // No real purchase logic implemented, just a placeholder
 
-    if (connectToPurchaseService(req.body.order)) {
+    if (connectToPurchaseService()) {
       console.log("Purchase verified, proceeding to next middleware");
       next();
     } else {
