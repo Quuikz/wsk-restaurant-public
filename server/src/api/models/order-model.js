@@ -8,8 +8,8 @@ const default_order = {
   user: 1, //user.id = who made the order
   cost: 10.5,
   timestamp: "2025-12-06 12:00:00",
-  reservations: [1], //Vieras avain osoittamaan reservations tauluun, esim. id:1 id:2 id:3
-  gift_cards: [1], //Vieras avain osoittamaan giftcards tauluun.
+  reservations: [], //Vieras avain osoittamaan reservations tauluun, esim. id:1 id:2 id:3
+  gift_cards: [], //Vieras avain osoittamaan giftcards tauluun.
   message:
     "reservations = array of reservation id, gift_cards = array of card id",
 };
@@ -123,6 +123,7 @@ const addOrder = async (order) => {
         ...order,
         message: "new order added by order-model",
       };
+        console.log('new order in addOrder:', newOrder);
 
       //sql for orders table
       const orderSql = `INSERT INTO orders (user, cost, timestamp, message)
@@ -144,39 +145,46 @@ const addOrder = async (order) => {
 
       //sql for order.reservations and order.gift_cards arrays
       if (orderResult[0].insertId && orderResult[0].affectedRows > 0) {
+
         //sql for reservations
-        const reservationSql = `INSERT INTO order_reservations (\`order\`, reservation)
-                   VALUES ?`;
-        console.log(reservationSql);
+          let resResult = true;
+          if (newOrder.reservations.length > 0) {
+              const reservationSql = `INSERT INTO order_reservations (\`order\`, reservation)
+                                      VALUES ?`;
+              console.log(reservationSql);
 
-        //parameters
-        const reservationParams = [];
-        newOrder.reservations.forEach((resId) => {
-          reservationParams.push([orderResult[0].insertId, resId]);
-        });
-        console.log(reservationParams);
+              //parameters
+              const reservationParams = [];
+              newOrder.reservations.forEach((resId) => {
+                  reservationParams.push([orderResult[0].insertId, resId]);
+              });
+              console.log(reservationParams);
 
-        const formatted_res = connection.format(reservationSql, [
-          reservationParams,
-        ]);
-        console.log(formatted_res);
-        const resResult = await connection.execute(formatted_res);
+              const formatted_res = connection.format(reservationSql, [
+                  reservationParams,
+              ]);
+              console.log(formatted_res);
+              resResult = await connection.execute(formatted_res);
+          }
 
         //sql for gift_cards
-        const gcSql = `INSERT INTO order_gift_cards (\`order\`, gift_card)
-                   VALUES ?`;
-        console.log(gcSql);
+          let gcResult = true;
+          if(newOrder.gift_cards.length > 0) {
+              const gcSql = `INSERT INTO order_gift_cards (\`order\`, gift_card)
+                             VALUES ?`;
+              console.log(gcSql);
 
-        //parameters
-        const gift_cardParams = [];
-        newOrder.gift_cards.forEach((gcId) => {
-          gift_cardParams.push([orderResult[0].insertId, gcId]);
-        });
-        console.log(gift_cardParams);
+              //parameters
+              const gift_cardParams = [];
+              newOrder.gift_cards.forEach((gcId) => {
+                  gift_cardParams.push([orderResult[0].insertId, gcId]);
+              });
+              console.log(gift_cardParams);
 
-        const formatted_gc = connection.format(gcSql, [gift_cardParams]);
-        console.log(formatted_gc);
-        const gcResult = await connection.execute(formatted_gc);
+              const formatted_gc = connection.format(gcSql, [gift_cardParams]);
+              console.log(formatted_gc);
+              gcResult = await connection.execute(formatted_gc);
+          }
 
         //if results
         if (resResult && gcResult) {
