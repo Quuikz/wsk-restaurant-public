@@ -1,6 +1,8 @@
 import {useEffect, useState, useRef, useMemo} from 'react';
 import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
+import {useReservationCommon} from '../../../hooks/common/apiHooks.js';
+
 // Available times for ordering
 const TIMES = [
   '8:00',
@@ -43,6 +45,7 @@ const OrderingTime = ({
 }) => {
   const [timeMenuOpen, setTimeMenuOpen] = useState(false);
   const [selectedTime, setSelectedTime] = useState(null);
+  const {getReservationOnDateTime} = useReservationCommon();
   const menuRef = useRef(null);
   const {finnish} = useLanguageContext();
 
@@ -50,6 +53,30 @@ const OrderingTime = ({
   const hasAvailableTimes = useMemo(() => {
     return TIMES.some((t) => isTimeAvailableForDate(reservationDate, t));
   }, [reservationDate]);
+
+  // Load reserved times for the selected date
+  const [reservedTimes, setReservedTimes] = useState([]);
+
+  useEffect(() => {
+    const loadReservedTimes = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const reservations = await getReservationOnDateTime(
+          token,
+          reservationDate,
+        );
+        const times = reservations.map((res) => res.time);
+        setReservedTimes(times);
+      } catch (error) {
+        console.log('Error loading reserved times: ', error);
+      }
+    };
+    if (reservationDate) {
+      loadReservedTimes();
+    }
+  }, [reservationDate, getReservationOnDateTime]);
+
+  console.log('RESERVED TIMES: ', reservedTimes);
 
   // Close when clicking outside
   useEffect(() => {
