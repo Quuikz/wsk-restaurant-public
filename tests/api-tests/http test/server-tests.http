@@ -18,5 +18,64 @@ GET https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/
 
 ### get giftcards from server
 GET https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/giftcards/
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTI5MDAzMSwiZXhwIjoxNzY1Mzc2NDMxfQ.-I-2OKtX3q7N3Aw95U5N-ajZvXXC-a_G-o8sP4bBHik
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTQwNjI4MywiZXhwIjoxNzY1NDkyNjgzfQ.dTuK4x8tPHa-4oczuH_UYxHGkvuq7SY88PZ1Xn6nfCA
+
+
+
+### post new meal WITHOUT picture
+## see tests/upload-form.html how to upload with image
+POST https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTQwNjI4MywiZXhwIjoxNzY1NDkyNjgzfQ.dTuK4x8tPHa-4oczuH_UYxHGkvuq7SY88PZ1Xn6nfCA
+
+{
+  "id" : 234,
+  "name_fi": "suomenkielinen nimi",
+  "name_en": "english name",
+  "description_fi": "suomalainen kuvaus tuotteelle",
+  "description_en": "english description for the item",
+  "cost": 0.0,
+  "type": "noudettava annos/ pöytävaraus / lahjakortti ?",
+  "image": "public/images/burger.jpg"
+}
+
+### update meal with picture
+PUT https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/25
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTQwNjI4MywiZXhwIjoxNzY1NDkyNjgzfQ.dTuK4x8tPHa-4oczuH_UYxHGkvuq7SY88PZ1Xn6nfCA
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+25
+--MyBoundary
+Content-Disposition: form-data; name="name_fi"
+
+suomenkielinen nimi
+--MyBoundary
+Content-Disposition: form-data; name="name_en"
+
+english name
+--MyBoundary
+Content-Disposition: form-data; name="description_fi"
+
+description_fi
+--MyBoundary
+Content-Disposition: form-data; name="description_en"
+
+description_en
+--MyBoundary
+Content-Disposition: form-data; name="cost"
+
+40
+--MyBoundary
+Content-Disposition: form-data; name="type"
+
+"food?"
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="burger.jpg"
+Content-Type: image/jpg
+
+< ./burger.jpg
+--MyBoundary--
 
