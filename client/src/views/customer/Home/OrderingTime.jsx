@@ -18,10 +18,12 @@ const TIMES = [
 ];
 
 // Check available times for given date
-const isTimeAvailableForDate = (dateStr, time) => {
-  if (!dateStr) return true;
+/*
+const isTimeAvailableForDate = (reservationDate, reservationTime) => {
+  //console.log('CHECKING AVAILABILITY FOR: ', dateTime);
+  if (!reservationDate) return true;
 
-  const [year, month, day] = dateStr.split('-').map(Number);
+  const [year, month, day] = reservationDate.split('-').map(Number);
   const d = new Date(year, month - 1, day);
   const weekday = d.getDay();
 
@@ -30,13 +32,14 @@ const isTimeAvailableForDate = (dateStr, time) => {
 
   // Saturday -> limited hours (9:00-16:00)
   if (weekday === 6) {
-    const hour = Number(time.split(':')[0]);
+    const hour = Number(reservationTime.split(':')[0]);
     return hour >= 9 && hour <= 16;
   }
 
   // Weekday -> all times available
   return true;
 };
+*/
 
 const OrderingTime = ({
   reservationDate,
@@ -49,34 +52,42 @@ const OrderingTime = ({
   const menuRef = useRef(null);
   const {finnish} = useLanguageContext();
 
+  // Additional check for reserved times
+
+  const isTimeAvailableForDate = async (reservationDate, reservationTime) => {
+    /*
+    console.log(
+      'Loading reserved times for: ',
+      reservationDate,
+      reservationTime,
+    );
+    */
+    if (!reservationDate || !reservationTime) return;
+
+    const dateTime = reservationDate + ' ' + reservationTime + ':00';
+    try {
+      const token = localStorage.getItem('token');
+      const data = await getReservationOnDateTime(token, dateTime);
+
+      console.log('RESERVED COUNT: ', data);
+
+      if (data > 5) {
+        return false;
+      } else {
+        return true;
+      }
+    } catch (error) {
+      console.log('Error loading reserved times: ', error);
+      return true;
+    }
+  };
+
   // Memoized available times for the selected date
   const hasAvailableTimes = useMemo(() => {
     return TIMES.some((t) => isTimeAvailableForDate(reservationDate, t));
   }, [reservationDate]);
 
-  // Load reserved times for the selected date
-  const [reservedTimes, setReservedTimes] = useState([]);
-
-  useEffect(() => {
-    const loadReservedTimes = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const reservations = await getReservationOnDateTime(
-          token,
-          reservationDate,
-        );
-        const times = reservations.map((res) => res.time);
-        setReservedTimes(times);
-      } catch (error) {
-        console.log('Error loading reserved times: ', error);
-      }
-    };
-    if (reservationDate) {
-      loadReservedTimes();
-    }
-  }, [reservationDate, getReservationOnDateTime]);
-
-  console.log('RESERVED TIMES: ', reservedTimes);
+  //console.log('RESERVED TIMES: ', reservedTimes);
 
   // Close when clicking outside
   useEffect(() => {
@@ -139,6 +150,7 @@ const OrderingTime = ({
           {/* Time selection menu items */}
           {TIMES.map((t) => {
             const isAvailable = isTimeAvailableForDate(reservationDate, t);
+            console.log('TIME ', t, ' AVAILABLE: ', isAvailable);
             return (
               <button
                 key={t}
