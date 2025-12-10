@@ -15,12 +15,6 @@ const Ordering = ({id}) => {
   const {addReservationToCart} = useContext(ShoppingCartContext);
   const {finnish} = useLanguageContext();
 
-  //States for table, grill, date?, time?
-  const [tableCount, setTableCount] = useState(0);
-  const [grillCount, setGrillCount] = useState(1);
-  const [date, setDate] = useState(today);
-  const [time, setTime] = useState('8:00');
-
   /*
   const initValues = {
     reservationDate: date,
@@ -93,7 +87,11 @@ const Ordering = ({id}) => {
                 min={today}
                 //onChange={(e) => setReservationDate(e.target.value)}
                 value={form.reservationDate}
-                onChange={(e) => updateField('reservationDate', e.target.value)}
+                onChange={(e) => (
+                  updateField('reservationDate', e.target.value),
+                  updateField('reservationTime', 'Valitse aika')
+                ) //reset time on date change
+                }
                 className="w-48 px-3 py-2 border border-gray-300 bg-white rounded"
               />
             </div>
