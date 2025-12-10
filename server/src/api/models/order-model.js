@@ -223,30 +223,14 @@ const addOrder = async (order) => {
 
 /**
  *
- * @param order order object
+ * @param updatedOrder order object
  * @param orderId number
  * @return {Promise<*|boolean>}
  * order or false if error or not found
  */
-const modifyOrder = async (order, orderId) => {
+const modifyOrder = async (updatedOrder, orderId) => {
   try {
-    console.log("modifyOrder: ", orderId, order);
-
-    //get previous order
-    const previousOrder = await findOrderById(orderId);
-
-    //abort if not found
-    if (!previousOrder) {
-      return false;
-    }
-
-    //previous order values overridden by new order
-    const updatedOrder = {
-      ...previousOrder,
-      ...order,
-      message: "order modified by order-model",
-    };
-    console.log("values to update: ", updatedOrder);
+    console.log("modifyOrder: ", orderId, updatedOrder);
 
     //get connection for transaction
     const connection = await promisePool.getConnection();
