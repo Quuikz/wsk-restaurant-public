@@ -7,6 +7,7 @@ import { getAdminToken, getUserToken } from "./authHelper.js";
 
 let adminToken = null;
 let userToken = null;
+const clearDiscountIds = [];
 
 beforeAll(async () => {
   console.log("[BEFORE ALL] Setting up tokens for tests...");
@@ -18,6 +19,17 @@ beforeAll(async () => {
 });
 
 afterAll(async () => {
+  console.log("[AFTER ALL] Cleaning up created discounts...");
+  for (const id of clearDiscountIds) {
+    try {
+      await request(app)
+        .delete(`/api/discounts/${id}`)
+        .set("Authorization", `Bearer ${adminToken}`)
+        .set("Accept", "application/json");
+    } catch (error) {
+      console.log(`Error cleaning up discount with id ${id}:`, error);
+    }
+  }
   await closePool();
 });
 
@@ -33,11 +45,15 @@ describe("Discount End points", () => {
         date_end: "2024-06-30",
       };
 
+      clearDiscountIds.push(newDiscount.id);
+
       const res = await request(app)
         .post("/api/discounts")
         .set("Authorization", `Bearer ${adminToken}`)
         .send(newDiscount)
         .set("Accept", "application/json");
+
+      clearDiscountIds.push(res.body.id);
 
       expect(res.statusCode).toEqual(201);
       expect(res.body).toHaveProperty("id");
@@ -58,18 +74,6 @@ describe("Discount End points", () => {
         date_start: "2024-06-01",
         date_end: "2024-06-30",
       };
-
-      await request(app)
-        .post("/api/discounts")
-        .set("Authorization", `Bearer ${adminToken}`)
-        .send(newDiscount2)
-        .set("Accept", "application/json");
-
-      await request(app)
-        .post("/api/discounts")
-        .set("Authorization", `Bearer ${adminToken}`)
-        .send(newDiscount3)
-        .set("Accept", "application/json");
     });
 
     it("should fail to create a new discount with user token", async () => {
@@ -85,6 +89,8 @@ describe("Discount End points", () => {
         .set("Authorization", `Bearer ${userToken}`)
         .send(newDiscount)
         .set("Accept", "application/json");
+
+      clearDiscountIds.push(newDiscount.id);
 
       expect(res.statusCode).toBeGreaterThanOrEqual(400);
       expect(res.statusCode).toBeLessThan(500);
@@ -157,6 +163,7 @@ describe("Discount End points", () => {
         .set("Accept", "application/json");
 
       createdId = res.body.id;
+      clearDiscountIds.push(createdId);
     });
 
     it("should update an existing discount with admin token", async () => {
@@ -205,6 +212,7 @@ describe("Discount End points", () => {
         .set("Accept", "application/json");
 
       createdId = res.body.id;
+      clearDiscountIds.push(createdId);
     });
 
     it("should delete a discount with admin token", async () => {
@@ -240,6 +248,7 @@ describe("Discount End points", () => {
         .set("Accept", "application/json");
 
       const idToTry = created.body.id;
+      clearDiscountIds.push(idToTry);
 
       const res = await request(app)
         .delete(`/api/discounts/${idToTry}`)
@@ -264,6 +273,7 @@ describe("Discount End points", () => {
           date_end: "2024-10-31",
         })
         .set("Accept", "application/json");
+      clearDiscountIds.push(d1.body.id);
 
       const d2 = await request(app)
         .post("/api/discounts")
@@ -275,6 +285,7 @@ describe("Discount End points", () => {
           date_end: "2024-10-31",
         })
         .set("Accept", "application/json");
+      clearDiscountIds.push(d2.body.id);
 
       const ids = [d1.body.id, d2.body.id];
 
