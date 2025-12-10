@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import {Link} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
@@ -10,24 +10,52 @@ const ShoppingCart = () => {
   const { cart, clearCart, removeReservationFromCart, incrementGiftCard, decrementGiftCard, removeGiftCardFromCart } = useContext(ShoppingCartContext);
   const { finnish } = useLanguageContext();
 
-  const { postOrder } = useOrderCommon();
+  const { postOrder, updateOrder } = useOrderCommon();
   const { postNewReservation} = useReservationCommon();
   const { postGiftCard } = useGiftcardsCommon();
   const {user} = useUserContext();
 
+  //const [orderID, setOrderID] = useState(null);
+
   //Collection of IDs for POST reservations+giftcards
   
-  const sendOrder = async () => {
+  const sendOrder = async (cart, user, token) => {
     //TODO: consider useState..
     const reservationIDs = [];
     const giftCardIDs = [];
 
+
+    let orderID = null;
+    //POST empty order (to get id)
+    try{
+      const emptyOrder = await postOrder({
+      user: user.id,
+      cost: 0,
+      timestamp: "2025-12-01 12:30:00",
+      reservations: [],
+      gift_cards: [],
+    }, token);
+
+    //setOrderID(emptyOrder.id);
+    if(!emptyOrder || !emptyOrder.id){
+      throw new Error('No order id!');
+    }
+    orderID = emptyOrder.id;
+    console.log(orderID);
+    
+    }
+    catch(error){
+      console.log('Error in ShoppingCart: POST empty Order: ', error);
+    }
+    
+    
 
     //POST reservation
     for(const reservation of cart.reservations){
       try{
         const reservationResult = await postNewReservation({
           user: user.id,
+          order: orderID,
           date: reservation.date,
           table_customer_count: reservation.table_customer_count,
           grill_customer_count: reservation.grill_customer_count,
@@ -46,6 +74,7 @@ const ShoppingCart = () => {
         try{
           const giftCardResult = await postGiftCard({
             user: user.id,
+            order: orderID,
             value: giftCard.value,
             expiration_date: giftCard.expiration_date,
             password: '',
@@ -59,7 +88,7 @@ const ShoppingCart = () => {
     }
 
 
-    //POST order
+    //PUT order (Updates the Order with reservations and giftcards)
     const orderData = {
       user: user.id,
       cost: 10,
@@ -69,7 +98,7 @@ const ShoppingCart = () => {
     };
 
     try{
-      const orderResult = await postOrder(orderData, token);
+      const orderResult = await updateOrder(orderData, token, orderID);
       return orderResult;
     }
     catch(error){
