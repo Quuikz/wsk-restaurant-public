@@ -29,12 +29,8 @@ const ShoppingCart = () => {
     //POST empty order (to get id)
     try{
       const emptyOrder = await postOrder({
-      user: user.id,
-      cost: 0,
-      timestamp: "2025-12-01 12:30:00",
-      reservations: [],
-      gift_cards: [],
-    }, token);
+        
+      }, token);
 
     //setOrderID(emptyOrder.id);
     if(!emptyOrder || !emptyOrder.id){
@@ -54,7 +50,7 @@ const ShoppingCart = () => {
     for(const reservation of cart.reservations){
       try{
         const reservationResult = await postNewReservation({
-          user: user.id,
+          user: 2,
           order: orderID,
           date: reservation.date,
           table_customer_count: reservation.table_customer_count,
@@ -73,7 +69,7 @@ const ShoppingCart = () => {
       for(let i=0; i<giftCard.quantity; i++){
         try{
           const giftCardResult = await postGiftCard({
-            user: user.id,
+            user: 2,
             order: orderID,
             value: giftCard.value,
             expiration_date: giftCard.expiration_date,
@@ -90,12 +86,15 @@ const ShoppingCart = () => {
 
     //PUT order (Updates the Order with reservations and giftcards)
     const orderData = {
-      user: user.id,
+      id: orderID,
+      user: 2,
       cost: 10,
-      timestamp:' 2024-10-12',
+      timestamp:' 2024-10-12 12:00:00',
       reservations: reservationIDs,
       gift_cards: giftCardIDs
     };
+
+    console.log('PAYLOAD:', orderData);
 
     try{
       const orderResult = await updateOrder(orderData, token, orderID);
@@ -111,11 +110,15 @@ const ShoppingCart = () => {
 
   const handleCheckout = async () => {
     const token = localStorage.getItem('token');
+    if(!token){
+      console.log('EI TOKENIA');
+      return;
+    }
 
     try{
       const result = await sendOrder(cart, user, token);
       console.log(result);
-      console.log('handleCheckout: order successfull');
+      console.log('handleCheckout: order successful');
 
       clearCart();
 
