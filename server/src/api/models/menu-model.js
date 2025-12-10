@@ -11,7 +11,7 @@ const default_menu = {
     date : '2025-12-06', //date format
     week: 12, //week number
     special_meal: 1,
-    meals : [1,2,3],
+    meals : [],
     image: "placeholder.jpg",
     message: 'default menu. meals array contains meal.id values. date format: YYYY-MM-DD'
 }
@@ -129,21 +129,27 @@ const addMenu = async (menu) => {
             //sql for menu.meals array into menu_meals table
             if (menuResult[0].insertId && menuResult[0].affectedRows > 0 ) {
 
-                //sql
-                const mealSql =  `INSERT INTO menu_meals (menu, meal)
-                   VALUES ?`;
-                console.log(mealSql);
+                let mealResult = false;
+                if(newMenu.meals.length > 0) {
+                    //sql
+                    const mealSql = `INSERT INTO menu_meals (menu, meal)
+                                     VALUES ?`;
+                    console.log(mealSql);
 
-                //parameters
-                const mealParams = [];
-                menu.meals.forEach((mealId) => {
-                    mealParams.push( [menuResult[0].insertId, mealId] );
-                })
-                console.log(mealParams);
+                    //parameters
+                    const mealParams = [];
+                    menu.meals.forEach((mealId) => {
+                        mealParams.push([menuResult[0].insertId, mealId]);
+                    })
+                    console.log(mealParams);
 
-                const formatted = connection.format(mealSql , [mealParams]);
-                console.log(formatted);
-                const mealResult = await connection.execute(formatted);
+                    const formatted = connection.format(mealSql, [mealParams]);
+                    console.log(formatted);
+                    mealResult = await connection.execute(formatted);
+                } else {
+                    //success if nothing to add
+                    mealResult = true;
+                }
 
                 //if result
                 if (mealResult) {  //TODO: better error checking
@@ -233,33 +239,40 @@ const modifyMenu = async (menu, menuId) => {
             const menuResult = await connection.execute(menuSql, menuParams);
             console.log(menuResult);
 
+            //delete old meals array from menu_meals
+            await connection.execute(
+                `DELETE FROM menu_meals WHERE menu_meals.menu = ?`,
+                [updatedMenu.id]);
+
             //sql for menu.meals array into menu_meals table //TODO: does this catch errors?
             if (menuResult[0].affectedRows > 0 ) {
                 console.log('menuResult ok');
 
-                //delete old meals array from menu_meals
-                await connection.execute(
-                    `DELETE FROM menu_meals WHERE menu_meals.menu = ?`,
-                    [updatedMenu.id]);
-
                 //insert new values into menu_meals
-                //sql
-                const mealSql =  `INSERT INTO menu_meals (menu, meal)
-                   VALUES ?`;
-                console.log(mealSql);
+                let mealResult = false;
+                if(updatedMenu.meals.length > 0) {
+                    //sql
+                    const mealSql =  `INSERT INTO menu_meals (menu, meal)
+                       VALUES ?`;
+                    console.log(mealSql);
 
-                const mealParams = [];
-                updatedMenu.meals.forEach((mealId) => {
-                    mealParams.push( [updatedMenu.id, mealId] );
-                })
-                console.log(mealParams);
+                    const mealParams = [];
+                    updatedMenu.meals.forEach((mealId) => {
+                        mealParams.push( [updatedMenu.id, mealId] );
+                    })
+                    console.log(mealParams);
 
-                //insert parameters
-                const formatted = connection.format(mealSql , [mealParams]);
-                console.log(formatted);
+                    //insert parameters
+                    const formatted = connection.format(mealSql , [mealParams]);
+                    console.log(formatted);
 
-                //execute sql
-                const mealResult = await connection.execute(formatted);
+                    //execute sql
+                    mealResult = await connection.execute(formatted);
+
+                } else {
+                    //success if nothing to add
+                    mealResult = true;
+                }
 
                 //if result is success
                 if (mealResult) {  //TODO: better error checking
