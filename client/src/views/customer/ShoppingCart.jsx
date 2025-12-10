@@ -40,7 +40,10 @@ const ShoppingCart = () => {
     //POST empty order (to get id)
     try{
       const emptyOrder = await postOrder({
-        
+        id: orderID,
+        user: 2,
+        cost: 10,
+        timestamp: getCurrentTimestamp(),
       }, token);
 
     //setOrderID(emptyOrder.id);
@@ -96,10 +99,6 @@ const ShoppingCart = () => {
 
     //PUT order (Updates the Order with reservations and giftcards)
     const orderData = {
-      id: orderID,
-      user: 2,
-      cost: 10,
-      timestamp: getCurrentTimestamp(),
       reservations: reservationIDs,
       gift_cards: giftCardIDs
     };
