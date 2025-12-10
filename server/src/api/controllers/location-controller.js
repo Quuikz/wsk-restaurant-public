@@ -19,7 +19,7 @@ import { listAllDiscounts } from "../models/discount-model.js";
  *     HTTP/1.1 200 OK
  *     [ {"id":1,"name":"..."}, {...} ]
  *
- * @apiNote If no locations are found the endpoint currently returns 200 with a plain text
+ * @apiDescription If no locations are found the endpoint currently returns 200 with a plain text
  * message `"no locations found"` instead of an empty array.
  *
  * @apiError 500 Internal server error

@@ -22,7 +22,7 @@ import {
  *     HTTP/1.1 200 OK
  *     [ {"id":1,"date":"2025-12-06","meals":[1,2,3]}, {...} ]
  *
- * @apiNote When no menus exist the implementation returns an empty array.
+ * @apiDescription When no menus exist the implementation returns an empty array.
  * @apiError 500 Internal server error
  */
 const getMenus = async (req, res) => {
@@ -255,7 +255,7 @@ const getMenusByWeek = async (req, res) => {
  *     HTTP/1.1 200 OK
  *     [ {"id":1,"date":"...","meals":[1,2]}, null ]
  *
- * @apiNote When an id is not found the implementation returns `false`/`null` for that position.
+ * @apiDescription When an id is not found the implementation returns `false`/`null` for that position.
  * @apiError 400 No ID array in request (controller currently returns 404 with message for missing `menus`)
  * @apiError 500 Internal server error
  */

@@ -19,7 +19,7 @@ import { listAllLocations } from "../models/location-model.js";
  *     HTTP/1.1 200 OK
  *     [ {"id":1,"name_fi":"...","cost":9.5}, {...} ]
  *
- * @apiNote If no meals are found the endpoint currently returns 200 with a plain
+ * @apiDescription If no meals are found the endpoint currently returns 200 with a plain
  * text message `"no meals found"` instead of an empty array.
  *
  * @apiError 500 Internal server error
@@ -207,7 +207,7 @@ const deleteMeal = async (req, res) => {
  *     HTTP/1.1 200 OK
  *     [ {"id":1,"name_fi":"..."}, null ]
  *
- * @apiNote When an id is not found the implementation returns `false` for that position
+ * @apiDescription When an id is not found the implementation returns `false` for that position
  * (controller currently will return an array that can contain `false` for missing items).
  *
  * @apiError 400 No ID array in request (returns 400 and message when `meals` missing)
