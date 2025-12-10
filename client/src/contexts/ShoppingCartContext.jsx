@@ -133,7 +133,10 @@ const CartProvider = ({ children }) => {
 
 
     const clearCart = () =>{
-        setCart([]);
+        setCart({
+            reservations: [],
+            gift_cards: [],
+        });
     }
 
     return (

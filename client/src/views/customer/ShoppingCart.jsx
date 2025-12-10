@@ -129,8 +129,9 @@ const ShoppingCart = () => {
       console.log(result);
       console.log('handleCheckout: order successful');
 
-      clearCart();
       navigate('/');
+      clearCart();
+      
 
     }
     catch(error){
