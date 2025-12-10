@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
+          cache-dependency-path: |
+            wsk-restaurant/package-lock.json
+            wsk-restaurant/client/package-lock.json
 
       # 3. Install backend dependencies
       - name: Install backend dependencies
