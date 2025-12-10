@@ -27,14 +27,12 @@ jobs:
             cd ~/wsk-restaurant
             # ensure we are on the main branch
             git checkout main
-            # git fetch to see if there are any changes
-            git fetch
-            # pull the changes from Github
-            git pull --no-rebase origin main
+            # fetch and reset to latest version of the main branch
+            git fetch origin main && git reset --hard origin/main
             # to get the status and to check that everything is ok
             git status
             # install possibly updated dependencies
-            npm install
+            npm ci
             # install possibly updated dependencies
             npm install --prefix client
             # build and deploy the frontend application
