@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
+import {useLanguageContext} from "../../../hooks/contextHooks.js";
 
 // Function to convert ISO date to weekday name "Finnish"
 function isoToWeekdayName(isoDate, locale = 'fi-FI', weekday = 'long') {
@@ -29,6 +30,7 @@ const WeeklistBox = ({menu}) => {
   const [, setDailyMenu] = useState([]);
   const [meals, setMeals] = useState([]);
   const [specialMealID, setSpecialMealID] = useState([]);
+  const {finnish} = useLanguageContext();
 
   useEffect(() => {
     if (!menu?.date?.split('T')[0]) {
@@ -49,8 +51,8 @@ const WeeklistBox = ({menu}) => {
           // console.log('DAILY MENU: ', menu);
 
           // Load meals for Menu of the day
-          const mealItems = await getMealByIDList(menu.meals);
-          const specialMealID = menu.meals[menu.special_meal - 1];
+          const mealItems = await getMealByIDList([menu.special_meal, ...menu.meals]);
+          const specialMealID = menu.special_meal;
           //console.log('SPECIAL MEAL ID: ', specialMealID);
           //console.log('MEAL DATA: ', mealItems);
           setMeals(mealItems);
@@ -76,17 +78,19 @@ const WeeklistBox = ({menu}) => {
             {meals.map((meal) => (
               <div key={meal.id}>
                 <p className="font-bold">
-                  {meal.id == specialMealID ? 'Grilli spesiaali' : 'Noutopöytä'}
+                  {meal.id === specialMealID ?
+                    (finnish ? 'Grilli spesiaali' : 'Grill special') :
+                    (finnish ? 'Noutopöytä' : 'Buffet')}
                 </p>
 
                 {meal ? (
                   <ul>
-                    <li>Nimi - {meal.name_fi}</li>
-                    <li>Hinta - {meal.cost}€</li>
-                    <li>Tietoa - {meal.description_fi}</li>
+                    <li>{finnish ? `Nimi - ${meal.name_fi}` : `Name - ${meal.name_en}`} - </li>
+                    <li>{finnish ? `Hinta - ${meal.cost}€` : `Cost - ${meal.cost}€`}</li>
+                    <li>{finnish ? `Tietoa - ${meal.description_fi}` : `Description - ${meal.description_en}`}</li>
                   </ul>
                 ) : (
-                  <p>Ei saatavilla</p>
+                  <p>{finnish ? 'Ei saatavilla' : 'Not available'}</p>
                 )}
               </div>
             ))}

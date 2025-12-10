@@ -1,8 +1,12 @@
 import {useEffect, useState} from 'react';
 import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
+import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 const Weeklist = () => {
+  //language context
+  const {finnish} = useLanguageContext();
+
   // Function to get current week number
   const realTimeWeek = () => {
     const d = new Date();
@@ -47,8 +51,8 @@ const Weeklist = () => {
         <div className="p-7 pt-20 pb-30 bg-orange-100 min-h-screen">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">
-            <h2 className="text-3xl font-medium">| Viikko {currentWeek} |</h2>
-            <p className="mt-2 ">Tutustu viikon herkkulliseen valikoimaan!</p>
+            <h2 className="text-3xl font-medium">| {finnish ? 'Viikko' : 'Week'} {currentWeek} |</h2>
+            <p className="mt-2 ">{finnish ? 'Tutustu viikon herkkulliseen valikoimaan!' : 'Check out delicious weekly selections!'}</p>
           </div>
 
           {/* Weekly list */}
@@ -63,13 +67,13 @@ const Weeklist = () => {
               className="mt-4 mb-4 bg-orange-200  px-4 py-2 rounded hover:bg-orange-300 width-fit mr-auto"
               onClick={dec(setCurrentWeek)}
             >
-              ← Viime viikko
+              ← {finnish ? 'Edellinen viikko' : 'Previous week'}
             </button>
             <button
               className="mt-4 mb-4 bg-orange-200  px-4 py-2 rounded hover:bg-orange-300 width-fit ml-auto"
               onClick={inc(setCurrentWeek)}
             >
-              Ensi viikko →
+              {finnish ? 'Seuraava viikko' : 'Next week'} →
             </button>
           </div>
         </div>
