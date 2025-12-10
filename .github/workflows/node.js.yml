@@ -34,11 +34,15 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci --prefix client
 
-      # 5. Build frontend, Add Api documentation and copy to public folder
-      - name: Build frontend, generate API docs, and prepare public folder
+      # 5. Build frontend, and prepare public folder
+      - name: Build frontend, and prepare public folder
         run: npm run deploy:build
 
-      # 6. Run tests
+      # 6. Build api documentation
+      - name: Build API documentation
+        run: npm run apidoc
+
+      # 7. Run tests
       # - name: Run Apitests
       #   run: npm run api-test
       #- name: Run backend tests

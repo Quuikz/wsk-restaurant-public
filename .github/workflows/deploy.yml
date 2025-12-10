@@ -1,0 +1,43 @@
+name: Node.js CD
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "deploy"
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          # connect to server using credentials stored in github secrets
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
+          port: 22
+          script: |
+            # after login to server go to application folder
+            cd ~/wsk-restaurant
+            # pull the changes from Github
+            git pull origin main
+            # to get the status and to check that everything is ok
+            git status
+            # install possibly updated dependencies
+            npm install
+            # install possibly updated dependencies
+            npm install --prefix client
+            # build and deploy the frontend application
+            npm run deploy:build
+            # build api documentation
+            npm run apidoc
+            # run all test suites
+            #npm run test
+            # finally, restart the application using the updated version of it
+            pm2 restart ecosystem.config.cjs --env production

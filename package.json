@@ -11,7 +11,7 @@
     "apidoc": "apidoc -i server/src/ -o docs/",
     "build": "npm --prefix client run build",
     "install-all": "npm install && npm run install:vite",
-    "deploy:build": "npm run build && npm run apidoc && find ./public -mindepth 1 -not -name images -exec rm -rf {} + && cp -r client/dist/* public/",
+    "deploy:build": "npm run build && find ./public -mindepth 1 -not -name images -exec rm -rf {} + && cp -r client/dist/* public/",
     "api-test": "node tests/api-tests/api.test.js",
     "test": "jest"
   },
