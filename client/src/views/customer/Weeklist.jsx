@@ -58,7 +58,7 @@ const Weeklist = () => {
           {/* Weekly list */}
           <div className="grid grid-cols-3 gap-4 ">
             {weeklyMenu.map((menu) => (
-              <WeeklistBox key={menu.id} menu={menu} />
+              <WeeklistBox key={menu.id} menu={menu} />   //TODO: this sets duplicate keys if menu has same item twice!
             ))}
           </div>
 
