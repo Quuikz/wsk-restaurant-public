@@ -147,7 +147,7 @@ const addOrder = async (order) => {
       if (orderResult[0].insertId && orderResult[0].affectedRows > 0) {
 
         //sql for reservations
-          let resResult = true;
+          let resResult = false ;
           if (newOrder.reservations.length > 0) {
               const reservationSql = `INSERT INTO order_reservations (\`order\`, reservation)
                                       VALUES ?`;
@@ -165,10 +165,13 @@ const addOrder = async (order) => {
               ]);
               console.log(formatted_res);
               resResult = await connection.execute(formatted_res);
+          } else {
+              //success if nothing to add
+              resResult = true;
           }
 
         //sql for gift_cards
-          let gcResult = true;
+          let gcResult = false;
           if(newOrder.gift_cards.length > 0) {
               const gcSql = `INSERT INTO order_gift_cards (\`order\`, gift_card)
                              VALUES ?`;
@@ -184,6 +187,9 @@ const addOrder = async (order) => {
               const formatted_gc = connection.format(gcSql, [gift_cardParams]);
               console.log(formatted_gc);
               gcResult = await connection.execute(formatted_gc);
+          } else {
+              //success if nothing to add
+              gcResult = true;
           }
 
         //if results
@@ -288,42 +294,56 @@ const modifyOrder = async (order, orderId) => {
         );
 
         //insert new values into order_reservations
-        //sql
-        const resSql = `INSERT INTO order_reservations (\`order\`, reservation)
-                   VALUES ?`;
-        console.log(resSql);
+          let resResult = false;
+          if(updatedOrder.reservations.length > 0) {
+              //sql
+              const resSql = `INSERT INTO order_reservations (\`order\`, reservation)
+                              VALUES ?`;
+              console.log(resSql);
 
-        const resParams = [];
-        updatedOrder.reservations.forEach((resId) => {
-          resParams.push([updatedOrder.id, resId]);
-        });
-        console.log(resParams);
+              const resParams = [];
+              updatedOrder.reservations.forEach((resId) => {
+                  resParams.push([updatedOrder.id, resId]);
+              });
+              console.log(resParams);
 
-        //insert parameters
-        const formatted_res = connection.format(resSql, [resParams]);
-        console.log(formatted_res);
+              //insert parameters
+              const formatted_res = connection.format(resSql, [resParams]);
+              console.log(formatted_res);
 
-        //execute sql
-        const resResult = await connection.execute(formatted_res);
+              //execute sql
+              resResult = await connection.execute(formatted_res);
+              console.log(resResult);
+          } else {
+              //success if nothing to add
+              resResult = true;
+          }
 
         //insert new values into order_gift_cards
-        //sql
-        const gcSql = `INSERT INTO order_gift_cards (\`order\`, gift_card)
-                   VALUES ?`;
-        console.log(gcSql);
+          let gcResult = false;
+          if(updatedOrder.gift_cards.length > 0) {
+              //sql
+              const gcSql = `INSERT INTO order_gift_cards (\`order\`, gift_card)
+                             VALUES ?`;
+              console.log(gcSql);
 
-        const gcParams = [];
-        updatedOrder.gift_cards.forEach((gcId) =>
-          gcParams.push([updatedOrder.id, gcId])
-        );
-        console.log(gcParams);
+              const gcParams = [];
+              updatedOrder.gift_cards.forEach((gcId) =>
+                  gcParams.push([updatedOrder.id, gcId])
+              );
+              console.log(gcParams);
 
-        //insert parameters
-        const formatted_gc = connection.format(gcSql, [gcParams]);
-        console.log(formatted_gc);
+              //insert parameters
+              const formatted_gc = connection.format(gcSql, [gcParams]);
+              console.log(formatted_gc);
 
-        //execute sql
-        const gcResult = await connection.execute(formatted_gc);
+              //execute sql
+              gcResult = await connection.execute(formatted_gc);
+              console.log(gcResult);
+          } else {
+              //success if nothing to add
+              gcResult = true;
+          }
 
         //if result is success
         if (resResult && gcResult) {

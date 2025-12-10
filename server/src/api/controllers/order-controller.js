@@ -94,7 +94,7 @@ const postOrder = async (req, res) => {
 
     const result = await addOrder(req.body);
     if (result) {
-      console.log("added order: " + result);
+      console.log("added order: ", result);
       return res.json(result);
     } else {
       return res.sendStatus(404);
@@ -134,7 +134,7 @@ const putOrder = async (req, res) => {
 
     const result = await modifyOrder(req.body, req.params.id, res.locals.user);
     if (result) {
-      console.log("return order: " + result);
+      console.log("return order: ", result);
       return res.json(result);
     } else {
       return res.sendStatus(404);
@@ -199,7 +199,7 @@ const getOrdersByUserId = async (req, res) => {
     console.log(req.params.id);
     const orderArray = await findOrdersByUserId(req.params.id);
     if (orderArray) {
-      console.log("return orders for user " + req.params.id);
+      console.log("return orders for user ", req.params.id);
       return res.json(orderArray);
     } else {
       return res.sendStatus(404);
@@ -218,7 +218,7 @@ const getOrdersByLocation = async (req, res) => {
     console.log(req.params.id);
     const orderArray = await findOrdersByLocation(req.params.id);
     if (orderArray) {
-      console.log("return orders for location " + req.params.id);
+      console.log("return orders for location ", req.params.id);
       return res.json(orderArray);
     } else {
       return res.sendStatus(404);
