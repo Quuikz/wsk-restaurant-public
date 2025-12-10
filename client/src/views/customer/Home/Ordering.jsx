@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useState} from 'react';
 
 import OrderingButtons from './OrderingButtons';
 import OrderingTime from './OrderingTime';
-import { ShoppingCartContext } from '../../../contexts/ShoppingCartContext';
+import {ShoppingCartContext} from '../../../contexts/ShoppingCartContext';
 import useForm from '../../../hooks/formHooks';
-import {useLanguageContext} from "../../../hooks/contextHooks.js";
+import {useLanguageContext} from '../../../hooks/contextHooks.js';
 // Custom Time selector. Check if table still empty at selected time etc.
 
 const Ordering = ({id}) => {
@@ -12,8 +12,8 @@ const Ordering = ({id}) => {
   const today = new Date().toISOString().split('T')[0];
   //const [reservationDate, setReservationDate] = useState(today);
 
-  const { addReservationToCart } = useContext(ShoppingCartContext);
-  const {finnish } = useLanguageContext();
+  const {addReservationToCart} = useContext(ShoppingCartContext);
+  const {finnish} = useLanguageContext();
 
   //States for table, grill, date?, time?
   const [tableCount, setTableCount] = useState(0);
@@ -29,22 +29,21 @@ const Ordering = ({id}) => {
     grillCount: grillCount,
   }
   */
- const [form, setForm] = useState({
+  const [form, setForm] = useState({
     reservationDate: today,
-    reservationTime: '8:00',
+    reservationTime: 'Valitse aika',
     tableCount: 0,
     grillCount: 1,
   });
 
   const updateField = (name, value) => {
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
       [name]: value,
     }));
   };
 
-
-  const doAddToCart = (e) =>{
+  const doAddToCart = (e) => {
     e.preventDefault();
     addReservationToCart({
       date: form.reservationDate,
@@ -55,9 +54,7 @@ const Ordering = ({id}) => {
     console.log('Reservation added to cart!');
   };
 
-
   //const {inputs, handleInputChange, handleSubmit} = useForm(doAddToCart, initValues)
-
 
   return (
     <>
@@ -66,7 +63,8 @@ const Ordering = ({id}) => {
         <div className=" bg-orange-100 text-center p-20 pb-30">
           <form
             onSubmit={(e) => doAddToCart(e)}
-            className="grid grid-cols-4 gap-4 p-20 bg-orange-50">
+            className="grid grid-cols-4 gap-4 p-20 bg-orange-50"
+          >
             {/* Grill number selector */}
             <OrderingButtons
               tableCount={form.tableCount}
