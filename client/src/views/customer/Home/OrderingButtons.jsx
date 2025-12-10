@@ -1,7 +1,12 @@
 import {useEffect, useState} from 'react';
-import {useLanguageContext} from "../../../hooks/contextHooks.js";
+import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
-const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount }) => {
+const OrderingButtons = ({
+  tableCount,
+  grillCount,
+  setTableCount,
+  setGrillCount,
+}) => {
   const {finnish} = useLanguageContext();
 
   // Table max ocapacity
@@ -23,19 +28,18 @@ const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount 
   const incrementGrill = () => {
     const totalGuests = grillCount + tableCount;
     if (totalGuests < tableCapacity) {
-      setGrillCount(grillCount + 1)
+      setGrillCount(grillCount + 1);
     } else {
-      alert( finnish ?
-        'Täysi kapasiteetti saavutettu! Vähennä noutopöydän henkilöitä.'
-        : 'Full capacity reached! Reduce the number of people.'
+      alert(
+        finnish
+          ? 'Täysi kapasiteetti saavutettu! Vähennä noutopöydän henkilöitä.'
+          : 'Full capacity reached! Reduce the number of people.',
       );
     }
   };
   const decrementGrill = () => {
     setGrillCount(Math.max(0, grillCount - 1));
-  }
-
-
+  };
 
   const incrementBuffetTable = () => {
     const totalGuests = grillCount + tableCount;
@@ -43,18 +47,17 @@ const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount 
       setTableCount(tableCount + 1);
       //setBuffetNumber((v) => Math.min(maxBuffet, v + 1));
     } else {
-      alert( finnish ?
-        'Täysi kapasiteetti saavutettu! Vähennä grillipöydän henkilöitä.'
-        : 'Full capacity reached! Reduce the number of people.'
+      alert(
+        finnish
+          ? 'Täysi kapasiteetti saavutettu! Vähennä grillipöydän henkilöitä.'
+          : 'Full capacity reached! Reduce the number of people.',
       );
     }
   };
 
   const decrementBuffetTable = () => {
     setTableCount(Math.max(0, tableCount - 1));
-  }
-
-
+  };
 
   return (
     <>
@@ -72,7 +75,7 @@ const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount 
             −
           </button>
 
-        {/* Current grill count */}
+          {/* Current grill count */}
           <div className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded mx-2">
             {grillCount}
           </div>
@@ -86,9 +89,10 @@ const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount 
             +
           </button>
         </div>
-        <p className="mt-5">{finnish ? 'Henkilöiden määrä' : 'Number of people'}</p>
+        <p className="mt-5">
+          {finnish ? 'Henkilöiden määrä' : 'Number of people'}
+        </p>
       </div>
-
 
       {/* Buffet number selector */}
       <div className="flex flex-col items-center ">
@@ -106,7 +110,7 @@ const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount 
             −
           </button>
 
-        {/* Current table count */}
+          {/* Current table count */}
           <div className="w-16 text-center px-3 py-2 border border-gray-300 bg-white rounded mx-2">
             {tableCount}
           </div>
@@ -121,7 +125,9 @@ const OrderingButtons = ({ tableCount, grillCount, setTableCount, setGrillCount 
             +
           </button>
         </div>
-        <p className="mt-5">{finnish ? 'Henkilöiden määrä' : 'Number of people'}</p>
+        <p className="mt-5">
+          {finnish ? 'Henkilöiden määrä' : 'Number of people'}
+        </p>
       </div>
     </>
   );
