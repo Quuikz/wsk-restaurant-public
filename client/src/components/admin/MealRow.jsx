@@ -1,9 +1,7 @@
 const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
   return (
-      <div>
-        <ul>
       <li className={
-        `grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ` +
+        'grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ' +
         (showModifyButton ? "grid-cols-6" : "grid-cols-5")
       }>
         
@@ -63,8 +61,6 @@ const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
         )}
         
       </li>
-      </ul>
-      </div>
   );
 };
 
