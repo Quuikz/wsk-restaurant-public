@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
-import {useLanguageContext} from "../../hooks/contextHooks.js";
+import {useLanguageContext} from '../../hooks/contextHooks.js';
 
 const Weeklist = () => {
   //language context
@@ -47,30 +47,46 @@ const Weeklist = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto ">
-        <div className="p-7 pt-20 pb-30 bg-orange-100 min-h-screen">
+      <div className="max-w-7xl mx-auto">
+        <div className="p-7 pt-20 pb-30 bg-orange-100 min-h-140">
           {/* Page title */}
           <div className="text-center w-full pb-10 ">
-            <h2 className="text-3xl font-medium">| {finnish ? 'Viikko' : 'Week'} {currentWeek} |</h2>
-            <p className="mt-2 ">{finnish ? 'Tutustu viikon herkkulliseen valikoimaan!' : 'Check out delicious weekly selections!'}</p>
+            <h2 className="text-3xl font-medium">
+              | {finnish ? 'Viikko' : 'Week'} {currentWeek} |
+            </h2>
+            <p className="mt-2 ">
+              {finnish
+                ? 'Tutustu viikon herkkulliseen valikoimaan!'
+                : 'Check out delicious weekly selections!'}
+            </p>
           </div>
 
           {/* Weekly list */}
-          <div className="grid grid-cols-3 gap-4 ">
-            {weeklyMenu.map((menu) => (
-              <WeeklistBox key={menu.id} menu={menu} />   //TODO: this sets duplicate keys if menu has same item twice!
-            ))}
+          <div className="max-h-[80vh] sm:max-h-[90vh] lg:max-h-[100vh] overflow-y-auto">
+            {weeklyMenu.length === 0 ? (
+              <div className="text-center text-gray-500 py-10">
+                {finnish
+                  ? 'Ei viikon listaa saatavilla.'
+                  : 'No weekly menu available.'}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {weeklyMenu.map((menu) => (
+                  <WeeklistBox key={menu.id} menu={menu} />
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-2 mt-10">
             <button
-              className="mt-4 mb-4 bg-orange-200  px-4 py-2 rounded hover:bg-orange-300 width-fit mr-auto"
+              className="mt-4 mb-4 bg-orange-200 px-2 sm:px-4 lg:px-4 py-2 rounded hover:bg-orange-300 width-fit mr-auto"
               onClick={dec(setCurrentWeek)}
             >
               ← {finnish ? 'Edellinen viikko' : 'Previous week'}
             </button>
             <button
-              className="mt-4 mb-4 bg-orange-200  px-4 py-2 rounded hover:bg-orange-300 width-fit ml-auto"
+              className="mt-4 mb-4 bg-orange-200 px-2 sm:px-4 lg:px-4 py-2 rounded hover:bg-orange-300 width-fit ml-auto"
               onClick={inc(setCurrentWeek)}
             >
               {finnish ? 'Seuraava viikko' : 'Next week'} →

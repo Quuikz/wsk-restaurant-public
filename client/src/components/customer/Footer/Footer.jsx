@@ -1,9 +1,8 @@
 //Consider moving content of <footer> here, then import this into Layout
 import React from 'react';
 import {Link} from 'react-router';
-import Logo from '../../../assets/Restauranto-Logo2.png'
-import {useLanguageContext} from "../../../hooks/contextHooks.js";
-
+import Logo from '../../../assets/Restauranto-Logo2.png';
+import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
 const Footer = () => {
   const {finnish} = useLanguageContext();
@@ -32,9 +31,11 @@ const Footer = () => {
           </div>
 
           {/*Services*/}
-          <div className="grid grid-cols-2 text-sm gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-3">
+          <div className="grid grid-cols-2 text-sm px-4 gap-x-3 gap-y-8 lg:w-2/3 sm:grid-cols-3">
             <div className="space-y-3">
-              <h3 className="tracking-wide uppercase text-white">{finnish ? 'Palvelut' : 'Services'}</h3>
+              <h3 className="tracking-wide uppercase text-white">
+                {finnish ? 'Palvelut' : 'Services'}
+              </h3>
               <ul className="space-y-1">
                 <li>
                   <Link to="/weeklist" className="hover:underline">
@@ -75,7 +76,9 @@ const Footer = () => {
 
             {/* Social media */}
             <div className="space-y-3">
-              <div className="uppercase text-white">{finnish ? 'Sosiaalinen media' : 'Social media'}</div>
+              <div className="uppercase text-white">
+                {finnish ? 'Sosiaalinen media' : 'Social media'}
+              </div>
               <div className="flex justify-start space-x-3">
                 <a
                   rel="noopener noreferrer"
@@ -146,7 +149,10 @@ const Footer = () => {
           </div>
         </div>
         <div className="py-6 text-sm text-center dark:text-gray-600">
-          © 2025 RyhmaUno 1. {finnish ? 'Kaikki oikeudet pidätetään. Parempi uskoa.' : 'All rights reserved. You better believe so.' }
+          © 2025 RyhmaUno 1.{' '}
+          {finnish
+            ? 'Kaikki oikeudet pidätetään. Parempi uskoa.'
+            : 'All rights reserved. You better believe so.'}
         </div>
       </footer>
     </>
