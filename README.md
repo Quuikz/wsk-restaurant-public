@@ -20,7 +20,8 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 - Lahjakorttien ostaminen ja hallinnointi
 - Käyttäjätilien luominen ja hallinnointi sekä ravintoloille että asiakkaille
 - Reaaliaikaiset päivitykset ruokalistoihin ja tilauksiin
-
+- Reaaliaikaiset lähimpien pysäkkien lähtevät tiedot
+- Reaaliaikaiset säätiedot ja terassin aukiolo arvio
 
 ## Ohje
 
