@@ -98,28 +98,6 @@ const AddMenu = () => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
 
-            {/*Menu: Image Upload */}
-            <div className="flex flex-col">
-                <div>
-        <label htmlFor='file'>File</label>
-        <input
-            name='file'
-            type='file'
-            id='file'
-            accept='image/*'
-            onChange={ handleFileChange }
-            />
-      </div>
-      <img 
-          src={
-              file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
-          }
-          alt='preview'
-          width='200'
-          />
-            </div>
-
-
 
             {/*Menu: date */}
             <div className="flex flex-col">
