@@ -38,9 +38,15 @@ Admin käyttäjä
     salasana: 'password'
 
 Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä
+
 <figure>
 <img src="./documentation/register.png" alt="register window" style="width: 40%"/>
 </figure>
+
+<figure>
+<img src="./documentation/admin_linkit.png" alt="links to admin dashboard" style="width: 40%"/>
+</figure>
+
 
 
 
