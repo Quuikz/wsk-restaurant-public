@@ -43,6 +43,7 @@ const ShoppingCart = () => {
   const [totalCost, setTotalCost] = useState(null);
 
   const reservationImages = SERVER_URL + `/images/shoppingCart/reservation.webp`;
+  const giftCardImages = SERVER_URL + `/images/shoppingCart/Giftcard.webp`;
 
   //Returns the number of items in cart
   const totalItems =
@@ -344,7 +345,7 @@ const ShoppingCart = () => {
                   {/* Item in cart: image */}
                   <div>
                     <img
-                      src={reservationImages}
+                      src={reservationImages} style={{ width: '140px', height: 'auto' }} 
                       alt="Image of item"
                     />
                   </div>
@@ -391,7 +392,7 @@ const ShoppingCart = () => {
                   {/* Item in cart: image */}
                   <div>
                     <img
-                      src="https://placehold.co/120x120"
+                      src={giftCardImages} style={{ width: '140px', height: 'auto' }}
                       alt="Image of item"
                     />
                   </div>
