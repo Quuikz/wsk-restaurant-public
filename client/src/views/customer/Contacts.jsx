@@ -132,7 +132,11 @@ const Contacts = () => {
                 </Marker>
 
                 {hslStops.map((stop) => (
-                  <Marker key={stop.gtfsId} position={[stop.lat, stop.lon]}>
+                  <Marker
+                    key={stop.gtfsId}
+                    position={[stop.lat, stop.lon]}
+                    icon={customIcon}
+                  >
                     <Popup>{stop.name}</Popup>
                   </Marker>
                 ))}
