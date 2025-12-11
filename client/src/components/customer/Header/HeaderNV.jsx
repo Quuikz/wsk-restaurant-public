@@ -1,9 +1,12 @@
 //Consider moving content of <header> here, then import this into Layout
 import React, {useEffect, useState, useRef, useContext} from 'react';
 import {Link, useNavigate, useLocation} from 'react-router';
-import {useLanguageContext, useShoppingCartContext, useUserContext} from '../../../hooks/contextHooks.js';
-import { ShoppingCartContext } from '../../../contexts/ShoppingCartContext.jsx';
-
+import {
+  useLanguageContext,
+  useShoppingCartContext,
+  useUserContext,
+} from '../../../hooks/contextHooks.js';
+import {ShoppingCartContext} from '../../../contexts/ShoppingCartContext.jsx';
 
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
@@ -13,22 +16,28 @@ const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const {user, handleLogout} = useUserContext();
-  const {finnish ,handleLanguageToggle} = useLanguageContext();
-  const { cart } = useContext(ShoppingCartContext);
+  const {finnish, handleLanguageToggle} = useLanguageContext();
+  const {cart} = useContext(ShoppingCartContext);
 
   /**
-   * 
-   * 
+   *
+   *
 
-  
+
   /**
    * Iterates over the array
-   * 
-   * 
+   *
+   *
    * result: single value
    */
-  const cartItemCount = cart.reservations.length || 0 + cart.gift_cards.reduce((acc, currentGiftCard) => acc + currentGiftCard.quantity, 0) || 0
-
+  const cartItemCount =
+    cart.reservations.length ||
+    0 +
+      cart.gift_cards.reduce(
+        (acc, currentGiftCard) => acc + currentGiftCard.quantity,
+        0,
+      ) ||
+    0;
 
   const menuRef = useRef(null);
   const navigate = useNavigate();
@@ -98,12 +107,12 @@ const HeaderNV = () => {
               </div>
 
               {/* -- Logo -- */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 translate-y-11 flex items-center ">
+              <div className="flex sm:absolute lg:absolute left-1/2 transform sm:-translate-x-1/2 lg:-translate-x-1/2 sm:translate-y-11 lg:translate-y-11 items-center ">
                 <Link to="/">
                   <img
                     src={Logo}
                     alt="Restauranto Logo"
-                    className="h-20 w-auto mx-auto rounded-full"
+                    className="h-16 sm:h-20 lg:h-20 w-auto mx-auto rounded-full"
                   />
                 </Link>
               </div>
@@ -133,10 +142,9 @@ const HeaderNV = () => {
                     </svg>
                     {/* Red Notification on shoppingcart when items in cart */}
                     {cartItemCount > 0 && (
-                    <span 
-                        className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs text-white font-bold leading-none bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2"
-                    >!
-                    </span>
+                      <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs text-white font-bold leading-none bg-red-600 rounded-full transform translate-x-1/2 -translate-y-1/2">
+                        !
+                      </span>
                     )}
                   </button>
                 </Link>
@@ -229,7 +237,7 @@ const HeaderNV = () => {
                           onClick={handleLanguageToggle}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          {finnish ? "🇬🇧 English" : 'FI - Finnish'}
+                          {finnish ? '🇬🇧 English' : 'FI - Finnish'}
                         </button>
                         <button
                           to="#"
@@ -254,7 +262,8 @@ const HeaderNV = () => {
                             onClick={handleLogout}
                             className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                           >
-                            🚪 &nbsp;&nbsp;{finnish ? 'Kirjaudu ulos' : 'Logout'}
+                            🚪 &nbsp;&nbsp;
+                            {finnish ? 'Kirjaudu ulos' : 'Logout'}
                           </button>
                         </div>
                       ) : (
