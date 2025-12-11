@@ -1,4 +1,4 @@
- import {createContext, useState} from 'react';
+ import {createContext, useEffect, useState} from 'react';
  //import {useAuthentication, useUser} from '../hooks/BackupOfOldAssignments/apiHooks';
  import { useAuthentication, useUser } from '../hooks/apiHooks';
  //temp - as it's not yet implemented, just use old
@@ -14,8 +14,12 @@ import { useUserCommon } from '../hooks/common/apiHooks';
      const {getUserByToken} = useUser();
      const {deleteUserByID} = useUserCommon();
 
+     const [loadingUser, setLoadingUser] = useState(true);
+
      const navigate = useNavigate();
      const location = useLocation();
+
+     
 
      // login, logout and autologin functions are here instead of components
      const handleLogin = async (inputs) => {
@@ -54,9 +58,11 @@ import { useUserCommon } from '../hooks/common/apiHooks';
              const token = localStorage.getItem('token');
              // if token exists, get user data from API
              if(!token){
+                setLoadingUser(false);
                 return;
              }
              const userData = await getUserByToken(token);
+             console.log('userData:', userData);
              // set user to state
              console.log('userData from API:', userData.user);
              setUser(userData.user);
@@ -66,6 +72,9 @@ import { useUserCommon } from '../hooks/common/apiHooks';
              //navigate(location.pathname);
          } catch (e) {
              console.log(e.message);
+         }
+         finally{
+            setLoadingUser(false);
          }
      };
 
@@ -92,11 +101,16 @@ import { useUserCommon } from '../hooks/common/apiHooks';
         }
      }
 
+     useEffect(() => {
+        handleAutoLogin();
+     }, []);
+
      return (
          <UserContext.Provider
          value={{
             user,
             setUser,
+            loadingUser,
             handleLogin,
             handleLogout,
             handleAutoLogin,

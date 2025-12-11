@@ -41,6 +41,7 @@ import UsersAdminView from './views/admin/User/Users.jsx';
 import {CartProvider} from './contexts/ShoppingCartContext.jsx';
 import {LanguageProvider} from "./contexts/LanguageContext.jsx";
 import DiscountsAdmin from './views/admin/Discounts/Discounts.jsx';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute.jsx';
 
 const App = () => {
   return (
@@ -84,7 +85,7 @@ const App = () => {
 
             {/* Admin routes - TODO: protect the routes */}
             {/* example path: /admin/addmeal */}
-            <Route path="/admin" element={<AdminLayout />}>
+            <Route path="/admin" element={<ProtectedAdminRoute><AdminLayout /></ProtectedAdminRoute>}>
               <Route index element={<Dashboard />} />
               <Route path="meals" element={<Meals />} />
               <Route path="addmeal" element={<AddMeal />} />
