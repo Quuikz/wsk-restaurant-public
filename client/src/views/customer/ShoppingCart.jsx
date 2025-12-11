@@ -253,8 +253,12 @@ const ShoppingCart = () => {
       <div className="bg-orange-100 min-h-screen max-w-7xl mx-auto p-4 sm:p-8">
         {/* Title section */}
         <div className="mb-4">
-          <h1 className="text-xl font-semibold sm:text-2xl ">{finnish ? 'Ostoskori' : 'Cart'}</h1>
-          <p className="text-gray-600">{finnish ? 'X TUOTETTA' : 'X PRODUCT'}</p>
+          <h1 className="text-xl font-semibold sm:text-4xl ">{finnish ? 'Ostoskori' : 'Cart'}</h1>
+          <p className="text-sm font-semibold sm:text-lg text-gray-700">
+            {cart.reservations.length +
+             cart.gift_cards.reduce((acc, gc) => acc + gc.quantity, 0)}
+             {finnish ? ' Tuotetta ostoskorissa.' : ' Products in the cart.'}
+             </p>
         </div>
 
         {/* Whole layout */}
