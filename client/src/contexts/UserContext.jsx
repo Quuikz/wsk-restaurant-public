@@ -4,6 +4,7 @@
  //temp - as it's not yet implemented, just use old
  //import { useUser } from '../hooks/BackupOfOldAssignments/apiHooks';
  import {useLocation, useNavigate} from 'react-router';
+import { useUserCommon } from '../hooks/common/apiHooks';
 
  const UserContext = createContext(null);
 
@@ -11,6 +12,7 @@
      const [user, setUser] = useState(null);
      const {postLogin} = useAuthentication();
      const {getUserByToken} = useUser();
+     const {deleteUserByID} = useUserCommon();
 
      const navigate = useNavigate();
      const location = useLocation();
@@ -67,6 +69,25 @@
          }
      };
 
+
+     // HandleDeleteUser is used when user clicks delete account. 
+     const handleDeleteUser = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if(!token){
+                return;
+            }
+
+            const userData = await getUserByToken(token);
+
+            const result = await deleteUserByID(token, userData.id);
+            return result;
+        }
+        catch (e) {
+            console.log(e.message);
+        }
+     }
+
      return (
          <UserContext.Provider
          value={{
@@ -75,6 +96,7 @@
             handleLogin,
             handleLogout,
             handleAutoLogin,
+            handleDeleteUser,
         }}>
              {children}
          </UserContext.Provider>

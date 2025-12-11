@@ -6,6 +6,24 @@ if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
   API_URL = import.meta.env.VITE_API_URL_LOCAL;
 }
 
+
+const useUserCommon = () => {
+    const deleteUserByID = async (token, userID) => {
+        const fetchOptions = {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        };
+
+        const deleteUserByIDResult = await fetchData(API_URL + `/users/${userID}`, fetchOptions);
+        return deleteUserByIDResult;
+    }
+
+    return { deleteUserByID }
+}
+
 const useMealCommon = () => {
   const getAllMeals = async () => {
     const fetchOptions = {
@@ -225,4 +243,4 @@ const useGiftcardsCommon = () => {
     return { postGiftCard }
 }
 
-export {useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon};
+export {useUserCommon, useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon};

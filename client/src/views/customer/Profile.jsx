@@ -10,7 +10,7 @@ import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
-  const {user, setUser, handleLogout} = useUserContext();
+  const {user, setUser, handleLogout, handleDeleteUser} = useUserContext();
   const { getUserByToken } = useUser();
 
   //language
@@ -92,10 +92,10 @@ const Profile = () => {
                     {finnish ? 'Muokkaa profiilia' : 'Edit profile'}
                   </button>
                   <button
-                    className="mt-4 text-sm text-white bg-orange-400 hover:bg-orange-500 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"
-                    onClick={handleLogout}
+                    className="mt-4 text-sm text-white bg-red-500 hover:bg-red-600 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"
+                    onClick={handleDeleteUser}
                   >
-                    {finnish ? 'Kirjaudu ulos' : 'Logout'}
+                    {finnish ? 'Poista tili' : 'Delete your account'}
                   </button>
                 </div>
               </div>
