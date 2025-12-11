@@ -25,23 +25,23 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 
 ## Ohje testaukseen
 
-### URL:
+### URL
 
 <https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/>
 
-### Testikäyttäjät:
+### Testikäyttäjät
 
-#### Admin:
+#### Admin
 
     käyttäjätunnus: 'admin'
     salasana: 'password'
 
-#### User:
+#### User
 
     käyttäjätunnus: 'username'
     salasana: 'password'
 
-#### Oma User:
+#### Oma User
 
 Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä.
 Rekisteröytyminen ei sulje ikkunaa, joten käyttäjän pitää siirtyä itse sisäänkirjautumiseen.
@@ -50,14 +50,13 @@ Rekisteröytyminen ei sulje ikkunaa, joten käyttäjän pitää siirtyä itse si
 <img src="./documentation/register.png" alt="register window" style="width: 40%"/>
 </figure>
 
-
-### Pääsyoikeudet:
+### Pääsy oikeudet
 
 - Admin: Kaikki oikeudet (ravintoloiden ja käyttäjien hallinta)
 - User: Rajoitetut oikeudet (vain omien tilausten ja profiilin hallinta)
 - Quest: Vain lukuoikeudet (ruokalistat ja ravintolat)
 
-### Testausohjeet:
+### Testausohjeet
 
 1. Tutki sivuja ensiksi ilman kirjautumista (Quest-käyttäjä)
 2. Kirjaudu sisään user-käyttäjällä ja testaa tilauksen tekeminen ja profiilin hallinta
@@ -74,10 +73,10 @@ Sovelluksessa on 2 päänäkymää: ravintolasivu ja admin hallintasivu
 </figure>
 
 Admin käyttäjällä sisäänkirjautuminen näyttää linkit admin hallintasivulle
+
 <figure>
 <img src="./documentation/admin_linkit.png" alt="links to admin dashboard" style="width: 100%"/>
 </figure>
-
 
 ## Local kehitysympäristön pystytys
 
@@ -86,24 +85,47 @@ Admin käyttäjällä sisäänkirjautuminen näyttää linkit admin hallintasivu
 2. Asenna tietokanta mariaDB paikalliselle koneellesi
 
    - Luonti scriptit löytyvät kansiosta: TODO// LINKKI NÄIHIN
+   - Luo tietokanta ja taulut suorittamalla scriptit mariaDB:ssä
+     - Create-database-v6.sql
+       -Pelkkä tietokanta ja taulut
+     - Create-database-v6_with_mockdata.sql
+       -Tietokanta, taulut ja mock dataa testaukseen
 
 3. Kloonaa repository paikalliselle koneellesi
 
 4. Siirry projektin juurikansioon terminaalissa
 
-5. Asenna tarvittavat riippuvuudet komennolla: `npm install` && `npm install --prefix client`
+5. Juuressa sijaitsee .env.sample tiedosto, kopioi se nimellä .env ja täytä tarvittavat ympäristömuuttujat
+   #database
+   DB_HOST=localhost
+   DB_USER=appuser
+   DB_PASSWORD=password
+   DB_NAME=wsk_restaurant
 
-6. Käynnistä backend komennolla: `npm run dev`
+   #server host
+   SERVER_HOST=localhost
+   SERVER_PORT=VALITSEMA PORTTI
 
-7. Avaa uusi terminaali ikkuna ja siirry juureen
+   #JSON web token
+   JWT_SECRET= OMA SALAINEN AVAIN
 
-8. Siirry frontend kansioon: `cd client`
+   #API KEYS
+   #Digi Transit
+   HSL_API_KEY= OMA API AVAIN
 
-9. Asenna frontend riippuvuudet: `npm install`
+6. Asenna tarvittavat riippuvuudet komennolla: `npm install` && `npm install --prefix client`
 
-10. Käynnistä frontend komennolla:`npm run dev`
+7. Käynnistä backend komennolla: `npm run dev`
 
-11. Avaa selain ja mene osoitteeseen: <http://localhost:<>PORT> portin löydät frontend konsolista
+8. Avaa uusi terminaali ikkuna ja siirry juureen
+
+9. Siirry frontend kansioon: `cd client`
+
+10. Asenna frontend riippuvuudet: `npm install`
+
+11. Käynnistä frontend komennolla:`npm run dev`
+
+12. Avaa selain ja mene osoitteeseen: <http://localhost:PORT> portin löydät frontend konsolista
 
 ## Wireframe ja mockup kuvat
 
@@ -129,7 +151,3 @@ Wireframe ja mockup kuvat löytyvät kansiosta: TODO// LINKKI NÄIHIN
 - Topi Ahola
 - Araz Mohammed
 - Veijo Kasanen
-
-```
-
-```
