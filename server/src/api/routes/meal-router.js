@@ -33,8 +33,8 @@ const multerUpload = multer({
 
 //configurable middleware for image scaling
 const imageScaler = createImageScaler(
-  300,
-  200,
+  360,
+  240,
   "./public/images/meals",
   "_meal",
   "webp"
@@ -47,8 +47,8 @@ mealRouter
     "/",
     authenticateToken,
     userIsAdmin,
-    //imageUploader,
-      multerUpload.single("file"),
+    imageUploader,
+    //multerUpload.single("file"),
     imageScaler,
     formatBodyTypes,
     postMeal
