@@ -11,8 +11,19 @@ if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   server_url = import.meta.env.VITE_SERVER_URL_LOCAL;
 }
 
+/**
+ * Giftcards component - Displays available gift cards with different denominations (5€, 20€, 50€)
+ * and allows customers to select quantities and add them to their shopping cart.
+ *
+ * @component
+ * @returns {JSX.Element} The gift cards purchase page with quantity selectors and add to cart buttons
+ *
+ * @example
+ * return (
+ *   <Giftcards />
+ * )
+ */
 const Giftcards = () => {
-  //
   const min = 0;
   const max = 20;
   const [qty5, setQty5] = useState(0);
@@ -26,6 +37,12 @@ const Giftcards = () => {
   const [message, setMessage] = useState('');
   const {finnish} = useLanguageContext();
 
+  /**
+   * Adds a gift card to the shopping cart with validation
+   * @param {number} value - The monetary value of the gift card (5, 20, or 50)
+   * @param {number} qty - The quantity of gift cards to add
+   * @returns {void}
+   */
   const doAddToCart = (value, qty) => {
     if (qty <= 0) {
       setMessage(
@@ -226,7 +243,9 @@ const Giftcards = () => {
                 </h2>
                 <ul>
                   <li>
-                    <p className="mt-1 font-bold">{finnish ? 'Tietoa' : 'Info'}</p>
+                    <p className="mt-1 font-bold">
+                      {finnish ? 'Tietoa' : 'Info'}
+                    </p>
                     {finnish
                       ? 'Erityinen lahjakortti juhlaan'
                       : 'Gift card for a special occasion'}
