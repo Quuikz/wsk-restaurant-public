@@ -9,8 +9,8 @@
  *
  */
 const MealSelector = ({availableMeals, selectedMeals, setSelectedMeals}) => {
-  /**
-   *
+  
+   /**
    * Function to add or remove a Meal ID from a list of selected meals.
    * Add the Meal ID to selectedMeals if not selected and removes it already selected.
    * Filter creates a new array without Meal if already selected.

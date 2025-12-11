@@ -1,11 +1,17 @@
 import React from "react";
 import { Link } from "react-router";
 
+/**
+ * Sidebar navigation component for the admin pages.
+ * Renders a fixed vertical sidebar with links to different admin routes.
+ * 
+ * @returns Sidebar with navigation links.
+ */
+
 const SideBar = () => {
 
     return(
     <div className="w-64 bg-gray-900 text-white h-screen p-5 fixed">
-
       <nav className="space-y-4">
         <Link to="/admin/meals" className="block hover:text-gray-300">Meals</Link>
         <Link to="/admin/addmeal" className="block hover:text-gray-300">Add Meal</Link>
@@ -19,9 +25,6 @@ const SideBar = () => {
       </nav>
     </div>
   )
-
-
-
 }
 
 export default SideBar;
