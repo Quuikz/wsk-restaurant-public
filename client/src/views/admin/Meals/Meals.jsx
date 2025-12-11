@@ -46,7 +46,8 @@ const Meals = () => {
     return(
         <>
         {/*TODO: refine style */}
-        <li className="grid grid-cols-6 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
+        <li className="grid grid-cols-7 gap-4 px-4 py-2 bg-gray-100 font-semibold border-b text-gray-700">
+            <span>IMG</span>
             <span>ID</span>
             <span>Name FI/EN</span>
             <span>Description FI/EN</span>

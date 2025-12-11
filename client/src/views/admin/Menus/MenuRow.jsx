@@ -120,7 +120,8 @@ const MenuRow = ({menuItem}) => {
 
       {/* Meals list */}
       {/*TODO: refine style */}
-      <div className="grid grid-cols-5 items-center gap-4 px-4 py-3 bg-gray-100 font-semibold border-b text-gray-700">
+      <div className="grid grid-cols-6 items-center gap-4 px-4 py-3 bg-gray-100 font-semibold border-b text-gray-700">
+        <span>IMG</span>
         <span>ID</span>
         <span>Name (fi/en)</span>
         <span>Description (fi/en)</span>

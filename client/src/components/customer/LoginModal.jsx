@@ -1,15 +1,14 @@
 import React, {useState} from 'react';
 import useForm from '../../hooks/formHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
-import { useAuthentication } from '../../hooks/apiHooks.js';
-
+import {useAuthentication} from '../../hooks/apiHooks.js';
 
 const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
-  if (!isOpen){
+  if (!isOpen) {
     return null;
   }
 
-  const { postLogin } = useAuthentication();
+  const {postLogin} = useAuthentication();
   const {handleLogin} = useUserContext();
   const {finnish} = useLanguageContext();
 
@@ -18,14 +17,12 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
     password: '',
   };
 
-
-
   const doLogin = async () => {
     try {
-        //const response = await postLogin(inputs);
-        //handleLogin(response);
-        handleLogin(inputs);
-        onClose();
+      //const response = await postLogin(inputs);
+      //handleLogin(response);
+      handleLogin(inputs);
+      onClose();
     } catch (error) {
       console.log('Error in doLogin: ', error.message);
     }
@@ -96,7 +93,12 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your information is secure.'}</p>
+            <p>
+              ✅{' '}
+              {finnish
+                ? 'Tietosi ovat turvassa.'
+                : 'Your information is secure.'}
+            </p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
@@ -143,7 +145,10 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
             </form>
 
             <div className="text-center">
-              <h2 className="text-lg font-medium">| {finnish ? 'Oletko uusi asiakas?' : 'Are you a new customer?'} |</h2>
+              <h2 className="text-lg font-medium">
+                | {finnish ? 'Oletko uusi asiakas?' : 'Are you a new customer?'}{' '}
+                |
+              </h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"

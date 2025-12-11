@@ -82,7 +82,26 @@ const useUser = () => {
     }
   };
 
-  return { getUserByToken};
+    const isUsernameTaken = async (username)=> {
+      try {
+        console.log('isUsernameTaken: ', username);
+        const fetchOptions = {
+          method: 'GET',
+          headers: {
+          },
+        };
+
+        const takenBoolean = await fetchData(API_URL + `/users/username/exists/${username}`, fetchOptions);
+        console.log(username,' taken: ', takenBoolean);
+        return takenBoolean;
+      }
+      catch (error) {
+        console.log('Error in getUserByToken: ', error);
+      }
+
+    }
+
+  return { getUserByToken, isUsernameTaken};
 
 }
 
@@ -93,6 +112,8 @@ const useUser = () => {
 
 const useCurrentUser = () => {
   const {user} = useUserContext();
+
+
 
   //Modify account info (currently: name, email)
   const modifyUserInfo = async (inputs, token) => {
@@ -129,6 +150,7 @@ const useCurrentUser = () => {
 
       //add file to FormData
       formData.append("file", file, file.name);
+      console.log(file.name);
 
       const fetchOptions = {
         method: 'PUT',

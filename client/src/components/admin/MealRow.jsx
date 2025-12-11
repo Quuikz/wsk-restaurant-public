@@ -11,7 +11,7 @@ const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
     <li
       className={
         'grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ' +
-        (showModifyButton ? 'grid-cols-7' : 'grid-cols-5')
+        (showModifyButton ? 'grid-cols-7' : 'grid-cols-6')
       }
     >
       {/* Meal info */}

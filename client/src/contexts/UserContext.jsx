@@ -61,7 +61,7 @@
              // navigate to home
              //navigate(location.pathname);
              //navigate('/');
-             navigate(location.pathname);
+             //navigate(location.pathname);
          } catch (e) {
              console.log(e.message);
          }

@@ -1,7 +1,7 @@
 import React from 'react';
 import useForm from '../../../hooks/formHooks.js';
 //import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
-import {useCurrentUser} from '../../../hooks/apiHooks.js';
+import {useCurrentUser, useUser} from '../../../hooks/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
 import {useNavigate} from "react-router";
 
@@ -9,6 +9,7 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
   const { user, setUser, handleLogout } = useUserContext();
   const {finnish} = useLanguageContext();
   const { modifyUserInfo } = useCurrentUser();
+  const {isUsernameTaken} = useUser();
   const navigate = useNavigate();
 
   if (!isOpen || !user) {
@@ -24,20 +25,33 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
   const doModifyUserInfo = async () => {
     const token = localStorage.getItem('token');
     try {
-      const result = await modifyUserInfo(inputs, token);
-      console.log(result);
+      //see if username is taken
+      const taken = await isUsernameTaken(inputs.username);
+      if (taken === false) {
+        const result = await modifyUserInfo(inputs, token);
+        console.log(result);
 
-      if (result) {
-        setUser(result);
-        localStorage.removeItem('token');
-        setUser(null);
-        navigate('/');
+        if (result) {
+          setUser(result);
+          localStorage.removeItem('token');
+          setUser(null);
+          navigate('/');
+
+        } else {
+          console.log('Error: User not modified.');
+          alert('Error: User not modified.');
+
+        }
+
+      } else {
+        console.log('This username is already taken.')
+        alert('This username is already taken.');
       }
-
     } catch (error) {
       console.log('Error in doRegister: ', error);
     }
-  };
+  }
+
 
   const { inputs, handleInputChange, handleSubmit } = useForm(doModifyUserInfo, {
     username: user.username,
