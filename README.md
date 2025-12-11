@@ -1,6 +1,7 @@
 # wsk-restaurant aka Restauranto
 
 Metropolia Web Sovellus Kurssi- Projekti
+<br>
 English version: [README_EN.md](./README_EN.md)
 
 ## Sovelluksen idea ja kohderyhmä
