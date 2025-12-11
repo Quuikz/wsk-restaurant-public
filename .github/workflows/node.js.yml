@@ -28,7 +28,7 @@ jobs:
       - name: Start MySQL service
         run: |
           sudo service mysql start
-          mysql -u -uroot -proot
+          mysql -u root -proot
 
       # Setup MySQL service
       # Create test database and user
