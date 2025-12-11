@@ -3,13 +3,31 @@ import {Link} from 'react-router';
 import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
 import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
-//Set server URL
+/**
+ * Server URL for image assets.
+ * Dynamically determined based on environment configuration.
+ * Falls back to local server if VITE_USE_LOCAL_SERVER is enabled.
+ *
+ * @type {string}
+ */
 let server_url = import.meta.env.VITE_SERVER_URL;
 if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   server_url = import.meta.env.VITE_SERVER_URL_LOCAL;
 }
-//console.log('url in Specials', server_url);
 
+/**
+ * Specials component that displays today's special and buffet meals.
+ *
+ * Features:
+ * - Fetches menu data for the current day
+ * - Loads meal details including images, names, descriptions, and prices
+ * - Distinguishes between grill specials and buffet items
+ * - Displays meals in a horizontally scrollable container
+ * - Supports bilingual content (Finnish/English)
+ * - Provides link to full week menu
+ *
+ * @returns {React.ReactElement} JSX element containing meal cards
+ */
 const Specials = () => {
   // Get today's date in YYYY-MM-DD format
   // Switch between hardcoded date and real-time date here
@@ -33,30 +51,30 @@ const Specials = () => {
     if (!dateString) {
       return;
     }
-    // Load all menu items
 
+    /**
+     * Async function to load menu and meal data for the day.
+     * Handles errors gracefully with console logging.
+     *
+     * @async
+     * @returns {Promise<void>}
+     */
     const loadMenuForDay = async () => {
       try {
         const menuData = await getMenuByDate(dateString);
 
-        //console.log('DATE STRING: ', dateString);
-        //console.log('MENU DATA: ', menuData);
-
         if (menuData.length > 0) {
           const menu = menuData[0];
           setDailyMenu(menu);
-          // console.log('DAILY MENU: ', menu);
 
           // Load meals for Menu of the day AND special meal
           const mealItems = await getMealByIDList([
             menu.special_meal,
             ...menu.meals,
           ]);
-          //console.log('SPECIAL MEAL ID: ', specialMealID);
-          //console.log('MEAL DATA: ', mealItems);
+
           setMeals(mealItems);
           setSpecialMealID(menu.special_meal);
-          //console.log('isSpecial? ', menu.special_meal);
         }
       } catch (error) {
         console.log('Error in loadMenuItems: ', error);
@@ -107,8 +125,9 @@ const Specials = () => {
                       </li>
                       <li>
                         {finnish ? 'Tietoa' : 'Description'} -{' '}
-                        {finnish ? `${meal.description_fi}` : `${meal.description_en}`}
-
+                        {finnish
+                          ? `${meal.description_fi}`
+                          : `${meal.description_en}`}
                       </li>
                     </ul>
                     <div className="my-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300 max-w-fit hover:cursor-pointer">
