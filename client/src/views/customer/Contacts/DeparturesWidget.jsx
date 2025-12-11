@@ -4,8 +4,6 @@ import {useHslStopsCommon} from '../../../hooks/common/apiHooks';
 const DeparturesWidget = () => {
   const {getHslStopsByLatLon} = useHslStopsCommon();
   const [stops, setStops] = useState([]);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState(null);
 
   useEffect(() => {
     const getCoordsFromAddress = async (address) => {
@@ -22,8 +20,9 @@ const DeparturesWidget = () => {
 
         // Fetch HSL stops
         const result = await getHslStopsByLatLon(lat, lon, radius);
-        if (result && result.stops) {
-          setStops(result.stops);
+        if (result) {
+          setStops(result);
+          console.log('Fetched HSL stops:', result);
         } else {
           setStops([]);
         }
@@ -32,8 +31,9 @@ const DeparturesWidget = () => {
         setStops([]);
       }
     };
-
+    console.log('DeparturesWidget mounted');
     fetchStops();
+    console.log('stops state:', stops);
   }, []);
 
   return (
@@ -42,15 +42,21 @@ const DeparturesWidget = () => {
 
       <ul className="text-lg font-medium space-y-2">
         <li className="flex justify-between items-center p-2 bg-white rounded shadow-sm">
-          <span className="font-semibold">Stop name</span>
+          <span className="font-semibold">{stops[0]?.node?.stop?.name}</span>
         </li>
 
         <li className="flex justify-between items-center p-2 bg-white rounded shadow-sm">
-          <span className="font-semibold">Stop name</span>
+          <span className="font-semibold">{stops[1]?.node?.stop?.name}</span>
         </li>
 
         <li className="flex justify-between items-center p-2 bg-white rounded shadow-sm">
-          <span className="font-semibold">Stop name</span>
+          <span className="font-semibold">{stops[2]?.node?.stop?.name}</span>
+        </li>
+        <li className="flex justify-between items-center p-2 bg-white rounded shadow-sm">
+          <span className="font-semibold">{stops[3]?.node?.stop?.name}</span>
+        </li>
+        <li className="flex justify-between items-center p-2 bg-white rounded shadow-sm">
+          <span className="font-semibold">{stops[4]?.node?.stop?.name}</span>
         </li>
       </ul>
     </div>

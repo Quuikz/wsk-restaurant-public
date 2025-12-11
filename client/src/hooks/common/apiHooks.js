@@ -300,8 +300,8 @@ const useHslStopsCommon = () => {
 
     const result = await fetchData(url, fetchOptions);
 
-    console.log('HSL stops result:', result);
-    // return result;
+    // console.log('HSL stops result:', result.data.stopsByRadius.edges);
+    return result.data.stopsByRadius.edges;
   };
   return {getHslStopsByLatLon};
 };
