@@ -394,9 +394,12 @@ const ShoppingCart = () => {
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
                 <p>
-                  {discountActive
-                    ? ` ${(totalCost.toFixed(2) * discountAmount).toFixed(2)} €`
-                    : `${totalCost.toFixed(2)} €`
+                  {totalCost != null
+                    ? discountActive
+                      ? ` ${(totalCost.toFixed(2) * discountAmount).toFixed(2)} €`
+                      : `${totalCost.toFixed(2)} €`
+                    : '0.00'
+
                   }
                 </p>
               </div>
