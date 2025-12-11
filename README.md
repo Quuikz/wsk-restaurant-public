@@ -23,50 +23,89 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 - Reaaliaikaiset lähimpien pysäkkien lähtevät tiedot
 - Reaaliaikaiset säätiedot ja terassin aukiolo arvio
 
-## Ohje
+## Ohje testaukseen
 
-##
+### URL:
 
-### 1. Tietokanta
+<https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/>
 
-1.
+### Testikäyttäjät:
 
-### Kuvien lataaminen formdatalla
+#### Admin:
 
-Katso esimerkki lomakkeen käytöstä tiedostosta: tests/upload-form.html
+- Käyttäjätunnus: admin
+- Salasana: password
 
-### API
+#### User:
 
-tests/api-tests -kansio sisältää esimerkit API:n käytöstä.
+- Käyttäjätunnus: user
+- Salasana: password
 
-Sisäänkirjautuminen toimii kovakoodatulla käyttäjällä:
+### Pääsy oikeudet:
 
-    ### login with default user
-    POST http://localhost:3000/api/auth/login
-    Content-Type: application/json
+- Admin: Kaikki oikeudet (ravintoloiden ja käyttäjien hallinta)
+- User: Rajoitetut oikeudet (vain omien tilausten ja profiilin hallinta)
+- Quest: Vain lukuoikeudet (ruokalistat ja ravintolat)
 
-    {
-    "username": "user",
-    "password": "password"
-    }
+### Testausohjeet:
 
-Palauttaa:
+1. Tutki sivuja ensiksi ilman kirjautumista (Quest-käyttäjä)
+2. Kirjaudu sisään user-käyttäjällä ja testaa tilauksen tekeminen ja profiilin hallinta
+3. Kirjaudu sisään admin-käyttäjällä ja testaa ravintoloiden ja käyttäjien hallinta
+   - Admin panelii löytyy hampurilaisvalikosta
+4. Testaa eri toiminnallisuudet ja varmista, että kaikki toimii odotetusti
 
-    {
-    "user": {
-        "user_id": "user_id",
-        "name": "name",
-        "username": "user",
-        "email": "email",
-        "role": "role"
-        },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNDAzMTA1LCJleHAiOjE3NjM0ODk1MDV9.W5YBTobcQhtws91nnhwkqJeywsUzbK6s8PqLCYcB5PQ"
-    }
+## Local kehitysympäristön pystytys
 
-### Tietokantasuunnitelma
+1. Varmista, että sinulla on asennettuna Node.js ja npm
 
-<figure>
-<img src="./documentation/database_diagram_v6.png" alt="database_diagram_v1" />
-<figcaption>Tietokanta versio 6, luotu MySQL Workbenchin avulla.
-</figcaption>
-</figure>
+2. Asenna tietokanta mariaDB paikalliselle koneellesi
+
+   - Luonti scriptit löytyvät kansiosta: TODO// LINKKI NÄIHIN
+
+3. Kloonaa repository paikalliselle koneellesi
+
+4. Siirry projektin juurikansioon terminaalissa
+
+5. Asenna tarvittavat riippuvuudet komennolla: `npm install` && `npm install --prefix client`
+
+6. Käynnistä backend komennolla: `npm run dev`
+
+7. Avaa uusi terminaali ikkuna ja siirry juureen
+
+8. Siirry frontend kansioon: `cd client`
+
+9. Asenna frontend riippuvuudet: `npm install`
+
+10. Käynnistä frontend komennolla:`npm run dev`
+
+11. Avaa selain ja mene osoitteeseen: <http://localhost:<>PORT> portin löydät frontend konsolista
+
+## Wireframe ja mockup kuvat
+
+Wireframe ja mockup kuvat löytyvät kansiosta: TODO// LINKKI NÄIHIN
+
+## Teknologiat
+
+- Frontend: React.js, HTML, Tailwind CSS
+- Backend: Node.js, Express.js
+- Tietokanta: mariaDB
+- Reaaliaikaiset tiedot: Kolmannen osapuolen API:t:
+  - Säätiedot: TODO// API nimi
+  - Lähtevät tiedot: Digitransit / HSL API
+  - Kartat: Leaflet.js
+- Autentikointi: JWT (JSON Web Tokens)
+- Versiohallinta: Git ja GitHub
+- CI/CD: GitHub Actions
+- Pilvipalvelu: Microsoft Azure
+
+## Tiimi
+
+- Riku Kuikka
+- Topi Ahola
+- Araz Mohammed
+- Veijo Kasanen
+
+```
+
+```
