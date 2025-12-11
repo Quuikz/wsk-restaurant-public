@@ -260,6 +260,62 @@ const getDiscountList = async (req, res) => {
   }
 };
 
+
+
+const validateDiscount = async (req, res) => {
+  try {
+    console.log("validateDiscount in discount-controller:", req.params.code);
+    if (!req.params.code){
+      res.json(false);
+    }
+
+    //all discounts
+    const discountArray = await listAllDiscounts();
+
+    if (!discountArray) {
+      res.status(500).send("No discount array");
+    }
+
+    //get date .toISOString()
+    const currentDate = new Date(Date.now());
+    console.log('current date:', currentDate);
+
+    //filter discounts
+    const validDiscounts = discountArray.filter(
+      (discount) => {
+        const start = new Date(discount.date_start);
+        const end = new Date(discount.date_end);
+        console.log(start, end, currentDate, discount.discount_code );
+
+/*      console.log((start <= currentDate))
+        console.log((end >= currentDate))
+        console.log((discount.discount_code == req.params.code))*/
+
+        return (start < currentDate)
+          && (end > currentDate)
+          && (discount.discount_code == req.params.code);
+      });
+
+    if (validDiscounts.length > 0) {
+      console.log('found valid discounts:',validDiscounts);
+        return res.json(true);
+    } else {
+      console.log('no valid discounts found');
+      return res.json(false);
+    }
+
+
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+
+
+
+
+
+
 export {
   getDiscounts,
   getDiscountById,
@@ -267,4 +323,5 @@ export {
   putDiscount,
   deleteDiscount,
   getDiscountList,
+  validateDiscount
 };
