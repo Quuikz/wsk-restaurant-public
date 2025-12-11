@@ -3,24 +3,39 @@ import {useMenuCommon} from '../../hooks/common/apiHooks.js';
 import WeeklistBox from './Weeklist/WeeklistBox';
 import {useLanguageContext} from '../../hooks/contextHooks.js';
 
+/**
+ * Weeklist component - Displays weekly restaurant menus
+ *
+ * Allows users to:
+ * - View meals for the current week and up to 3 weeks ahead
+ * - Navigate between weeks using Previous/Next buttons
+ *
+ * @component
+ * @returns {JSX.Element} Weekly menu display with navigation
+ */
 const Weeklist = () => {
-  //language context
+  // language context
   const {finnish} = useLanguageContext();
 
-  // Function to get current week number
+  /**
+   * Calculates the current week number of the year
+   *
+   * @function
+   * @returns {number} Current week number (1-52)
+   */
   const realTimeWeek = () => {
     const d = new Date();
     let yearStart = +new Date(d.getFullYear(), 0, 1);
     let today = +new Date(d.getFullYear(), d.getMonth(), d.getDate());
     let dayOfYear = (today - yearStart + 1) / 86400000;
     let week = Math.ceil(dayOfYear / 7);
-    //console.log(week);
     return week;
   };
 
   // State and hook for weekly menu
   const {getMenuByWeek} = useMenuCommon();
   const [weeklyMenu, setWeeklyMenu] = useState([]);
+
   // Set current week number here
   const initialWeek = realTimeWeek();
   const [currentWeek, setCurrentWeek] = useState(initialWeek);
@@ -28,9 +43,18 @@ const Weeklist = () => {
   // Button managers for week navigation
   const min = initialWeek;
   const max = initialWeek + 3;
+
+  /**
+   * Creates an increment and decrement function for week navigation
+   * Limits to max week (initialWeek + 3)
+   */
   const inc = (set) => () => set((v) => Math.min(max, v + 1));
   const dec = (set) => () => set((v) => Math.max(min, v - 1));
 
+  /**
+   * Loads the weekly menu when currentWeek changes
+   * Fetches menu data from API and updates state
+   */
   useEffect(() => {
     // Load all menu items
     const loadMenuByWeek = async () => {
@@ -78,6 +102,7 @@ const Weeklist = () => {
             )}
           </div>
 
+          {/* Week navigation buttons */}
           <div className="grid grid-cols-2 mt-10">
             <button
               className="mt-4 mb-4 bg-orange-200 px-2 sm:px-4 lg:px-4 py-2 rounded hover:bg-orange-300 width-fit mr-auto"
