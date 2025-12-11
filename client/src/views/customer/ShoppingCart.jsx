@@ -20,9 +20,9 @@ const ShoppingCart = () => {
 
   const {user, setUser} = useUserContext();
 
-  
+  //
   const [discountAmount, setDiscountAmount] = useState(0);
-  
+  const [discountActive, setDiscountsActive] = useState(null);
 
 
   const { getUserByToken } = useUser();
@@ -48,7 +48,7 @@ const ShoppingCart = () => {
   };
 
 
-  
+
 
   const doCheckDiscount = async () => {
     const token = localStorage.getItem('token');
@@ -57,14 +57,14 @@ const ShoppingCart = () => {
     }
     try{
       const result = await validateDiscountByCode(token, inputs.discount_code);
-      //console.log(result);
+      console.log(result);
       //console.log(result[0].discount);
-      if(result[0].discount){
+      if(result.length > 0){
         //console.log(result[0].discount *10);
         setDiscountAmount(result[0].discount);
+        setDiscountsActive(result[0]);
       }
 
-      
     }
     catch(error){
       console.log('Error in doCheckDiscount: ', error.message);
@@ -392,7 +392,21 @@ const ShoppingCart = () => {
                   {finnish ? 'Käytä' : 'Apply'}
                 </button>
               </div>
-
+              {discountActive && (<>
+                <div className="bg-green-300 p-2 rounded-lg border shadow-sm space-y-1 flex justify-between">
+                    <div className="">
+                      <div> {finnish ? 'Alennuskoodi käytössä:':'Discount code in use:'}</div>
+                      <div> {discountActive.discount_code} </div>
+                    </div>
+                    <button className="bg-orange-500 text-white px-4 py-1 rounded-md hover:bg-orange-600"
+                    onClick={() => {
+                      setDiscountsActive(null); setDiscountAmount(0);
+                    }}
+                    >
+                      {finnish ? 'Poista' : 'Remove'}
+                    </button>
+                </div>
+              </>)}
             </div>
 
             {/* Payment */}
@@ -400,11 +414,12 @@ const ShoppingCart = () => {
               <div>
                 {/*Disabled until user */}
                 <button
-                  className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-medium py-3 rounded-lg"
+                  className={user ? 'bg-orange-500 block w-full text-center  hover:bg-orange-600 text-white font-medium py-3 rounded-lg'
+                    : 'bg-gray-200 block w-full text-center hover:bg-orange-600 text-white font-medium py-3 rounded-lg'}
                   disabled={!user}
                   onClick={handleCheckout}
                 >
-                  {finnish ? 'Vahvista tilaus' : 'Confirm your order'}
+                  {user ? (finnish ? 'Vahvista tilaus' : 'Confirm your order') :(finnish ? 'Käyttäjätili vaaditaan' : 'User account required')}
                 </button>
               </div>
               <div>

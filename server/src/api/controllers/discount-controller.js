@@ -293,7 +293,7 @@ const validateDiscount = async (req, res) => {
 
         return (start < currentDate)
           && (end > currentDate)
-          && (discount.discount_code === req.params.code);
+          && (discount.discount_code.toUpperCase() === req.params.code.toUpperCase());
       });
 
     if (validDiscounts.length > 0) {
