@@ -1,10 +1,10 @@
 import useWeather from '../../hooks/widgetApiHooks.js';
-//import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
+import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
 
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {useLanguageContext} from "../../hooks/contextHooks.js";
+import {useLanguageContext} from '../../hooks/contextHooks.js';
 
 // Custom icon for the marker
 const customIcon = L.icon({
@@ -37,22 +37,28 @@ const Contacts = () => {
 
   const weatherData = data?.current_weather;
 
-  const terraceOpen = (weatherData?.temperature > 15);
+  const terraceOpen = weatherData?.temperature > 15;
 
   return (
     <>
       <div className="bg-orange-50 max-w-7xl mx-auto p-7 pt-20 pb-30">
         {/* Page title */}
         <div className="text-center w-full pb-10 ">
-          <h2 className="text-3xl font-medium">| {finnish ? 'Yhteystiedot' : 'Contact information'} |</h2>
-          <p className="mt-2 ">{finnish ? 'Tule paikalle tai ota yhteyttä!' : 'Come visit or contact us!'}</p>
+          <h2 className="text-3xl font-medium">
+            | {finnish ? 'Yhteystiedot' : 'Contact information'} |
+          </h2>
+          <p className="mt-2 ">
+            {finnish
+              ? 'Tule paikalle tai ota yhteyttä!'
+              : 'Come visit or contact us!'}
+          </p>
         </div>
 
         <div className="flex flex-col md:flex-row gap-8 p-6">
           {/* Left side - Map */}
           <div className="w-full md:w-1/2 z-10">
             {/* Map */}
-            <div className="h-80 md:h-[480px] rounded-md overflow-hidden shadow">
+            <div className="h-full rounded-md overflow-hidden shadow">
               <MapContainer
                 center={position}
                 zoom={15}
@@ -73,49 +79,63 @@ const Contacts = () => {
           {/* Right side - Restaurant info */}
           <div className="w-full md:w-1/2 flex flex-col gap-6 ">
             {/* Right side - (Left/top) - Restaurant contacts */}
-            <div className="p-4 bg-gray-100 rounded-lg shadow bg-orange-100">
+            <div className="p-4  rounded-lg shadow bg-orange-100">
               {/* !!! Departures Widget NOT WORKING CORS*/}
               {/* <DeparturesWidget lat={60.1599} lon={24.9484} radius={500} /> */}
 
-              <h3 className="text-xl font-semibold mb-2">{finnish ? 'Yhteystiedot' : 'Contact information'}</h3>
+              <h3 className="text-xl font-semibold mb-2">
+                {finnish ? 'Yhteystiedot' : 'Contact information'}
+              </h3>
 
               <div className="text-lg font-medium">
-                <p>{finnish ? 'Osoite':'Address'}: Kasarmikatu 2</p>
-                <p>{finnish ? 'Puhelin':'Phone'}: +358 4403025563</p>
-                <p>{finnish ? 'Sähköposti':'Email'}: Restauranto@mail.com</p>
+                <p>{finnish ? 'Osoite' : 'Address'}: Kasarmikatu 2</p>
+                <p>{finnish ? 'Puhelin' : 'Phone'}: +358 4403025563</p>
+                <p>{finnish ? 'Sähköposti' : 'Email'}: Restauranto@mail.com</p>
               </div>
             </div>
 
             {/* Right side - (right/bottom) - Restaurant - opening hours */}
-            <div className="p-4 bg-gray-100 rounded-lg shadow bg-orange-100">
-              <h3 className="text-xl font-semibold mb-2">{finnish ? 'Aukioloajat':'Opening hours'}</h3>
+            <div className="p-4  rounded-lg shadow bg-orange-100">
+              <h3 className="text-xl font-semibold mb-2">
+                {finnish ? 'Aukioloajat' : 'Opening hours'}
+              </h3>
 
               <div className="text-lg font-medium">
-                <p>{finnish ? 'MA - PE: 8-17':'MON - FRI: 8-17'}</p>
-                <p>{finnish ? 'SAT: 8-17':'SAT: 9-16'}</p>
-                <p>{finnish ? 'SU: Kiinni':'SUN: Closed'}</p>
+                <p>{finnish ? 'MA - PE: 8-17' : 'MON - FRI: 8-17'}</p>
+                <p>{finnish ? 'SAT: 8-17' : 'SAT: 9-16'}</p>
+                <p>{finnish ? 'SU: Kiinni' : 'SUN: Closed'}</p>
               </div>
               <div className="text-lg font-medium">
                 {/* !!! Check code better */}
                 <p>
-                  {finnish ? 'Sää, Helsinki:':'Weather, Helsinki'}{' '}
+                  {finnish ? 'Sää, Helsinki:' : 'Weather, Helsinki'}{' '}
                   {weatherData
-                    ? `${weatherData.temperature}°C, ${finnish ? 'Tuuli':'Wind'}: ${weatherData.windspeed} m/s`
+                    ? `${weatherData.temperature}°C, ${finnish ? 'Tuuli' : 'Wind'}: ${weatherData.windspeed} m/s`
                     : loading
-                      ? (finnish ? 'Ladataan säätietoja...':'Loading weather...')
+                      ? finnish
+                        ? 'Ladataan säätietoja...'
+                        : 'Loading weather...'
                       : error
-                        ? (`Error: ${error}`)
-                        : (finnish ? 'Ei säätietoja saatavilla':'No weather available')}
+                        ? `Error: ${error}`
+                        : finnish
+                          ? 'Ei säätietoja saatavilla'
+                          : 'No weather available'}
                 </p>
               </div>
               <div className="text-lg font-medium">
                 {/* !!! Set functionality using temperature and ?weather */}
-                <p>{finnish ?
-                  'Terassi on '+(terraceOpen ? 'auki!':'suljettu sään takia.')
-                  :'Terrace is '+(terraceOpen ? 'open!':'closed due to weather.')}
+                <p>
+                  {finnish
+                    ? 'Terassi on ' +
+                      (terraceOpen ? 'auki!' : 'suljettu sään takia.')
+                    : 'Terrace is ' +
+                      (terraceOpen ? 'open!' : 'closed due to weather.')}
                 </p>
               </div>
             </div>
+
+            {/* Right side - (right/bottom) - Closest HSL stops */}
+            <DeparturesWidget />
           </div>
         </div>
       </div>

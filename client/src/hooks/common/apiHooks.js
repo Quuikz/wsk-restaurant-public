@@ -6,23 +6,25 @@ if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   API_URL = import.meta.env.VITE_API_URL_LOCAL;
 }
 
-
 const useUserCommon = () => {
-    const deleteUserByID = async (token, userID) => {
-        const fetchOptions = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-        };
+  const deleteUserByID = async (token, userID) => {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-        const deleteUserByIDResult = await fetchData(API_URL + `/users/${userID}`, fetchOptions);
-        return deleteUserByIDResult;
-    }
+    const deleteUserByIDResult = await fetchData(
+      API_URL + `/users/${userID}`,
+      fetchOptions,
+    );
+    return deleteUserByIDResult;
+  };
 
-    return { deleteUserByID }
-}
+  return {deleteUserByID};
+};
 
 const useMealCommon = () => {
   const getAllMeals = async () => {
@@ -112,7 +114,7 @@ const useOrderCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     };
@@ -126,7 +128,7 @@ const useOrderCommon = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     };
@@ -143,7 +145,7 @@ const useOrderCommon = () => {
       method: 'DELETE',
       headers: {
         //'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -159,7 +161,7 @@ const useOrderCommon = () => {
       method: 'GET',
       headers: {
         //'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -174,7 +176,7 @@ const useOrderCommon = () => {
     const fetchOptions = {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -194,7 +196,7 @@ const useReservationCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -211,7 +213,7 @@ const useReservationCommon = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     };
 
@@ -231,7 +233,7 @@ const useGiftcardsCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -246,22 +248,71 @@ const useGiftcardsCommon = () => {
   return {postGiftCard};
 };
 
-
 const useDiscountsCommon = () => {
-    const validateDiscountByCode = async (token, code) => {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                //'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
-            },
-        };
+  const validateDiscountByCode = async (token, code) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        //'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-        const result = await fetchData(API_URL + `/discounts/validate/${code}`, fetchOptions);
-        return result;
+    const result = await fetchData(
+      API_URL + `/discounts/validate/${code}`,
+      fetchOptions,
+    );
+    return result;
+  };
+
+  return {validateDiscountByCode};
+};
+
+const useHslStopsCommon = () => {
+  const getHslStopsByLatLon = async (lat, lon, radius) => {
+    const url = API_URL + '/hsl/getHsl';
+    const query = `
+    {
+      stopsByRadius(lat: ${lat}, lon: ${lon}, radius: ${radius}) {
+        edges {
+          node {
+            stop {
+              name
+              lat
+              lon
+              code
+              gtfsId
+            }
+            distance
+          }
+        }
+      }
     }
+`;
 
-    return { validateDiscountByCode }
-}
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({query}),
+    };
 
-export {useUserCommon, useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon, useDiscountsCommon};
+    const result = await fetchData(url, fetchOptions);
+
+    console.log('HSL stops result:', result);
+    // return result;
+  };
+  return {getHslStopsByLatLon};
+};
+
+export {
+  useUserCommon,
+  useMealCommon,
+  useMenuCommon,
+  useOrderCommon,
+  useReservationCommon,
+  useGiftcardsCommon,
+  useDiscountsCommon,
+  useHslStopsCommon,
+};
