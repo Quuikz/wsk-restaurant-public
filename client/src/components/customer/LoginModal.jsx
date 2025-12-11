@@ -1,9 +1,33 @@
 import React, {useState} from 'react';
 import useForm from '../../hooks/formHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
-//import {useAuthentication} from '../../hooks/apiHooks.js';
-import { useAuthentication } from '../../hooks/common/apiHooks.js';
+import {useAuthentication} from '../../hooks/common/apiHooks.js';
 
+/**
+ * LoginModal Component
+ *
+ * Modal dialog for user authentication. Provides a login form with username and password fields,
+ * handles form submission, and manages user authentication state.
+ * Includes a link to open the registration modal for new users.
+ * Features bilingual support (Finnish/English) and responsive design.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.isOpen - Controls modal visibility
+ * @param {Function} props.onClose - Callback function to close the modal
+ * @param {Function} props.onOpenRegister - Callback function to open the registration modal
+ * @returns {React.ReactElement|null} Modal component or null if not open
+ *
+ * @example
+ * const [isOpen, setIsOpen] = useState(false);
+ * return (
+ *   <LoginModal
+ *     isOpen={isOpen}
+ *     onClose={() => setIsOpen(false)}
+ *     onOpenRegister={() => openRegisterModal()}
+ *   />
+ * )
+ */
 const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
   if (!isOpen) {
     return null;
@@ -13,15 +37,34 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
   const {handleLogin} = useUserContext();
   const {finnish} = useLanguageContext();
 
+  /**
+   * Initial form values for the login form.
+   * Contains empty strings for username and password fields.
+   *
+   * @type {Object}
+   * @property {string} username - Username field initial value
+   * @property {string} password - Password field initial value
+   */
   const initValues = {
     username: '',
     password: '',
   };
 
+  /**
+   * Handles the login process when the form is submitted.
+   * Validates credentials, updates user context, and closes the modal on success.
+   * Logs errors to console if authentication fails.
+   *
+   * @async
+   * @returns {Promise<void>}
+   * @throws {Error} Logs error message if login fails
+   *
+   * @example
+   * await doLogin();
+   * // Authenticates user and closes modal
+   */
   const doLogin = async () => {
     try {
-      //const response = await postLogin(inputs);
-      //handleLogin(response);
       handleLogin(inputs);
       onClose();
     } catch (error) {
@@ -29,46 +72,23 @@ const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
     }
   };
 
+  /**
+   * Custom form hook managing form state and submission.
+   * Provides input values, change handler, and submit handler.
+   *
+   * @type {Object}
+   * @property {Object} inputs - Current form input values
+   * @property {string} inputs.username - Current username value
+   * @property {string} inputs.password - Current password value
+   * @property {Function} handleInputChange - Handler for input field changes
+   * @property {Function} handleSubmit - Handler for form submission
+   */
   const {inputs, handleInputChange, handleSubmit} = useForm(
     doLogin,
     initValues,
   );
 
   return (
-    /*
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-gray-800 rounded-lg p-6 w-96 max-w-full relative">
-        <h2 className="text-lg font-semibold text-white mb-4">Kirjaudu sisään</h2>
-
-        <form className="space-y-4">
-          <input
-            type="email"
-            placeholder="Sähköposti"
-            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-          />
-          <input
-            type="password"
-            placeholder="Salasana"
-            className="w-full px-3 py-2 rounded bg-gray-700 text-white focus:outline-none"
-          />
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 hover:bg-indigo-500 text-white py-2 rounded"
-          >
-            Kirjaudu
-          </button>
-        </form>
-
-        <button
-          onClick={onClose}
-          className="absolute top-2 right-2 text-gray-400 hover:text-white"
-        >
-          ✕
-        </button>
-      </div>
-    </div>
-    */
-
     <>
       <div
         id="login-modal"
