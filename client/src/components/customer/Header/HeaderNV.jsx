@@ -89,7 +89,7 @@ const HeaderNV = () => {
     <header className="fixed w-full z-50">
       <nav className="relative">
         {/* NavBar */}
-        <div className=" bg-gray-800">
+        <div className=" bg-[#1D3557]">
           <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             {/* NavBar items */}
             <div className="relative flex h-22  items-center justify-between">

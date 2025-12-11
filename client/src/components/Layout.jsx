@@ -67,7 +67,7 @@ const Layout = () => {
 
     <>
       <HeaderNV />
-      <main className="pt-22  bg-[repeating-linear-gradient(-45deg,rgba(255,255,255,0.08)_0_2px,transparent_2px_12px)] bg-[#2c5c42]">
+      <main className="pt-22  bg-white">
         {/* Adds little space so header wont take space from pages. */}
         <Outlet />
       </main>

@@ -10,7 +10,7 @@ const Footer = () => {
   return (
     <>
       {/*<footer className="px-4 divide-y dark:bg-gray-100 dark:text-gray-800" >*/}
-      <footer className="px-4 divide-y bg-gray-800 text-gray-300 py-8">
+      <footer className="px-4 divide-y bg-[#1D3557] text-gray-300 py-8">
         <div className="max-w-7xl mx-auto container flex flex-col justify-between py-10 space-y-8 lg:flex-row lg:space-y-0">
           <div className="lg:w-1/3">
             <Link
