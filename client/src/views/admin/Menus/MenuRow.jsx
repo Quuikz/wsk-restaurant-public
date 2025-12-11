@@ -80,6 +80,13 @@ const MenuRow = ({menuItem}) => {
     loadAllMeals();
   }, []);
 
+  // Prefills selectedMeals from the current menu
+  useEffect(() => {
+  if (showMealSelector) {
+    setSelectedMeals(menuItem.meals ?? []);
+  }
+}, [showMealSelector, menuItem.meals]);
+
   const handleDeleteMealFromMenu = async (mealID) => {
     const token = localStorage.getItem('token');
     try {
