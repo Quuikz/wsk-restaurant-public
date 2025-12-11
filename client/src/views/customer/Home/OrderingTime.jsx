@@ -120,8 +120,6 @@ const OrderingTime = ({
     setTimeMenuOpen((prev) => !prev);
   };
 
-  //console.log('RESERVED TIMES: ', reservedTimes);
-
   // Close when clicking outside
   useEffect(() => {
     const onDocClick = (e) => {

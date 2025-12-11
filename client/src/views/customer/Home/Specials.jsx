@@ -19,6 +19,7 @@ const Specials = () => {
   const {getMealByIDList} = useMealCommon();
   const [, setDailyMenu] = useState([]);
   const [meals, setMeals] = useState([]);
+
   const [specialMealID, setSpecialMealID] = useState([]);
 
   //language

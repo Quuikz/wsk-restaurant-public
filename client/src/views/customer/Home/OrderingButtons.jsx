@@ -12,19 +12,6 @@ const OrderingButtons = ({
   // Table max ocapacity
   const tableCapacity = 4;
 
-  // Grill number state, probably delete
-  //const [grillNumber, setGrillNumber] = useState(0);
-  //const minGrill = 0;
-  //const maxGrill = tableCapacity;
-  //setGrillNumber(Math.max(0, grillCount - 1));
-
-  // Buffet number state, probably delete
-  //const [buffetNumber, setBuffetNumber] = useState(0);
-  //const minBuffet = 0;
-  //const maxBuffet = tableCapacity;
-  //const decrementBuffet = () =>
-  //  setBuffetNumber((v) => Math.max(minBuffet, v - 1));
-
   const incrementGrill = () => {
     const totalGuests = grillCount + tableCount;
     if (totalGuests < tableCapacity) {

@@ -17,14 +17,6 @@ const Ordering = ({id}) => {
   const {finnish} = useLanguageContext();
   const navigate = useNavigate();
 
-  /*
-  const initValues = {
-    reservationDate: date,
-    reservationTime: time,
-    tableCount: tableCount,
-    grillCount: grillCount,
-  }
-  */
   const [form, setForm] = useState({
     reservationDate: today,
     reservationTime: 'Valitse aika',

@@ -1,6 +1,7 @@
 //Components
 import Ordering from './Home/Ordering.jsx';
 import Specials from './Home/Specials.jsx';
+
 import {useLanguageContext} from '../../hooks/contextHooks.js';
 
 const Home = () => {
