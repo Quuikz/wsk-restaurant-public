@@ -25,6 +25,8 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 
 ## Ohje testaamiseen
 
+### Kirjautuminen
+
 Sisäänkirjautuminen toimii kovakoodatulla käyttäjillä:
 
 Tavallinen käyttäjä
@@ -43,11 +45,18 @@ Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä
 <img src="./documentation/register.png" alt="register window" style="width: 40%"/>
 </figure>
 
+Admin käyttäjällä sisäänkirjautuminen näyttää linkit admin hallintasivulle
 <figure>
-<img src="./documentation/admin_linkit.png" alt="links to admin dashboard" style="width: 40%"/>
+<img src="./documentation/admin_linkit.png" alt="links to admin dashboard" style="width: 100%"/>
 </figure>
 
+### Näkymät
 
+Sovelluksessa on 2 päänäkymää: Ravintolasivu ja admin hallintasivu
+
+<figure>
+<img src="./documentation/nakymat.png" alt="links to admin dashboard" style="width: 100%"/>
+</figure>
 
 
 
