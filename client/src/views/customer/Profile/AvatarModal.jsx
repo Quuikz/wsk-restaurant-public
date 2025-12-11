@@ -1,18 +1,48 @@
 import React, {useState} from 'react';
-import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
-import { useCurrentUser } from '../../../hooks/common/apiHooks.js';
+import {
+  useLanguageContext,
+  useUserContext,
+} from '../../../hooks/contextHooks.js';
+import {useCurrentUser} from '../../../hooks/common/apiHooks.js';
 
+/**
+ * AvatarModal component - Modal dialog for changing user profile picture.
+ *
+ * Features:
+ * - File input for selecting a new profile picture
+ * - Real-time image preview
+ * - Submit form to upload the new avatar
+ * - Link to edit full profile
+ * - Bilingual support (Finnish/English)
+ * - Security notice displayed to users
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.isOpen - Whether the modal is visible
+ * @param {Function} props.onClose - Callback function to close the modal
+ * @param {Function} props.onOpenEdit - Callback function to open profile edit modal
+ * @returns {React.ReactElement|null} The rendered modal component, or null if not open
+ */
 const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
   if (!isOpen) {
     return null;
   }
 
-  //const { postLogin } = useAuthentication();
   const [file, setFile] = useState(null);
   const {user, setUser} = useUserContext();
   const {finnish} = useLanguageContext();
   const {modifyUserAvatar} = useCurrentUser();
 
+  /**
+   * Handles the avatar modification API call.
+   * Retrieves authentication token from localStorage, uploads the file,
+   * and updates the user context with the response if successful.
+   *
+   * @async
+   * @function doModifyUserAvatar
+   * @returns {Promise<void>}
+   * @throws {Error} Logs error to console if upload fails
+   */
   const doModifyUserAvatar = async () => {
     const token = localStorage.getItem('token');
 
@@ -22,16 +52,31 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
       if (result) {
         setUser(result);
       }
-
     } catch (error) {
       console.log('Error in doModifyUserAvatar', error);
     }
   };
 
+  /**
+   * Handles file input change event.
+   * Updates the file state with the first selected file.
+   *
+   * @function handleFileChange
+   * @param {Event} e - The change event from file input
+   * @returns {void}
+   */
   const handleFileChange = (e) => {
     setFile(e.target.files[0]);
   };
 
+  /**
+   * Handles form submission.
+   * Prevents default form behavior and calls the modify avatar function.
+   *
+   * @function handleSubmit
+   * @param {Event} e - The submit event
+   * @returns {void}
+   */
   const handleSubmit = (e) => {
     e.preventDefault();
     doModifyUserAvatar();
@@ -62,14 +107,21 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your information is secure.'}</p>
+            <p>
+              ✅{' '}
+              {finnish
+                ? 'Tietosi ovat turvassa.'
+                : 'Your information is secure.'}
+            </p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - profile picture */}
               <img
                 src={
                   file
                     ? URL.createObjectURL(file)
-                    : user.image || 'https://placehold.co/200?text='+(finnish ? 'Valitse+kuva' : 'Select+picture')
+                    : user.image ||
+                      'https://placehold.co/200?text=' +
+                        (finnish ? 'Valitse+kuva' : 'Select+picture')
                 }
                 alt="preview"
                 className="w-30 h-30 object-cover rounded-full mb-2 mx-auto"
@@ -100,7 +152,11 @@ const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
 
             <div className="text-center">
               <h2 className="text-lg font-medium">
-                | {finnish ? 'Haluatko muokata profiilia?' : 'Want to change profile?'} |
+                |{' '}
+                {finnish
+                  ? 'Haluatko muokata profiilia?'
+                  : 'Want to change profile?'}{' '}
+                |
               </h2>
               <button
                 type="button"

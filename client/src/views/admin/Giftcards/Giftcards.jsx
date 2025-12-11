@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useGiftcards } from "../../../hooks/admin/apiHooks";
 import GiftCardRow from "./GiftCardrow";
 
-
+/**
+ * Admin component for viewing gift cards.
+ */
 const GiftcardsAdmin = () => {
 
     const { getAllGiftCards } = useGiftcards();

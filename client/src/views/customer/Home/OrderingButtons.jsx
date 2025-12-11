@@ -3,6 +3,28 @@ import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
 import AlertModal from '../../../components/AlertModal.jsx';
 
+/**
+ * OrderingButtons component - Guest count selector for table reservations.
+ *
+ * Features:
+ * - Separate controls for grill table and buffet table guest counts
+ * - Total capacity limit enforcement (max 4 guests combined)
+ * - Increment/decrement buttons with minimum value of 0
+ * - Alert modal when capacity is exceeded
+ * - Bilingual support (Finnish/English)
+ * - Accessible button labels
+ *
+ * The component enforces a maximum capacity constraint where the sum of
+ * grill and buffet guests cannot exceed the table capacity.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.tableCount - Current number of guests for buffet table
+ * @param {number} props.grillCount - Current number of guests for grill table
+ * @param {Function} props.setTableCount - Function to update buffet table count
+ * @param {Function} props.setGrillCount - Function to update grill table count
+ * @returns {React.ReactElement} The rendered ordering buttons component
+ */
 const OrderingButtons = ({
   tableCount,
   grillCount,

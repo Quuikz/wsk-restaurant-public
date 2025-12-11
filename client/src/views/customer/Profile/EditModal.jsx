@@ -1,13 +1,28 @@
 import React from 'react';
 import useForm from '../../../hooks/formHooks.js';
-import { useCurrentUser, useUser } from '../../../hooks/common/apiHooks.js';
-import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
-import {useNavigate} from "react-router";
+import {useCurrentUser, useUser} from '../../../hooks/common/apiHooks.js';
+import {
+  useLanguageContext,
+  useUserContext,
+} from '../../../hooks/contextHooks.js';
+import {useNavigate} from 'react-router';
 
+/**
+ * EditModal component - A modal dialog for editing user profile information
+ * Allows users to modify their username and email. After successful modification,
+ * the user is logged out and must sign in again with updated credentials.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.isOpen - Controls whether the modal is visible
+ * @param {Function} props.onClose - Callback function to close the modal
+ * @param {Function} props.onOpenAvatar - Callback function to open the avatar change modal
+ * @returns {JSX.Element|null} Modal dialog for editing user info, or null if not open or no user
+ */
 const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
-  const { user, setUser, handleLogout } = useUserContext();
+  const {user, setUser} = useUserContext();
   const {finnish} = useLanguageContext();
-  const { modifyUserInfo } = useCurrentUser();
+  const {modifyUserInfo} = useCurrentUser();
   const {isUsernameTaken} = useUser();
   const navigate = useNavigate();
 
@@ -15,12 +30,15 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
     return null;
   }
 
-  //const { postLogin } = useAuthentication();
-  //const initValues = {
-  //  username: user?.username || 'name',
-  //  email: user?.email || 'email',
-  //};
-
+  /**
+   * Handles the user information modification process
+   * Validates username availability, updates user info, and logs out the user
+   *
+   * @async
+   * @function doModifyUserInfo
+   * @returns {Promise<void>}
+   * @throws {Error} If modification fails or username is already taken
+   */
   const doModifyUserInfo = async () => {
     const token = localStorage.getItem('token');
     try {
@@ -35,24 +53,20 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
           localStorage.removeItem('token');
           setUser(null);
           navigate('/');
-
         } else {
           console.log('Error: User not modified.');
           alert('Error: User not modified.');
-
         }
-
       } else {
-        console.log('This username is already taken.')
+        console.log('This username is already taken.');
         alert('This username is already taken.');
       }
     } catch (error) {
       console.log('Error in doRegister: ', error);
     }
-  }
+  };
 
-
-  const { inputs, handleInputChange, handleSubmit } = useForm(doModifyUserInfo, {
+  const {inputs, handleInputChange, handleSubmit} = useForm(doModifyUserInfo, {
     username: user.username,
     email: user.email,
   });
@@ -82,7 +96,12 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
             </div>
 
             {/* Modal body */}
-            <p>❗{finnish ? 'Tietojen muokkauksen jälkeen sinun pitää kirjautua uudelleen.' : 'You must login again after changing your information.'}</p>
+            <p>
+              ❗
+              {finnish
+                ? 'Tietojen muokkauksen jälkeen sinun pitää kirjautua uudelleen.'
+                : 'You must login again after changing your information.'}
+            </p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
@@ -122,7 +141,6 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
                 />
               </div>
 
-
               <button
                 type="submit"
                 className="cursor-pointer w-full mb-3  bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
@@ -133,7 +151,11 @@ const EditModal = ({isOpen, onClose, onOpenAvatar}) => {
 
             <div className="text-center">
               <h2 className="text-lg font-medium">
-                | {finnish ? 'Haluatko vaihtaa profiilikuvan?' : 'Want to change profile picture?'} |
+                |{' '}
+                {finnish
+                  ? 'Haluatko vaihtaa profiilikuvan?'
+                  : 'Want to change profile picture?'}{' '}
+                |
               </h2>
               <button
                 type="button"
