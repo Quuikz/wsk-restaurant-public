@@ -20,7 +20,7 @@ const ShoppingCart = () => {
 
   const {user, setUser} = useUserContext();
 
-  //
+  
   const [discountAmount, setDiscountAmount] = useState(0);
   const [discountActive, setDiscountsActive] = useState(null);
 
@@ -29,6 +29,11 @@ const ShoppingCart = () => {
 
 
   const [totalCost, setTotalCost] = useState(null);
+
+  //Returns the number of items in cart
+  const totalItems =
+    cart.reservations.length +
+    cart.gift_cards.reduce((acc, gc) => acc + gc.quantity, 0);
 
 
   const getCurrentTimestamp = () => {
@@ -255,8 +260,7 @@ const ShoppingCart = () => {
         <div className="mb-4">
           <h1 className="text-xl font-semibold sm:text-4xl ">{finnish ? 'Ostoskori' : 'Cart'}</h1>
           <p className="text-sm font-semibold sm:text-lg text-gray-700">
-            {cart.reservations.length +
-             cart.gift_cards.reduce((acc, gc) => acc + gc.quantity, 0)}
+            {totalItems}
              {finnish ? ' Tuotetta ostoskorissa.' : ' Products in the cart.'}
              </p>
         </div>
@@ -414,13 +418,16 @@ const ShoppingCart = () => {
             </div>
 
             {/* Payment */}
+
             <div className="space-y-2">
               <div>
                 {/*Disabled until user */}
                 <button
-                  className={user ? 'bg-orange-500 block w-full text-center  hover:bg-orange-600 text-white font-medium py-3 rounded-lg'
-                    : 'bg-gray-200 block w-full text-center hover:bg-orange-600 text-white font-medium py-3 rounded-lg'}
-                  disabled={!user}
+                  className={user && totalItems > 0
+                    
+                    ? 'bg-orange-500 block w-full text-center  hover:bg-orange-600 text-white font-medium py-3 rounded-lg'
+                    : 'bg-gray-600 block w-full text-center hover:bg-gray-700 text-white font-medium py-3 rounded-lg'}
+                  disabled={!user || totalItems == 0} 
                   onClick={handleCheckout}
                 >
                   {user ? (finnish ? 'Vahvista tilaus' : 'Confirm your order') :(finnish ? 'Käyttäjätili vaaditaan' : 'User account required')}
