@@ -40,6 +40,7 @@ import AddMenu from './views/admin/Menus/AddMenu.jsx';
 import UsersAdminView from './views/admin/User/Users.jsx';
 import {CartProvider} from './contexts/ShoppingCartContext.jsx';
 import {LanguageProvider} from "./contexts/LanguageContext.jsx";
+import DiscountsAdmin from './views/admin/Discounts/Discounts.jsx';
 
 const App = () => {
   return (
@@ -87,6 +88,7 @@ const App = () => {
               <Route path="orders" element={<Orders />} />
               <Route path="giftcards" element={<GiftcardsAdmin />} />
               <Route path="reservations" element={<ReservationsAdmin />} />
+              <Route path="discounts" element={<DiscountsAdmin />} />
               <Route path="users" element={<UsersAdminView />} />
             </Route>
           </Routes>

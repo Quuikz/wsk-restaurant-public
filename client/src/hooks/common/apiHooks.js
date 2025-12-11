@@ -112,7 +112,7 @@ const useOrderCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     };
@@ -126,7 +126,7 @@ const useOrderCommon = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     };
@@ -143,7 +143,7 @@ const useOrderCommon = () => {
       method: 'DELETE',
       headers: {
         //'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -159,7 +159,7 @@ const useOrderCommon = () => {
       method: 'GET',
       headers: {
         //'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -174,7 +174,7 @@ const useOrderCommon = () => {
     const fetchOptions = {
       method: 'GET',
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -194,7 +194,7 @@ const useReservationCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -211,7 +211,7 @@ const useReservationCommon = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -231,7 +231,7 @@ const useGiftcardsCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
