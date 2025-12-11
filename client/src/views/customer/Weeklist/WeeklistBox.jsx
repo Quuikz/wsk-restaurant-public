@@ -1,8 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {useMealCommon, useMenuCommon} from '../../../hooks/common/apiHooks.js';
-import {useLanguageContext} from "../../../hooks/contextHooks.js";
+import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
-// Function to convert ISO date to weekday name "Finnish"
+/**
+ * Converts an ISO date string to a weekday name in the specified locale
+ * @param {string} isoDate - ISO date string (e.g., "2024-12-11" or "2024-12-11T10:00:00")
+ * @param {string} [locale='fi-FI'] - Locale string for formatting (default: Finnish)
+ * @param {string} [weekday='long'] - Weekday format ('long', 'short', or 'narrow')
+ * @returns {string} Formatted weekday name or error message if date is invalid
+ */
 function isoToWeekdayName(isoDate, locale = 'fi-FI', weekday = 'long') {
   if (!isoDate) return 'Päivämäärä puuttuu';
 
@@ -19,11 +25,27 @@ function isoToWeekdayName(isoDate, locale = 'fi-FI', weekday = 'long') {
   }
 }
 
+/**
+ * WeeklistBox component displays a daily menu with meals for a specific date
+ * Shows the weekday name, date, and all meals (including special meals) available for that day
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {Object} props.menu - Menu object containing date and meal information
+ * @param {string} props.menu.date - ISO date string for the menu
+ * @param {number} props.menu.special_meal - ID of the special meal for the day
+ * @param {number[]} props.menu.meals - Array of meal IDs for the day
+ * @returns {JSX.Element} A card displaying the daily menu with meals
+ *
+ * @example
+ * <WeeklistBox menu={{
+ *   date: "2024-12-11T00:00:00",
+ *   special_meal: 5,
+ *   meals: [1, 2, 3]
+ * }} />
+ */
 const WeeklistBox = ({menu}) => {
-  //console.log('MENU PROP: ', menu);
-  console.log('MENU DATE: ', menu?.date);
   const dateString = menu?.date?.split('T')[0];
-  //console.log('DATE STRING: ', dateString);
 
   const {getMenuByDate} = useMenuCommon();
   const {getMealByIDList} = useMealCommon();
@@ -36,28 +58,28 @@ const WeeklistBox = ({menu}) => {
     if (!menu?.date?.split('T')[0]) {
       return;
     }
-    // Load all menu items
-
+    /**
+     * Loads menu data for the specified date and fetches associated meal details
+     * @async
+     * @function loadMenuForDay
+     * @returns {Promise<void>}
+     */
     const loadMenuForDay = async () => {
       try {
         const menuData = await getMenuByDate(dateString);
 
-        //console.log('DATE STRING: ', dateString);
-        //console.log('MENU DATA: ', menuData);
-
         if (menuData.length > 0) {
           const menu = menuData[0];
           setDailyMenu(menu);
-          // console.log('DAILY MENU: ', menu);
 
           // Load meals for Menu of the day
-          const mealItems = await getMealByIDList([menu.special_meal, ...menu.meals]);
+          const mealItems = await getMealByIDList([
+            menu.special_meal,
+            ...menu.meals,
+          ]);
           const specialMealID = menu.special_meal;
-          //console.log('SPECIAL MEAL ID: ', specialMealID);
-          //console.log('MEAL DATA: ', mealItems);
           setMeals(mealItems);
           setSpecialMealID(specialMealID);
-          //console.log('isSpecial? ', menu.special_meal);
         }
       } catch (error) {
         console.log('Error in loadMenuItems: ', error);
@@ -78,16 +100,32 @@ const WeeklistBox = ({menu}) => {
             {meals.map((meal) => (
               <div key={meal.id}>
                 <p className="font-bold">
-                  {meal.id === specialMealID ?
-                    (finnish ? 'Grilli spesiaali' : 'Grill special') :
-                    (finnish ? 'Noutopöytä' : 'Buffet')}
+                  {meal.id === specialMealID
+                    ? finnish
+                      ? 'Grilli spesiaali'
+                      : 'Grill special'
+                    : finnish
+                      ? 'Noutopöytä'
+                      : 'Buffet'}
                 </p>
 
                 {meal ? (
                   <ul>
-                    <li>{finnish ? `Nimi - ${meal.name_fi}` : `Name - ${meal.name_en}`} </li>
-                    <li>{finnish ? `Hinta - ${meal.cost.toFixed(2)} €` : `Cost - ${meal.cost.toFixed(2)} €`}</li>
-                    <li>{finnish ? `Tietoa - ${meal.description_fi}` : `Description - ${meal.description_en}`}</li>
+                    <li>
+                      {finnish
+                        ? `Nimi - ${meal.name_fi}`
+                        : `Name - ${meal.name_en}`}{' '}
+                    </li>
+                    <li>
+                      {finnish
+                        ? `Hinta - ${meal.cost.toFixed(2)} €`
+                        : `Cost - ${meal.cost.toFixed(2)} €`}
+                    </li>
+                    <li>
+                      {finnish
+                        ? `Tietoa - ${meal.description_fi}`
+                        : `Description - ${meal.description_en}`}
+                    </li>
                   </ul>
                 ) : (
                   <p>{finnish ? 'Ei saatavilla' : 'Not available'}</p>
