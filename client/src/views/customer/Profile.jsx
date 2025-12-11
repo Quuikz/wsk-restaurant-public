@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
 
-import { useUser } from '../../hooks/apiHooks.js';
+import {useUser} from '../../hooks/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 import AlertModal from '../../components/AlertModal.jsx';
@@ -12,93 +12,94 @@ import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
-  const [displayAlertDeleteModal, setDisplayAlertDeleteModal] = useState(false);
-  const [message, setMessage] = useState('');
-
-  const {user, setUser, handleLogout,} = useUserContext();
-  const { getUserByToken } = useUser();
+  const {user, setUser, handleLogout} = useUserContext();
+  const {getUserByToken} = useUser();
 
   //language
   const {finnish} = useLanguageContext();
 
   //Set server URL
   let SERVER_URL = import.meta.env.VITE_SERVER_URL;
-  if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+  if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
     SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
   }
-  const userImages = SERVER_URL+'/images/users/'
+  const userImages = SERVER_URL + '/images/users/';
 
-  console.log("PROFILE RENDER", user ? user : 'no user');
+  console.log('PROFILE RENDER', user ? user : 'no user');
 
   useEffect(() => {
-    console.log("USE EFFECT RUN");
+    console.log('USE EFFECT RUN');
     const token = localStorage.getItem('token');
-    if(!token){
+    if (!token) {
       console.log('No token found');
       return;
     }
 
     const getUserData = async () => {
       const userData = await getUserByToken(token);
-      if(userData.user){
+      if (userData.user) {
         setUser(userData.user);
       }
-
     };
     getUserData();
-
   }, []);
-
-  const handleAskDeleteUser = () => {
-    setMessage(
-        finnish
-          ? 'Oletko varma, että haluat poistaa tilisi?'
-          : 'Are you sure you want to delete your account?',
-      );
-      setDisplayAlertDeleteModal(true);
-
-      console.log('User was asked about deletion!');
-  }
-
 
   return (
     <>
       <div className="max-w-7xl mx-auto">
         {/* Profile title */}
-        <div className="text-center w-full bg-orange-50 pt-20">
-          <h2 className="text-3xl font-medium">| {finnish ? 'Profiili' : 'Profile'} |</h2>
-          <p className="mt-2 "></p> {finnish ? 'Tarkista tiedot ja muokkaa halutessa!' : 'Check and change your info!'}
+        <div className="text-center w-full bg-orange-100 lg:bg-orange-50 pt-20">
+          <h2 className="text-3xl font-medium">
+            | {finnish ? 'Profiili' : 'Profile'} |
+          </h2>
+          <p className="mt-2 "></p>{' '}
+          {finnish
+            ? 'Tarkista tiedot ja muokkaa halutessa!'
+            : 'Check and change your info!'}
         </div>
 
-        <div className=" p-20 pb-30  bg-orange-100">
+        <div className=" lg:p-20 lg:pt-20 pb-30 bg-orange-100">
           <div className="p-5 bg-orange-50">
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-3 gap-4">
               {/* User profile */}
               <div className="col-span-1">
                 <div className="flex items-center gap-4 pb-2 border-b">
                   <button onClick={() => setDisplayAvatarModal(true)}>
                     <img
-                      src={user ? userImages+user.image : userImages+'placeholder.jpg' }
+                      src={
+                        user
+                          ? userImages + user.image
+                          : userImages + 'placeholder.jpg'
+                      }
                       alt="User profile"
                       className="rounded-full "
                     />
                   </button>
 
-                  <h2 className="text-lg font-medium">{finnish ? 'Käyttäjäprofiili' : 'User profile'}</h2>
+                  <h2 className="text-lg font-medium">
+                    {finnish ? 'Käyttäjäprofiili' : 'User profile'}
+                  </h2>
                 </div>
 
-              {user ? (
-                <div>
-                <p className="pt-3">{finnish ? 'Nimi:' : 'Name:'} {user.username}</p>
-                <p className="pt-1">{finnish ? 'Sähköposti:' : 'Email:'} {user.email}</p>
-                <p className="pt-1">{finnish ? 'Käyttäjän ID:' : 'User ID:'} {user.id}</p>
-                </div>
-              ) : (
-                <div className="max-w-7xl mx-auto text-center pt-20">
-                  <h2 className="text-2xl font-medium">{finnish ? 'Ladataan profiilia...' : 'Loading profile...'}</h2>
-                </div>
-              )}
-
+                {user ? (
+                  <div>
+                    <p className="pt-3">
+                      {finnish ? 'Nimi:' : 'Name:'} {user.username}
+                    </p>
+                    <p className="pt-1">
+                      {finnish ? 'Sähköposti:' : 'Email:'} {user.email}
+                    </p>
+                    <p className="pt-1">
+                      {finnish ? 'Käyttäjän ID:' : 'User ID:'} {user.id}
+                    </p>
+                  </div>
+                ) : (
+                  <div className="max-w-7xl mx-auto text-center pt-20">
+                    <h2 className="text-2xl font-medium">
+                      {finnish ? 'Ladataan profiilia...' : 'Loading profile...'}
+                    </h2>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-2 gap-5">
                   <button
@@ -119,20 +120,15 @@ const Profile = () => {
               {/* Purchase history */}
               <div className="col-span-2 flex flex-col  border-l pl-4">
                 <div className="flex items-center gap-4 pb-4 border-b mt-3">
-                  <h2 className="text-2xl font-medium">{finnish ? 'Ostoshistoria' : 'Purchase history'}</h2>
+                  <h2 className="text-2xl font-medium">
+                    {finnish ? 'Ostoshistoria' : 'Purchase history'}
+                  </h2>
                 </div>
                 <div className="overflow-y-auto h-64 border">
                   <table className="min-w-full table-auto">
-                    <thead>
-                    </thead>
+                    <thead></thead>
 
-                    <ShoppingHistory
-
-                    />
-
-
-
-
+                    <ShoppingHistory />
                   </table>
                 </div>
               </div>
@@ -158,23 +154,19 @@ const Profile = () => {
               setDisplayAvatarModal(false);
               setDisplayEditModal(true);
             }}
-            
           />
         )}
 
         {displayAlertDeleteModal && (
-        <AlertDeletionModal
-          isOpen={displayAlertDeleteModal}
-          onClose={() => setDisplayAlertDeleteModal(false)}
-          message={message}
-        />
-      )}
+          <AlertDeletionModal
+            isOpen={displayAlertDeleteModal}
+            onClose={() => setDisplayAlertDeleteModal(false)}
+            message={message}
+          />
+        )}
       </div>
     </>
   );
-
-
-
 };
 
 /*
