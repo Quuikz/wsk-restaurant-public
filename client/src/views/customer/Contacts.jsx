@@ -1,3 +1,4 @@
+import React, {useState, useRef, useEffect} from 'react';
 import useWeather from '../../hooks/widgetApiHooks.js';
 import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
 
@@ -25,7 +26,10 @@ const Contacts = () => {
   //language
   const {finnish} = useLanguageContext();
 
-  // Restaurant position
+  const [hslStops, setHslStops] = useState([]);
+  const mapRef = useRef(null);
+  const [mapReady, setMapReady] = useState(false);
+
   const position = [60.1599, 24.9484];
 
   // Weather hook
@@ -38,6 +42,16 @@ const Contacts = () => {
   const weatherData = data?.current_weather;
 
   const terraceOpen = weatherData?.temperature > 15;
+
+  useEffect(() => {
+    // console.log('HSL Stops updated:', hslStops);
+    // console.log('Map ready status:', mapReady);
+    // console.log('Map ref current:', mapRef.current);
+
+    if (mapReady && hslStops.length > 0) {
+      mapRef.current.setZoom(17);
+    }
+  }, [mapReady, hslStops]);
 
   return (
     <>
@@ -61,17 +75,25 @@ const Contacts = () => {
             <div className="h-full rounded-md overflow-hidden shadow">
               <MapContainer
                 center={position}
-                zoom={15}
-                scrollWheelZoom={false}
+                zoom={14}
+                scrollWheelZoom={true}
                 style={{height: '100%', width: '100%'}}
+                ref={mapRef}
+                whenReady={() => {
+                  // console.log('Map is ready');
+                  setMapReady(true);
+                }}
               >
-                <TileLayer
-                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
+                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <Marker position={position} icon={customIcon}>
-                  <Popup>Restauranto Kasarmikatu 2</Popup>
+                  <Popup>Restauranto</Popup>
                 </Marker>
+
+                {hslStops.map((stop) => (
+                  <Marker key={stop.gtfsId} position={[stop.lat, stop.lon]}>
+                    <Popup>{stop.name}</Popup>
+                  </Marker>
+                ))}
               </MapContainer>
             </div>
           </div>
@@ -135,7 +157,7 @@ const Contacts = () => {
             </div>
 
             {/* Right side - (right/bottom) - Closest HSL stops */}
-            <DeparturesWidget />
+            <DeparturesWidget onStopsFetched={setHslStops} />
           </div>
         </div>
       </div>
