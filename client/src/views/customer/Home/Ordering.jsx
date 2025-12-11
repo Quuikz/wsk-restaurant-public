@@ -6,20 +6,42 @@ import AlertModal from '../../../components/AlertModal.jsx';
 
 import {ShoppingCartContext} from '../../../contexts/ShoppingCartContext';
 import {useLanguageContext} from '../../../hooks/contextHooks.js';
-import {useNavigate} from 'react-router';
 // Custom Time selector. Check if table still empty at selected time etc.
 
+/**
+ * Ordering component - Handles table reservation form for the restaurant
+ * Allows users to select date, time, and number of people for both regular tables and grill tables
+ * Validates input and adds reservations to the shopping cart
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.id - HTML id attribute for the section element (used for navigation/anchoring)
+ * @returns {JSX.Element} Table reservation form with date/time selection and customer count controls
+ *
+ * @example
+ * <Ordering id="reservation-section" />
+ */
 const Ordering = ({id}) => {
   // Date state
   const today = new Date().toISOString().split('T')[0];
-  //const [reservationDate, setReservationDate] = useState(today);
 
   const {addReservationToCart} = useContext(ShoppingCartContext);
   const [displayAlertModal, setDisplayAlertModal] = useState(false);
   const [message, setMessage] = useState('');
   const {finnish} = useLanguageContext();
-  const navigate = useNavigate();
 
+  /**
+   * @typedef {Object} ReservationForm
+   * @property {string} reservationDate - Selected reservation date in ISO format (YYYY-MM-DD)
+   * @property {string} reservationTime - Selected reservation time
+   * @property {number} tableCount - Number of customers for regular table
+   * @property {number} grillCount - Number of customers for grill table
+   */
+
+  /**
+   * Form state managing all reservation details
+   * @type {[ReservationForm, Function]}
+   */
   const [form, setForm] = useState({
     reservationDate: today,
     reservationTime: 'Valitse aika',
@@ -34,6 +56,15 @@ const Ordering = ({id}) => {
     }));
   };
 
+  /**
+   * Handles form submission and adds reservation to cart
+   * Validates that at least one person is selected and a time is chosen
+   * Shows appropriate error or success messages via AlertModal
+   *
+   * @function doAddToCart
+   * @param {Event} e - Form submit event
+   * @returns {void}
+   */
   const doAddToCart = (e) => {
     e.preventDefault();
     if (form.tableCount + form.grillCount == 0) {
@@ -66,8 +97,6 @@ const Ordering = ({id}) => {
     console.log('Reservation added to cart! Navigate to cart');
   };
 
-  //const {inputs, handleInputChange, handleSubmit} = useForm(doAddToCart, initValues)
-
   return (
     <>
       <section id={id}>
@@ -81,14 +110,6 @@ const Ordering = ({id}) => {
             <OrderingButtons
               tableCount={form.tableCount}
               grillCount={form.grillCount}
-              //setTableCount={setTableCount}
-              //setGrillCount={setGrillCount}
-              //setTableCount={(val) =>
-              //  handleInputChange({ target: { name: 'tableCount', value: Number(val) } })
-              //}
-              //setGrillCount={(val) =>
-              //  handleInputChange({ target: { name: 'grillCount', value: Number(val) } })
-              //}
               setTableCount={(val) => updateField('tableCount', Number(val))}
               setGrillCount={(val) => updateField('grillCount', Number(val))}
             />
@@ -123,9 +144,6 @@ const Ordering = ({id}) => {
             <OrderingTime
               reservationDate={form.reservationDate}
               reservationTime={form.reservationTime}
-              //setReservationTime={(value) =>
-              //  handleInputChange({ target: { name: 'reservationTime', value: value } })
-              ///}
               setReservationTime={(value) =>
                 updateField('reservationTime', value)
               }
