@@ -6,13 +6,7 @@ import { Children } from 'react';
 const ProtectedAdminRoute = ({ children }) => {
     const { user, loadingUser } = useUserContext();
 
-    console.log("🔎 ProtectedAdminRoute check");
-    console.log("loadingUser:", loadingUser);
-    console.log("user:", user);
-    console.log("user?.role:", user?.role);
-
     if(loadingUser){
-        console.log("⏳ Still loading user...");
         return <div>Loading...</div>;
     }
 
