@@ -1,3 +1,12 @@
+/**
+ * @requires react
+ * @requires leaflet
+ * @requires react-leaflet
+ * @requires ../../hooks/widgetApiHooks.js
+ * @requires ../../hooks/contextHooks.js
+ * @requires ./Contacts/DeparturesWidget.jsx
+ */
+
 import React, {useState, useRef, useEffect} from 'react';
 import useWeather from '../../hooks/widgetApiHooks.js';
 import DeparturesWidget from './Contacts/DeparturesWidget.jsx';
@@ -7,7 +16,13 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {useLanguageContext} from '../../hooks/contextHooks.js';
 
-// Custom icon for the marker
+/**
+ * Custom Leaflet icon configuration for map markers.
+ * Defines the appearance and behavior of markers on the map.
+ *
+ * @type {L.Icon}
+ * @constant
+ */
 const customIcon = L.icon({
   iconUrl: new URL('leaflet/dist/images/marker-icon.png', import.meta.url).href,
   iconRetinaUrl: new URL(
@@ -22,6 +37,23 @@ const customIcon = L.icon({
   shadowSize: [41, 41],
 });
 
+/**
+ * Contacts component - Restaurant contact information and location page.
+ *
+ * Displays:
+ * - Interactive map showing restaurant location (Helsinki, Finland)
+ * - Restaurant contact details (address, phone, email)
+ * - Opening hours
+ * - Current weather information for Helsinki
+ * - Terrace availability based on temperature (open if > 15°C)
+ * - Nearby HSL (Helsinki public transit) stops
+ *
+ * The map automatically zooms to level 17 when HSL stops are loaded.
+ * All text is bilingual (Finnish/English) based on language context.
+ *
+ * @component
+ * @returns {React.ReactElement} The rendered Contacts page component
+ */
 const Contacts = () => {
   //language
   const {finnish} = useLanguageContext();
@@ -32,7 +64,17 @@ const Contacts = () => {
 
   const position = [60.1599, 24.9484];
 
-  // Weather hook
+  /**
+   * Weather hook for fetching current weather data
+   * Automatically refreshes every 15 minutes
+   * @type {Object}
+   * @type {Object} data - Weather data object
+   * @type {Object} data.current_weather - Current weather information
+   * @type {number} data.current_weather.temperature - Temperature in Celsius
+   * @type {number} data.current_weather.windspeed - Wind speed in m/s
+   * @type {boolean} loading - Loading state
+   * @type {string|null} error - Error message if fetch failed
+   */
   const {data, loading, error} = useWeather({
     lat: position[0],
     lon: position[1],
@@ -43,11 +85,12 @@ const Contacts = () => {
 
   const terraceOpen = weatherData?.temperature > 15;
 
+  /**
+   * Effect hook to adjust map zoom when HSL stops are loaded
+   * Zooms map to level 17 when both map is ready and stops are available
+   * @type {void}
+   */
   useEffect(() => {
-    // console.log('HSL Stops updated:', hslStops);
-    // console.log('Map ready status:', mapReady);
-    // console.log('Map ref current:', mapRef.current);
-
     if (mapReady && hslStops.length > 0) {
       mapRef.current.setZoom(17);
     }
@@ -80,7 +123,6 @@ const Contacts = () => {
                 style={{height: '100%', width: '100%'}}
                 ref={mapRef}
                 whenReady={() => {
-                  // console.log('Map is ready');
                   setMapReady(true);
                 }}
               >
@@ -102,9 +144,6 @@ const Contacts = () => {
           <div className="w-full md:w-1/2 flex flex-col gap-6 ">
             {/* Right side - (Left/top) - Restaurant contacts */}
             <div className="p-4  rounded-lg shadow bg-orange-100">
-              {/* !!! Departures Widget NOT WORKING CORS*/}
-              {/* <DeparturesWidget lat={60.1599} lon={24.9484} radius={500} /> */}
-
               <h3 className="text-xl font-semibold mb-2">
                 {finnish ? 'Yhteystiedot' : 'Contact information'}
               </h3>
@@ -128,7 +167,6 @@ const Contacts = () => {
                 <p>{finnish ? 'SU: Kiinni' : 'SUN: Closed'}</p>
               </div>
               <div className="text-lg font-medium">
-                {/* !!! Check code better */}
                 <p>
                   {finnish ? 'Sää, Helsinki:' : 'Weather, Helsinki'}{' '}
                   {weatherData
@@ -145,7 +183,6 @@ const Contacts = () => {
                 </p>
               </div>
               <div className="text-lg font-medium">
-                {/* !!! Set functionality using temperature and ?weather */}
                 <p>
                   {finnish
                     ? 'Terassi on ' +
