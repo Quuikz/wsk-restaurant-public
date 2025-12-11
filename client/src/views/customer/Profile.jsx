@@ -4,18 +4,28 @@ import {useNavigate} from 'react-router';
 //Modals
 import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
-
-import {useUser} from '../../hooks/common/apiHooks.js';
-import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';
 
+import {useUser} from '../../hooks/common/apiHooks.js';
+import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
+
+/**
+ * Profile page for the logged-in user.
+ * - Loads user data by token on mount
+ * - Shows profile info, avatar, and purchase history
+ * - Opens edit/avatar modals
+ * - Asks confirmation before account deletion
+ *
+ * @component
+ * @returns {JSX.Element} Profile view with modals and history table
+ */
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
   const [displayAlertDeleteModal, setDisplayAlertDeleteModal] = useState(false);
   const [message, setMessage] = useState('');
-  const {user, setUser, handleLogout} = useUserContext();
+  const {user, setUser} = useUserContext();
   const {getUserByToken} = useUser();
   const navigate = useNavigate();
 
@@ -39,6 +49,10 @@ const Profile = () => {
       return;
     }
 
+    /**
+     * Fetches current user data using stored token and populates context.
+     * @returns {Promise<void>}
+     */
     const getUserData = async () => {
       const userData = await getUserByToken(token);
       if (userData.user) {
@@ -48,6 +62,10 @@ const Profile = () => {
     getUserData();
   }, []);
 
+  /**
+   * Opens confirmation modal for account deletion.
+   * @returns {void}
+   */
   const handleAskDeleteUser = () => {
     setMessage(
       finnish

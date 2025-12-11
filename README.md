@@ -33,13 +33,22 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 
 #### Admin
 
-- Käyttäjätunnus: admin
-- Salasana: password
+    käyttäjätunnus: 'admin'
+    salasana: 'password'
 
 #### User
 
-- Käyttäjätunnus: user
-- Salasana: password
+    käyttäjätunnus: 'username'
+    salasana: 'password'
+
+#### Oma User
+
+Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä.
+Rekisteröytyminen ei sulje ikkunaa, joten käyttäjän pitää siirtyä itse sisäänkirjautumiseen.
+
+<figure>
+<img src="./documentation/register.png" alt="register window" style="width: 40%"/>
+</figure>
 
 ### Pääsy oikeudet
 
@@ -54,6 +63,20 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 3. Kirjaudu sisään admin-käyttäjällä ja testaa ravintoloiden ja käyttäjien hallinta
    - Admin panelii löytyy hampurilaisvalikosta
 4. Testaa eri toiminnallisuudet ja varmista, että kaikki toimii odotetusti
+
+### Näkymät
+
+Sovelluksessa on 2 päänäkymää: ravintolasivu ja admin hallintasivu
+
+<figure>
+<img src="./documentation/nakymat.png" alt="views" style="width: 100%"/>
+</figure>
+
+Admin käyttäjällä sisäänkirjautuminen näyttää linkit admin hallintasivulle
+
+<figure>
+<img src="./documentation/admin_linkit.png" alt="links to admin dashboard" style="width: 100%"/>
+</figure>
 
 ## Local kehitysympäristön pystytys
 
