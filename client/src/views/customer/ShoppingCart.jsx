@@ -20,6 +20,9 @@ const ShoppingCart = () => {
   const { getUserByToken } = useUser();
 
 
+  const [totalCost, setTotalCost] = useState(null);
+
+
   const getCurrentTimestamp = () => {
     const date = new Date();
     const year = String(date.getFullYear());
@@ -31,6 +34,25 @@ const ShoppingCart = () => {
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
+
+
+  //Total calculator, updates whenever cart updates
+  useEffect(() => {
+    let cost = 0;
+
+    //Reservation cost
+    cart.reservations.forEach(reservation => {
+      //10€ for table, 12€ for grill
+      const reservationCost = reservation.table_customer_count * 10 + reservation.grill_customer_count * 12;
+      cost += reservationCost;
+    })
+
+    cart.gift_cards.forEach(giftCard => {
+      cost += giftCard.value * giftCard.quantity;
+    });
+
+    setTotalCost(cost);
+  }, [cart])
 
 
   //TODO: replace this with userContext
@@ -296,7 +318,7 @@ const ShoppingCart = () => {
             <div className="bg-white p-4 rounded-lg border shadow-sm space-y-3">
               <div className="flex justify-between">
                 <h2>{finnish ? 'Alkuperäinen hinta' : 'Original cost'}</h2>
-                <p>995,95€</p>
+                <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
               </div>
               <div className="flex justify-between">
                 <h2>{finnish ? 'Alennukset' : 'Discounts'}</h2>
@@ -304,7 +326,7 @@ const ShoppingCart = () => {
               </div>
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
-                <p>773.00€</p>
+                <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
               </div>
             </div>
 
