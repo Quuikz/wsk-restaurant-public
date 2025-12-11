@@ -6,12 +6,13 @@ import AvatarModal from './Profile/AvatarModal.jsx';
 import {useUser} from '../../hooks/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
-import AlertModal from '../../components/AlertModal.jsx';
 import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
+  const [displayAlertDeleteModal, setDisplayAlertDeleteModal] = useState(false);
+  const [message, setMessage] = useState('');
   const {user, setUser, handleLogout} = useUserContext();
   const {getUserByToken} = useUser();
 
@@ -43,6 +44,17 @@ const Profile = () => {
     };
     getUserData();
   }, []);
+
+  const handleAskDeleteUser = () => {
+    setMessage(
+      finnish
+        ? 'Oletko varma, että haluat poistaa tilisi?'
+        : 'Are you sure you want to delete your account?',
+    );
+    setDisplayAlertDeleteModal(true);
+
+    console.log('User was asked about deletion!');
+  };
 
   return (
     <>
