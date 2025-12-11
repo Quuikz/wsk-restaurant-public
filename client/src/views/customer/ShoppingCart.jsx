@@ -264,6 +264,15 @@ const ShoppingCart = () => {
              </p>
         </div>
 
+        <div>
+          <button
+            onClick={() => clearCart()}
+            className='bg-red-500 px-2 text-center  hover:bg-red-600 text-white font-medium py-3 rounded-lg'
+          
+          >{finnish ? 'Tyhjennä ostoskori' : 'Clear the shopping cart'}
+          </button>
+        </div>
+
         {/* Whole layout */}
         <div className="flex flex-col gap-8 lg:flex-row">
           {/* Shopping cart - list section - Left side */}
@@ -370,8 +379,12 @@ const ShoppingCart = () => {
                 <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
               </div>
               <div className="flex justify-between">
-                <h2>{finnish ? 'Alennukset' : 'Discounts'} €</h2>
-                <p>{(totalCost - (totalCost * discountAmount)).toFixed(2)}</p>
+                <h2>{finnish ? 'Alennukset' : 'Discounts'}</h2>
+                <p>{discountActive
+                      ? `${(totalCost - (totalCost * discountAmount)).toFixed(2)} €`
+                      : `${0.00} €`
+                   }
+                </p>
               </div>
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>

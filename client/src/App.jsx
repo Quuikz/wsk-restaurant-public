@@ -5,28 +5,25 @@ import {BrowserRouter, Routes, Route} from 'react-router';
 import Layout from './components/Layout.jsx';
 import AdminLayout from './components/admin/AdminLayout.jsx';
 
-//import Upload from './views/Upload';
-import Upload from './views/customer/Upload.jsx';
-//import Single from './views/Single';
-import Login from './views/customer/Login.jsx';
+//Contexts
 import {UserProvider} from './contexts/UserContext';
-//import Logout from './views/Logout.jsx';
-import Logout from './views/customer/Logout.jsx';
+import {CartProvider} from './contexts/ShoppingCartContext.jsx';
+import {LanguageProvider} from "./contexts/LanguageContext.jsx";
+
+//Route Protections
 import ProtectedRoute from './components/ProtectedRoute.jsx';
-//import Register from './views/Register.jsx';
-// import Language from './components/customer/Language.jsx';         <Route path="/language" element={<Language />} />
+import ProtectedAdminRoute from './components/ProtectedAdminRoute.jsx';
 
 //Pages
 //All users
-import Contacts from './views/customer/Contacts.jsx';
 import Home from './views/customer/Home.jsx';
-
-import ShoppingCart from './views/customer/ShoppingCart.jsx';
 import Weeklist from './views/customer/Weeklist.jsx';
 import Giftcards from './views/customer/Giftcards.jsx';
+import Contacts from './views/customer/Contacts.jsx';
 
 //Logged in users
 import Profile from './views/customer/Profile.jsx';
+import ShoppingCart from './views/customer/ShoppingCart.jsx';
 
 //Admin
 import Dashboard from './views/admin/Dashboard.jsx';
@@ -38,10 +35,8 @@ import GiftcardsAdmin from './views/admin/Giftcards/Giftcards.jsx';
 import ReservationsAdmin from './views/admin/Reservations/Reservations.jsx';
 import AddMenu from './views/admin/Menus/AddMenu.jsx';
 import UsersAdminView from './views/admin/User/Users.jsx';
-import {CartProvider} from './contexts/ShoppingCartContext.jsx';
-import {LanguageProvider} from "./contexts/LanguageContext.jsx";
 import DiscountsAdmin from './views/admin/Discounts/Discounts.jsx';
-import ProtectedAdminRoute from './components/ProtectedAdminRoute.jsx';
+
 
 const App = () => {
   return (
