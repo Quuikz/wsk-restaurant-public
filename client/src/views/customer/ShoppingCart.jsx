@@ -12,6 +12,11 @@ import {
 import useForm from '../../hooks/formHooks.js';
 
 const ShoppingCart = () => {
+  let SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
+    SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
+  }
+
   const {
     cart,
     clearCart,
@@ -36,6 +41,8 @@ const ShoppingCart = () => {
   const {getUserByToken} = useUser();
 
   const [totalCost, setTotalCost] = useState(null);
+
+  const reservationImages = SERVER_URL + `/images/shoppingCart/reservation.webp`;
 
   //Returns the number of items in cart
   const totalItems =
@@ -337,7 +344,7 @@ const ShoppingCart = () => {
                   {/* Item in cart: image */}
                   <div>
                     <img
-                      src="https://placehold.co/120x120"
+                      src={reservationImages}
                       alt="Image of item"
                     />
                   </div>
