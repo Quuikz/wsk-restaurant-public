@@ -20,12 +20,12 @@ const ShoppingHistory = () => {
 
     const loadUserShoppingHistory = async () => {
         const token = localStorage.getItem('token');
-        console.log('USER ID:', user?.id);
+        //console.log('USER ID:', user.id);
         try{
           if(user) {
             //todo get userid
             const data = await getOrdersByUserID(token, user.id);
-            console.log(data);
+            //console.log(data);
             //setShoppingHistories(result);
             const orders = Array.isArray(data) ? data : [data];
 
@@ -47,7 +47,7 @@ const ShoppingHistory = () => {
               })
             );
 
-            console.log('all orders: ',allOrdersWithDetails);
+            //console.log('all orders: ',allOrdersWithDetails);
             setShoppingHistories(allOrdersWithDetails);
           } else {
             console.log('null user at loadUserShoppingHistory')
