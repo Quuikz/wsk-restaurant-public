@@ -20,13 +20,17 @@ const Home = () => {
         {/* Main banner */}
         <div className="grid grid-cols-2 bg-[#686563]">
           <div className="text-center justify-center flex items-center">
-            <h2 className="text-3xl font-bold p-auto text-white px-5">
+            <h2 className="text-2xl sm:text-3xl lg:text-3xl font-bold p-auto text-white px-5">
               {finnish
                 ? '“Restauranto on paikka, jossa hyvä ruoka ja hyvä fiilis kulkevat käsi kädessä – tule herkuttelemaan ja viihtymään.”'
                 : '“Restauranto is a place where great food and good vibes go hand in hand – come enjoy, relax, and treat yourself.”'}
             </h2>
           </div>
-          <img src={BannerPic} alt="Main page banner" />
+          <img
+            className="max-h-[60vh]"
+            src={BannerPic}
+            alt="Main page banner"
+          />
         </div>
         {/* Main title and text below */}
         <div className="p-10 sm:p-15 lg:p-20 pb-30 text-center bg-orange-100">
