@@ -298,7 +298,7 @@ const validateDiscount = async (req, res) => {
 
     if (validDiscounts.length > 0) {
       console.log('found valid discounts:',validDiscounts);
-        return res.json(true);
+        return res.json(validDiscounts);
     } else {
       console.log('no valid discounts found');
       return res.json(false);
