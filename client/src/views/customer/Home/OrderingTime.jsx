@@ -17,30 +17,25 @@ const TIMES = [
   '17:00',
 ];
 
-// Check available times for given date
-/*
-const isTimeAvailableForDate = (reservationDate, reservationTime) => {
-  //console.log('CHECKING AVAILABILITY FOR: ', dateTime);
-  if (!reservationDate) return true;
-
-  const [year, month, day] = reservationDate.split('-').map(Number);
-  const d = new Date(year, month - 1, day);
-  const weekday = d.getDay();
-
-  // Sunday -> closed
-  if (weekday === 0) return false;
-
-  // Saturday -> limited hours (9:00-16:00)
-  if (weekday === 6) {
-    const hour = Number(reservationTime.split(':')[0]);
-    return hour >= 9 && hour <= 16;
-  }
-
-  // Weekday -> all times available
-  return true;
-};
-*/
-
+/**
+ * OrderingTime component - Time selection dropdown for restaurant reservations
+ * Displays available reservation times for a selected date, checking real-time availability
+ * and restaurant operating hours. Disables unavailable times and closed days.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {string} props.reservationDate - Selected reservation date in ISO format (YYYY-MM-DD)
+ * @param {string} props.reservationTime - Currently selected reservation time
+ * @param {Function} props.setReservationTime - Callback to update the selected time
+ * @returns {JSX.Element} Dropdown button with time selection menu
+ *
+ * @example
+ * <OrderingTime
+ *   reservationDate="2024-12-15"
+ *   reservationTime="12:00"
+ *   setReservationTime={(time) => setTime(time)}
+ * />
+ */
 const OrderingTime = ({
   reservationDate,
   reservationTime,
@@ -53,7 +48,14 @@ const OrderingTime = ({
   const menuRef = useRef(null);
   const {finnish} = useLanguageContext();
 
-  // Check available times for given date
+  /**
+   * Checks if the restaurant is open on the given date
+   * Returns false for Sundays (closed day), true for all other days
+   *
+   * @function isTimeAvailableForDate
+   * @param {string} reservationDate - Date in ISO format (YYYY-MM-DD)
+   * @returns {boolean} True if the restaurant is open on that date
+   */
   const isTimeAvailableForDate = (reservationDate) => {
     //console.log('CHECKING AVAILABILITY FOR: ', dateTime);
     if (!reservationDate) return true;
@@ -68,7 +70,17 @@ const OrderingTime = ({
     return true;
   };
 
-  // Check availability for a single time
+  /**
+   * Checks availability for a single time slot on a given date
+   * Queries the server for reservation count and applies business rules
+   * (e.g., Saturday hour restrictions, reservation limits)
+   *
+   * @async
+   * @function checkTimeAvailability
+   * @param {string} date - Date in ISO format (YYYY-MM-DD)
+   * @param {string} time - Time in HH:MM format
+   * @returns {Promise<boolean>} True if time slot has availability (≤5 reservations)
+   */
   const checkTimeAvailability = async (date, time) => {
     const dateTime = date + ' ' + time + ':00';
 
