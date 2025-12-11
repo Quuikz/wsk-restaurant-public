@@ -12,7 +12,6 @@ const Dashboard = () => {
     const [totalOrders, setTotalOrders] = useState(0);
     const [totalReservations, setTotalReservations] = useState(0);
     const [totalGiftCards, setTotalGiftCards] = useState(0);
-    const [pendingOrders, setPendingOrders] = useState(0);
 
     const { getAllUsers } = useUser();
     const { getAllMeals } = useMealCommon();
@@ -41,8 +40,6 @@ const Dashboard = () => {
             setTotalReservations(reservationsData.length);
             setTotalGiftCards(giftCardsData.length);
 
-
-
         }
         catch(error){
             console.log('Error fetching data for dashboard: ', error.message);
@@ -52,12 +49,6 @@ const Dashboard = () => {
     useEffect(() => {
         loadAllData();
     }, []);
-
-
-
-
-
-
 
 
     return (
