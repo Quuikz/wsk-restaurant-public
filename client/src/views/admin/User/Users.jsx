@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useUser } from "../../../hooks/admin/apiHooks";
-import UsersRow from "../../../components/admin/UsersRow";
+import UsersRow from "./UsersRow";
 
 const UsersAdminView = () => {
 

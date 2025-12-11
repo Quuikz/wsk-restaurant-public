@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useReservations } from "../../../hooks/admin/apiHooks";
-import ReservationRow from "../../../components/admin/ReservationRow";
+import ReservationRow from "./ReservationRow";
 
 
 const ReservationsAdmin = () => {
