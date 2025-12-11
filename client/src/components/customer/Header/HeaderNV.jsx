@@ -10,7 +10,7 @@ import {ShoppingCartContext} from '../../../contexts/ShoppingCartContext.jsx';
 
 import LoginModal from '../LoginModal.jsx';
 import RegisterModal from '../RegisterModal.jsx';
-import Logo from '../../../assets/Restauranto-Logo2.png';
+import Logo from '../../../assets/Restauranto-Logo2.webp';
 
 const HeaderNV = () => {
   //const {user, handleAutoLogin} = useUserContext();
