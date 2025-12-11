@@ -92,10 +92,10 @@ Content-Disposition: form-data; name="type"
 
 "food?"
 --MyBoundary
-Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Disposition: form-data; name="file"; filename="meatballs.jpg"
 Content-Type: image/jpg
 
-< ./lautanen.jpg
+< ./meatballs.jpg
 --MyBoundary--
 
 
@@ -133,10 +133,10 @@ Content-Disposition: form-data; name="type"
 
 "food?"
 --MyBoundary
-Content-Disposition: form-data; name="file"; filename="burger.jpg"
+Content-Disposition: form-data; name="file"; filename="meatballs.jpg"
 Content-Type: image/jpg
 
-< ./burger.jpg
+< ./meatballs.jpg
 --MyBoundary--
 
 

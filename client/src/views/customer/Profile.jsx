@@ -8,6 +8,7 @@ import { useUser } from '../../hooks/common/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';
+import {useNavigate} from "react-router";
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
@@ -16,6 +17,7 @@ const Profile = () => {
   const [message, setMessage] = useState('');
   const {user, setUser, handleLogout} = useUserContext();
   const {getUserByToken} = useUser();
+  const navigate = useNavigate();
 
   //language
   const {finnish} = useLanguageContext();
@@ -128,6 +130,15 @@ const Profile = () => {
                     {finnish ? 'Poista tili' : 'Delete your account'}
                   </button>
                 </div>
+                {user && user.role==="admin" && (<div>
+                  <button
+                    className="w-full mt-4 text-sm text-black bg-green-400 hover:bg-green-600 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"
+                    onClick={() => navigate('/admin')}
+                  >
+                    {finnish ? 'Admin hallintasivu' : 'Admin dashboard'}
+                  </button>
+                </div>)}
+
               </div>
 
               {/* Purchase history */}
