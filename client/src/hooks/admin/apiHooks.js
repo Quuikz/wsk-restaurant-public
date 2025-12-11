@@ -18,7 +18,6 @@ if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
  *  - getAllUsers - returns all the users.
  *  - updateUserByID - updates user by id with given new data.
  */
-
 const useUser = () => {
   //Gets all user
   const getAllUsers = async (token) => {

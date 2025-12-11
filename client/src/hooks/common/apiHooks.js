@@ -14,6 +14,12 @@ if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   API_URL = import.meta.env.VITE_API_URL_LOCAL;
 }
 
+/**
+ * Custom hook for authentication-related API requests.
+ * @returns {Object} Functions for interacting with the authentication related requests.
+ *  - postLogin - Post login with inputs and returns token.
+ *  - postRegister - Post register with inputs.
+ */
 const useAuthentication = () => {
   //Login
   const postLogin = async (inputs) => {
@@ -53,6 +59,13 @@ const useAuthentication = () => {
   return {postLogin, postRegister};
 };
 
+
+/**
+ * Custom hook for user-related API requests.
+ * @returns {Object} Functions for interacting with the user related requests.
+ *  - getUserByToken - Get user related data with the given token.
+ *  - isUsernameTaken - Get response whether username is taken or not.
+ */
 const useUser = () => {
   const getUserByToken = async (token) => {
     try {
@@ -95,6 +108,13 @@ const useUser = () => {
   return {getUserByToken, isUsernameTaken};
 };
 
+
+/**
+ * Custom hook for current user-related API requests.
+ * @returns {Object} Functions for interacting with the current user related requests.
+ *  - modifyUserInfo - Update current user information with the given inputs and token.
+ *  - modifyUserAvatar - Update current avatar with the given file and token.
+ */
 const useCurrentUser = () => {
   const {user} = useUserContext();
 
@@ -156,6 +176,12 @@ const useCurrentUser = () => {
   return {modifyUserInfo, modifyUserAvatar};
 };
 
+
+/**
+ * Custom hook for user-related API requests.
+ * @returns {Object} Functions for interacting with the user related requests.
+ *  - deleteUserByID - Deletes user with the given token and user ID.
+ */
 const useUserCommon = () => {
   const deleteUserByID = async (token, userID) => {
     const fetchOptions = {
@@ -176,6 +202,14 @@ const useUserCommon = () => {
   return {deleteUserByID};
 };
 
+
+
+/**
+ * Custom hook for meal-related API requests.
+ * @returns {Object} Functions for interacting with the meal related requests.
+ *  - getAllMeals - Get all meals along with the information related to the meal.
+ *  - getMealByIDList - Get existing meals by given ID list of Meal IDs.
+ */
 const useMealCommon = () => {
   const getAllMeals = async () => {
     const fetchOptions = {
@@ -210,6 +244,14 @@ const useMealCommon = () => {
   return {getAllMeals, getMealByIDList};
 };
 
+
+/**
+ * Custom hook for menu-related API requests.
+ * @returns {Object} Functions for interacting with the menu related requests.
+ *  - getAllMenuItems - Get all menus along with the information related to the menus.
+ *  - getMenuByDate - Get existing menu by given date.
+ *  - getMenuByWeek - Get existing meny by given week.
+ */
 const useMenuCommon = () => {
   const getAllMenuItems = async () => {
     const fetchOptions = {
@@ -258,6 +300,17 @@ const useMenuCommon = () => {
   return {getAllMenuItems, getMenuByDate, getMenuByWeek};
 };
 
+
+
+/**
+ * Custom hook for Order-related API requests.
+ * @returns {Object} Functions for interacting with the Order related requests.
+ *  - postOrder - Post a new Order with given inputs and token.
+ *  - updateOrder - Update existing Order with given inputs, token and Order ID.
+ *  - deleteOrder - Delete an existing Order with given token and Order ID.
+ *  - getOrderByID - Get an order by given token and Order ID.
+ *  - getOrdersByUserID - Get an user Order by given token and user ID.
+ */
 const useOrderCommon = () => {
   const postOrder = async (inputs, token) => {
     const fetchOptions = {
@@ -340,6 +393,13 @@ const useOrderCommon = () => {
   return {postOrder, updateOrder, deleteOrder, getOrderByID, getOrdersByUserID};
 };
 
+
+/**
+ * Custom hook for Reservation-related API requests.
+ * @returns {Object} Functions for interacting with the Reservation related requests.
+ *  - postNewReservation - Post a new Reservation with given data and token.
+ *  - getReservationOnDateTime - Get a Reservation on Date by given token and date.
+ */
 const useReservationCommon = () => {
   const postNewReservation = async (data, token) => {
     const fetchOptions = {
@@ -377,6 +437,13 @@ const useReservationCommon = () => {
   return {postNewReservation, getReservationOnDateTime};
 };
 
+
+
+/**
+ * Custom hook for Giftcards-related API requests.
+ * @returns {Object} Functions for interacting with the Giftcards related requests.
+ *  - postGiftCard - Post a new Giftcard with given data and token.
+ */
 const useGiftcardsCommon = () => {
   const postGiftCard = async (data, token) => {
     const fetchOptions = {
@@ -398,6 +465,12 @@ const useGiftcardsCommon = () => {
   return {postGiftCard};
 };
 
+
+/**
+ * Custom hook for Discount-related API requests.
+ * @returns {Object} Functions for interacting with the Discount related requests.
+ *  - validateDiscountByCode - Validate a Discount by given token and code.
+ */
 const useDiscountsCommon = () => {
   const validateDiscountByCode = async (token, code) => {
     const fetchOptions = {
