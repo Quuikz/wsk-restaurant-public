@@ -33,7 +33,7 @@ const multerUpload = multer({
 
 //configurable middleware for image scaling
 const imageScaler = createImageScaler(
-  360,
+  320,
   240,
   "./public/images/meals",
   "_meal",
