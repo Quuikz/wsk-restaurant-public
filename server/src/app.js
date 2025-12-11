@@ -23,7 +23,7 @@ app.use("/", express.static("./public"));
 app.use("/docs", express.static("docs"));
 
 //admin sivu html http://hostname:port/admin
-app.use("/admin", express.static("./public/admin"));
+// app.use("/admin", express.static("./public/admin"));
 
 //polku API:lle
 app.use("/api", apiRouter);
