@@ -43,5 +43,8 @@ apiRouter.use("/discounts", discountRouter);
 //gift-card-router http://hostname:port/api/giftcards
 apiRouter.use("/giftCards", giftCardRouter);
 
+//hsl-router http://hostname:port/api/hsl
+apiRouter.use("/hsl", hslRouter);
+
 //export
 export default apiRouter;
