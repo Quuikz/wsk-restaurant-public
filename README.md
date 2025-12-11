@@ -23,45 +23,26 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 - Reaaliaikaiset lähimpien pysäkkien lähtevät tiedot
 - Reaaliaikaiset säätiedot ja terassin aukiolo arvio
 
-## Ohje
-
-##
-
-### 1. Tietokanta
-
-1.
-
-### Kuvien lataaminen formdatalla
-
-Katso esimerkki lomakkeen käytöstä tiedostosta: tests/upload-form.html
-
-### API
-
-tests/api-tests -kansio sisältää esimerkit API:n käytöstä.
+## Ohje testaamiseen
 
 Sisäänkirjautuminen toimii kovakoodatulla käyttäjällä:
 
-    ### login with default user
-    POST http://localhost:3000/api/auth/login
-    Content-Type: application/json
 
-    {
-    "username": "user",
-    "password": "password"
-    }
 
-Palauttaa:
 
-    {
-    "user": {
-        "user_id": "user_id",
-        "name": "name",
-        "username": "user",
-        "email": "email",
-        "role": "role"
-        },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoidXNlcl9pZCIsIm5hbWUiOiJuYW1lIiwidXNlcm5hbWUiOiJ1c2VyIiwiZW1haWwiOiJlbWFpbCIsInJvbGUiOiJyb2xlIiwiaWF0IjoxNzYzNDAzMTA1LCJleHAiOjE3NjM0ODk1MDV9.W5YBTobcQhtws91nnhwkqJeywsUzbK6s8PqLCYcB5PQ"
-    }
+
+
+## Ohje asentamiseen
+
+### 1. Tietokanta
+
+### 2.
+
+
+### 3. API
+
+tests/api-tests -kansio sisältää esimerkit API:n käytöstä.
+
 
 ### Tietokantasuunnitelma
 
