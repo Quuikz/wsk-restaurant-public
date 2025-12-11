@@ -11,11 +11,9 @@ const Layout = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
-
   useEffect(() => {
     handleAutoLogin();
   }, []);
-
 
   useEffect(() => {
     // Burger closed on window click outside
@@ -69,7 +67,7 @@ const Layout = () => {
 
     <>
       <HeaderNV />
-      <main className="pt-22 bg-emerald-600">
+      <main className="pt-22  bg-[linear-gradient(45deg,#1f2937_25%,transparent_25%),linear-gradient(-45deg,#1f2937_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#1f2937_75%),linear-gradient(-45deg,transparent_75%,#1f2937_75%)] bg-[size:20px_20px] bg-gray-700">
         {/* Adds little space so header wont take space from pages. */}
         <Outlet />
       </main>
