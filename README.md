@@ -39,7 +39,8 @@ Admin käyttäjä
     käyttäjätunnus: 'admin'
     salasana: 'password'
 
-Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä
+Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä.
+Rekisteröytyminen ei sulje ikkunaa, joten käyttänän pitää siirtyä itse sisäänkirjautumiseen.
 
 <figure>
 <img src="./documentation/register.png" alt="register window" style="width: 40%"/>
@@ -52,10 +53,10 @@ Admin käyttäjällä sisäänkirjautuminen näyttää linkit admin hallintasivu
 
 ### Näkymät
 
-Sovelluksessa on 2 päänäkymää: Ravintolasivu ja admin hallintasivu
+Sovelluksessa on 2 päänäkymää: ravintolasivu ja admin hallintasivu
 
 <figure>
-<img src="./documentation/nakymat.png" alt="links to admin dashboard" style="width: 100%"/>
+<img src="./documentation/nakymat.png" alt="application views" style="width: 100%"/>
 </figure>
 
 
