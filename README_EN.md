@@ -2,6 +2,13 @@
 
 Metropolia Web Application Course Project
 
+## Team
+
+- Riku Kuikka
+- Topi Ahola
+- Araz Muhammed
+- Veijo Kasanen
+
 ## App Idea and Target Audience
 
 ### Idea
@@ -131,6 +138,8 @@ Wireframe and mockup images can be found here:
 - Frontend: React.js, HTML, Tailwind CSS
 - Backend: Node.js, Express.js
 - Database: MariaDB
+- PHPMyAdmin: Database management
+- OS: UBUNTU Server
 - Real-time data: Third-party APIs:
   - Weather: Open Meteo API
   - Departures: DigiTransit / HSL API
@@ -182,10 +191,3 @@ Wireframe and mockup images can be found here:
 - Testing: Use the `tests/` folder for API testing and add your own scenarios.
 - Database: Keep backups (`backup.bundle`) up to date and use mock data for development.
 - Accessibility: Add descriptive `alt` texts for images and ensure good contrast/tags for accessibility.
-
-## Team
-
-- Riku Kuikka
-- Topi Ahola
-- Araz Muhammed
-- Veijo Kasanen

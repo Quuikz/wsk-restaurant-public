@@ -4,6 +4,13 @@ Metropolia Web Sovellus Kurssi- Projekti
 <br>
 English version: [README_EN.md](./README_EN.md)
 
+## Tiimi
+
+- Riku Kuikka
+- Topi Ahola
+- Araz Muhammed
+- Veijo Kasanen
+
 ## Sovelluksen idea ja kohderyhmä
 
 ### Idea
@@ -135,6 +142,8 @@ Wireframe ja mockup kuvat löytyvät kansiosta:
 - Frontend: React.js, HTML, Tailwind CSS
 - Backend: Node.js, Express.js
 - Tietokanta: MariaDB
+- PHPMyAdmin: Tietokannan hallintaan
+- OS: UBUNTU Server
 - Reaaliaikaiset tiedot: Kolmannen osapuolen API:t:
   - Säätiedot: Open Meteo API
   - Lähtevät tiedot: DigiTransit / HSL API
@@ -187,9 +196,9 @@ Wireframe ja mockup kuvat löytyvät kansiosta:
 - Tietokanta: Pidä varmuuskopiot (`backup.bundle`) ajan tasalla ja käytä mock-dataa kehitykseen.
 - Käytettävyys: Lisää kuville kuvaavat `alt`-tekstit ja varmista kontrasti/tägit saavutettavuuden vuoksi.
 
-## Tiimi
+## Todo
 
-- Riku Kuikka
-- Topi Ahola
-- Araz Muhammed
-- Veijo Kasanen
+- Arvostelujärjestelmä ruoille
+- Asiakaspalautteet ravintoloille
+- Asiakastoiveet
+-
