@@ -1,17 +1,52 @@
 import React from 'react';
 import useForm from '../../hooks/formHooks';
-import { useAuthentication } from '../../hooks/common/apiHooks.js';
-import {useLanguageContext} from "../../hooks/contextHooks.js";
+import {useAuthentication} from '../../hooks/common/apiHooks.js';
+import {useLanguageContext} from '../../hooks/contextHooks.js';
+
+/**
+ * RegisterModal Component
+ *
+ * Modal dialog for user registration. Provides a registration form with username, email,
+ * password, and password confirmation fields. Handles form submission and user account creation.
+ * Includes a link to open the login modal for existing users.
+ * Features bilingual support (Finnish/English) and responsive design.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {boolean} props.isOpen - Controls modal visibility
+ * @param {Function} props.onClose - Callback function to close the modal
+ * @param {Function} props.onOpenLogin - Callback function to open the login modal
+ * @returns {React.ReactElement|null} Modal component or null if not open
+ *
+ * @example
+ * const [isOpen, setIsOpen] = useState(false);
+ * return (
+ *   <RegisterModal
+ *     isOpen={isOpen}
+ *     onClose={() => setIsOpen(false)}
+ *     onOpenLogin={() => openLoginModal()}
+ *   />
+ * )
+ */
 
 const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
-  if (!isOpen){
-     return null;
+  if (!isOpen) {
+    return null;
   }
 
-  //const { postLogin } = useAuthentication();
-  const { postRegister } = useAuthentication();
+  const {postRegister} = useAuthentication();
   const {finnish} = useLanguageContext();
 
+  /**
+   * Initial form values for the registration form.
+   * Contains empty strings for all required fields.
+   *
+   * @type {Object}
+   * @property {string} username - Username field initial value
+   * @property {string} email - Email field initial value
+   * @property {string} password - Password field initial value
+   * @property {string} confirmPassword - Password confirmation field initial value
+   */
   const initValues = {
     username: '',
     email: '',
@@ -19,8 +54,24 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
     confirmPassword: '',
   };
 
+  /**
+   * Handles the registration process when the form is submitted.
+   *
+   * TODO: Implement validation logic:
+   * - Verify password and confirmPassword match
+   * - Check for empty input fields
+   * - Validate email format
+   * - Enforce password strength requirements
+   *
+   * @async
+   * @returns {Promise<void>}
+   * @throws {Error} Logs error message if registration fails
+   *
+   * @example
+   * await doRegister();
+   * // Creates new user account and logs result
+   */
   const doRegister = async () => {
-    //Do bunch of logic like pw matching, empty inputs and such.
     try {
       const result = await postRegister(inputs);
 
@@ -30,6 +81,19 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
     }
   };
 
+  /**
+   * Custom form hook managing form state and submission.
+   * Provides input values, change handler, and submit handler.
+   *
+   * @type {Object}
+   * @property {Object} inputs - Current form input values
+   * @property {string} inputs.username - Current username value
+   * @property {string} inputs.email - Current email value
+   * @property {string} inputs.password - Current password value
+   * @property {string} inputs.confirmPassword - Current password confirmation value
+   * @property {Function} handleInputChange - Handler for input field changes
+   * @property {Function} handleSubmit - Handler for form submission
+   */
   const {inputs, handleInputChange, handleSubmit} = useForm(
     doRegister,
     initValues,
@@ -60,7 +124,12 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
             </div>
 
             {/* Modal body */}
-            <p>✅ {finnish ? 'Tietosi ovat turvassa.' : 'Your infromation is secure.'}</p>
+            <p>
+              ✅{' '}
+              {finnish
+                ? 'Tietosi ovat turvassa.'
+                : 'Your infromation is secure.'}
+            </p>
             <form onSubmit={handleSubmit} className="pt-4 md:pt-10">
               {/* Modal body - username */}
               <div className="mb-5">
@@ -145,7 +214,11 @@ const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {
             </form>
 
             <div className="text-center">
-              <h2 className="text-lg font-medium">| {finnish ? 'Onko sinulla jo tili?' : 'Already have an account?'} |</h2>
+              <h2 className="text-lg font-medium">
+                |{' '}
+                {finnish ? 'Onko sinulla jo tili?' : 'Already have an account?'}{' '}
+                |
+              </h2>
               <button
                 type="button"
                 className="cursor-pointer text-sm text-blue-600 hover:underline font-medium px-1 py-0.5 focus:outline-none"

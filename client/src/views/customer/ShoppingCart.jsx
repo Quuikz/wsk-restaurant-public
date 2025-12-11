@@ -176,8 +176,8 @@ const ShoppingCart = () => {
     const reservationIDs = [];
     const giftCardIDs = [];
 
-    console.log('User before posting:', user);
-    console.log('User ID:', user?.id);
+    //console.log('User before posting:', user);
+    //console.log('User ID:', user?.id);
 
     let orderID = null;
 
@@ -255,7 +255,7 @@ const ShoppingCart = () => {
       gift_cards: giftCardIDs,
     };
 
-    console.log('PAYLOAD:', orderData);
+    //console.log('PAYLOAD:', orderData);
 
     try {
       const orderResult = await updateOrder(orderData, token, orderID);
@@ -407,7 +407,12 @@ const ShoppingCart = () => {
                       {giftCard.value.toFixed(2)} €
                     </p>
                     <p className="text-gray-600">{giftCard.expiration_date}</p>
+                    <p className="text-gray-600 mt-2">
+                      <span className="text-gray-800 font-semibold">{finnish ? 'Yhteensä: ' : 'Total: '}</span>
+                      {(giftCard.quantity * giftCard.value).toFixed(2)} €
+                    </p>
                   </div>
+
                 </div>
                 {/* Item - right: counter + remove from cart button */}
                 <div className="flex items-center justify-between h-full gap-4">
