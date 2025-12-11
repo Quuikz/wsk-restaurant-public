@@ -2,12 +2,20 @@ import { useEffect, useState } from "react";
 import { useReservations } from "../../../hooks/admin/apiHooks";
 import ReservationRow from "./ReservationRow";
 
-
+/**
+ * Component for displaying a list of reservations in the admin dashboard.
+ * @returns A list of reservations with information.
+ */
 const ReservationsAdmin = () => {
 
     const { getAllReservations } = useReservations();
     const [ reservations, setReservations ] = useState([]);
 
+    /**
+     * Fetches all reservations and updates the state.
+     * 
+     * @returns Updates the state with fetched reservations data.
+     */
     const loadAllReservations = async () => {
         const token = localStorage.getItem('token');
         if(!token){

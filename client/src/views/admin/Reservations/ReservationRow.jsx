@@ -1,5 +1,6 @@
-
-
+/**
+ * Component for displaying a single reservation row in the reservations list.
+ */
 const ReservationRow = ({reservation}) => {
 
   return (

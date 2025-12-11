@@ -2,6 +2,9 @@ import { useState } from 'react';
 import {useMeal} from '../../../hooks/admin/apiHooks';
 import useForm from '../../../hooks/formHooks';
 
+/**
+ * Component for adding a new meal to the menu.
+ */
 const AddMeal = () => {
   const {postNewMeal} = useMeal();
 

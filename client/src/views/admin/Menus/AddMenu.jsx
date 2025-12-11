@@ -4,7 +4,10 @@ import { useMealCommon } from "../../../hooks/common/apiHooks";
 import useForm from "../../../hooks/formHooks";
 import MealSelector from "../../../components/admin/MealSelector";
 
-
+/**
+ * 
+ * Component for adding a new menu to the server.
+ */
 const AddMenu = () => {
 
     const { postNewMenu } = useMenu();

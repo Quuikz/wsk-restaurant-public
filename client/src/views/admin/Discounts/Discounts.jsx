@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import { useDiscounts } from "../../../hooks/admin/apiHooks"
 import DiscountsRow from "./DiscountsRow";
 
-
+/**
+ * Admin component for viewing discounts.
+ */
 const DiscountsAdmin = () => {
 
     const { getAllDiscounts } = useDiscounts();

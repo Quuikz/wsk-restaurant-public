@@ -1,5 +1,6 @@
-
-
+/**
+ * Component that displays individual user information in a row.
+ */
 const UsersRow = ({user, onModify}) => {
 
     return (

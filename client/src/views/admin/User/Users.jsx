@@ -2,11 +2,22 @@ import { useEffect, useState } from "react";
 import { useUser } from "../../../hooks/admin/apiHooks";
 import UsersRow from "./UsersRow";
 
+
+/**
+ * Admin view for managing users.
+ * Displays a list of users with their information and allows limited modifying.
+ * 
+ * @returns The rendered Users Admin View components
+ */
 const UsersAdminView = () => {
 
     const { getAllUsers, updateUserByID } = useUser();
     const [users, setUsers] = useState([]);
 
+    /**
+     * Fetches all users from the server API and sets them in state.
+     * Uses the 'getAllUsers' from the 'useUser' hook.
+     */
     const loadAllUsers = async () => {
         const token = localStorage.getItem('token');
 
@@ -25,6 +36,12 @@ const UsersAdminView = () => {
     }, []);
 
 
+    /**
+     * 
+     * @param {number} input  - The new status for user (0 for not deleted, 1 for deleted)
+     * @param {Object} user - The user to be updated. 
+     * @returns The Updated user after modification.
+     */
     const handleModifyUserStatus = async (input, user) => {
         const userData = {
             deleted: input,
@@ -44,6 +61,12 @@ const UsersAdminView = () => {
     }
 
 
+    /**
+     * Toggles the account status of a user (deleted or not).
+     * 
+     * @param {Object} user - The user whose status will be changed.
+     * @returns The updated user object.
+     */
     const handleAccountStatus = async (user) => {
         if (!user){
             return;

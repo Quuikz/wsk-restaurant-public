@@ -4,6 +4,10 @@ import MealRow from "../../../components/admin/MealRow";
 import ModifyMealModal from "../../../components/admin/MealModals/ModifyMealModal.jsx";
 import DeleteMealModal from "../../../components/admin/MealModals/DeleteMealModal.jsx";
 
+/**
+ * 
+ * Component that displays the list of meals and provides functionality to modify or delete meals.
+ */
 const Meals = () => {
 
     const { getAllMeals } = useMealCommon();

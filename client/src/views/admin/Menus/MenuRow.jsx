@@ -5,20 +5,14 @@ import {useMenu} from '../../../hooks/admin/apiHooks';
 import MealSelector from '../../../components/admin/MealSelector';
 import AdminDeletionModal from '../../../components/admin/Modals/AdminDeletionModal';
 
+/**
+ * Component representing a single menu row in the admin dashboard.
+ * Allows to view and manage meals. Options to add and remove meals.
+ * 
+ * @param {Object} menuItem - The menu item object containing information about the menu.
+ * @returns A list of menuItems representing the menu with the option to view, add or delete meals.
+ */
 const MenuRow = ({menuItem, onDeleteMenu}) => {
-  //Test function to display week
-  /*
-    const currentWeek = () => {
-        const d = new Date();
-        let yearStart = +new Date(d.getFullYear(), 0, 1);
-        let today = +new Date(d.getFullYear(), d.getMonth(), d.getDate());
-        let dayOfYear = ((today - yearStart + 1 ) / 86400000);
-        let week = Math.ceil(dayOfYear / 7);
-        console.log(week)
-
-    }
-    currentWeek();
-    */
 
   const {getAllMeals, getMealByIDList} = useMealCommon();
   const {updateMenu, deleteMenu} = useMenu();
@@ -42,6 +36,9 @@ const MenuRow = ({menuItem, onDeleteMenu}) => {
     }
   };
 
+  /**
+   * Fetches all available meals from the API.
+   */
   const loadAllMeals = async () => {
     try {
       const mealsData = await getAllMeals();
@@ -52,6 +49,10 @@ const MenuRow = ({menuItem, onDeleteMenu}) => {
     }
   };
 
+  /**
+   * Handles adding selected meals to the current menu.
+   * Updates the menu on the server and refreshes the meal list in the UI.
+   */
   const handleAddMealToMenu = async () => {
     const token = localStorage.getItem('token');
 
@@ -77,7 +78,9 @@ const MenuRow = ({menuItem, onDeleteMenu}) => {
   };
 
 
-
+  /**
+   * Handles the deletion of the current menu.
+   */
   const handleDeleteMenu = async () => {
     const token = localStorage.getItem('token');
 
@@ -96,6 +99,7 @@ const MenuRow = ({menuItem, onDeleteMenu}) => {
     loadMealsByIDs();
   }, []);
 
+  // Loads all available meals for adding to the menu.
   useEffect(() => {
     loadAllMeals();
   }, []);
@@ -107,6 +111,11 @@ const MenuRow = ({menuItem, onDeleteMenu}) => {
   }
 }, [showMealSelector, menuItem.meals]);
 
+
+/**
+ * 
+ * Handles removing a specific meal from the current menu.
+ */
   const handleDeleteMealFromMenu = async (mealID) => {
     const token = localStorage.getItem('token');
     try {
