@@ -36,6 +36,9 @@ API URL:
 API documentation:
 <https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/docs>
 
+PHPMyAdmin:
+<https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/phpmyadmin>
+
 ### Test Users
 
 #### Admin
