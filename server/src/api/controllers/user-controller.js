@@ -105,6 +105,13 @@ const postUser = async (req, res) => {
     console.log("postUser in user-controller");
     console.log(req.body);
 
+    //see if username is taken
+    const checkUser = await findUserByUsername(req.body.username);
+    if (checkUser) {
+      console.log("existing user found with name: ", req.body.username);
+      return res.status(400).send('username already taken');
+    }
+
     //Bcrypt password hash
     req.body.password = bcrypt.hashSync(req.body.password, 10);
 

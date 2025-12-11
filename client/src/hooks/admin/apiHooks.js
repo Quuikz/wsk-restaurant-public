@@ -15,7 +15,7 @@ const useUser = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -28,7 +28,7 @@ const useUser = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -65,7 +65,7 @@ const useMeal = () => {
     const fetchOptions = {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       //body: JSON.stringify(inputs),
       body: formData,
@@ -81,7 +81,7 @@ const useMeal = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -97,7 +97,7 @@ const useMeal = () => {
     const fetchOptions = {
       method: 'DELETE',
       headers: {
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -134,7 +134,7 @@ const useMenu = () => {
       headers: {
         //'Content-Type': 'application/json',
         //'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       //body: JSON.stringify(inputs),
       body: formData,
@@ -149,7 +149,7 @@ const useMenu = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     };
@@ -170,7 +170,7 @@ const useOrders = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -189,7 +189,7 @@ const useOrders = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -209,7 +209,7 @@ const useReservations = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -225,7 +225,7 @@ const useReservations = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -241,7 +241,7 @@ const useReservations = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -257,7 +257,7 @@ const useReservations = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({
         reservations: IDList,
@@ -285,7 +285,7 @@ const useGiftcards = () => {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
     };
 
@@ -301,7 +301,7 @@ const useGiftcards = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({giftCards: IDList}),
     };
@@ -316,4 +316,23 @@ const useGiftcards = () => {
   return {getAllGiftCards, getGiftcardsByIDList};
 };
 
-export {useUser, useMeal, useMenu, useOrders, useReservations, useGiftcards};
+
+const useDiscounts = () => {
+
+    const getAllDiscounts = async (token) => {
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+
+        const getDiscountsResult = await fetchData(API_URL + '/discounts', fetchOptions);
+        return getDiscountsResult;
+    }
+
+    return { getAllDiscounts }
+}
+
+export {useUser, useMeal, useMenu, useOrders, useReservations, useGiftcards, useDiscounts};

@@ -4,6 +4,7 @@ import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
 import { useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
 import { useUser } from '../../hooks/apiHooks.js';
+import useForm from '../../hooks/formHooks.js';
 
 const ShoppingCart = () => {
 
@@ -16,6 +17,11 @@ const ShoppingCart = () => {
   const { postNewReservation} = useReservationCommon();
   const { postGiftCard } = useGiftcardsCommon();
   const {user, setUser} = useUserContext();
+
+  
+  const [discountAmount, setDiscountAmount] = useState(0);
+  
+
 
   const { getUserByToken } = useUser();
 
@@ -34,6 +40,28 @@ const ShoppingCart = () => {
 
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
+
+  const initValues = {
+    discount_code: ''
+  }
+
+
+  
+
+  const doCheckDiscount = async () => {
+    try{
+      console.log('Implementation incoming')
+    }
+    catch(error){
+      console.log('Error in doCheckDiscount: ', error.message);
+    }
+  }
+
+
+  const {inputs, handleSubmit, handleInputChange } = useForm(
+    doCheckDiscount,
+    initValues
+  );
 
 
   //Total calculator, updates whenever cart updates
@@ -328,6 +356,25 @@ const ShoppingCart = () => {
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
                 <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
               </div>
+
+
+
+              <div className="flex gap-2 items-center">
+                <input
+                  type="text"
+                  placeholder={finnish ? 'Alennuskoodi' : 'Discount code'}
+                  value={inputs.discount_code}
+                  onChange={handleInputChange}
+                  className="flex-1 border rounded-md p-2"
+                />
+                <button
+                  className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+                  onClick={() => doCheckDiscount}
+                >
+                  {finnish ? 'Käytä' : 'Apply'}
+                </button>
+              </div>
+
             </div>
 
             {/* Payment */}
