@@ -2,8 +2,9 @@ import React, {useContext, useState} from 'react';
 
 import OrderingButtons from './OrderingButtons';
 import OrderingTime from './OrderingTime';
+import AlertModal from '../../../components/AlertModal.jsx';
+
 import {ShoppingCartContext} from '../../../contexts/ShoppingCartContext';
-import useForm from '../../../hooks/formHooks';
 import {useLanguageContext} from '../../../hooks/contextHooks.js';
 import {useNavigate} from 'react-router';
 // Custom Time selector. Check if table still empty at selected time etc.
@@ -14,6 +15,8 @@ const Ordering = ({id}) => {
   //const [reservationDate, setReservationDate] = useState(today);
 
   const {addReservationToCart} = useContext(ShoppingCartContext);
+  const [displayAlertModal, setDisplayAlertModal] = useState(false);
+  const [message, setMessage] = useState('');
   const {finnish} = useLanguageContext();
   const navigate = useNavigate();
 
@@ -33,14 +36,34 @@ const Ordering = ({id}) => {
 
   const doAddToCart = (e) => {
     e.preventDefault();
+    if (form.tableCount + form.grillCount == 0) {
+      setMessage(
+        finnish
+          ? 'Valitse vähintään yksi henkilö!'
+          : 'Please select at least one person!',
+      );
+      setDisplayAlertModal(true);
+      return;
+    }
+
+    if (form.reservationTime === 'Valitse aika') {
+      setMessage(finnish ? 'Valitse aika!' : 'Please select a time!');
+      setDisplayAlertModal(true);
+      return;
+    }
     addReservationToCart({
       date: form.reservationDate,
       time: form.reservationTime,
       table_customer_count: form.tableCount,
       grill_customer_count: form.grillCount,
     });
+
+    setMessage(
+      finnish ? 'Varaus lisätty ostoskoriin!' : 'Reservation added to cart!',
+    );
+    setDisplayAlertModal(true);
+
     console.log('Reservation added to cart! Navigate to cart');
-    navigate('/shoppingcart');
   };
 
   //const {inputs, handleInputChange, handleSubmit} = useForm(doAddToCart, initValues)
@@ -120,6 +143,13 @@ const Ordering = ({id}) => {
           </form>
         </div>
       </section>
+      {displayAlertModal && (
+        <AlertModal
+          isOpen={displayAlertModal}
+          onClose={() => setDisplayAlertModal(false)}
+          message={message}
+        />
+      )}
     </>
   );
 };
