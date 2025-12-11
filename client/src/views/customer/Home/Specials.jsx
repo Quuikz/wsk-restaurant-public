@@ -13,8 +13,9 @@ if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
 const Specials = () => {
   // Get today's date in YYYY-MM-DD format
   // Switch between hardcoded date and real-time date here
-  const dateString = '2025-12-06'; //hardcoded date for testing
-  //const dateString = new Date().toISOString().split('T')[0];
+  //const dateString = '2025-12-06'; //hardcoded date for testing
+  const dateString = new Date().toISOString().split('T')[0];
+
   const {getMenuByDate} = useMenuCommon();
   const {getMealByIDList} = useMealCommon();
   const [, setDailyMenu] = useState([]);
@@ -107,7 +108,7 @@ const Specials = () => {
                       <li>
                         {finnish ? 'Tietoa' : 'Description'} -{' '}
                         {finnish ? `${meal.description_fi}` : `${meal.description_en}`}
-                        
+
                       </li>
                     </ul>
                     <div className="my-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300 max-w-fit hover:cursor-pointer">
