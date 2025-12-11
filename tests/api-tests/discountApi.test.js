@@ -120,9 +120,8 @@ describe("Discount End points", () => {
 
       console.log("GET /api/discounts user response body:", res.body.discount);
 
-      expect(res.statusCode).toEqual(200);
-      expect(Array.isArray(res.body)).toBe(true);
-      expect(res.body.length).toBeGreaterThanOrEqual(3);
+      // With the new router, regular users are forbidden from listing all discounts
+      expect(res.statusCode).toEqual(403);
     });
   });
 
@@ -131,6 +130,7 @@ describe("Discount End points", () => {
     it("should retrieve a discount by ID", async () => {
       const res = await request(app)
         .get("/api/discounts/1")
+        .set("Authorization", `Bearer ${adminToken}`)
         .set("Accept", "application/json");
       expect(res.statusCode).toEqual(200);
       expect(res.body).toHaveProperty("id", 1);
@@ -139,6 +139,7 @@ describe("Discount End points", () => {
     it("should return 404 for non-existing discount ID", async () => {
       const res = await request(app)
         .get("/api/discounts/9999")
+        .set("Authorization", `Bearer ${adminToken}`)
         .set("Accept", "application/json");
       expect(res.statusCode).toEqual(404);
     });
@@ -228,6 +229,7 @@ describe("Discount End points", () => {
     it("should return 404 for getting deleted discount", async () => {
       const res = await request(app)
         .get(`/api/discounts/${createdId}`)
+        .set("Authorization", `Bearer ${adminToken}`)
         .set("Accept", "application/json");
 
       expect(res.statusCode).toEqual(404);
@@ -291,7 +293,7 @@ describe("Discount End points", () => {
 
       const res = await request(app)
         .post("/api/discounts/list/id")
-        .set("Authorization", `Bearer ${userToken}`)
+        .set("Authorization", `Bearer ${adminToken}`)
         .send({ discounts: ids })
         .set("Accept", "application/json");
 
