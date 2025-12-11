@@ -99,7 +99,7 @@ const HeaderNV = () => {
                   <Link
                     to="/weeklist"
                     aria-current="page"
-                    className="rounded-md hover:bg-white/5 bg-gray-900 px-3 py-2 text-lg font-medium text-white "
+                    className="hover:underline text-white text-xl"
                   >
                     🍽️&nbsp;&nbsp;{finnish ? 'Viikon lista' : 'Week menu'}
                   </Link>
@@ -122,7 +122,7 @@ const HeaderNV = () => {
                 <Link to="/shoppingcart">
                   <button
                     type="button"
-                    className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500"
+                    className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 "
                   >
                     <span className="absolute -inset-0.5"></span>
                     <span className="sr-only">Open main menu</span>
@@ -132,7 +132,7 @@ const HeaderNV = () => {
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="size-6 in-aria-expanded:hidden text-gray-400"
+                      className="size-6 in-aria-expanded:hidden text-white"
                     >
                       <path
                         strokeLinecap="round"
@@ -159,7 +159,7 @@ const HeaderNV = () => {
                   type="button"
                   onClick={() => setMenuOpen((prev) => !prev)}
                   aria-expanded={menuOpen}
-                  className="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-white/5 focus:outline-2 focus:-outline-offset-1 focus:outline-indigo-500"
+                  className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-white/5 "
                 >
                   <span className="absolute -inset-0.5"></span>
                   <span className="sr-only">Open main menu</span>
@@ -198,7 +198,7 @@ const HeaderNV = () => {
                 {/* -- Burger menu items -- */}
                 <div className="absolute right-0 top-20 z-50">
                   {menuOpen && (
-                    <div className="absolute right-0 mt-2 w-50 divide-y divide-white/10 rounded-b-md overflow-hidden bg-gray-800 shadow-lg outline-1 -outline-offset-1 outline-white/10">
+                    <div className="absolute right-0 mt-2 w-50 divide-y divide-white/10 rounded-b-md overflow-hidden bg-[#1D3557] shadow-lg outline-1 -outline-offset-1 outline-white/10">
                       <div className="py-1">
                         <Link
                           to="/"
@@ -237,7 +237,7 @@ const HeaderNV = () => {
                           onClick={handleLanguageToggle}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          {finnish ? '🇬🇧 English' : ' \u{1F1EB}\u{1F1EE} - Finnish'}
+                          {finnish ? '🇬🇧 English' : '🇫🇮 Suomeksi'}
                         </button>
                         {/* DARK MODE DISABLED
                         <button
@@ -275,15 +275,15 @@ const HeaderNV = () => {
                           🔒 &nbsp;&nbsp;{finnish ? 'Kirjaudu sisään' : 'Login'}
                         </button>
                       )}
-                      {user && user.role==="admin" && (
+                      {user && user.role === 'admin' && (
                         <button
                           onClick={() => navigate('/admin')}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          🔒 &nbsp;&nbsp;{finnish ? 'Admin hallintasivu' : 'Admin dashboard'}
+                          🔒 &nbsp;&nbsp;
+                          {finnish ? 'Admin hallintasivu' : 'Admin dashboard'}
                         </button>
                       )}
-
                     </div>
                   )}
                 </div>
