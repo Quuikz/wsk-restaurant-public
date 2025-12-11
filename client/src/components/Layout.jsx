@@ -6,8 +6,9 @@ import {useUserContext} from '../hooks/contextHooks.js';
 import Footer from './customer/Footer/Footer.jsx';
 import HeaderNV from './customer/Header/HeaderNV.jsx';
 
+
 const Layout = () => {
-  const {user, handleAutoLogin} = useUserContext();
+  const { handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 

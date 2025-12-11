@@ -170,7 +170,7 @@ const useOrderCommon = () => {
     return getOrderByIDResult;
   };
 
-  const getOrdersByUserID = async (token, orderID) => {
+  const getOrdersByUserID = async (token, userId) => {
     const fetchOptions = {
       method: 'GET',
       headers: {
@@ -179,7 +179,7 @@ const useOrderCommon = () => {
     };
 
     const getOrdersByUserIDResult = await fetchData(
-      API_URL + `/orders/${orderID}`,
+      API_URL + `/orders/user/${userId}`,
       fetchOptions,
     );
     return getOrdersByUserIDResult;

@@ -3,6 +3,7 @@ import { useOrderCommon } from "../../../hooks/common/apiHooks";
 import {useLanguageContext, useUserContext} from "../../../hooks/contextHooks.js";
 import { useGiftcards, useReservations } from "../../../hooks/admin/apiHooks";
 
+
 const ShoppingHistory = () => {
 
     const { getOrdersByUserID } = useOrderCommon();
@@ -13,7 +14,7 @@ const ShoppingHistory = () => {
 
     const [userReservations, setUserReservations] = useState([]);
 
-    const {user} = useUserContext();
+    const {user, handleAutoLogin} = useUserContext();
     const { finnish } = useLanguageContext();
 
 
@@ -21,41 +22,45 @@ const ShoppingHistory = () => {
         const token = localStorage.getItem('token');
         console.log('USER ID:', user?.id);
         try{
+          if(user) {
             //todo get userid
-            const data = await getOrdersByUserID(token, 1);
+            const data = await getOrdersByUserID(token, user.id);
             console.log(data);
             //setShoppingHistories(result);
             const orders = Array.isArray(data) ? data : [data];
 
             //For each order, get its reservations & giftcards
             const allOrdersWithDetails = await Promise.all(
-                orders.map(async (order) => {
-                    const reservationData = order.reservations?.length
-                        ? await getReservationsByIDList(token, order.reservations ) : [];
+              orders.map(async (order) => {
+                const reservationData = order.reservations?.length
+                  ? await getReservationsByIDList(token, order.reservations) : [];
 
-                    const giftcardData = order.gift_cards?.length
-                        ? await getGiftcardsByIDList(token, order.gift_cards) : [];
+                const giftcardData = order.gift_cards?.length
+                  ? await getGiftcardsByIDList(token, order.gift_cards) : [];
 
 
-                    return {
-                        ...order,
-                        reservationData,
-                        giftcardData,
-                    };
-                })
+                return {
+                  ...order,
+                  reservationData,
+                  giftcardData,
+                };
+              })
             );
 
-            console.log(allOrdersWithDetails);
+            console.log('all orders: ',allOrdersWithDetails);
             setShoppingHistories(allOrdersWithDetails);
+          } else {
+            console.log('null user at loadUserShoppingHistory')
+          }
         }
         catch(error){
             console.log('Error in loadUserShoppingHistory: ', error);
         }
     }
 
-    useEffect(() => {
+    useEffect( () => {
         loadUserShoppingHistory();
-    }, []);
+    }, [user]);
 
 
 
@@ -101,11 +106,13 @@ const ShoppingHistory = () => {
 
               <ul className="space-y-1">
                 {order.reservationData.map((res) => (
-                  <li key={res.id} className="border-b py-2">
+                  <li key={`res${+res.id}`} className="border-b py-2">
                     <div><strong>{finnish ? 'Varauksen tiedot:' : 'Reservation info:'}</strong></div>
                     <div><strong>{finnish ? 'Päivämäärä:' : 'Date:'}</strong> {res.date}</div>
                     <div><strong>{finnish ? 'Noutopöytä:' : 'Buffet:'}</strong> {res.table_customer_count} {finnish ? 'henkilöä' : 'persons'}</div>
                     <div><strong>{finnish ? 'Grilli:' : 'Grill:'}</strong> {res.grill_customer_count} {finnish ? 'henkilöä' : 'persons'}</div>
+                    <div><strong>{finnish ? 'Tilausnumero:' : 'Order number:'}</strong> {order.id}</div>
+                    <div><strong>{finnish ? 'Tilaus aika:' : 'Order time:'}</strong> {order.timestamp}</div>
                   </li>
                 ))}
               </ul>
@@ -123,10 +130,12 @@ const ShoppingHistory = () => {
 
               <ul className="space-y-1">
                 {order.giftcardData.map((gift) => (
-                  <li key={gift.id} className="border-b py-2">
+                  <li key={`gif${gift.id}`} className="border-b py-2">
                     <div><strong>{finnish ? 'Lahjakortin tiedot:' : 'Gift card info:'}</strong></div>
                     <div><strong>{finnish ? 'Arvo:' : 'Value:'}</strong> {gift.value}€</div>
                     <div><strong>{finnish ? 'Erääntymispvm.:' : 'Expiration date:'}</strong> {gift.expiration_date}</div>
+                    <div><strong>{finnish ? 'Tilausnumero:' : 'Order number:'}</strong> {order.id}</div>
+                    <div><strong>{finnish ? 'Tilaus aika:' : 'Order time:'}</strong> {order.timestamp}</div>
                   </li>
                 ))}
               </ul>

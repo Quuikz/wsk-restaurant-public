@@ -243,7 +243,7 @@ const modifyOrder = async (updatedOrder, orderId) => {
             await connection.execute(`SET FOREIGN_KEY_CHECKS = 0;`);*/
 
       //sql for orders table
-      const orderSql = `UPDATE orders SET user = ?, cost = ?, timestamp = ?, message = ?, deleted = ? 
+      const orderSql = `UPDATE orders SET user = ?, cost = ?, timestamp = ?, message = ?, deleted = ?
                    WHERE orders.id = ?`;
       console.log(orderSql);
 
@@ -430,7 +430,7 @@ const removeOrder = async (orderId) => {
  */
 const findOrdersByUserId = async (userId) => {
   try {
-    console.log("findOrderById in order-model");
+    console.log("findOrderByUserId in order-model");
     const query = promisePool.format(
       "SELECT * FROM orders where orders.user = ?",
       userId
@@ -443,10 +443,10 @@ const findOrdersByUserId = async (userId) => {
         orderArray.map((order) => getOrderSubArrays(order))
       );
       console.log(
-        "return order in findOrderById in order-model:",
-        returnArray[0]
+        "return order in findOrdersByUserId in order-model:",
+        returnArray
       );
-      return returnArray[0];
+      return returnArray;
     } else {
       return false;
     }
