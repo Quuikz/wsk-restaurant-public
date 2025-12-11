@@ -25,11 +25,30 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 - Reaaliaikaiset lähimpien pysäkkien lähtevät tiedot
 - Reaaliaikaiset säätiedot ja terassin aukiolo arvio
 
-## Ohje testaamiseen
+## Ohje testaukseen
 
-Sisäänkirjautuminen toimii kovakoodatulla käyttäjillä:
+### URL
 
-Tavallinen käyttäjä
+Sovellus on deployattu Azureen osoitteeseen:
+<https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/>
+
+API URL:
+<https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api>
+
+API dokumentaatio:
+<https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/docs>
+
+PHPMyAdmin:
+<https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/phpmyadmin>
+
+### Testikäyttäjät
+
+#### Admin
+
+    käyttäjätunnus: 'admin'
+    salasana: 'password'
+
+#### User
 
     käyttäjätunnus: 'username'
     salasana: 'password'
@@ -39,11 +58,11 @@ Tavallinen käyttäjä
 Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä.
 Rekisteröytyminen ei sulje ikkunaa, joten käyttäjän pitää siirtyä itse sisäänkirjautumiseen.
 
-Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä
 <figure>
 <img src="./documentation/register.png" alt="register window" style="width: 40%"/>
 </figure>
 
+### Pääsyoikeudet
 
 - Admin: Kaikki oikeudet (ravintoloiden ja käyttäjien hallinta)
 - User: Rajoitetut oikeudet (vain omien tilausten ja profiilin hallinta)
