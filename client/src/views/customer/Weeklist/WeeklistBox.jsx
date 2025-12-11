@@ -85,8 +85,8 @@ const WeeklistBox = ({menu}) => {
 
                 {meal ? (
                   <ul>
-                    <li>{finnish ? `Nimi - ${meal.name_fi}` : `Name - ${meal.name_en}`} - </li>
-                    <li>{finnish ? `Hinta - ${meal.cost}€` : `Cost - ${meal.cost}€`}</li>
+                    <li>{finnish ? `Nimi - ${meal.name_fi}` : `Name - ${meal.name_en}`} </li>
+                    <li>{finnish ? `Hinta - ${meal.cost.toFixed(2)} €` : `Cost - ${meal.cost.toFixed(2)} €`}</li>
                     <li>{finnish ? `Tietoa - ${meal.description_fi}` : `Description - ${meal.description_en}`}</li>
                   </ul>
                 ) : (

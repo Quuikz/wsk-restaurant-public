@@ -102,11 +102,12 @@ const Specials = () => {
                     </p>
                     <ul>
                       <li>
-                        {finnish ? 'Hinta' : 'Cost'} - {meal.cost}€
+                        {finnish ? 'Hinta' : 'Cost'} - {meal.cost.toFixed(2)} €
                       </li>
                       <li>
                         {finnish ? 'Tietoa' : 'Description'} -{' '}
-                        {meal.description_fi}
+                        {finnish ? `${meal.description_fi}` : `${meal.description_en}`}
+                        
                       </li>
                     </ul>
                     <div className="my-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300 max-w-fit hover:cursor-pointer">
