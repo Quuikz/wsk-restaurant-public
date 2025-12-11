@@ -11,7 +11,7 @@ const getHslData = async (query, body) => {
   console.log("server/src/api/models/hsl-model.js - getHslData");
   console.log({ body, query });
 
-  const url = (body && body.url) || defaultUrl;
+  const url = defaultUrl;
 
   try {
     const response = await fetch(url, {
@@ -31,6 +31,7 @@ const getHslData = async (query, body) => {
 
     const data = await response.json();
     console.log("return HSL data in getHslData");
+    console.log(data);
     return data;
   } catch (error) {
     console.log("error in getHslData in api model");
