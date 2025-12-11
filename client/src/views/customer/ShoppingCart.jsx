@@ -364,11 +364,11 @@ const ShoppingCart = () => {
               </div>
               <div className="flex justify-between">
                 <h2>{finnish ? 'Alennukset' : 'Discounts'} €</h2>
-                <p>{totalCost - (totalCost * discountAmount)}</p>
+                <p>{(totalCost - (totalCost * discountAmount)).toFixed(2)}</p>
               </div>
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
-                <p>{totalCost ? ` ${totalCost.toFixed(2) * discountAmount} €` : `${0.00} €`}</p>
+                <p>{totalCost ? ` ${(totalCost.toFixed(2) * discountAmount).toFixed(2)} €` : `${0.00} €`}</p>
               </div>
 
 
