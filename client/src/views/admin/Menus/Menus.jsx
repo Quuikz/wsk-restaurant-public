@@ -9,6 +9,10 @@ const Menus = () => {
     const [ menuItems, setMenuItems ] = useState([]);
 
 
+    const deleteMenu = (deletedMenuID) => {
+        setMenuItems(prev => prev.filter(menu => menu.id != deletedMenuID));
+    }
+
     useEffect(() => {
         const loadAllMenuItems = async() => {
             try{
@@ -33,6 +37,7 @@ const Menus = () => {
                 <MenuRow 
                     key={menuItem.id}
                     menuItem={menuItem}
+                    onDeleteMenu={deleteMenu}
                 />
             ))}
 

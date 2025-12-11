@@ -43,7 +43,7 @@ const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
         <p className="text-lg text-gray-600">{`${meal.description_en}`}</p>
       </div>
 
-      <p className="text-lg font-semibold text-gray-800">{`${meal.cost}€`}</p>
+      <p className="text-lg font-semibold text-gray-800">{`${meal.cost.toFixed(2)} €`}</p>
 
       {/* Buttons */}
       {showModifyButton ? (

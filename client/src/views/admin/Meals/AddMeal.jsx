@@ -63,33 +63,14 @@ const AddMeal = () => {
         <form onSubmit={handleSubmit} className='space-y-6'>
 
 
-        {/*Menu: Image Upload */}
-        <div className="flex flex-col">
-        <div>
-        <label htmlFor='file'>File</label>
-        <input
-            name='file'
-            type='file'
-            id='file'
-            accept='image/*'
-            onChange={ handleFileChange }
-            />
-        </div>
-        <img 
-            src={
-                file ? URL.createObjectURL(file) : 'https://placehold.co/200?text=Choose+image'
-            }
-            alt='preview'
-            width='200'
-            />
-        </div>
+        
 
 
 
 
           {/*Dish: Finnish name */}
           <div className="flex flex-col">
-            <label htmlFor="name_fi" className="mb-2 font-medium text-gray-700">name_fi</label>
+            <label htmlFor="name_fi" className="mb-2 font-medium text-gray-700">Name (in finnish)</label>
             <input
               name="name_fi"
               type="text"
@@ -102,8 +83,8 @@ const AddMeal = () => {
           </div>
         
         {/*Dish: English name */}
-          <div className="flex flex-col">
-            <label htmlFor="name_en">name_en</label>
+          <div className="flex flex-col" >
+            <label htmlFor="name_en" className="mb-2 font-medium text-gray-700">Name (in english)</label>
             <input
               name="name_en"
               type="text"
@@ -117,7 +98,7 @@ const AddMeal = () => {
 
         {/*Dish: Cost */}
           <div className="flex flex-col">
-            <label htmlFor="cost">cost</label>
+            <label htmlFor="cost" className="mb-2 font-medium text-gray-700">Cost</label>
             <input
               name="cost"
               type="text"
@@ -131,7 +112,7 @@ const AddMeal = () => {
 
         {/*Dish: Finnish description */}
           <div className="flex flex-col">
-            <label htmlFor="description_fi">description_fi</label>
+            <label htmlFor="description_fi" className="mb-2 font-medium text-gray-700">Description (in finnish)</label>
             <input
               name="description_fi"
               type="text"
@@ -145,7 +126,7 @@ const AddMeal = () => {
 
         {/*Dish: English description */}
           <div className="flex flex-col">
-            <label htmlFor="description_en">description_en</label>
+            <label htmlFor="description_en" className="mb-2 font-medium text-gray-700">Description (in english)</label>
             <input
               name="description_en"
               type="text"
@@ -159,7 +140,10 @@ const AddMeal = () => {
 
         {/*Dish: Type */}
 
-          <button type="submit">Upload</button>
+          <button 
+            className="border p-2 hover:bg-gray-200"
+            type="submit"
+        >Upload</button>
         </form>
       </div>
       </div>

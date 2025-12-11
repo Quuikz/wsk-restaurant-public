@@ -161,7 +161,20 @@ const useMenu = () => {
     return updateMenuResult;
   };
 
-  return {postNewMenu, updateMenu};
+  const deleteMenu = async (token, menuID) => {
+    const fetchOptions = {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    };
+
+    const deleteMenuResult = await fetchData(API_URL + `/menus/${menuID}`, fetchOptions);
+    return deleteMenuResult;
+
+  }
+
+  return {postNewMenu, updateMenu, deleteMenu};
 };
 
 const useOrders = () => {
