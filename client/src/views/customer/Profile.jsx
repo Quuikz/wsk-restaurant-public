@@ -128,6 +128,15 @@ const Profile = () => {
                     {finnish ? 'Poista tili' : 'Delete your account'}
                   </button>
                 </div>
+                {user && user.role==="admin" && (<div>
+                  <button
+                    className="w-full mt-4 text-sm text-black bg-green-400 hover:bg-red-600 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md px-4 py-2.5 shadow focus:outline-none"
+                    onClick={() => navigate('/admin')}
+                  >
+                    {finnish ? 'Admin hallintasivu' : 'Admin dashboard'}
+                  </button>
+                </div>)}
+
               </div>
 
               {/* Purchase history */}

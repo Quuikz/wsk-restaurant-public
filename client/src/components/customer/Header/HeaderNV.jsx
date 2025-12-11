@@ -237,14 +237,15 @@ const HeaderNV = () => {
                           onClick={handleLanguageToggle}
                           className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
-                          {finnish ? '🇬🇧 English' : 'FI - Finnish'}
+                          {finnish ? '🇬🇧 English' : ' \u{1F1EB}\u{1F1EE} - Finnish'}
                         </button>
+                        {/* DARK MODE DISABLED
                         <button
                           to="#"
                           className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
                         >
                           🌙 &nbsp;&nbsp; {finnish ? 'Pimeä tila' : 'Dark mode'}
-                        </button>
+                        </button>*/}
                       </div>
                       {/* TODO: Conditional rendering to show either Login/Account settings?*/}
 
@@ -274,6 +275,15 @@ const HeaderNV = () => {
                           🔒 &nbsp;&nbsp;{finnish ? 'Kirjaudu sisään' : 'Login'}
                         </button>
                       )}
+                      {user && user.role==="admin" && (
+                        <button
+                          onClick={() => navigate('/admin')}
+                          className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:text-white focus:outline-hidden"
+                        >
+                          🔒 &nbsp;&nbsp;{finnish ? 'Admin hallintasivu' : 'Admin dashboard'}
+                        </button>
+                      )}
+
                     </div>
                   )}
                 </div>
