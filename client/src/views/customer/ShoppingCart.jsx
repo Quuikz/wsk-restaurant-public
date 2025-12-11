@@ -33,6 +33,7 @@ const ShoppingCart = () => {
   }
 
 
+  //TODO: replace this with userContext
   const getUserData = async () => {
     const token = localStorage.getItem('token');
     if(!token){
