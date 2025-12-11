@@ -3,8 +3,9 @@ import MealRow from '../../../components/admin/MealRow';
 import {useMealCommon} from '../../../hooks/common/apiHooks';
 import {useMenu} from '../../../hooks/admin/apiHooks';
 import MealSelector from '../../../components/admin/MealSelector';
+import AdminDeletionModal from '../../../components/admin/Modals/AdminDeletionModal';
 
-const MenuRow = ({menuItem}) => {
+const MenuRow = ({menuItem, onDeleteMenu}) => {
   //Test function to display week
   /*
     const currentWeek = () => {
@@ -20,12 +21,15 @@ const MenuRow = ({menuItem}) => {
     */
 
   const {getAllMeals, getMealByIDList} = useMealCommon();
-  const {updateMenu} = useMenu();
+  const {updateMenu, deleteMenu} = useMenu();
 
   //For adding meals to menu
   const [showMealSelector, setShowMealSelector] = useState(false);
   const [availableMeals, setAvailableMeals] = useState([]);
   const [selectedMeals, setSelectedMeals] = useState([]);
+
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
 
   const [meals, setMeals] = useState([]);
 
@@ -72,6 +76,22 @@ const MenuRow = ({menuItem}) => {
     }
   };
 
+
+
+  const handleDeleteMenu = async () => {
+    const token = localStorage.getItem('token');
+
+    try{
+        const result = await deleteMenu(token, menuItem.id);
+        onDeleteMenu(menuItem.id);
+        return result;
+    }
+    catch(error){
+        console.log('Error in deleting menus: ', error.message);
+    }
+  }
+
+
   useEffect(() => {
     loadMealsByIDs();
   }, []);
@@ -117,13 +137,24 @@ const MenuRow = ({menuItem}) => {
       </div>
 
       {/* Add Meal */}
+      <div
+        className='flex gap-2'>
+
+      
       <button
         //onClick={() => console.log("ADD meal for menu", menuItem.id)}
         onClick={() => setShowMealSelector(true)}
         className="mb-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
       >
-        ➕ Add Meal
+        ➕ Add Meal to menu
       </button>
+      <button
+        onClick={() => setShowDeleteModal(true)}
+        className="mb-4 px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+      >
+        Delete Menu
+      </button>
+      </div>
 
       {/* Meals list */}
       {/*TODO: refine style */}
@@ -177,7 +208,18 @@ const MenuRow = ({menuItem}) => {
             </div>
           </div>
         </div>
+
+        
       )}
+
+
+      <AdminDeletionModal 
+        isOpen={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        message={`Are you sure you want to delete Menu (ID): ${menuItem.id}`}
+        onConfirm={handleDeleteMenu}
+        
+        />
     </li>
   );
 };

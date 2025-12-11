@@ -1,6 +1,5 @@
 import fetchData from '../../utils/fetchData';
-import { useUserContext } from '../contextHooks';
-
+import {useUserContext} from '../contextHooks';
 
 //Set server URL
 let SERVER_URL = import.meta.env.VITE_SERVER_URL;
@@ -151,9 +150,6 @@ const useCurrentUser = () => {
 
   return {modifyUserInfo, modifyUserAvatar};
 };
-
-
-
 
 const useUserCommon = () => {
   const deleteUserByID = async (token, userID) => {
@@ -452,7 +448,46 @@ const useHslStopsCommon = () => {
     // console.log('HSL stops result:', result.data.stopsByRadius.edges);
     return result.data.stopsByRadius.edges;
   };
-  return {getHslStopsByLatLon};
+
+  const getHslStopsDepAndArr = async (stopId) => {
+    const url = API_URL + '/hsl/getHsl';
+    const query = `query {
+  stop: stop(id: "${stopId}") {
+    gtfsId
+    name
+    lat
+    lon
+    stoptimesWithoutPatterns(numberOfDepartures: 1) {
+      realtime
+      realtimeState
+      scheduledDeparture
+      realtimeDeparture
+      departureDelay
+      headsign
+      trip {
+        route {
+          shortName
+          mode
+        }
+      }
+    }
+  }
+}
+`;
+
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({query}),
+    };
+
+    const result = await fetchData(url, fetchOptions);
+    // console.log('HSL stop departures and arrivals result:', result);
+    return result.data.stop;
+  };
+  return {getHslStopsByLatLon, getHslStopsDepAndArr};
 };
 
 export {

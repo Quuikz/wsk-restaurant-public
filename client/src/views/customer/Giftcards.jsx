@@ -226,7 +226,7 @@ const Giftcards = () => {
                 </h2>
                 <ul>
                   <li>
-                    <p className="mt-1 font-bold">Tietoa</p>
+                    <p className="mt-1 font-bold">{finnish ? 'Tietoa' : 'Info'}</p>
                     {finnish
                       ? 'Erityinen lahjakortti juhlaan'
                       : 'Gift card for a special occasion'}
@@ -235,7 +235,7 @@ const Giftcards = () => {
                     <p className="mt-1 font-bold">
                       {finnish ? 'Voimassaoloaika' : 'Valid for'}
                     </p>
-                    12kk (1 vuosi)
+                    {finnish ? '12kk (1 vuosi)' : '12 months (1 year)'}
                   </li>
                   <li>
                     <p className="mt-1 font-bold">

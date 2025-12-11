@@ -268,7 +268,7 @@ const ShoppingCart = () => {
           <button
             onClick={() => {
                 clearCart();
-                setDiscountsActive(null); setDiscountAmount(0)
+                setDiscountsActive(null);
               }
             }
             className='bg-red-500 px-2 text-center  hover:bg-red-600 text-white font-medium py-3 rounded-lg'
@@ -339,7 +339,7 @@ const ShoppingCart = () => {
                   {/* Item in cart: info */}
                 <div>
                   <p className="font-medium text-lg">{finnish ? 'Lahjakortti' : 'Gift card'}</p>
-                  <p className="text-gray-600">{giftCard.value} €</p>
+                  <p className="text-gray-600">{giftCard.value.toFixed(2)} €</p>
                   <p className="text-gray-600">{giftCard.expiration_date}</p>
                 </div>
               </div>
@@ -380,19 +380,25 @@ const ShoppingCart = () => {
             <div className="bg-white p-4 rounded-lg border shadow-sm space-y-3">
               <div className="flex justify-between">
                 <h2>{finnish ? 'Alkuperäinen hinta' : 'Original cost'}</h2>
-                <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
+                <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${(0).toFixed(2)} €`}</p>
               </div>
               <div className="flex justify-between">
                 <h2>{finnish ? 'Alennukset' : 'Discounts'}</h2>
                 <p>{discountActive
+                    //koska viro
                       ? `${(totalCost - (totalCost * discountAmount)).toFixed(2)} €`
-                      : `${0.00} €`
+                      : `${(0).toFixed(2)} €`
                    }
                 </p>
               </div>
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
-                <p>{totalCost ? ` ${(totalCost.toFixed(2) * discountAmount).toFixed(2)} €` : `${0.00} €`}</p>
+                <p>
+                  {discountActive
+                    ? ` ${(totalCost.toFixed(2) * discountAmount).toFixed(2)} €`
+                    : `${totalCost.toFixed(2)} €`
+                  }
+                </p>
               </div>
 
 
@@ -411,7 +417,10 @@ const ShoppingCart = () => {
                 />
                 <button
                   className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
-                  onClick={() => doCheckDiscount()}
+                  onClick={() => {
+                    setDiscountsActive(true);
+                    doCheckDiscount()
+                  }}
                 >
                   {finnish ? 'Käytä' : 'Apply'}
                 </button>
@@ -424,7 +433,7 @@ const ShoppingCart = () => {
                     </div>
                     <button className="bg-orange-500 text-white px-4 py-1 rounded-md hover:bg-orange-600"
                     onClick={() => {
-                      setDiscountsActive(null); setDiscountAmount(0);
+                      setDiscountsActive(false); setDiscountAmount(0);
                     }}
                     >
                       {finnish ? 'Poista' : 'Remove'}
