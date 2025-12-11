@@ -3,7 +3,7 @@ import {useUserContext} from '../contextHooks';
 
 /**
  * Custom hooks for users's API requests.
- * 
+ *
  */
 
 //Server API URL
@@ -59,7 +59,6 @@ const useAuthentication = () => {
   return {postLogin, postRegister};
 };
 
-
 /**
  * Custom hook for user-related API requests.
  * @returns {Object} Functions for interacting with the user related requests.
@@ -107,7 +106,6 @@ const useUser = () => {
 
   return {getUserByToken, isUsernameTaken};
 };
-
 
 /**
  * Custom hook for current user-related API requests.
@@ -176,7 +174,6 @@ const useCurrentUser = () => {
   return {modifyUserInfo, modifyUserAvatar};
 };
 
-
 /**
  * Custom hook for user-related API requests.
  * @returns {Object} Functions for interacting with the user related requests.
@@ -201,8 +198,6 @@ const useUserCommon = () => {
 
   return {deleteUserByID};
 };
-
-
 
 /**
  * Custom hook for meal-related API requests.
@@ -243,7 +238,6 @@ const useMealCommon = () => {
 
   return {getAllMeals, getMealByIDList};
 };
-
 
 /**
  * Custom hook for menu-related API requests.
@@ -299,8 +293,6 @@ const useMenuCommon = () => {
 
   return {getAllMenuItems, getMenuByDate, getMenuByWeek};
 };
-
-
 
 /**
  * Custom hook for Order-related API requests.
@@ -393,7 +385,6 @@ const useOrderCommon = () => {
   return {postOrder, updateOrder, deleteOrder, getOrderByID, getOrdersByUserID};
 };
 
-
 /**
  * Custom hook for Reservation-related API requests.
  * @returns {Object} Functions for interacting with the Reservation related requests.
@@ -437,8 +428,6 @@ const useReservationCommon = () => {
   return {postNewReservation, getReservationOnDateTime};
 };
 
-
-
 /**
  * Custom hook for Giftcards-related API requests.
  * @returns {Object} Functions for interacting with the Giftcards related requests.
@@ -465,7 +454,6 @@ const useGiftcardsCommon = () => {
   return {postGiftCard};
 };
 
-
 /**
  * Custom hook for Discount-related API requests.
  * @returns {Object} Functions for interacting with the Discount related requests.
@@ -491,7 +479,21 @@ const useDiscountsCommon = () => {
   return {validateDiscountByCode};
 };
 
+/**
+ * Custom hook for Digitransit/ HSL (Helsinki public transport) stops-related API requests.
+ * @returns {Object} Functions for interacting with HSL stops.
+ *  - getHslStopsByLatLon - Get HSL stops within a radius by latitude and longitude.
+ *  - getHslStopsDepAndArr - Get departure and arrival information for a specific HSL stop.
+ */
 const useHslStopsCommon = () => {
+  /**
+   * Get HSL stops within a specified radius from given coordinates.
+   * @async
+   * @param {number} lat - The latitude coordinate.
+   * @param {number} lon - The longitude coordinate.
+   * @param {number} radius - The search radius in meters.
+   * @returns {Promise<Array>} An array of stops within the radius, including stop details (name, lat, lon, code, gtfsId) and distance from the coordinates.
+   */
   const getHslStopsByLatLon = async (lat, lon, radius) => {
     const url = API_URL + '/hsl/getHsl';
     const query = `
@@ -527,6 +529,12 @@ const useHslStopsCommon = () => {
     return result.data.stopsByRadius.edges;
   };
 
+  /**
+   * Get departure and arrival information for a specific HSL stop.
+   * @async
+   * @param {string} stopId - The GTFS ID of the stop.
+   * @returns {Promise<Object>} An object containing stop details (gtfsId, name, lat, lon) and stoptimes with departure information (realtime, scheduled/realtime departure, delay, route info, etc.).
+   */
   const getHslStopsDepAndArr = async (stopId) => {
     const url = API_URL + '/hsl/getHsl';
     const query = `query {
