@@ -2,7 +2,7 @@ import fetchData from '../../utils/fetchData';
 
 //Set server URL
 let API_URL = import.meta.env.VITE_API_URL;
-if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   API_URL = import.meta.env.VITE_API_URL_LOCAL;
 }
 
@@ -94,7 +94,7 @@ const useOrderCommon = () => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     };
@@ -108,7 +108,7 @@ const useOrderCommon = () => {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(inputs),
     };
@@ -136,7 +136,6 @@ const useOrderCommon = () => {
     return deletedOrderResult;
   };
 
-
   const getOrderByID = async (token, orderID) => {
     const fetchOptions = {
       method: 'GET',
@@ -146,10 +145,12 @@ const useOrderCommon = () => {
       },
     };
 
-    const getOrderByIDResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+    const getOrderByIDResult = await fetchData(
+      API_URL + `/orders/${orderID}`,
+      fetchOptions,
+    );
     return getOrderByIDResult;
-
-  }
+  };
 
   const getOrdersByUserID = async (token, orderID) => {
     const fetchOptions = {
@@ -159,70 +160,78 @@ const useOrderCommon = () => {
       },
     };
 
-    const getOrdersByUserIDResult = await fetchData(API_URL + `/orders/${orderID}`, fetchOptions);
+    const getOrdersByUserIDResult = await fetchData(
+      API_URL + `/orders/${orderID}`,
+      fetchOptions,
+    );
     return getOrdersByUserIDResult;
-
-  }
-
-
+  };
 
   return {postOrder, updateOrder, deleteOrder, getOrderByID, getOrdersByUserID};
 };
 
 const useReservationCommon = () => {
+  const postNewReservation = async (data, token) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    };
 
+    const postNewReservationResult = await fetchData(
+      API_URL + '/reservations',
+      fetchOptions,
+    );
+    return postNewReservationResult;
+  };
 
-    const postNewReservation = async (data, token) => {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        };
+  const getReservationOnDateTime = async (token, dateTime) => {
+    const fetchOptions = {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    };
 
-        const postNewReservationResult = await fetchData(API_URL + '/reservations', fetchOptions);
-        return postNewReservationResult;
+    const getReservationOnDateTimeResult = await fetchData(
+      API_URL + `/reservations/count/${dateTime}`,
+      fetchOptions,
+    );
+    return getReservationOnDateTimeResult;
+  };
 
-    }
-
-
-    const getReservationOnDateTime = async (token, dateTime) => {
-        const fetchOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-        };
-
-        const getReservationOnDateTimeResult = await fetchData(API_URL + `/reservations/count/${dateTime}`, fetchOptions);
-        return getReservationOnDateTimeResult;
-
-    }
-
-    return { postNewReservation, getReservationOnDateTime }
-
+  return {postNewReservation, getReservationOnDateTime};
 };
 
 const useGiftcardsCommon = () => {
+  const postGiftCard = async (data, token) => {
+    const fetchOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    };
 
-    const postGiftCard = async (data, token) => {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(data)
-        };
+    const postGiftCardResult = await fetchData(
+      API_URL + '/giftcards',
+      fetchOptions,
+    );
+    return postGiftCardResult;
+  };
 
-        const postGiftCardResult = await fetchData(API_URL + '/giftcards', fetchOptions);
-        return postGiftCardResult;
-    }
+  return {postGiftCard};
+};
 
-    return { postGiftCard }
-}
-
-export {useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon};
+export {
+  useMealCommon,
+  useMenuCommon,
+  useOrderCommon,
+  useReservationCommon,
+  useGiftcardsCommon,
+};
