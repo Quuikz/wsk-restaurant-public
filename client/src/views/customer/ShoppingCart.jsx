@@ -65,6 +65,14 @@ const ShoppingCart = () => {
     discount_code: '',
   };
 
+  /**
+   * Validates discount code and applies discount to cart
+   * Fetches discount data from API using provided code
+   *
+   * @async
+   * @function
+   * @returns {Promise<void>}
+   */
   const doCheckDiscount = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -89,7 +97,12 @@ const ShoppingCart = () => {
     initValues,
   );
 
-  //Total calculator, updates whenever cart updates
+  /**
+   * Calculates total cart cost whenever cart items change
+   * Includes reservation costs (table: 10€, grill: 12€) and gift cards
+   *
+   * Runs on: cart dependency change
+   */
   useEffect(() => {
     let cost = 0;
 
@@ -109,7 +122,14 @@ const ShoppingCart = () => {
     setTotalCost(cost);
   }, [cart]);
 
-  //TODO: replace this with userContext
+  /**
+   * Fetches user data from API using authentication token
+   * Updates user context with retrieved data
+   *
+   * @async
+   * @function
+   * @returns {Promise<void>}
+   */
   const getUserData = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
@@ -124,10 +144,29 @@ const ShoppingCart = () => {
     }
   };
 
+  /**
+   * Fetches user data on component mount
+   */
   useEffect(() => {
     getUserData();
   }, []);
 
+  /**
+   * Sends complete order to backend
+   *
+   * Process:
+   * 1. Creates empty order and gets order ID
+   * 2. Posts all reservations linked to order
+   * 3. Posts all gift cards linked to order
+   * 4. Updates order with reservation and gift card IDs
+   *
+   * @async
+   * @function
+   * @param {Object} cart - Shopping cart with reservations and gift_cards
+   * @param {Object} user - User object with id
+   * @param {string} token - Authentication token
+   * @returns {Promise<Object>} Order result from API
+   */
   const sendOrder = async (cart, user, token) => {
     const reservationIDs = [];
     const giftCardIDs = [];
@@ -149,7 +188,6 @@ const ShoppingCart = () => {
         token,
       );
 
-      //setOrderID(emptyOrder.id);
       if (!emptyOrder || !emptyOrder.id) {
         throw new Error('No order id!');
       }
@@ -222,6 +260,14 @@ const ShoppingCart = () => {
     }
   };
 
+  /**
+   * Handles checkout process
+   * Validates user and token, sends order, clears cart, navigates home
+   *
+   * @async
+   * @function
+   * @returns {Promise<void>}
+   */
   const handleCheckout = async () => {
     const token = localStorage.getItem('token');
     if (!user) {
