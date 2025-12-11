@@ -84,8 +84,8 @@ const addMeal = async (meal) => {
 
   try {
     // Prepare parametrized SQL to avoid injection
-    const sql = `INSERT INTO meals (name_fi, name_en, description_fi, description_en, cost, image)
-                 VALUES (?, ?, ?, ?, ?, ?)`;
+    const sql = `INSERT INTO meals (name_fi, name_en, description_fi, description_en, cost, image, type)
+                 VALUES (?, ?, ?, ?, ?, ?, ?)`;
 
     // Use provided image filename or placeholder when not provided
     const imageName = meal.image ? meal.image : "placeholder.jpg";
@@ -98,6 +98,7 @@ const addMeal = async (meal) => {
       meal.description_en,
       meal.cost,
       imageName,
+      meal.type,
     ];
 
     // Execute the insert and check affectedRows
@@ -174,6 +175,11 @@ const modifyMeal = async (meal) => {
     if (meal.image && emptyDataHelper(meal.image) === false) {
       fields.push("image = ?");
       params.push(meal.image);
+    }
+
+    if (meal.type && emptyDataHelper(meal.type) === false) {
+      fields.push("type = ?");
+      params.push(meal.type);
     }
 
     // For WHERE clause
