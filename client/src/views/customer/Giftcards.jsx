@@ -1,4 +1,7 @@
 import React, {useContext, useState} from 'react';
+
+import AlertModal from '../../components/AlertModal.jsx';
+
 import {ShoppingCartContext} from '../../contexts/ShoppingCartContext';
 import {useLanguageContext} from '../../hooks/contextHooks.js';
 
@@ -19,11 +22,23 @@ const Giftcards = () => {
   const dec = (set) => () => set((v) => Math.max(min, v - 1));
 
   const {addGiftCardToCart} = useContext(ShoppingCartContext);
+  const [displayAlertModal, setDisplayAlertModal] = useState(false);
+  const [message, setMessage] = useState('');
   const {finnish} = useLanguageContext();
 
   const doAddToCart = (value, qty) => {
-    if (qty <= 0) return;
+    if (qty <= 0) {
+      setMessage(
+        finnish
+          ? 'Valitse vähintään yksi lahjakortti!'
+          : 'Please select at least one gift card!',
+      );
+      return;
+    }
     addGiftCardToCart({value, quantity: qty});
+    setMessage(
+      finnish ? 'Lahjakortti lisätty ostoskoriin!' : 'Gift card added to cart!',
+    );
     console.log(`${qty} x ${value}€ Added to shoppingcart`);
   };
 
@@ -112,7 +127,10 @@ const Giftcards = () => {
                   </div>
                   <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
-                    onClick={() => doAddToCart(5, qty5)}
+                    onClick={() => (
+                      doAddToCart(5, qty5),
+                      setDisplayAlertModal(true)
+                    )}
                   >
                     {finnish ? 'Lisää ostoskoriin' : 'Add to cart'}
                   </button>
@@ -186,7 +204,10 @@ const Giftcards = () => {
                   </div>
                   <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
-                    onClick={() => doAddToCart(20, qty20)}
+                    onClick={() => (
+                      doAddToCart(20, qty20),
+                      setDisplayAlertModal(true)
+                    )}
                   >
                     {finnish ? 'Lisää ostoskoriin' : 'Add to cart'}
                   </button>
@@ -258,7 +279,10 @@ const Giftcards = () => {
                   </div>
                   <button
                     className="mt-4 mb-4 bg-orange-200 px-4 py-2 rounded hover:bg-orange-300"
-                    onClick={() => doAddToCart(50, qty50)}
+                    onClick={() => (
+                      doAddToCart(50, qty50),
+                      setDisplayAlertModal(true)
+                    )}
                   >
                     {finnish ? 'Lisää ostoskoriin' : 'Add to cart'}
                   </button>
@@ -268,6 +292,13 @@ const Giftcards = () => {
           </div>
         </div>
       </div>
+      {displayAlertModal && (
+        <AlertModal
+          isOpen={displayAlertModal}
+          onClose={() => setDisplayAlertModal(false)}
+          message={message}
+        />
+      )}
     </>
   );
 };
