@@ -1,12 +1,15 @@
 import {useEffect, useState} from 'react';
 import {useLanguageContext} from '../../../hooks/contextHooks.js';
 
+import AlertModal from '../../../components/AlertModal.jsx';
+
 const OrderingButtons = ({
   tableCount,
   grillCount,
   setTableCount,
   setGrillCount,
 }) => {
+  const [displayAlertModal, setDisplayAlertModal] = useState(false);
   const {finnish} = useLanguageContext();
 
   // Table max ocapacity
@@ -17,11 +20,7 @@ const OrderingButtons = ({
     if (totalGuests < tableCapacity) {
       setGrillCount(grillCount + 1);
     } else {
-      alert(
-        finnish
-          ? 'Täysi kapasiteetti saavutettu! Vähennä noutopöydän henkilöitä.'
-          : 'Full capacity reached! Reduce the number of people.',
-      );
+      setDisplayAlertModal(true);
     }
   };
   const decrementGrill = () => {
@@ -34,11 +33,7 @@ const OrderingButtons = ({
       setTableCount(tableCount + 1);
       //setBuffetNumber((v) => Math.min(maxBuffet, v + 1));
     } else {
-      alert(
-        finnish
-          ? 'Täysi kapasiteetti saavutettu! Vähennä grillipöydän henkilöitä.'
-          : 'Full capacity reached! Reduce the number of people.',
-      );
+      setDisplayAlertModal(true);
     }
   };
 
@@ -116,6 +111,17 @@ const OrderingButtons = ({
           {finnish ? 'Henkilöiden määrä' : 'Number of people'}
         </p>
       </div>
+      {displayAlertModal && (
+        <AlertModal
+          isOpen={displayAlertModal}
+          onClose={() => setDisplayAlertModal(false)}
+          message={
+            finnish
+              ? 'Täysi kapasiteetti saavutettu! Vähennä henkilöitä.'
+              : 'Full capacity reached! Reduce the number of people.'
+          }
+        />
+      )}
     </>
   );
 };
