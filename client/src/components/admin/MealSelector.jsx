@@ -1,7 +1,19 @@
-
-
+/**
+ * 
+ * Row component to display a Meal along with it's ID in a list.
+ * Allows user to toggle and highlights selected meals.
+ * 
+ * @param {Array<Object>} availableMeals - An array of Meal objects available for selection.
+ * @param {Array<number>} selectedMeals - An array of currently selected Meal IDs.
+ * @param {Function} availableMeals - Function to update the selected meals array.
+ *  
+ */
 const MealSelector = ({availableMeals, selectedMeals, setSelectedMeals}) =>{
 
+    /**
+     * 
+     * Function to add or remove a Meal ID from a list of selected meals.
+     */
     const toggleMeal = (mealID) => {
         if(selectedMeals.includes(mealID)){
             setSelectedMeals(selectedMeals.filter((ID) => ID != mealID));

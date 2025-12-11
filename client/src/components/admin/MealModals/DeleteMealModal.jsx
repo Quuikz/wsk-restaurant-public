@@ -1,13 +1,31 @@
 import { useMeal } from "../../../hooks/admin/apiHooks";
 
+/**
+ * 
+ * @param {Object} meal - The meal object to be deleted.
+ * @param {boolean} isOpen - Determines whether the modal is open.
+ * @param {Function} onClose - Callback to close the modal
+ * @param {Function} onDeleted - Callback after meal deletion. Receives meal ID as parameter
+ */
 const DeleteMealModal = ({meal, isOpen, onClose, onDeleted}) => {
 
     const { deleteMeal } = useMeal();
 
+
     if(!isOpen){
         return null;
-    }
-;
+    };
+
+    /**
+     * A function that handles the deletion of the meal.
+     * Calls the deleteMeal API hook with the token and meal.id.
+     * 
+     * Invokes the 'onDeleted' callback and closes the modal.
+     * 
+     * @async
+     * @function
+     * @returns {Promise<void>}
+     */
     const handleDelete = async () => {
         try{
             const token = localStorage.getItem('token');

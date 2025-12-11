@@ -1,9 +1,13 @@
-import { useLanguageContext } from "../../../hooks/contextHooks";
+import {useLanguageContext} from '../../../hooks/contextHooks';
 
+/**
+ * Modal component for admin pages to confirm deletion actions in the admin panel.
+ */
+const AdminDeletionModal = ({isOpen, onClose, message, onConfirm}) => {
+  //Determines the language for texts.
+  const {finnish} = useLanguageContext();
 
-const AdminDeletionModal = ({ isOpen, onClose, message, onConfirm }) => {
-  const { finnish } = useLanguageContext();
-
+  // Prevents render if the modal is closed.
   if (!isOpen) return null;
 
   return (
@@ -13,7 +17,6 @@ const AdminDeletionModal = ({ isOpen, onClose, message, onConfirm }) => {
           <h2 className="text-xl font-bold mb-4">
             {finnish ? 'Vahvistus' : 'Confirmation'}
           </h2>
-
           <p className="mb-6">{message}</p>
 
           <div className="flex justify-between gap-2">

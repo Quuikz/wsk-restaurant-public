@@ -1,11 +1,27 @@
+/**
+ * Row component to display a meal in a list.
+ * Shows Meal's ID, name, description, cost and an image.
+ *
+ * @param {Object} meal - The meal object to be displayed.
+ *  - 'meal.id' {number} - ID of the meal.
+ *  - 'meal.name_fi' {string} - - Meal name in finnish.
+ *  - 'meal.name_en' {string} - - Meal name in english.
+ *  - 'meal.description_fi' {string} - - Meal description in finnish.
+ *  - 'meal.description_en' {string} - - Meal description in english.
+ *  - 'meal.cost' {number} - Meal's price in euros.
+ *  - 'meal.image' {string} - Filename of the meal image.
+ *
+ * @param {Function} onModify - Callback triggered when the Modify Meal button is clicked.
+ * @param {Function} onDelete - Callback triggered when the Delete Meal button is clicked.
+ * @param {boolean} showModifyButton - Determines whether to show the Modify Meal button.
+ */
 const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
-
- let SERVER_URL = import.meta.env.VITE_SERVER_URL;
-  if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+  let SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
     SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
   }
 
-  const mealImages = SERVER_URL+`/images/meals/`;
+  const mealImages = SERVER_URL + `/images/meals/`;
 
   return (
     <li
@@ -19,8 +35,8 @@ const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
       {/* Meal image */}
       <div className="w-20 h-20 flex-shrink-0">
         <img
-          src={meal ? mealImages+meal.image : mealImages+'placeholder.jpg' }
-          alt='An image of meal'
+          src={meal ? mealImages + meal.image : mealImages + 'placeholder.jpg'}
+          alt="An image of meal"
           className="w-full h-full object-cover rounded-md"
         />
       </div>
