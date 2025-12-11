@@ -345,7 +345,8 @@ const ShoppingCart = () => {
                   {/* Item in cart: image */}
                   <div>
                     <img
-                      src={reservationImages} style={{ width: '140px', height: 'auto' }} 
+                      src={reservationImages}
+                      className='w-[140px] h-auto rounded-md'
                       alt="Image of item"
                     />
                   </div>
@@ -392,7 +393,8 @@ const ShoppingCart = () => {
                   {/* Item in cart: image */}
                   <div>
                     <img
-                      src={giftCardImages} style={{ width: '140px', height: 'auto' }}
+                      src={giftCardImages}
+                      className='w-[140px] h-auto rounded-md'
                       alt="Image of item"
                     />
                   </div>
