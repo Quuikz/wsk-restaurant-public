@@ -16,7 +16,7 @@ const Home = () => {
 
   return (
     <>
-      <div className="max-w-7xl mx-auto px-4 relative">
+      <div className="max-w-7xl mx-auto relative">
         {/* Main banner */}
         <div className="grid grid-cols-2 bg-orange-50">
           <div className="text-center justify-center flex items-center">

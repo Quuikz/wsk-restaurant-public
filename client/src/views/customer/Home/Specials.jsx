@@ -86,7 +86,7 @@ const Specials = () => {
   return (
     <>
       {/* Daily meal boxes */}
-      <div className=" p-7 pt-20 pb-30 bg-orange-50 h-[72vh]">
+      <div className=" p-7 pt-20 pb-30 bg-orange-50 ">
         <div className="flex gap-4 overflow-x-auto">
           {/* Meal boxes mapping */}
           {meals.length === 0 ? (
@@ -98,9 +98,9 @@ const Specials = () => {
           ) : (
             meals.map((meal) => (
               <div key={meal.id}>
-                <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200 w-100 h-115">
+                <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200 w-99 h-115">
                   <img
-                    className="w-100 h-65"
+                    className="w-99 h-65"
                     src={server_url + '/images/meals/' + meal.image}
                     alt={
                       finnish ? 'Spesiaali ruoka tänään' : 'Special meal today'
