@@ -64,7 +64,7 @@ const login = async (req, res) => {
       } catch (error) {
         console.log("error in login in auth-controller");
         console.log(error);
-        return res.sendStatus(500);
+        return res.status(500).send("error in login in auth-controller");
       }
     } else {
       console.log("undefined input in auth-controller");
@@ -72,7 +72,7 @@ const login = async (req, res) => {
     }
   } catch (error) {
     console.log(error);
-    res.sendStatus(500);
+    res.status(500).send("error in login in auth-controller");
   }
 };
 
