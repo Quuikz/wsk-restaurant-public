@@ -3,7 +3,13 @@ import { useUser, useGiftcards, useReservations, useOrders } from "../../hooks/a
 import { useMealCommon, useMenuCommon } from "../../hooks/common/apiHooks";
 
 
-
+/**
+ * Admin Dashboard component.
+ * Displays key statistics (total users, meals, menus, orders, reservations and gift cards) for the admin user.
+ * Uses several custom hooks to fetch data for the dashboard.
+ * 
+ * @returns The rendered Dashboard component with related data on each category.
+ */
 const Dashboard = () => {
 
     const [totalUsers, setTotalUsers] = useState(0);
@@ -13,6 +19,7 @@ const Dashboard = () => {
     const [totalReservations, setTotalReservations] = useState(0);
     const [totalGiftCards, setTotalGiftCards] = useState(0);
 
+    // Custom hooks for fetching data
     const { getAllUsers } = useUser();
     const { getAllMeals } = useMealCommon();
     const { getAllMenuItems } = useMenuCommon();
@@ -25,6 +32,7 @@ const Dashboard = () => {
     const loadAllData = async () => {
         const token = localStorage.getItem('token');
 
+        // Fetching data for each category.
         try{
             const usersData = await getAllUsers(token);
             const mealsData = await getAllMeals();
