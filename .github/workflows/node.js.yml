@@ -16,6 +16,7 @@ jobs:
       DB_NAME: testdb
       DB_USER: testuser
       DB_PASSWORD: testpassword
+      JWT_SECRET: test-secret-key-for-ci
     strategy:
       matrix:
         node-version: [24.x] # Test multiple Node versions
