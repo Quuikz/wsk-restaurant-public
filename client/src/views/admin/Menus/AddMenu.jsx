@@ -141,7 +141,7 @@ const AddMenu = () => {
 
             {/*Menu: special meal */}
             <div className="flex flex-col">
-              <label htmlFor="special_meal" className="mb-2 font-medium text-gray-700">Special Meal:</label>
+              <label htmlFor="special_meal" className="mb-2 font-medium text-gray-700">Special Meal (Meal ID):</label>
               <input
                 name="special_meal"
                 type="text"
