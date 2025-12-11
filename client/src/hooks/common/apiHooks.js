@@ -246,4 +246,22 @@ const useGiftcardsCommon = () => {
   return {postGiftCard};
 };
 
-export {useUserCommon, useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon};
+
+const useDiscountsCommon = () => {
+    const validateDiscountByCode = async (code, token) => {
+        const fetchOptions = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            },
+        };
+
+        const result = await fetchData(API_URL + `/discounts/validate/${code}`, fetchOptions);
+        return result;
+    }
+
+    return { validateDiscountByCode }
+}
+
+export {useUserCommon, useMealCommon, useMenuCommon, useOrderCommon, useReservationCommon, useGiftcardsCommon, useDiscountsCommon};

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
-import { useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
+import { useDiscountsCommon, useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
 import { useUser } from '../../hooks/apiHooks.js';
 import useForm from '../../hooks/formHooks.js';
 
@@ -16,6 +16,8 @@ const ShoppingCart = () => {
   const { postOrder, updateOrder } = useOrderCommon();
   const { postNewReservation} = useReservationCommon();
   const { postGiftCard } = useGiftcardsCommon();
+  const { validateDiscountByCode } = useDiscountsCommon();
+
   const {user, setUser} = useUserContext();
 
   
@@ -43,14 +45,21 @@ const ShoppingCart = () => {
 
   const initValues = {
     discount_code: ''
-  }
+  };
 
 
   
 
   const doCheckDiscount = async () => {
     try{
-      console.log('Implementation incoming')
+      const result = await validateDiscountByCode(inputs);
+      console.log(result);
+      if(result.discount){
+        console.log(result.discount);
+        setDiscountAmount(result.discount);
+      }
+
+      
     }
     catch(error){
       console.log('Error in doCheckDiscount: ', error.message);
@@ -58,7 +67,7 @@ const ShoppingCart = () => {
   }
 
 
-  const {inputs, handleSubmit, handleInputChange } = useForm(
+  const {inputs, handleInputChange, handleSubmit } = useForm(
     doCheckDiscount,
     initValues
   );
@@ -360,16 +369,20 @@ const ShoppingCart = () => {
 
 
               <div className="flex gap-2 items-center">
+                <label htmlFor="discount_code" className="mb-2 font-medium text-gray-700"></label>
                 <input
+                  name='discount_code'
                   type="text"
+                  id='discount_code'
                   placeholder={finnish ? 'Alennuskoodi' : 'Discount code'}
+                  autoComplete="discount_code"
                   value={inputs.discount_code}
                   onChange={handleInputChange}
                   className="flex-1 border rounded-md p-2"
                 />
                 <button
                   className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
-                  onClick={() => doCheckDiscount}
+                  onClick={() => doCheckDiscount()}
                 >
                   {finnish ? 'Käytä' : 'Apply'}
                 </button>
