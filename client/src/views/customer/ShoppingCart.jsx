@@ -266,7 +266,11 @@ const ShoppingCart = () => {
 
         <div>
           <button
-            onClick={() => clearCart()}
+            onClick={() => {
+                clearCart();
+                setDiscountsActive(null); setDiscountAmount(0)
+              }
+            }
             className='bg-red-500 px-2 text-center  hover:bg-red-600 text-white font-medium py-3 rounded-lg'
           
           >{finnish ? 'Tyhjennä ostoskori' : 'Clear the shopping cart'}
