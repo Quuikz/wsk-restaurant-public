@@ -17,8 +17,12 @@ import {
  * @apiName GetMenus
  * @apiGroup Menu
  *
- * @apiSuccess {Array} menus Array of menu objects
+ * @apiSuccess {Object[]} menus Array of menu objects (returns 200 and JSON array)
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [ {"id":1,"date":"2025-12-06","meals":[1,2,3]}, {...} ]
  *
+ * @apiDescription When no menus exist the implementation returns an empty array.
  * @apiError 500 Internal server error
  */
 const getMenus = async (req, res) => {
@@ -41,11 +45,11 @@ const getMenus = async (req, res) => {
  * @apiName GetMenuById
  * @apiGroup Menu
  *
- * @apiParam {Number} id Menu ID
+ * @apiParam {Number} id Menu ID (path parameter)
  *
- * @apiSuccess {Object} menu Menu object
+ * @apiSuccess {Object} menu Menu object (returns 200 and the menu JSON)
  *
- * @apiError 404 Menu not found
+ * @apiError 404 Menu not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const getMenuById = async (req, res) => {
@@ -71,7 +75,7 @@ const getMenuById = async (req, res) => {
  * @apiName PostMenu
  * @apiGroup Menu
  *
- * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiHeader {String} Authorization Bearer token (admin required)
  * @apiBody {String} date Menu date (YYYY-MM-DD)
  * @apiBody {Number} week Week number
  * @apiBody {Number} special_meal ID of special meal
@@ -79,9 +83,10 @@ const getMenuById = async (req, res) => {
  * @apiBody {String} [image] Optional menu image filename
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} menu Created menu object
+ * @apiSuccess {Object} menu Created menu object (returns 200 and the created object)
  *
- * @apiError 404 Failed to create menu
+ * @apiError 400 Bad request (e.g., invalid body)
+ * @apiError 404 Failed to create menu (database insert did not affect rows)
  * @apiError 500 Internal server error
  */
 const postMenu = async (req, res) => {
@@ -108,8 +113,8 @@ const postMenu = async (req, res) => {
  * @apiName PutMenu
  * @apiGroup Menu
  *
- * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Menu ID
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiParam {Number} id Menu ID (path parameter)
  * @apiBody {String} [date] Menu date (YYYY-MM-DD)
  * @apiBody {Number} [week] Week number
  * @apiBody {Number} [special_meal] ID of special meal
@@ -117,9 +122,10 @@ const postMenu = async (req, res) => {
  * @apiBody {String} [image] Optional menu image filename
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} menu Updated menu object
+ * @apiSuccess {Object} menu Updated menu object (returns 200 and the updated object)
  *
- * @apiError 404 Menu not found
+ * @apiError 400 Bad request (e.g., invalid body)
+ * @apiError 404 Menu not found (returns 404 when update didn't affect rows)
  * @apiError 500 Internal server error
  */
 const putMenu = async (req, res) => {
@@ -147,12 +153,12 @@ const putMenu = async (req, res) => {
  * @apiName DeleteMenu
  * @apiGroup Menu
  *
- * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Menu ID
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiParam {Number} id Menu ID (path parameter)
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess {Boolean} success Returns `true` when the menu was deleted (HTTP 200)
  *
- * @apiError 404 Menu not found
+ * @apiError 404 Menu not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const deleteMenu = async (req, res) => {
@@ -181,11 +187,10 @@ const deleteMenu = async (req, res) => {
  * @apiName GetMenusByDate
  * @apiGroup Menu
  *
- * @apiParam {String} date Date in YYYY-MM-DD format
+ * @apiParam {String} date Date in YYYY-MM-DD format (path parameter)
  *
- * @apiSuccess {Array} menus Array of menus for the date
+ * @apiSuccess {Object[]} menus Array of menus for the date (returns 200 and array; may be empty)
  *
- * @apiError 404 No menus found for date
  * @apiError 500 Internal server error
  */
 const getMenusByDate = async (req, res) => {
@@ -212,11 +217,10 @@ const getMenusByDate = async (req, res) => {
  * @apiGroup Menu
  * @apiDescription Returns array of menus for a specific week
  *
- * @apiParam {String} week Week identifier (format varies)
+ * @apiParam {String|Number} week Week identifier (path parameter)
  *
- * @apiSuccess {Array} menus Array of menus for the week
+ * @apiSuccess {Object[]} menus Array of menus for the week (returns 200 and array; may be empty)
  *
- * @apiError 404 No menus found for week
  * @apiError 500 Internal server error
  */
 const getMenusByWeek = async (req, res) => {
@@ -243,12 +247,16 @@ const getMenusByWeek = async (req, res) => {
  * @apiGroup Menu
  * @apiDescription Takes an array of menu IDs and returns corresponding menu objects
  *
- * @apiHeader {String} Authorization Bearer token
- * @apiBody {Number[]} menus Array of menu IDs
+ * @apiHeader {String} Authorization Bearer token (required)
+ * @apiBody {Number[]} menus Array of menu IDs (JSON body)
  *
- * @apiSuccess {Array} menus Array of menu objects
+ * @apiSuccess {Object[]} menus Array of menu objects (returns 200 and array)
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [ {"id":1,"date":"...","meals":[1,2]}, null ]
  *
- * @apiError 404 No ID array in request
+ * @apiDescription When an id is not found the implementation returns `false`/`null` for that position.
+ * @apiError 400 No ID array in request (controller currently returns 404 with message for missing `menus`)
  * @apiError 500 Internal server error
  */
 const getMenuList = async (req, res) => {

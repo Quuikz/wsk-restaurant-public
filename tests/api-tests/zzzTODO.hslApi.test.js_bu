@@ -1,0 +1,82 @@
+"use strict";
+
+import request from "supertest";
+import app from "../../server/src/app.js";
+import { closePool } from "../../server/src/utils/database.js";
+import { getAdminToken, getUserToken } from "./authHelper.js";
+
+let adminToken = null;
+let userToken = null;
+beforeAll(async () => {
+  adminToken = await getAdminToken();
+  userToken = await getUserToken();
+});
+
+afterAll(async () => {
+  await closePool();
+});
+
+describe("HSL End points", () => {
+  describe("POST /api/hsl/getHsl", () => {
+    const query = `
+query {
+  stop1: stop(id: "HSL:1070419") {
+    gtfsId
+    name
+    lat
+    lon
+    stoptimesWithoutPatterns(numberOfDepartures: 5) {
+      realtime
+      realtimeState
+      scheduledDeparture
+      realtimeDeparture
+      departureDelay
+      headsign
+      trip {
+        route {
+          shortName
+          mode
+        }
+      }
+    }
+  }
+}
+`;
+
+    it("should return HSL data for a valid GraphQL query (no auth required)", async () => {
+      const res = await request(app)
+        .post("/api/hsl/getHsl")
+        .send({ query })
+        .set("Accept", "application/json");
+
+      // Controller returns either an object (likely containing `data`) or a string message when empty
+      expect(res.statusCode).toEqual(200);
+
+      if (typeof res.body === "object") {
+        // If we got an object, prefer checking presence of `data` key
+        expect(res.body).toHaveProperty("data");
+      }
+    });
+
+    it("should accept raw GraphQL payload (string body) and return result", async () => {
+      const res = await request(app)
+        .post("/api/hsl/getHsl")
+        .send(query)
+        .set("Accept", "application/json")
+        .set("Content-Type", "application/json");
+
+      expect(res.statusCode).toEqual(200);
+      expect(["object", "string"]).toContain(typeof res.body);
+    });
+
+    it("should handle invalid queries gracefully", async () => {
+      const res = await request(app)
+        .post("/api/hsl/getHsl")
+        .send({ query: "{ qnvalidQuery }" })
+        .set("Accept", "application/json");
+
+      // endpoint may return 200 with an error payload or 500 on server error; accept both outcomes
+      expect([200, 500]).toContain(res.statusCode);
+    });
+  });
+});

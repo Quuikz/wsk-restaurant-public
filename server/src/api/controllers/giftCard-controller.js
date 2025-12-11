@@ -17,9 +17,12 @@ import { findOrdersByUserId } from "../models/order-model.js";
  * @apiGroup GiftCard
  *
  * @apiHeader {String} Authorization Bearer token (admin)
- * @apiSuccess {Array} giftCards Array of gift card objects
+ * @apiSuccess (200) {Array} giftCards Array of gift card objects (may be empty)
+ * @apiSuccess (200) {String} message when no gift cards are found (controller returns string "no giftCards found")
  *
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (403) Forbidden when user is not admin
+ * @apiError (500) Internal server error
  */
 const getGiftCards = async (req, res) => {
   try {
@@ -47,10 +50,12 @@ const getGiftCards = async (req, res) => {
  * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Gift card ID
  *
- * @apiSuccess {Object} giftCard Gift card object
+ * @apiSuccess (200) {Object} giftCard Full gift card object (includes hashed password field)
  *
- * @apiError 404 Gift card not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (403) Forbidden when user is not admin
+ * @apiError (404) Gift card not found
+ * @apiError (500) Internal server error
  */
 const getGiftCardById = async (req, res) => {
   try {
@@ -75,18 +80,20 @@ const getGiftCardById = async (req, res) => {
  * @apiName PostGiftCard
  * @apiGroup GiftCard
  *
- * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiHeader {String} Authorization Bearer token (required). Admins can create freely; non-admin creation may be allowed when `filterIfPurchase` applies (e.g. during purchase flow).
  * @apiBody {Number} value Gift card value
  * @apiBody {String} expiration_date Expiration date YYYY-MM-DD
- * @apiBody {String} password Gift card password/code
+ * @apiBody {String} password Gift card password/code (stored hashed)
  * @apiBody {Number} [order] Order ID the card belongs to
  * @apiBody {Number} [user] User ID owner
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} giftCard Created gift card object
+ * @apiSuccess (200) {Object} giftCard Created gift card object (full DB record; password is hashed)
  *
- * @apiError 404 Failed to create gift card
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request when payload is invalid or creation failed (controller returns 404 for creation failure)
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (403) Forbidden when operation blocked by middleware
+ * @apiError (500) Internal server error
  */
 const postGiftCard = async (req, res) => {
   try {
@@ -116,15 +123,17 @@ const postGiftCard = async (req, res) => {
  * @apiParam {Number} id Gift card ID
  * @apiBody {Number} [value] Gift card value
  * @apiBody {String} [expiration_date] Expiration date YYYY-MM-DD
- * @apiBody {String} [password] Gift card password/code
+ * @apiBody {String} [password] Gift card password/code (will be stored hashed)
  * @apiBody {Number} [order] Order ID the card belongs to
  * @apiBody {Number} [user] User ID owner
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} giftCard Updated gift card object
+ * @apiSuccess (200) {Object} giftCard Updated gift card object (full DB record)
  *
- * @apiError 404 Gift card not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (403) Forbidden when user is not admin
+ * @apiError (404) Gift card not found
+ * @apiError (500) Internal server error
  */
 const putGiftCard = async (req, res) => {
   try {
@@ -154,10 +163,12 @@ const putGiftCard = async (req, res) => {
  * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Gift card ID
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess (200) {String} message "giftcard removed"
  *
- * @apiError 404 Gift card not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (403) Forbidden when user is not admin
+ * @apiError (404) Gift card not found
+ * @apiError (500) Internal server error
  */
 const deleteGiftCard = async (req, res) => {
   try {
@@ -184,15 +195,16 @@ const deleteGiftCard = async (req, res) => {
  * @api {get} /giftcards/user/:id Get gift cards by user ID
  * @apiName GetGiftCardsByUserId
  * @apiGroup GiftCard
- * @apiDescription Returns array of gift cards for a specific user (without password hashes)
+ * @apiDescription Returns array of gift cards for a specific user. Password hashes are removed from the response objects.
  *
  * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
  *
- * @apiSuccess {Array} giftCards Array of gift card objects
+ * @apiSuccess (200) {Array} giftCards Array of gift card objects (may be empty)
  *
- * @apiError 404 No gift cards found for user
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (403) Forbidden when user is neither the requested user nor an admin
+ * @apiError (500) Internal server error
  */
 const getGiftCardsByUserId = async (req, res) => {
   try {
@@ -232,19 +244,19 @@ const getGiftCardsByUserId = async (req, res) => {
   }
 };
 
-/**
- * @api {get} /giftcards/validate/password Validate gift card
+/**n * @api {get} /giftcards/validate/password Validate gift card
  * @apiName GetGiftCardValidation
  * @apiGroup GiftCard
- * @apiDescription Validates a gift card by password and checks if it has been redeemed
+ * @apiDescription Validates a gift card by password and returns the matching gift card (password not included in response). Note: this endpoint currently uses GET and expects the password in the request body — this is non-standard and may be better implemented as POST.
  *
  * @apiHeader {String} Authorization Bearer token
  * @apiBody {String} password Gift card password/code
  *
- * @apiSuccess {Object} giftCard Gift card object (without password)
+ * @apiSuccess (200) {Object} giftCard Gift card object (without password)
  *
- * @apiError 404 No gift card found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (404) No gift card found
+ * @apiError (500) Internal server error
  */
 const getGiftCardValidation = async (req, res) => {
   try {
@@ -280,15 +292,16 @@ const getGiftCardValidation = async (req, res) => {
  * @api {post} /giftcards/list/id Get gift card list by IDs
  * @apiName GetGiftCardList
  * @apiGroup GiftCard
- * @apiDescription Takes an array of gift card IDs and returns corresponding gift card objects
+ * @apiDescription Takes an array of gift card IDs and returns corresponding gift card objects.
  *
  * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number[]} giftCards Array of gift card IDs
  *
- * @apiSuccess {Array} giftCards Array of gift card objects
+ * @apiSuccess (200) {Array} giftCards Array of gift card objects (note: returned objects currently include the hashed `password` field)
  *
- * @apiError 404 No ID array in request
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request when `giftCards` array is missing (controller returns 404 for this case)
+ * @apiError (401) Unauthorized missing/invalid token
+ * @apiError (500) Internal server error
  */
 const getGiftCardList = async (req, res) => {
   try {

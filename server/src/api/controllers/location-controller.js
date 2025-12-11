@@ -14,7 +14,13 @@ import { listAllDiscounts } from "../models/discount-model.js";
  * @apiName GetLocations
  * @apiGroup Location
  *
- * @apiSuccess {Array} locations Array of location objects
+ * @apiSuccess {Object[]} locations Array of location objects (returns 200 and JSON array)
+ * @apiSuccessExample {json} Success-Response:
+ *     HTTP/1.1 200 OK
+ *     [ {"id":1,"name":"..."}, {...} ]
+ *
+ * @apiDescription If no locations are found the endpoint currently returns 200 with a plain text
+ * message `"no locations found"` instead of an empty array.
  *
  * @apiError 500 Internal server error
  */
@@ -43,11 +49,11 @@ const getLocations = async (req, res) => {
  * @apiName GetLocationById
  * @apiGroup Location
  *
- * @apiParam {Number} id Location ID
+ * @apiParam {Number} id Location ID (path parameter)
  *
- * @apiSuccess {Object} location Location object
+ * @apiSuccess {Object} location Location object (returns 200 and the location JSON)
  *
- * @apiError 404 Location not found
+ * @apiError 404 Location not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const getLocationById = async (req, res) => {
@@ -73,17 +79,17 @@ const getLocationById = async (req, res) => {
  * @apiName PostLocation
  * @apiGroup Location
  *
- * @apiHeader {String} Authorization Bearer token (admin)
+ * @apiHeader {String} Authorization Bearer token (admin required)
  * @apiBody {String} name Location name
  * @apiBody {String} address Street address
  * @apiBody {String} email Contact email
  * @apiBody {String} phone Contact phone
  * @apiBody {Number} table_count Table count
- * @apiBody {String} [message] Optional description
+ * @apiBody {String} [message] Optional description (note: model currently overwrites message)
  *
- * @apiSuccess {Object} location Created location object
+ * @apiSuccess {Object} location Created location object (returns 200 and the created object)
  *
- * @apiError 404 Failed to create location
+ * @apiError 404 Failed to create location (returns 404 when insertion failed)
  * @apiError 500 Internal server error
  */
 const postLocation = async (req, res) => {
@@ -110,8 +116,8 @@ const postLocation = async (req, res) => {
  * @apiName PutLocation
  * @apiGroup Location
  *
- * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Location ID
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiParam {Number} id Location ID (path parameter)
  * @apiBody {String} [name] Location name
  * @apiBody {String} [address] Street address
  * @apiBody {String} [email] Contact email
@@ -119,9 +125,9 @@ const postLocation = async (req, res) => {
  * @apiBody {Number} [table_count] Table count
  * @apiBody {String} [message] Optional description
  *
- * @apiSuccess {Object} location Updated location object
+ * @apiSuccess {Object} location Updated location object (returns 200 and the updated object)
  *
- * @apiError 404 Location not found
+ * @apiError 404 Location not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const putLocation = async (req, res) => {
@@ -149,12 +155,12 @@ const putLocation = async (req, res) => {
  * @apiName DeleteLocation
  * @apiGroup Location
  *
- * @apiHeader {String} Authorization Bearer token (admin)
- * @apiParam {Number} id Location ID
+ * @apiHeader {String} Authorization Bearer token (admin required)
+ * @apiParam {Number} id Location ID (path parameter)
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess {Boolean} success Returns `true` when the location was deleted (HTTP 200)
  *
- * @apiError 404 Location not found
+ * @apiError 404 Location not found (returns 404 when id does not exist)
  * @apiError 500 Internal server error
  */
 const deleteLocation = async (req, res) => {

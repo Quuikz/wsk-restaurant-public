@@ -11,16 +11,24 @@ import {
   findReservationsByDate,
 } from "../models/reservation-model.js";
 
-
 /**
  * @api {get} /reservations Get all reservations
  * @apiName GetReservations
  * @apiGroup Reservation
  *
  * @apiHeader {String} Authorization Bearer token (admin)
- * @apiSuccess {Array} reservations Array of reservation objects
+ * @apiDescription Returns an array of all reservations. This endpoint is protected
+ * and the router applies `authenticateToken` and `userIsAdmin` middleware. Each
+ * reservation object contains `id`, `user`, `order`, `date`, `table_customer_count`,
+ * `grill_customer_count`, and `message`.
  *
- * @apiError 500 Internal server error
+ * @apiSuccess (200) {Object[]} reservations Array of reservation objects
+ *
+ * @apiError (401) Unauthorized Invalid or missing token / not admin
+ * @apiError (500) Internal server error
+ *
+ * @note If no reservations are found some implementations return HTTP 200 with
+ * a plain text message `no reservations found`.
  */
 const getReservations = async (req, res) => {
   try {
@@ -50,11 +58,15 @@ const getReservations = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
+ * @apiDescription Returns a single reservation object. The router requires an
+ * authenticated token for this endpoint. If the reservation is not found the
+ * endpoint returns HTTP 404.
  *
- * @apiSuccess {Object} reservation Reservation object
+ * @apiSuccess (200) {Object} reservation Reservation object
  *
- * @apiError 404 Reservation not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) Reservation not found
+ * @apiError (500) Internal server error
  */
 const getReservationById = async (req, res) => {
   try {
@@ -87,11 +99,17 @@ const getReservationById = async (req, res) => {
  * @apiBody {Number} table_customer_count Table reservation customer count
  * @apiBody {Number} grill_customer_count Grill reservation customer count
  * @apiBody {String} [message] Optional description
+ * @apiDescription Creates a new reservation. The router applies `authenticateToken`,
+ * `filterIfPurchase` and `formatBodyTypes` middleware. On success the created
+ * reservation object is returned. If creation fails the controller returns 404
+ * (legacy behavior) or 500 on server error.
  *
- * @apiSuccess {Object} reservation Created reservation object
+ * @apiSuccess (200) {Object} reservation Created reservation object
  *
- * @apiError 404 Failed to create reservation
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request Invalid payload
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) Failed to create reservation
+ * @apiError (500) Internal server error
  */
 const postReservation = async (req, res) => {
   try {
@@ -125,11 +143,17 @@ const postReservation = async (req, res) => {
  * @apiBody {Number} [table_customer_count] Table reservation customer count
  * @apiBody {Number} [grill_customer_count] Grill reservation customer count
  * @apiBody {String} [message] Optional description
+ * @apiDescription Updates an existing reservation. The router requires an
+ * authenticated token and uses `formatIdToNumber` and `formatBodyTypes` before
+ * calling this controller. On success the updated reservation object is
+ * returned. If the reservation is not found the controller returns 404.
  *
- * @apiSuccess {Object} reservation Updated reservation object
+ * @apiSuccess (200) {Object} reservation Updated reservation object
  *
- * @apiError 404 Reservation not found
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request Invalid payload
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) Reservation not found
+ * @apiError (500) Internal server error
  */
 const putReservation = async (req, res) => {
   try {
@@ -164,11 +188,15 @@ const putReservation = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token
  * @apiParam {Number} id Reservation ID
+ * @apiDescription Deletes a reservation. The controller delegates authorization
+ * checking to the model layer. On success returns HTTP 200 with a textual
+ * success message; if the reservation is not found returns 404.
  *
- * @apiSuccess {String} message Success message
+ * @apiSuccess (200) {String} message Success message
  *
- * @apiError 404 Reservation not found
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) Reservation not found
+ * @apiError (500) Internal server error
  */
 const deleteReservation = async (req, res) => {
   try {
@@ -200,11 +228,16 @@ const deleteReservation = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token (user or admin)
  * @apiParam {Number} id User ID
+ * @apiDescription Returns reservations for the specified user. The router
+ * applies `filterByUserIdOrAdmin` to ensure that only the user or an admin
+ * may access this endpoint. If no reservations found the controller returns 404.
  *
- * @apiSuccess {Array} reservations Array of reservations for user
+ * @apiSuccess (200) {Object[]|Object} reservations Array of reservation objects or single reservation
  *
- * @apiError 404 No reservations found for user
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (403) Forbidden User not authorized to view these reservations
+ * @apiError (404) No reservations found for user
+ * @apiError (500) Internal server error
  */
 const getReservationByUserId = async (req, res) => {
   try {
@@ -232,11 +265,15 @@ const getReservationByUserId = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {Number} id Order ID
+ * @apiDescription Returns reservations linked to the given order id. This
+ * endpoint is protected and requires an admin token (router applies
+ * `userIsAdmin`). If none found returns 404.
  *
- * @apiSuccess {Array} reservations Array of reservations for order
+ * @apiSuccess (200) {Object[]} reservations Array of reservation objects
  *
- * @apiError 404 No reservations found for order
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) No reservations found for order
+ * @apiError (500) Internal server error
  */
 const getReservationByOrder = async (req, res) => {
   try {
@@ -263,11 +300,14 @@ const getReservationByOrder = async (req, res) => {
  *
  * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam {String} date Date/timestamp to filter reservations
+ * @apiDescription The `date` parameter should match the `date` column value
+ * (e.g. `YYYY-MM-DD HH:mm:ss`). This endpoint requires an admin token.
  *
- * @apiSuccess {Array} reservations Array of reservations for date
+ * @apiSuccess (200) {Object[]} reservations Array of reservation objects
  *
- * @apiError 404 No reservations found for date
- * @apiError 500 Internal server error
+ * @apiError (401) Unauthorized Invalid or missing token
+ * @apiError (404) No reservations found for date
+ * @apiError (500) Internal server error
  */
 const getReservationByDate = async (req, res) => {
   try {
@@ -291,15 +331,19 @@ const getReservationByDate = async (req, res) => {
  * @api {post} /reservations/list/id Get reservation list by IDs
  * @apiName GetReservationList
  * @apiGroup Reservation
- * @apiDescription Takes an array of reservation IDs and returns corresponding reservation objects
+ * @apiDescription Takes an array of reservation IDs in the request body under
+ * `reservations` and returns the corresponding reservation objects. Missing
+ * `reservations` in the request body results in HTTP 404 with message
+ * `No id array found in request.`
  *
  * @apiHeader {String} Authorization Bearer token
  * @apiBody {Number[]} reservations Array of reservation IDs
  *
- * @apiSuccess {Array} reservations Array of reservation objects
+ * @apiSuccess (200) {Object[]} reservations Array of reservation objects
  *
- * @apiError 404 No ID array in request
- * @apiError 500 Internal server error
+ * @apiError (400) Bad Request Invalid body
+ * @apiError (404) No ID array in request
+ * @apiError (500) Internal server error
  */
 const getReservationList = async (req, res) => {
   try {
@@ -323,36 +367,39 @@ const getReservationList = async (req, res) => {
   }
 };
 
-
 /**
  * @api {get} /reservations/date/:date Get reservation count by date
  * @apiName GetReservationCountByDate
  * @apiGroup Reservation
  *
  * @apiParam {String} date Date/timestamp to filter reservations
+ * @apiDescription Returns the number of reservations for the given date. This
+ * endpoint is public (no auth middleware applied in the router) and returns
+ * a numeric count on success.
  *
- * @apiSuccess {Number} number of reservations for date
+ * @apiSuccess (200) {Number} count Number of reservations for date
  *
- * @apiError 500 Internal server error
+ * @apiError (500) Internal server error
  */
 const getReservationCountByDate = async (req, res) => {
-    try {
-        console.log("getReservationCountByDate in reservation-controller");
-        console.log("date: ", req.params.date);
-        const reservationArray = await findReservationsByDate(req.params.date);
-        if (reservationArray) {
-            console.log("return reservation count for date " + req.params.date);
-            return res.json(reservationArray.length);
-
-        } else {
-            console.log("error in getReservationCountByDate in reservation-controller");
-            return res.sendStatus(500);
-        }
-    } catch (error) {
-        console.log("error in getReservationCountByDate in reservation-controller");
-        console.log(error);
-        return res.sendStatus(500);
+  try {
+    console.log("getReservationCountByDate in reservation-controller");
+    console.log("date: ", req.params.date);
+    const reservationArray = await findReservationsByDate(req.params.date);
+    if (reservationArray) {
+      console.log("return reservation count for date " + req.params.date);
+      return res.json(reservationArray.length);
+    } else {
+      console.log(
+        "error in getReservationCountByDate in reservation-controller"
+      );
+      return res.sendStatus(500);
     }
+  } catch (error) {
+    console.log("error in getReservationCountByDate in reservation-controller");
+    console.log(error);
+    return res.sendStatus(500);
+  }
 };
 
 export {
