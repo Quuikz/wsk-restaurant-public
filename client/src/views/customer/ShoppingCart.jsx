@@ -451,8 +451,7 @@ const ShoppingCart = () => {
                 <h2>{finnish ? 'Alennukset' : 'Discounts'}</h2>
                 <p>
                   {discountActive
-                    ? //koska viro
-                      `${(totalCost - totalCost * discountAmount).toFixed(2)} €`
+                    ? `${(totalCost - totalCost * discountAmount).toFixed(2)} €`
                     : `${(0).toFixed(2)} €`}
                 </p>
               </div>
@@ -467,10 +466,10 @@ const ShoppingCart = () => {
                 </p>
               </div>
 
-              <div className="flex gap-2 items-center">
+              <div className="grid grid-cols-3 gap-2 items-center">
                 <label
                   htmlFor="discount_code"
-                  className="mb-2 font-medium text-gray-700"
+                  className="font-medium text-gray-700 col-span-3"
                 ></label>
                 <input
                   name="discount_code"
@@ -480,7 +479,7 @@ const ShoppingCart = () => {
                   autoComplete="discount_code"
                   value={inputs.discount_code}
                   onChange={handleInputChange}
-                  className="flex-1 border rounded-md p-2"
+                  className="flex-1 border rounded-md p-2 col-span-2"
                 />
                 <button
                   className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
