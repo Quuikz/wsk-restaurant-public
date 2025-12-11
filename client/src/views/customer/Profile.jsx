@@ -8,6 +8,7 @@ import { useUser } from '../../hooks/common/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';
+import {useNavigate} from "react-router";
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
@@ -16,6 +17,7 @@ const Profile = () => {
   const [message, setMessage] = useState('');
   const {user, setUser, handleLogout} = useUserContext();
   const {getUserByToken} = useUser();
+  const navigate = useNavigate();
 
   //language
   const {finnish} = useLanguageContext();
