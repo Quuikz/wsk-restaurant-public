@@ -13,7 +13,9 @@ import {
  * @apiName GetDiscounts
  * @apiGroup Discount
  *
- * @apiDescription Returns an array of all discount objects stored in the system.
+ * @apiDescription Returns an array of all discount objects. Admin-only.
+ *
+ * @apiHeader {String} Authorization Bearer token (admin)
  *
  * @apiSuccess {Object[]} discounts Array of discount objects
  * @apiSuccess {Number} discounts.id Discount ID
@@ -24,6 +26,8 @@ import {
  * @apiSuccess {String} discounts.message Optional description or note
  *
  * @apiError 400 Bad Request - Invalid request parameters
+ * @apiError 401 Unauthorized - Missing or invalid authentication token
+ * @apiError 403 Forbidden - Insufficient permissions (admin required)
  * @apiError 500 Internal server error
  */
 const getDiscounts = async (req, res) => {
@@ -51,8 +55,9 @@ const getDiscounts = async (req, res) => {
  * @apiName GetDiscountById
  * @apiGroup Discount
  *
- * @apiDescription Returns a single discount object matching the provided ID.
+ * @apiDescription Returns a single discount object matching the provided ID. Admin-only.
  *
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiParam (Path) {Number} id Discount ID
  *
  * @apiSuccess {Number} id Discount ID
@@ -63,6 +68,8 @@ const getDiscounts = async (req, res) => {
  * @apiSuccess {String} message Optional description or note
  *
  * @apiError 400 Bad Request - Invalid ID parameter
+ * @apiError 401 Unauthorized - Missing or invalid authentication token
+ * @apiError 403 Forbidden - Insufficient permissions (admin required)
  * @apiError 404 Discount not found
  * @apiError 500 Internal server error
  */
@@ -206,8 +213,10 @@ const deleteDiscount = async (req, res) => {
 
     const removed = await removeDiscount(req.params.id);
     if (removed) {
-      console.log('discount removed');
-      return res.status(200).json({ success: true, message: 'Discount removed' });
+      console.log("discount removed");
+      return res
+        .status(200)
+        .json({ success: true, message: "Discount removed" });
     } else {
       console.log("deleteDiscount: discount not found");
       return res.sendStatus(404);
@@ -223,9 +232,9 @@ const deleteDiscount = async (req, res) => {
  * @api {post} /discounts/list/id Get discount list by IDs
  * @apiName GetDiscountList
  * @apiGroup Discount
- * @apiDescription Takes an array of discount IDs and returns corresponding discount objects.
+ * @apiDescription Takes an array of discount IDs and returns corresponding discount objects. Admin-only.
  *
- * @apiHeader {String} Authorization Bearer token
+ * @apiHeader {String} Authorization Bearer token (admin)
  * @apiBody {Number[]} discounts Array of discount IDs
  *
  * @apiSuccess {Object[]} discounts Array of discount objects
@@ -238,6 +247,7 @@ const deleteDiscount = async (req, res) => {
  *
  * @apiError 400 Bad Request - No ID array or invalid body in request
  * @apiError 401 Unauthorized - Missing or invalid authentication token
+ * @apiError 403 Forbidden - Insufficient permissions (admin required)
  * @apiError 500 Internal server error
  */
 const getDiscountList = async (req, res) => {
@@ -260,12 +270,10 @@ const getDiscountList = async (req, res) => {
   }
 };
 
-
-
 const validateDiscount = async (req, res) => {
   try {
     console.log("validateDiscount in discount-controller:", req.params.code);
-    if (!req.params.code){
+    if (!req.params.code) {
       res.json(false);
     }
 
@@ -278,43 +286,36 @@ const validateDiscount = async (req, res) => {
 
     //get date .toISOString()
     const currentDate = new Date(Date.now());
-    console.log('current date:', currentDate);
+    console.log("current date:", currentDate);
 
     //filter discounts
-    const validDiscounts = discountArray.filter(
-      (discount) => {
-        const start = new Date(discount.date_start);
-        const end = new Date(discount.date_end);
-        console.log(start, end, currentDate, discount.discount_code );
+    const validDiscounts = discountArray.filter((discount) => {
+      const start = new Date(discount.date_start);
+      const end = new Date(discount.date_end);
+      console.log(start, end, currentDate, discount.discount_code);
 
-/*      console.log((start <= currentDate))
+      /*      console.log((start <= currentDate))
         console.log((end >= currentDate))
         console.log((discount.discount_code == req.params.code))*/
 
-        return (start < currentDate)
-          && (end > currentDate)
-          && (discount.discount_code.toUpperCase() === req.params.code.toUpperCase());
-      });
+      return (
+        start < currentDate &&
+        end > currentDate &&
+        discount.discount_code.toUpperCase() === req.params.code.toUpperCase()
+      );
+    });
 
     if (validDiscounts.length > 0) {
-      console.log('found valid discounts:',validDiscounts);
-        return res.json(validDiscounts);
+      console.log("found valid discounts:", validDiscounts);
+      return res.json(validDiscounts);
     } else {
-      console.log('no valid discounts found');
+      console.log("no valid discounts found");
       return res.json(false);
     }
-
-
   } catch (error) {
     console.log(error);
-
   }
-}
-
-
-
-
-
+};
 
 export {
   getDiscounts,
@@ -323,5 +324,5 @@ export {
   putDiscount,
   deleteDiscount,
   getDiscountList,
-  validateDiscount
+  validateDiscount,
 };
