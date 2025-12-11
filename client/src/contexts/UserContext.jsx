@@ -80,7 +80,11 @@ import { useUserCommon } from '../hooks/common/apiHooks';
 
             const userData = await getUserByToken(token);
 
-            const result = await deleteUserByID(token, userData.id);
+            const result = await deleteUserByID(token, userData.user.id);
+            localStorage.removeItem('token');
+            setUser(null)
+            navigate('/');
+            console.log(result);
             return result;
         }
         catch (e) {

@@ -39,15 +39,33 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6I
   "image": "public/images/burger.jpg"
 }
 
+### update new meal WITHOUT picture
+## see tests/upload-form.html how to upload with image
+PUT https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTQwNjI4MywiZXhwIjoxNzY1NDkyNjgzfQ.dTuK4x8tPHa-4oczuH_UYxHGkvuq7SY88PZ1Xn6nfCA
+
+{
+  "id" : 1,
+  "name_fi": "suomenkielinen nimi",
+  "name_en": "english name",
+  "description_fi": "suomalainen kuvaus tuotteelle",
+  "description_en": "english description for the item",
+  "cost": 0.0,
+  "type": "noudettava annos/ pöytävaraus / lahjakortti ?",
+  "image": "x_meal.webp"
+}
+
+
 ### update meal with picture
-PUT https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/25
+PUT https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals/36
 Content-Type: multipart/form-data; boundary=MyBoundary
 Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImlhdCI6MTc2NTQwNjI4MywiZXhwIjoxNzY1NDkyNjgzfQ.dTuK4x8tPHa-4oczuH_UYxHGkvuq7SY88PZ1Xn6nfCA
 
 --MyBoundary
 Content-Disposition: form-data; name="id"
 
-25
+36
 --MyBoundary
 Content-Disposition: form-data; name="name_fi"
 
@@ -79,3 +97,46 @@ Content-Type: image/jpg
 < ./burger.jpg
 --MyBoundary--
 
+
+
+
+
+### meal upload WITH picture (formadata  HTTP/1.1 )
+POST https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/api/meals
+Content-Type: multipart/form-data; boundary=MyBoundary
+Authorization:  Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6Im5hbWUiLCJ1c2VybmFtZSI6ImFkbWluIiwiZW1haWwiOiJhZG1pbkBlbWFpbC5maSIsInJvbGUiOiJhZG1pbiIsImltYWdlIjoicGxhY2Vob2xkZXIuanBnIiwibWVzc2FnZSI6Im1vY2sgZGF0YSBmcm9tIGRhdGFiYXNlIiwiaWF0IjoxNzY1NDEzMTkwLCJleHAiOjE3NjU0OTk1OTB9.MCmSiv7tQ5Wj0GcldmAWjyO1GQH1SehKIGbqejRXMqU
+
+--MyBoundary
+Content-Disposition: form-data; name="id"
+
+54
+--MyBoundary
+Content-Disposition: form-data; name="name_fi"
+
+suomenkielinen nimi
+--MyBoundary
+Content-Disposition: form-data; name="name_en"
+
+english name
+--MyBoundary
+Content-Disposition: form-data; name="description_fi"
+
+description_fi
+--MyBoundary
+Content-Disposition: form-data; name="description_en"
+
+description_en
+--MyBoundary
+Content-Disposition: form-data; name="cost"
+
+40
+--MyBoundary
+Content-Disposition: form-data; name="type"
+
+"food?"
+--MyBoundary
+Content-Disposition: form-data; name="file"; filename="lautanen.jpg"
+Content-Type: image/jpg
+
+< ./lautanen.jpg
+--MyBoundary--

@@ -2,16 +2,13 @@ import {useUserContext} from './contextHooks';
 
 //TODO instead of hardcoding them
 
-
-
 //Set server URL
 let SERVER_URL = import.meta.env.VITE_SERVER_URL;
 let API_URL = import.meta.env.VITE_API_URL;
-if(import.meta.env.VITE_USE_LOCAL_SERVER === "true") {
+if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   SERVER_URL = import.meta.env.VITE_SERVER_URL_LOCAL;
   API_URL = import.meta.env.VITE_API_URL_LOCAL;
 }
-
 
 const fetchData = async (url, options = {}) => {
   const response = await fetch(url, options);
@@ -37,7 +34,10 @@ const useAuthentication = () => {
       body: JSON.stringify(inputs),
     };
 
-    const loginResult = await fetchData(SERVER_URL + '/api/auth/login', fetchOptions);
+    const loginResult = await fetchData(
+      SERVER_URL + '/api/auth/login',
+      fetchOptions,
+    );
     return loginResult;
   };
 
@@ -59,66 +59,58 @@ const useAuthentication = () => {
     }
   };
 
-
-
   return {postLogin, postRegister};
 };
 
 const useUser = () => {
-    const getUserByToken = async (token) => {
+  const getUserByToken = async (token) => {
     try {
       const fetchOptions = {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
       };
 
-      const tokenResult = await fetchData(API_URL + '/auth/validate', fetchOptions);
+      const tokenResult = await fetchData(
+        API_URL + '/auth/validate',
+        fetchOptions,
+      );
       return tokenResult;
-    }
-    catch (error) {
-        console.log('Error in getUserByToken: ', error);
+    } catch (error) {
+      console.log('Error in getUserByToken: ', error);
     }
   };
 
-    const isUsernameTaken = async (username)=> {
-      try {
-        console.log('isUsernameTaken: ', username);
-        const fetchOptions = {
-          method: 'GET',
-          headers: {
-          },
-        };
+  const isUsernameTaken = async (username) => {
+    try {
+      console.log('isUsernameTaken: ', username);
+      const fetchOptions = {
+        method: 'GET',
+        headers: {},
+      };
 
-        const takenBoolean = await fetchData(API_URL + `/users/username/exists/${username}`, fetchOptions);
-        console.log(username,' taken: ', takenBoolean);
-        return takenBoolean;
-      }
-      catch (error) {
-        console.log('Error in getUserByToken: ', error);
-      }
-
+      const takenBoolean = await fetchData(
+        API_URL + `/users/username/exists/${username}`,
+        fetchOptions,
+      );
+      console.log(username, ' taken: ', takenBoolean);
+      return takenBoolean;
+    } catch (error) {
+      console.log('Error in getUserByToken: ', error);
     }
+  };
 
-  return { getUserByToken, isUsernameTaken};
-
-}
-
-
-
-
-
+  return {getUserByToken, isUsernameTaken};
+};
 
 const useCurrentUser = () => {
   const {user} = useUserContext();
 
-
-
   //Modify account info (currently: name, email)
   const modifyUserInfo = async (inputs, token) => {
     try {
-      console.log('modifyUserInfo: ',inputs, token);
+      console.log('modifyUserInfo: ', inputs, token);
 
       const fetchOptions = {
         method: 'PUT',
@@ -149,7 +141,7 @@ const useCurrentUser = () => {
       const formData = new FormData();
 
       //add file to FormData
-      formData.append("file", file, file.name);
+      formData.append('file', file, file.name);
       console.log(file.name);
 
       const fetchOptions = {
@@ -157,11 +149,11 @@ const useCurrentUser = () => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: formData
+        body: formData,
       };
 
       const modifyUserAvatarResult = await fetchData(
-        API_URL + `/users/`+user.id,
+        API_URL + `/users/` + user.id,
         fetchOptions,
       );
       return modifyUserAvatarResult;
