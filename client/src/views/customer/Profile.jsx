@@ -26,13 +26,13 @@ const Profile = () => {
   }
   const userImages = SERVER_URL + '/images/users/';
 
-  console.log('PROFILE RENDER', user ? user : 'no user');
+  //console.log('PROFILE RENDER', user ? user : 'no user');
 
   useEffect(() => {
-    console.log('USE EFFECT RUN');
+    //console.log('USE EFFECT RUN');
     const token = localStorage.getItem('token');
     if (!token) {
-      console.log('No token found');
+      //console.log('No token found');
       return;
     }
 

@@ -6,9 +6,8 @@ import {useUserContext} from '../hooks/contextHooks.js';
 import Footer from './customer/Footer/Footer.jsx';
 import HeaderNV from './customer/Header/HeaderNV.jsx';
 
-
 const Layout = () => {
-  const { handleAutoLogin} = useUserContext();
+  const {handleAutoLogin} = useUserContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
 
@@ -68,7 +67,7 @@ const Layout = () => {
 
     <>
       <HeaderNV />
-      <main className="pt-22  bg-[linear-gradient(45deg,#1f2937_25%,transparent_25%),linear-gradient(-45deg,#1f2937_25%,transparent_25%),linear-gradient(45deg,transparent_75%,#1f2937_75%),linear-gradient(-45deg,transparent_75%,#1f2937_75%)] bg-[size:20px_20px] bg-gray-700">
+      <main className="pt-22  bg-[repeating-linear-gradient(-45deg,rgba(255,255,255,0.08)_0_2px,transparent_2px_12px)] bg-[#2c5c42]">
         {/* Adds little space so header wont take space from pages. */}
         <Outlet />
       </main>

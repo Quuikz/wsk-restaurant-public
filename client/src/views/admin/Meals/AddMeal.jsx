@@ -26,7 +26,7 @@ const AddMeal = () => {
     formData.append('cost', parseFloat(inputs.cost));
     formData.append('description_fi', inputs.description_fi);
     formData.append('description_en', inputs.description_en);
-    formData.append('type', inputs.type);
+    //formData.append('type', inputs.type);
 
     if(file){
         formData.append('file', file);
@@ -158,18 +158,6 @@ const AddMeal = () => {
           </div>
 
         {/*Dish: Type */}
-          <div className="flex flex-col">
-            <label htmlFor="type">type</label>
-            <input
-              name="type"
-              type="text"
-              id="type"
-              onChange={handleInputChange}
-              autoComplete="type"
-              value={inputs.type}
-              className="bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
 
           <button type="submit">Upload</button>
         </form>

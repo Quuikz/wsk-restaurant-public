@@ -28,7 +28,7 @@ import { useUserCommon } from '../hooks/common/apiHooks';
              const { token, user } = await postLogin(inputs);
              // set token to local storage
              localStorage.setItem('token', token);
-             console.log(token);
+             //console.log(token);
              // set user to state
              setUser(user);
              // navigate to home
@@ -62,9 +62,9 @@ import { useUserCommon } from '../hooks/common/apiHooks';
                 return;
              }
              const userData = await getUserByToken(token);
-             console.log('userData:', userData);
+             //console.log('userData:', userData);
              // set user to state
-             console.log('userData from API:', userData.user);
+             //console.log('userData from API:', userData.user);
              setUser(userData.user);
              // navigate to home
              //navigate(location.pathname);
