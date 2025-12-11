@@ -25,8 +25,22 @@ Sovellus on suunnattu pienille ja keskisuurille ravintoloille, jotka haluavat pa
 
 ## Ohje testaamiseen
 
-Sisäänkirjautuminen toimii kovakoodatulla käyttäjällä:
+Sisäänkirjautuminen toimii kovakoodatulla käyttäjillä:
 
+Tavallinen käyttäjä
+
+    käyttäjätunnus: 'username'
+    salasana: 'password'
+
+Admin käyttäjä
+
+    käyttäjätunnus: 'admin'
+    salasana: 'password'
+
+Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä
+<figure>
+<img src="./documentation/register.png" alt="register window" style="width: 40%"/>
+</figure>
 
 
 
