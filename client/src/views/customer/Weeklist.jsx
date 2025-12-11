@@ -62,7 +62,7 @@ const Weeklist = () => {
           </div>
 
           {/* Weekly list */}
-          <div className="max-h-[80vh] sm:max-h-[90vh] lg:max-h-[100vh] overflow-y-auto">
+          <div className="overflow-y-auto max-h-[80vh] sm:max-h-[90vh] lg:overflow-visible lg:max-h-full">
             {weeklyMenu.length === 0 ? (
               <div className="text-center text-gray-500 py-10">
                 {finnish

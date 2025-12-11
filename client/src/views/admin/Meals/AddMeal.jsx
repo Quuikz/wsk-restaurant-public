@@ -83,8 +83,8 @@ const AddMeal = () => {
           </div>
         
         {/*Dish: English name */}
-          <div className="flex flex-col">
-            <label htmlFor="name_en">Name (in english)</label>
+          <div className="flex flex-col" >
+            <label htmlFor="name_en" className="mb-2 font-medium text-gray-700">Name (in english)</label>
             <input
               name="name_en"
               type="text"
@@ -98,7 +98,7 @@ const AddMeal = () => {
 
         {/*Dish: Cost */}
           <div className="flex flex-col">
-            <label htmlFor="cost">Cost</label>
+            <label htmlFor="cost" className="mb-2 font-medium text-gray-700">Cost</label>
             <input
               name="cost"
               type="text"
@@ -112,7 +112,7 @@ const AddMeal = () => {
 
         {/*Dish: Finnish description */}
           <div className="flex flex-col">
-            <label htmlFor="description_fi">Description (in finnish)</label>
+            <label htmlFor="description_fi" className="mb-2 font-medium text-gray-700">Description (in finnish)</label>
             <input
               name="description_fi"
               type="text"
@@ -126,7 +126,7 @@ const AddMeal = () => {
 
         {/*Dish: English description */}
           <div className="flex flex-col">
-            <label htmlFor="description_en">Description (in english)</label>
+            <label htmlFor="description_en" className="mb-2 font-medium text-gray-700">Description (in english)</label>
             <input
               name="description_en"
               type="text"

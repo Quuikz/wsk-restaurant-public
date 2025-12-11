@@ -86,6 +86,16 @@ const AddMenu = () => {
     initValues,
   );
 
+  //Array of 1-52
+  const weekOptions = [];
+    for (let i = 1; i <= 52; i++) {
+    weekOptions.push(
+        <option key={i} value={i}>
+        {i}
+        </option>
+    );
+    }
+
 
   return (
     <>
@@ -106,7 +116,7 @@ const AddMenu = () => {
               </label>
               <input
                 name="date"
-                type="text"
+                type="date"
                 id="date"
                 onChange={handleInputChange}
                 autoComplete="date"
@@ -118,21 +128,20 @@ const AddMenu = () => {
             {/*Menu: Week */}
             <div className="flex flex-col">
               <label htmlFor="week" className="mb-2 font-medium text-gray-700">
-                Week</label>
-              <input
+                Week (1-52)</label>
+              <select
                 name="week"
-                type="text"
                 id="week"
                 onChange={handleInputChange}
-                autoComplete="week"
                 value={inputs.week}
-                className="bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+                className="bg-white border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 overflow-y-auto max-h-40"
+                >{weekOptions}  
+                </select>
             </div>
 
             {/*Menu: special meal */}
             <div className="flex flex-col">
-              <label htmlFor="special_meal">Special Meal:</label>
+              <label htmlFor="special_meal" className="mb-2 font-medium text-gray-700">Special Meal (Meal ID):</label>
               <input
                 name="special_meal"
                 type="text"

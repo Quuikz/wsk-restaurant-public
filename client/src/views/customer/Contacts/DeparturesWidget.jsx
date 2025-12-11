@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {useHslStopsCommon} from '../../../hooks/common/apiHooks';
+import {useLanguageContext} from '../../../hooks/contextHooks';
 
-const DeparturesWidget = () => {
+const DeparturesWidget = ({onStopsFetched}) => {
   const {getHslStopsByLatLon, getHslStopsDepAndArr} = useHslStopsCommon();
   const [departuresAndArrivals, setDeparturesAndArrivals] = useState([]);
+  const {finnish} = useLanguageContext();
 
   const secondsToTime = (seconds) => {
     const h = Math.floor(seconds / 3600);
@@ -28,7 +30,7 @@ const DeparturesWidget = () => {
 
       return (
         <tr className=" rounded " key={stopIndex}>
-          <td className="p-2">{stop.name}</td>
+          <td className="p-2">{stop.name.replace('´', "'")}</td>
           <td className="p-2">
             {firstDeparture?.trip?.route?.shortName || '--'}
           </td>
@@ -74,8 +76,13 @@ const DeparturesWidget = () => {
       }
     };
 
-    const getDepAndArrForStop = async () => {
+    const getDepartureForStop = async () => {
       const fetchedStops = await fetchStops();
+
+      const stopsForMap = fetchedStops.map((edge) => edge.node.stop);
+      // console.log('Fetched HSL stops:', stopsForMap);
+
+      onStopsFetched(stopsForMap);
 
       const results = await Promise.all(
         fetchedStops.map(async (stop) => {
@@ -84,23 +91,25 @@ const DeparturesWidget = () => {
         }),
       );
       setDeparturesAndArrivals(results);
-      console.log('Departures and arrivals:', results);
+      // console.log('Departures and arrivals:', results);
     };
 
-    console.log('DeparturesWidget mounted');
-    getDepAndArrForStop();
+    // console.log('DeparturesWidget mounted');
+    getDepartureForStop();
   }, []);
 
   return (
     <div className="p-4 bg-orange-100 rounded-lg shadow">
-      <h3 className="text-xl font-semibold mb-2">Next departures</h3>
+      <h3 className="text-xl font-semibold mb-2">
+        {finnish ? 'Seuraavat lähdöt' : 'Next departures'}
+      </h3>
       <table className="min-w-full text-left text-lg font-medium">
         <thead>
           <tr className="bg-orange-200 rounded shadow-sm font-bold">
-            <th className="p-2">Stop</th>
-            <th className="p-2">Line</th>
-            <th className="p-2">Heads To</th>
-            <th className="p-2">Departure</th>
+            <th className="p-2">{finnish ? 'Pysäkki' : 'Stop'}</th>
+            <th className="p-2">{finnish ? 'Linja' : 'Line'}</th>
+            <th className="p-2">{finnish ? 'Mihin' : 'Heads To'}</th>
+            <th className="p-2">{finnish ? 'Lähtöaika' : 'Departure'}</th>
           </tr>
         </thead>
         <tbody>{renderDeparturesTable(departuresAndArrivals)}</tbody>
