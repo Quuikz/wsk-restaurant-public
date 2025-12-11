@@ -30,6 +30,8 @@ const Home = () => {
             className="max-h-[60vh]"
             src={BannerPic}
             alt="Main page banner"
+            fetchPriority="high"
+            loading="eager"
           />
         </div>
         {/* Main title and text below */}
