@@ -53,28 +53,34 @@ const App = () => {
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
 
-              {/*<Route path="/single" element={<Single />} />*/}
               <Route path="/contacts" element={<Contacts />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/shoppingcart" element={<ShoppingCart />} />
               <Route path="/weeklist" element={<Weeklist />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/logout" element={<Logout />} />
-
               <Route path="/giftcards" element={<Giftcards />} />
 
+
               {/* Login required routes below! */}
-              {/* An example of protectedroute based on course assignments */}
               <Route
-                path="/upload"
+                path="/profile"
                 element={
                   <ProtectedRoute>
                     {' '}
-                    <Upload />{' '}
+                    <Profile />{' '}
+                  </ProtectedRoute>
+                }
+              />
+
+                <Route
+                path="/shoppingcart"
+                element={
+                  <ProtectedRoute>
+                    {' '}
+                    <ShoppingCart />{' '}
                   </ProtectedRoute>
                 }
               />
             </Route>
+
+            
 
             {/* Admin routes - TODO: protect the routes */}
             {/* example path: /admin/addmeal */}
