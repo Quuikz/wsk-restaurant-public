@@ -129,6 +129,7 @@ const useCurrentUser = () => {
 
       //add file to FormData
       formData.append("file", file, file.name);
+      console.log(file.name);
 
       const fetchOptions = {
         method: 'PUT',
