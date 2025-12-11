@@ -90,7 +90,11 @@ const Contacts = () => {
                 </Marker>
 
                 {hslStops.map((stop) => (
-                  <Marker key={stop.gtfsId} position={[stop.lat, stop.lon]}>
+                  <Marker
+                    key={stop.gtfsId}
+                    position={[stop.lat, stop.lon]}
+                    icon={customIcon}
+                  >
                     <Popup>{stop.name}</Popup>
                   </Marker>
                 ))}
@@ -102,9 +106,6 @@ const Contacts = () => {
           <div className="w-full md:w-1/2 flex flex-col gap-6 ">
             {/* Right side - (Left/top) - Restaurant contacts */}
             <div className="p-4  rounded-lg shadow bg-orange-100">
-              {/* !!! Departures Widget NOT WORKING CORS*/}
-              {/* <DeparturesWidget lat={60.1599} lon={24.9484} radius={500} /> */}
-
               <h3 className="text-xl font-semibold mb-2">
                 {finnish ? 'Yhteystiedot' : 'Contact information'}
               </h3>
