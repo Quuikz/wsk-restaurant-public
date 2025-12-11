@@ -36,7 +36,7 @@ const AlertModal = ({isOpen, onClose, message}) => {
               onClick={onClose}
               className="cursor-pointer w-full mt-5 text-black bg-orange-200 hover:bg-orange-300 focus:ring-4 focus:ring-indigo-400 font-medium rounded-md text-sm px-4 py-2.5 shadow focus:outline-none"
             >
-              {finnish ? 'Ymmärrän' : 'I understand'}
+              {finnish ? 'Okei!' : 'Okay!'}
             </button>
           </div>
         </div>
