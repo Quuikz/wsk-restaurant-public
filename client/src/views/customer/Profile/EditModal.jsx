@@ -1,7 +1,6 @@
 import React from 'react';
 import useForm from '../../../hooks/formHooks.js';
-//import {useUser} from '../../../hooks/BackupOfOldAssignments/apiHooks.js';
-import {useCurrentUser, useUser} from '../../../hooks/apiHooks.js';
+import { useCurrentUser, useUser } from '../../../hooks/common/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
 import {useNavigate} from "react-router";
 

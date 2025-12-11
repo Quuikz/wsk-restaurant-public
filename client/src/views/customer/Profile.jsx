@@ -3,7 +3,8 @@ import React, {useEffect, useState} from 'react';
 import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
 
-import {useUser} from '../../hooks/apiHooks.js';
+//import {useUser} from '../../hooks/apiHooks.js';
+import { useUser } from '../../hooks/common/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
 import ShoppingHistory from './Profile/ShoppingHistory.jsx';
 import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';

@@ -2,7 +2,8 @@ import React from 'react';
 import useForm from '../../hooks/formHooks';
 import {useUser} from '../../hooks/BackupOfOldAssignments/apiHooks';
 //import { useAuthentication } from "../hooks/apiHooks";
-import { useAuthentication } from '../../hooks/apiHooks.js';
+//import { useAuthentication } from '../../hooks/apiHooks.js';
+import { useAuthentication } from '../../hooks/common/apiHooks.js';
 import {useLanguageContext} from "../../hooks/contextHooks.js";
 
 const RegisterModal = ({isOpen, onClose, onOpenLogin}) => {

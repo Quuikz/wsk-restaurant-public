@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import useForm from '../../hooks/formHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
-import {useAuthentication} from '../../hooks/apiHooks.js';
+//import {useAuthentication} from '../../hooks/apiHooks.js';
+import { useAuthentication } from '../../hooks/common/apiHooks.js';
 
 const LoginModal = ({isOpen, onClose, onOpenRegister}) => {
   if (!isOpen) {

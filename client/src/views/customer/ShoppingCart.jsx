@@ -2,8 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import {Link, useNavigate} from 'react-router';
 import { ShoppingCartContext } from '../../contexts/ShoppingCartContext';
 import {useLanguageContext, useUserContext} from "../../hooks/contextHooks.js";
-import { useDiscountsCommon, useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
-import { useUser } from '../../hooks/apiHooks.js';
+import { useUser, useDiscountsCommon, useGiftcardsCommon, useOrderCommon, useReservationCommon } from '../../hooks/common/apiHooks.js';
 import useForm from '../../hooks/formHooks.js';
 
 const ShoppingCart = () => {

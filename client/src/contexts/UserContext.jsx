@@ -1,8 +1,5 @@
  import {createContext, useEffect, useState} from 'react';
- //import {useAuthentication, useUser} from '../hooks/BackupOfOldAssignments/apiHooks';
- import { useAuthentication, useUser } from '../hooks/apiHooks';
- //temp - as it's not yet implemented, just use old
- //import { useUser } from '../hooks/BackupOfOldAssignments/apiHooks';
+ import { useAuthentication, useUser } from '../hooks/common/apiHooks';
  import {useLocation, useNavigate} from 'react-router';
 import { useUserCommon } from '../hooks/common/apiHooks';
 

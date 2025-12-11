@@ -3,6 +3,7 @@ import {useUserContext} from './contextHooks';
 //TODO instead of hardcoding them
 
 //Set server URL
+/*
 let SERVER_URL = import.meta.env.VITE_SERVER_URL;
 let API_URL = import.meta.env.VITE_API_URL;
 if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
@@ -166,3 +167,4 @@ const useCurrentUser = () => {
 };
 
 export {useAuthentication, useUser, useCurrentUser};
+*/

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useLanguageContext, useUserContext} from '../../../hooks/contextHooks.js';
-import {useCurrentUser} from '../../../hooks/apiHooks.js';
+import { useCurrentUser } from '../../../hooks/common/apiHooks.js';
 
 const AvatarModal = ({isOpen, onClose, onOpenEdit}) => {
   if (!isOpen) {
