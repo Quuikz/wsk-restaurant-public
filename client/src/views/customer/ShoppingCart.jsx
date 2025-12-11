@@ -92,10 +92,7 @@ const ShoppingCart = () => {
     }
   };
 
-  const {inputs, handleInputChange, handleSubmit} = useForm(
-    doCheckDiscount,
-    initValues,
-  );
+  const {inputs, handleInputChange} = useForm(doCheckDiscount, initValues);
 
   /**
    * Calculates total cart cost whenever cart items change

@@ -4,18 +4,18 @@ import {useNavigate} from 'react-router';
 //Modals
 import EditModal from './Profile/EditModal.jsx';
 import AvatarModal from './Profile/AvatarModal.jsx';
+import ShoppingHistory from './Profile/ShoppingHistory.jsx';
+import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';
 
 import {useUser} from '../../hooks/common/apiHooks.js';
 import {useLanguageContext, useUserContext} from '../../hooks/contextHooks.js';
-import ShoppingHistory from './Profile/ShoppingHistory.jsx';
-import AlertDeletionModal from '../../components/customer/AlertDeletionModal.jsx';
 
 const Profile = () => {
   const [displayEditModal, setDisplayEditModal] = useState(false);
   const [displayAvatarModal, setDisplayAvatarModal] = useState(false);
   const [displayAlertDeleteModal, setDisplayAlertDeleteModal] = useState(false);
   const [message, setMessage] = useState('');
-  const {user, setUser, handleLogout} = useUserContext();
+  const {user, setUser} = useUserContext();
   const {getUserByToken} = useUser();
   const navigate = useNavigate();
 
