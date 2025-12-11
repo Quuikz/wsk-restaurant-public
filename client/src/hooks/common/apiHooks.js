@@ -248,11 +248,11 @@ const useGiftcardsCommon = () => {
 
 
 const useDiscountsCommon = () => {
-    const validateDiscountByCode = async (code, token) => {
+    const validateDiscountByCode = async (token, code) => {
         const fetchOptions = {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                //'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`,
             },
         };

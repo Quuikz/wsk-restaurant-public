@@ -51,12 +51,17 @@ const ShoppingCart = () => {
   
 
   const doCheckDiscount = async () => {
+    const token = localStorage.getItem('token');
+    if(!token){
+      return;
+    }
     try{
-      const result = await validateDiscountByCode(inputs);
-      console.log(result);
-      if(result.discount){
-        console.log(result.discount);
-        setDiscountAmount(result.discount);
+      const result = await validateDiscountByCode(token, inputs.discount_code);
+      //console.log(result);
+      //console.log(result[0].discount);
+      if(result[0].discount){
+        //console.log(result[0].discount *10);
+        setDiscountAmount(result[0].discount);
       }
 
       
@@ -358,12 +363,12 @@ const ShoppingCart = () => {
                 <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
               </div>
               <div className="flex justify-between">
-                <h2>{finnish ? 'Alennukset' : 'Discounts'}</h2>
-                <p>-222,95€</p>
+                <h2>{finnish ? 'Alennukset' : 'Discounts'} €</h2>
+                <p>{totalCost - (totalCost * discountAmount)}</p>
               </div>
               <div className="border-t pt-3 flex justify-between font-semibold text-lg">
                 <h3>{finnish ? 'Kokonaishinta' : 'Total'}</h3>
-                <p>{totalCost ? ` ${totalCost.toFixed(2)} €` : `${0.00} €`}</p>
+                <p>{totalCost ? ` ${totalCost.toFixed(2) * discountAmount} €` : `${0.00} €`}</p>
               </div>
 
 
