@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useGiftcards } from "../../../hooks/admin/apiHooks";
-import GiftCardRow from "../../../components/admin/GiftCardrow";
+import GiftCardRow from "./GiftCardrow";
 
 
 const GiftcardsAdmin = () => {
