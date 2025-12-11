@@ -48,10 +48,9 @@ const Giftcards = () => {
             {/* 5€ */}
             <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
               <img
-                src={server_url + '/images/meals/napostelija.jpg'}
+                src={server_url + '/images/giftCards/card1.jpg'}
                 alt="5€ lahjakortti"
               />
-              {console.log(server_url + '/images/meals/napostelija.jpg')}
               <div className="px-6">
                 <h2 className="text-2xl mt-2 text-center border-b">
                   5€ {finnish ? 'Lahjakortti' : 'Gift card'}
@@ -122,7 +121,10 @@ const Giftcards = () => {
             </div>
             {/* 20€ */}
             <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-              <img src="https://placehold.co/1148x498" alt="20€ lahjakortti" />
+              <img
+                src={server_url + '/images/giftCards/card2.jpg'}
+                alt="20€ lahjakortti"
+              />
               <div className="px-6">
                 <h2 className="text-2xl mt-2 text-center border-b">
                   20€ {finnish ? 'Lahjakortti' : 'Gift card'}
@@ -193,7 +195,10 @@ const Giftcards = () => {
             </div>
             {/* 50€ */}
             <div className="border bg-white border-neutral-400 rounded-lg overflow-hidden shadow-lg shadow-neutral-200">
-              <img src="https://placehold.co/1148x498" alt="50€ lahjakortti" />
+              <img
+                src={server_url + '/images/giftCards/card3.jpg'}
+                alt="50€ lahjakortti"
+              />
               <div className="px-6">
                 <h2 className="text-2xl mt-2 text-center border-b">
                   50€ {finnish ? 'Lahjakortti' : 'Gift card'}
