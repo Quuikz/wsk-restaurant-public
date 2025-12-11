@@ -1,15 +1,26 @@
 import {useState, useEffect} from 'react';
 import fetchData from '../../utils/fetchData';
 
-//Set API URL
+/**
+ * Custom hooks for admin's API requests.
+ * 
+ */
+
+//Server API URL
 let API_URL = import.meta.env.VITE_API_URL;
 if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
   API_URL = import.meta.env.VITE_API_URL_LOCAL;
 }
 
-//TODO: common apiHooks.js for some GET requests ?
+/**
+ * Custom hook for user-related API requests.
+ * @returns {Object} Functions for interacting with the user related requests.
+ *  - getAllUsers - returns all the users.
+ *  - updateUserByID - updates user by id with given new data.
+ */
 
 const useUser = () => {
+  //Gets all user
   const getAllUsers = async (token) => {
     const fetchOptions = {
       method: 'GET',
@@ -23,6 +34,7 @@ const useUser = () => {
     return getAllUsersResult;
   };
 
+  //Updates user
   const updateUserByID = async (data, token, userID) => {
     const fetchOptions = {
       method: 'PUT',
@@ -43,24 +55,17 @@ const useUser = () => {
   return {getAllUsers, updateUserByID};
 };
 
+
+/**
+ * Custom hook for meals-related API requests.
+ * @returns {Object} Functions for interacting with the meals related requests.
+ *  - postNewMeal - Post a new Meal with the given formData and token.
+ *  - updateMealInfo - Update an existing Meal with given data, token, and Meal ID.
+ *  - deleteMeal - Delete an existing Meal with given meal ID and token.
+ */
 const useMeal = () => {
-  //const token = localStorage.getItem('token');
 
-  /*
-    const getAllMeals = async () => {
-        const fetchOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        const getAllMealsResult = await fetchData(API_URL + '/meals', fetchOptions);
-        return getAllMealsResult;
-    }
-        */
-
-  //Add new meal
+  //Adds new meal
   const postNewMeal = async (formData, token) => {
     const fetchOptions = {
       method: 'POST',
@@ -111,22 +116,15 @@ const useMeal = () => {
   return {postNewMeal, updateMealInfo, deleteMeal};
 };
 
+
+/**
+ * Custom hook for menu-related API requests.
+ * @returns {Object} Functions for interacting with the menu related requests.
+ *  - postNewMenu - Post a new Menu with the given formData and token.
+ *  - updateMenu - Update an existing Menu with given data, token, and Menu ID.
+ *  - deleteMenu - Delete an existing Menu with given menu ID and token.
+ */
 const useMenu = () => {
-  /*
-    const getAllMenuItems = async () =>{
-        const fetchOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        };
-
-        const getAllMenuItemsResult = await fetchData(API_URL + '/menus', fetchOptions);
-        return getAllMenuItemsResult;
-    }
-
-    return { getAllMenuItems }
-    */
 
   const postNewMenu = async (formData, token) => {
     const fetchOptions = {
@@ -177,6 +175,13 @@ const useMenu = () => {
   return {postNewMenu, updateMenu, deleteMenu};
 };
 
+
+/**
+ * Custom hook for Orders-related API requests.
+ * @returns {Object} Functions for interacting with the Orders related requests.
+ *  - getAllOrders - Get all existing orders with the given token.
+ *  - getSingleOrder - Get single existing order with the given token.
+ */
 const useOrders = () => {
   const getAllOrders = async (token) => {
     const fetchOptions = {
@@ -194,9 +199,6 @@ const useOrders = () => {
     return getAllOrdersResult;
   };
 
-  //Possible todo: move to common/apiHooks.js
-  //as it seems that both customer + admin can use this
-  //However, possibly better way of doing this for customer
   const getSingleOrder = async (token, orderID) => {
     const fetchOptions = {
       method: 'GET',
@@ -216,6 +218,15 @@ const useOrders = () => {
   return {getAllOrders, getSingleOrder};
 };
 
+
+/**
+ * Custom hook for Reservations-related API requests.
+ * @returns {Object} Functions for interacting with the Reservations related requests.
+ *  - getAllReservations - Get all existing reservations with the given token.
+ *  - getReservationByID - Get single existing reservation with the given token and reservation ID.
+ *  - getReservationByUserID - Get user's reservation by token and user ID.
+ *  - getReservationsByIDList - Get existing reservations by given token and IDList.
+ */
 const useReservations = () => {
   const getAllReservations = async (token) => {
     const fetchOptions = {
@@ -292,6 +303,13 @@ const useReservations = () => {
   };
 };
 
+
+/**
+ * Custom hook for GiftCard-related API requests.
+ * @returns {Object} Functions for interacting with the GiftCard related requests.
+ *  - getAllGiftCards - Get all existing gift cards with the given token.
+ *  - getGiftcardsByIDList - Get gift cards with the given token and gift cards ID list.
+ */
 const useGiftcards = () => {
   const getAllGiftCards = async (token) => {
     const fetchOptions = {
@@ -330,6 +348,11 @@ const useGiftcards = () => {
 };
 
 
+/**
+ * Custom hook for Discounts-related API requests.
+ * @returns {Object} Functions for interacting with the Discounts related requests.
+ *  - getAllDiscounts - Get all existing discounts with the given token.
+ */
 const useDiscounts = () => {
 
     const getAllDiscounts = async (token) => {

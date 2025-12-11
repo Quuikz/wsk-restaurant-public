@@ -1,7 +1,12 @@
 import fetchData from '../../utils/fetchData';
 import {useUserContext} from '../contextHooks';
 
-//Set server URL
+/**
+ * Custom hooks for users's API requests.
+ * 
+ */
+
+//Server API URL
 let SERVER_URL = import.meta.env.VITE_SERVER_URL;
 let API_URL = import.meta.env.VITE_API_URL;
 if (import.meta.env.VITE_USE_LOCAL_SERVER === 'true') {
