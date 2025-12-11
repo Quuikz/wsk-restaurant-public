@@ -23,7 +23,7 @@ const AddMeal = () => {
     const formData = new FormData();
     formData.append('name_fi', inputs.name_fi);
     formData.append('name_en', inputs.name_en);
-    formData.append('cost', inputs.cost);
+    formData.append('cost', parseFloat(inputs.cost));
     formData.append('description_fi', inputs.description_fi);
     formData.append('description_en', inputs.description_en);
     formData.append('type', inputs.type);
