@@ -42,7 +42,8 @@ const ShoppingCart = () => {
 
   const [totalCost, setTotalCost] = useState(null);
 
-  const reservationImages = SERVER_URL + `/images/shoppingCart/reservation.webp`;
+  const reservationImages =
+    SERVER_URL + `/images/shoppingCart/reservation.webp`;
   const giftCardImages = SERVER_URL + `/images/shoppingCart/Giftcard.webp`;
 
   //Returns the number of items in cart
@@ -298,13 +299,13 @@ const ShoppingCart = () => {
 
   return (
     <>
-      <div className="bg-orange-100 min-h-screen max-w-7xl mx-auto p-4 sm:p-8">
+      <div className="bg-orange-100 min-h-140 max-w-7xl mx-auto p-7 pt-20 pb-30">
         {/* Title section */}
-        <div className="mb-4">
-          <h1 className="text-xl font-semibold sm:text-4xl ">
-            {finnish ? 'Ostoskori' : 'Cart'}
+        <div className="text-center w-full pb-10">
+          <h1 className="text-3xl font-medium ">
+            | {finnish ? 'Ostoskori' : 'Cart'} |
           </h1>
-          <p className="text-sm font-semibold sm:text-lg text-gray-700">
+          <p className="   mt-2 ">
             {totalItems}
             {finnish ? ' Tuotetta ostoskorissa.' : ' Products in the cart.'}
           </p>
@@ -316,7 +317,7 @@ const ShoppingCart = () => {
               clearCart();
               setDiscountsActive(null);
             }}
-            className="bg-red-500 px-2 text-center  hover:bg-red-600 text-white font-medium py-3 rounded-lg"
+            className="bg-red-500 px-2 text-center  hover:bg-red-400 text-white font-medium py-3 rounded-lg"
           >
             {finnish ? 'Tyhjennä ostoskori' : 'Clear the shopping cart'}
           </button>
@@ -346,7 +347,7 @@ const ShoppingCart = () => {
                   <div>
                     <img
                       src={reservationImages}
-                      className='w-[140px] h-auto rounded-md'
+                      className="w-[140px] h-auto rounded-md hidden sm:block"
                       alt="Image of item"
                     />
                   </div>
@@ -373,7 +374,7 @@ const ShoppingCart = () => {
                   {/* Trash button */}
                   <div>
                     <button
-                      className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700"
+                      className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-100 hover:bg-red-200"
                       onClick={() => removeReservationFromCart(i)}
                     >
                       🗑️
@@ -394,7 +395,7 @@ const ShoppingCart = () => {
                   <div>
                     <img
                       src={giftCardImages}
-                      className='w-[140px] h-auto rounded-md'
+                      className="w-[140px] h-auto rounded-md hidden sm:block"
                       alt="Image of item"
                     />
                   </div>
@@ -408,11 +409,12 @@ const ShoppingCart = () => {
                     </p>
                     <p className="text-gray-600">{giftCard.expiration_date}</p>
                     <p className="text-gray-600 mt-2">
-                      <span className="text-gray-800 font-semibold">{finnish ? 'Yhteensä: ' : 'Total: '}</span>
+                      <span className="text-gray-800 font-semibold">
+                        {finnish ? 'Yhteensä: ' : 'Total: '}
+                      </span>
                       {(giftCard.quantity * giftCard.value).toFixed(2)} €
                     </p>
                   </div>
-
                 </div>
                 {/* Item - right: counter + remove from cart button */}
                 <div className="flex items-center justify-between h-full gap-4">
@@ -436,7 +438,7 @@ const ShoppingCart = () => {
                   {/* Trash button */}
                   <div>
                     <button
-                      className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-700"
+                      className="text-xl leading-none p-1 pt-1.5 pb-1.5 border rounded-md bg-red-100 hover:bg-red-200"
                       onClick={() => removeGiftCardFromCart(i)}
                     >
                       🗑️
@@ -494,7 +496,7 @@ const ShoppingCart = () => {
                   className="flex-1 border rounded-md p-2 col-span-2"
                 />
                 <button
-                  className="bg-orange-500 text-white px-4 py-2 rounded-md hover:bg-orange-600"
+                  className="bg-orange-200  px-4 py-2 rounded-md hover:bg-orange-300"
                   onClick={() => {
                     setDiscountsActive(true);
                     doCheckDiscount();
@@ -516,7 +518,7 @@ const ShoppingCart = () => {
                       <div> {discountActive.discount_code} </div>
                     </div>
                     <button
-                      className="bg-orange-500 text-white px-4 py-1 rounded-md hover:bg-orange-600"
+                      className="bg-orange-200 text-white px-4 py-1 rounded-md hover:bg-orange-300"
                       onClick={() => {
                         setDiscountsActive(false);
                         setDiscountAmount(0);
@@ -537,7 +539,7 @@ const ShoppingCart = () => {
                 <button
                   className={
                     user && totalItems > 0
-                      ? 'bg-orange-500 block w-full text-center  hover:bg-orange-600 text-white font-medium py-3 rounded-lg'
+                      ? 'bg-orange-200 block w-full text-center  hover:bg-orange-300  font-medium py-3 rounded-lg'
                       : 'bg-gray-600 block w-full text-center hover:bg-gray-700 text-white font-medium py-3 rounded-lg'
                   }
                   disabled={!user || totalItems == 0}
