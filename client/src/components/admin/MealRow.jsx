@@ -27,7 +27,7 @@ const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
     <li
       className={
         'grid items-center gap-4 px-4 py-3 border-b last:border-none bg-white hover:bg-gray-50 transition ' +
-        (showModifyButton ? 'grid-cols-7' : 'grid-cols-6')
+        (showModifyButton ? 'grid-cols-8' : 'grid-cols-7')
       }
     >
       {/* Meal info */}
@@ -58,6 +58,8 @@ const MealRow = ({meal, onModify, onDelete, showModifyButton}) => {
         </p>
         <p className="text-lg text-gray-600">{`${meal.description_en}`}</p>
       </div>
+
+      <p className="text-lg font-semibold text-gray-800">{`${meal.type ? meal.type : 'No allergens'}`}</p>
 
       <p className="text-lg font-semibold text-gray-800">{`${meal.cost.toFixed(2)} €`}</p>
 

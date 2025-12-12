@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import {useMeal} from '../../../hooks/admin/apiHooks';
 import useForm from '../../../hooks/formHooks';
+import AllergenSelector from '../../../components/admin/AllergenSelector';
 
 /**
  * Component for adding a new meal to the menu.
@@ -9,6 +10,13 @@ const AddMeal = () => {
   const {postNewMeal} = useMeal();
 
   const [file, setFile] = useState(null);
+
+  const [selectedAllergens, setSelectedAllergens] = useState([])
+
+  
+
+
+  
 
   const initValues = {
     name_fi: '',
@@ -29,6 +37,7 @@ const AddMeal = () => {
     formData.append('cost', parseFloat(inputs.cost));
     formData.append('description_fi', inputs.description_fi);
     formData.append('description_en', inputs.description_en);
+    formData.append('type', selectedAllergens.join(', '));
     //formData.append('type', inputs.type);
 
     if(file){
@@ -142,6 +151,13 @@ const AddMeal = () => {
           </div>
 
         {/*Dish: Type */}
+        <div className="flex flex-col">
+            <label htmlFor="type">type</label>
+            <AllergenSelector 
+                selectedAllergens={selectedAllergens}
+                setSelectedAllergens={setSelectedAllergens}
+            />
+          </div>
 
           <button 
             className="border p-2 hover:bg-gray-200"

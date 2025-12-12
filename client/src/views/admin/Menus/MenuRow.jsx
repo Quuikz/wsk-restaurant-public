@@ -167,11 +167,12 @@ const MenuRow = ({menuItem, onDeleteMenu}) => {
 
       {/* Meals list */}
       {/*TODO: refine style */}
-      <div className="grid grid-cols-6 items-center gap-4 px-4 py-3 bg-gray-100 font-semibold border-b text-gray-700">
+      <div className="grid grid-cols-7 items-center gap-4 px-4 py-3 bg-gray-100 font-semibold border-b text-gray-700">
         <span>IMG</span>
         <span>ID</span>
         <span>Name (fi/en)</span>
         <span>Description (fi/en)</span>
+        <span>Allergens</span>
         <span>Cost (€)</span>
         <span>Delete from menu</span>
       </div>

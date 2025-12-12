@@ -11,11 +11,15 @@ import {useMeal} from '../../../hooks/admin/apiHooks';
  */
 const ModifyMealModal = ({meal, isOpen, onClose, onUpdated}) => {
   const {updateMealInfo} = useMeal();
-  const [file, setFile] = useState(null);
+  
 
   if (!isOpen) {
     return null;
   }
+
+  const [file, setFile] = useState(null);
+
+  
 
   /**
    * Handles the form submission to modify meal object.
