@@ -126,6 +126,7 @@ const WeeklistBox = ({menu}) => {
                         ? `Tietoa - ${meal.description_fi}`
                         : `Description - ${meal.description_en}`}
                     </li>
+                    <li className="text-red-600">{meal.type}</li>
                   </ul>
                 ) : (
                   <p>{finnish ? 'Ei saatavilla' : 'Not available'}</p>

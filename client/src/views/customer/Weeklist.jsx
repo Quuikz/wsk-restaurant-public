@@ -83,6 +83,21 @@ const Weeklist = () => {
                 ? 'Tutustu viikon herkkulliseen valikoimaan!'
                 : 'Check out delicious weekly selections!'}
             </p>
+            <p className="mt-2 ">
+              {finnish
+                ? 'Osa annoksista saatavilla allergittomina, ota yhteys ravintolaan!'
+                : 'Some options available allergen-free, contact the restaurant!'}
+            </p>
+            <p className="mt-2 text-sm text-red-600">
+              {finnish
+                ? 'G = gluteeni, L = laktoosi, M = maito, E = muna, F = kala, C = äyriäiset, N = pähkinät'
+                : 'G = gluten, L = lactose, M = milk, E = egg, F = fish, C = crustaceans, N = nuts'}
+            </p>
+            <p className="mt-1 text-sm text-red-600">
+              {finnish
+                ? 'S = soija, SE = seesami, MU = sinappi, PA = maapähkinät, SU = sulfiitit, CE = selleri'
+                : 'S = soy, SE = sesame, MU = mustard, PA = peanuts, SU = sulphites, CE = celery'}
+            </p>
           </div>
 
           {/* Weekly list */}
