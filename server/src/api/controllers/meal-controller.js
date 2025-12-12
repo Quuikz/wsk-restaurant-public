@@ -86,6 +86,7 @@ const getMealById = async (req, res) => {
  * @apiBody {String} description_fi Description (Finnish)
  * @apiBody {String} description_en Description (English)
  * @apiBody {Number|String} cost Meal cost (will be coerced to number)
+ * @apiBody {String} [type] Allergens for the meal (comma-separated string)
  * @apiBody {File} [image] Optional meal image file (use multipart upload field `image`)
  *
  * @apiSuccess {Object} meal Created meal object (returns 200 and the created object)
@@ -128,6 +129,7 @@ const postMeal = async (req, res) => {
  * @apiBody {String} [description_fi] Description (Finnish)
  * @apiBody {String} [description_en] Description (English)
  * @apiBody {Number|String} [cost] Meal cost
+ * @apiBody {String} [type] Allergens for the meal (comma-separated string)
  * @apiBody {File} [image] Optional meal image file (multipart field `image`)
  *
  * @apiSuccess {Object} meal Updated meal object (returns 200 and the updated object)
