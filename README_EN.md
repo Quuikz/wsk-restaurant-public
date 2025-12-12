@@ -191,3 +191,13 @@ Wireframe and mockup images can be found here:
 - Testing: Use the `tests/` folder for API testing and add your own scenarios.
 - Database: Keep backups (`backup.bundle`) up to date and use mock data for development.
 - Accessibility: Add descriptive `alt` texts for images and ensure good contrast/tags for accessibility.
+
+## Todo
+
+- Review system for dishes
+- Customer feedback for restaurants
+- Customer requests
+- Add content to restaurant profiles (e.g., special offers, events)
+- Notify customers about new menus or offers
+- Support multiple locations
+- Dark mode

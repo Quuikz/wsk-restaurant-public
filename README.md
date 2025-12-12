@@ -201,4 +201,7 @@ Wireframe ja mockup kuvat löytyvät kansiosta:
 - Arvostelujärjestelmä ruoille
 - Asiakaspalautteet ravintoloille
 - Asiakastoiveet
--
+- Sisällön lisääminen ravintoloiden profiileihin (esim. erikoistarjoukset, tapahtumat)
+- Tiedottaminen asiakkaille uusista ruokalistoista tai tarjouksista
+- Useampi toimipaikka
+- Darkmode
