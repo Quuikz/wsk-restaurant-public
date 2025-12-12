@@ -43,6 +43,7 @@ describe("Meal End points", () => {
         .field("description_fi", "Desc FI")
         .field("description_en", "Desc EN")
         .field("cost", "9.99")
+        .field("type", "M")
         .set("Accept", "application/json");
 
       expect(res.statusCode).toBeGreaterThanOrEqual(200);
@@ -60,6 +61,7 @@ describe("Meal End points", () => {
         .field("name_fi", "User Meal")
         .field("name_en", "User Meal EN")
         .field("cost", "5.00")
+        .field("type", "M")
         .set("Accept", "application/json");
 
       expect(res.statusCode).toBeGreaterThanOrEqual(400);
@@ -89,6 +91,7 @@ describe("Meal End points", () => {
         .field("description_fi", "GetById desc FI")
         .field("description_en", "GetById desc EN")
         .field("cost", "7.50")
+        .field("type", "M")
         .set("Accept", "application/json");
 
       createdId = res.body.id;
@@ -123,6 +126,7 @@ describe("Meal End points", () => {
         .field("description_fi", "ToUpdate desc FI")
         .field("description_en", "ToUpdate desc EN")
         .field("cost", "6.00")
+        .field("type", "M")
         .set("Accept", "application/json");
 
       createdId = res.body.id;
@@ -168,6 +172,7 @@ describe("Meal End points", () => {
         .field("description_fi", "ToDelete desc FI")
         .field("description_en", "ToDelete desc EN")
         .field("cost", "4.00")
+        .field("type", "M")
         .set("Accept", "application/json");
 
       createdId = res.body.id;
@@ -200,6 +205,7 @@ describe("Meal End points", () => {
         .field("description_fi", "NoDelete desc FI")
         .field("description_en", "NoDelete desc EN")
         .field("cost", "3.00")
+        .field("type", "M")
         .set("Accept", "application/json");
 
       const idToTry = created.body.id;
@@ -225,6 +231,7 @@ describe("Meal End points", () => {
         .field("description_fi", "LIST1 desc FI")
         .field("description_en", "LIST1 desc EN")
         .field("cost", "1.00")
+        .field("type", "M")
         .set("Accept", "application/json");
       clearMealIds.push(d1.body.id);
 
@@ -236,6 +243,7 @@ describe("Meal End points", () => {
         .field("description_fi", "LIST2 desc FI")
         .field("description_en", "LIST2 desc EN")
         .field("cost", "2.00")
+        .field("type", "M")
         .set("Accept", "application/json");
       clearMealIds.push(d2.body.id);
 
