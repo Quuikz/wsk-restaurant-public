@@ -98,7 +98,7 @@ const addMeal = async (meal) => {
       meal.description_en,
       meal.cost,
       imageName,
-      meal.type,
+      meal.type || null,
     ];
 
     // Execute the insert and check affectedRows
