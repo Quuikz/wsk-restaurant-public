@@ -46,18 +46,6 @@ API documentation:
 PHPMyAdmin:
 <https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/phpmyadmin>
 
-### Test Users
-
-#### Admin
-
-    username: 'admin'
-    password: 'password'
-
-#### User
-
-    username: 'username'
-    password: 'password'
-
 #### Create Your Own User
 
 You can create your own user in the login view.
