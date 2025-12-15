@@ -48,18 +48,6 @@ API dokumentaatio:
 PHPMyAdmin:
 <https://wsk-restaurant-server.norwayeast.cloudapp.azure.com/phpmyadmin>
 
-### Testikäyttäjät
-
-#### Admin
-
-    käyttäjätunnus: 'admin'
-    salasana: 'password'
-
-#### User
-
-    käyttäjätunnus: 'username'
-    salasana: 'password'
-
 #### Oma User
 
 Sisäänkirjautumisruudussa on mahdollista luoda oma käyttäjä.
